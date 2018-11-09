@@ -62,15 +62,17 @@
             this.ventaDePapelesToolStripMenuItem.Name = "ventaDePapelesToolStripMenuItem";
             this.ventaDePapelesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.ventaDePapelesToolStripMenuItem.Text = "Venta de Papeles";
+            this.ventaDePapelesToolStripMenuItem.Click += new System.EventHandler(this.ventaDePapelesToolStripMenuItem_Click);
             // 
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.mainPanel.Controls.Add(this.boxRightPanel);
             this.mainPanel.Controls.Add(this.lateralLeftPanel);
-            this.mainPanel.Location = new System.Drawing.Point(0, 27);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(0, 24);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(824, 405);
+            this.mainPanel.Size = new System.Drawing.Size(824, 443);
             this.mainPanel.TabIndex = 1;
             // 
             // boxRightPanel
@@ -94,7 +96,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(824, 434);
+            this.ClientSize = new System.Drawing.Size(824, 467);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;

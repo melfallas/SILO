@@ -18,8 +18,6 @@ namespace SILO
         }
 
 
-
-
         private void ShowFormInRightPanel(object pForm) {
             if (this.boxRightPanel.Controls.Count > 0) {
                 this.boxRightPanel.Controls.RemoveAt(0);
@@ -32,5 +30,9 @@ namespace SILO
             formToAdd.Show();
         }
 
+        private void ventaDePapelesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowFormInRightPanel(new numberBoxForm());
+        }
     }
 }
