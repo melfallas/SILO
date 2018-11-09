@@ -1,6 +1,6 @@
 ﻿namespace SILO
 {
-    partial class mainForm
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,8 +32,8 @@
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventaDePapelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.boxRightPanel = new System.Windows.Forms.Panel();
+            this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -73,14 +73,6 @@
             this.mainPanel.Size = new System.Drawing.Size(824, 405);
             this.mainPanel.TabIndex = 1;
             // 
-            // lateralLeftPanel
-            // 
-            this.lateralLeftPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.lateralLeftPanel.Location = new System.Drawing.Point(0, 0);
-            this.lateralLeftPanel.Name = "lateralLeftPanel";
-            this.lateralLeftPanel.Size = new System.Drawing.Size(200, 405);
-            this.lateralLeftPanel.TabIndex = 0;
-            // 
             // boxRightPanel
             // 
             this.boxRightPanel.BackColor = System.Drawing.SystemColors.Control;
@@ -89,7 +81,15 @@
             this.boxRightPanel.Size = new System.Drawing.Size(615, 405);
             this.boxRightPanel.TabIndex = 1;
             // 
-            // mainForm
+            // lateralLeftPanel
+            // 
+            this.lateralLeftPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.lateralLeftPanel.Location = new System.Drawing.Point(0, 0);
+            this.lateralLeftPanel.Name = "lateralLeftPanel";
+            this.lateralLeftPanel.Size = new System.Drawing.Size(200, 405);
+            this.lateralLeftPanel.TabIndex = 0;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -98,7 +98,7 @@
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
-            this.Name = "mainForm";
+            this.Name = "MainForm";
             this.Text = "Sistema Informático para Control de Lotería";
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();

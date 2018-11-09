@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SILO
 {
-    public partial class mainForm : Form
+    public partial class numberBoxForm : Form
     {
-        public mainForm()
+        public numberBoxForm()
         {
             InitializeComponent();
         }
