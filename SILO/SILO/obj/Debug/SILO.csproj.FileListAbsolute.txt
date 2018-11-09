@@ -1,0 +1,8 @@
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\SILO.exe.config
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\SILO.exe
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\SILO.pdb
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.csprojResolveAssemblyReference.cache
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.Properties.Resources.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.csproj.GenerateResource.Cache
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.exe
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.pdb
