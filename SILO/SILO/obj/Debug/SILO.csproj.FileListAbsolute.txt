@@ -5,4 +5,4 @@ C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.csproj.GenerateResource.Cache
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.exe
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.pdb
-C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.Form1.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.mainForm.resources
