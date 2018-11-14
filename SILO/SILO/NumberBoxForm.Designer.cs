@@ -1,6 +1,6 @@
 ﻿namespace SILO
 {
-    partial class numberBoxForm
+    partial class NumberBoxForm
     {
         /// <summary>
         /// Required designer variable.
@@ -41,14 +41,14 @@
             this.label1.Text = "Listado de Números";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // numberBoxForm
+            // NumberBoxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "numberBoxForm";
+            this.Name = "NumberBoxForm";
             this.Text = "NumberBoxForm";
             this.ResumeLayout(false);
             this.PerformLayout();

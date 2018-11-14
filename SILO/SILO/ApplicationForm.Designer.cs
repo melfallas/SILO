@@ -32,8 +32,11 @@
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventaDePapelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.boxRightPanel = new System.Windows.Forms.Panel();
+            this.centerBoxPanel = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -66,8 +69,11 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.mainPanel.Controls.Add(this.boxRightPanel);
+            this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.Controls.Add(this.centerBoxPanel);
+            this.mainPanel.Controls.Add(this.panel3);
+            this.mainPanel.Controls.Add(this.panel2);
+            this.mainPanel.Controls.Add(this.panel1);
             this.mainPanel.Controls.Add(this.lateralLeftPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 24);
@@ -75,21 +81,50 @@
             this.mainPanel.Size = new System.Drawing.Size(824, 443);
             this.mainPanel.TabIndex = 1;
             // 
-            // boxRightPanel
+            // centerBoxPanel
             // 
-            this.boxRightPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.boxRightPanel.Location = new System.Drawing.Point(206, 0);
-            this.boxRightPanel.Name = "boxRightPanel";
-            this.boxRightPanel.Size = new System.Drawing.Size(615, 405);
-            this.boxRightPanel.TabIndex = 1;
+            this.centerBoxPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.centerBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.centerBoxPanel.Location = new System.Drawing.Point(200, 41);
+            this.centerBoxPanel.Name = "centerBoxPanel";
+            this.centerBoxPanel.Size = new System.Drawing.Size(574, 361);
+            this.centerBoxPanel.TabIndex = 1;
             // 
             // lateralLeftPanel
             // 
-            this.lateralLeftPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.lateralLeftPanel.BackColor = System.Drawing.Color.DarkSlateBlue;
+            this.lateralLeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.lateralLeftPanel.Location = new System.Drawing.Point(0, 0);
             this.lateralLeftPanel.Name = "lateralLeftPanel";
-            this.lateralLeftPanel.Size = new System.Drawing.Size(200, 405);
+            this.lateralLeftPanel.Size = new System.Drawing.Size(200, 443);
             this.lateralLeftPanel.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(200, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(624, 41);
+            this.panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(200, 402);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(624, 41);
+            this.panel2.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(774, 41);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(50, 361);
+            this.panel3.TabIndex = 3;
             // 
             // MainForm
             // 
@@ -116,8 +151,11 @@
         private System.Windows.Forms.ToolStripMenuItem ventasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ventaDePapelesToolStripMenuItem;
         private System.Windows.Forms.Panel mainPanel;
-        private System.Windows.Forms.Panel boxRightPanel;
+        private System.Windows.Forms.Panel centerBoxPanel;
         private System.Windows.Forms.Panel lateralLeftPanel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
