@@ -52,6 +52,18 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GeneralConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneralConfigurationForm.Designer.cs">
+      <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListInstanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListInstanceForm.Designer.cs">
+      <DependentUpon>ListInstanceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NumberBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +75,12 @@
     <Compile Include="UtilityService.cs" />
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneralConfigurationForm.resx">
+      <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListInstanceForm.resx">
+      <DependentUpon>ListInstanceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NumberBoxForm.resx">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>

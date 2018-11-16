@@ -37,8 +37,22 @@ namespace SILO
         {
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
-                MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
+                displayNewListInstance();
+                //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
             }
         }
+        
+        private void displayNewListInstance() {
+            Form listInstance = new ListInstanceForm();
+            //formToAdd.TopLevel = false;
+            //formToAdd.Dock = DockStyle.Fill;
+            //this.centerBoxPanel.Controls.Add(formToAdd);
+            //this.centerBoxPanel.Tag = formToAdd;
+            listInstance.StartPosition = FormStartPosition.CenterParent;
+            //listInstance.ShowDialog();
+            listInstance.Show(this);
+        }
+
+
     }
 }
