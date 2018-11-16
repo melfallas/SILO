@@ -15,6 +15,30 @@ namespace SILO
         public NumberBoxForm()
         {
             InitializeComponent();
+            loadControls();
+        }
+
+        public void loadControls() {
+            this.drawTypeBox.ValueMember = "id";
+            this.drawTypeBox.DisplayMember = "display";
+            this.drawTypeBox.DataSource = UtilityService.buildDataTable();
+            this.drawTypeBox.SelectedIndex = 0;
+        }
+
+        private void drawTypeBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter)) {
+                //this.drawTypeBox
+                //MessageBox.Show("dfddf");
+            }
+        }
+
+        private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
+            {
+                MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
+            }
         }
     }
 }
