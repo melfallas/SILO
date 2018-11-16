@@ -34,5 +34,15 @@ namespace SILO
         {
             ShowFormInMainPanel(new NumberBoxForm());
         }
+
+        private void saleMenuButton_Click(object sender, EventArgs e)
+        {
+            ShowFormInMainPanel(new NumberBoxForm());
+        }
+
+        private void printMenuButton_Click(object sender, EventArgs e)
+        {
+            ShowFormInMainPanel(new GeneralConfigurationForm());
+        }
     }
 }
