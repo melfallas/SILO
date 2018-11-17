@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69177f79ce9a4262afc0e068c2773c50" Name="Diagram1">
+        <EntityTypeShape EntityType="SILOModel.CPN_Company" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SILOModel.LDT_LotteryDrawType" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SILOModel.LLN_LotteryListNumber" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SILOModel.LNR_LotteryNumber" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SILOModel.LPS_LotteryPointSale" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SILOModel.LTD_LotteryDraw" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SILOModel.LTL_LotteryList" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="SILOModel.FK_LPS_LotteryPointSale_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="SILOModel.FK_LTD_LotteryDraw_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_1_0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
