@@ -29,7 +29,10 @@ namespace SILO
                 }
                 else
                 {
-                    List<LTD_LotteryDraw> drawList = context.LTD_LotteryDraw.ToList();
+                    List<LTD_LotteryDraw> drawList = context.LTD_LotteryDraw
+                        .Where(list => list.LTD_CreateDate == pDraw.LTD_CreateDate)
+                        .Where(list => list.LDT_LotteryDrawType == pDraw.LDT_LotteryDrawType)
+                        .ToList();
                     if(drawList.Count > 0){
                         findedDraw = drawList[0];
                     }

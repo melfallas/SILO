@@ -33,17 +33,24 @@ namespace SILO
             }
         }
 
+        private void datePickerList_ValueChanged(object sender, EventArgs e)
+        {
+            this.drawTypeBox.SelectedIndex = 0;
+        }
+
         private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
-                displayNewListInstance();
+                this.displayNewListInstance();
                 //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
             }
         }
         
         private void displayNewListInstance() {
-            Form listInstance = new ListInstanceForm();
+            ListInstanceForm listInstance = new ListInstanceForm();
+            listInstance.drawType = this.drawTypeBox.SelectedIndex;
+            listInstance.drawDate = this.datePickerList.Value.Date;
             //formToAdd.TopLevel = false;
             //formToAdd.Dock = DockStyle.Fill;
             //this.centerBoxPanel.Controls.Add(formToAdd);
@@ -53,6 +60,6 @@ namespace SILO
             listInstance.Show(this);
         }
 
-
+        
     }
 }

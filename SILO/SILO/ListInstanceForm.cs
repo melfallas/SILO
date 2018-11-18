@@ -12,24 +12,23 @@ namespace SILO
 {
     public partial class ListInstanceForm : Form
     {
+        // Atributos de la instancia de lista
+        public long drawType { get; set; }
+        public DateTime drawDate { get; set; }
+
         public ListInstanceForm()
         {
             InitializeComponent();
         }
-        /*
-        public ListInstanceForm()
-        {
-            InitializeComponent();
-        }*/
-
+        
         private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             //LTD_LotteryDraw newDraw = LTD_LotteryDraw.
             LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
             // Crear y guardar nuevo sorteo
             LTD_LotteryDraw drawToSave = new LTD_LotteryDraw();
-            drawToSave.LTD_CreateDate = DateTime.Today;
-            drawToSave.LDT_LotteryDrawType = 3;
+            drawToSave.LTD_CreateDate = this.drawDate;
+            drawToSave.LDT_LotteryDrawType = this.drawType;
             drawToSave.LTD_Status = 2;
             lotteryDrawRepository.save(ref drawToSave);
             // Crear y guardar nueva lista
