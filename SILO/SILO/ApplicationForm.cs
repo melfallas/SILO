@@ -44,5 +44,11 @@ namespace SILO
         {
             ShowFormInMainPanel(new GeneralConfigurationForm());
         }
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
+        }
     }
 }

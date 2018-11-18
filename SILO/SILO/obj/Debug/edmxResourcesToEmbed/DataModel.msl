@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SILOModelStoreContainer" CdmEntityContainer="SILOEntities">
+    <EntitySetMapping Name="CPN_Company">
+      <EntityTypeMapping TypeName="SILOModel.CPN_Company">
+        <MappingFragment StoreEntitySet="CPN_Company">
+          <ScalarProperty Name="CPN_Description" ColumnName="CPN_Description" />
+          <ScalarProperty Name="CPN_DisplayName" ColumnName="CPN_DisplayName" />
+          <ScalarProperty Name="CPN_Code" ColumnName="CPN_Code" />
+          <ScalarProperty Name="CPN_Id" ColumnName="CPN_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LDT_LotteryDrawType">
+      <EntityTypeMapping TypeName="SILOModel.LDT_LotteryDrawType">
+        <MappingFragment StoreEntitySet="LDT_LotteryDrawType">
+          <ScalarProperty Name="LDT_DisplayName" ColumnName="LDT_DisplayName" />
+          <ScalarProperty Name="LDT_Description" ColumnName="LDT_Description" />
+          <ScalarProperty Name="LDT_Code" ColumnName="LDT_Code" />
+          <ScalarProperty Name="LDT_Id" ColumnName="LDT_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LND_ListNumberDetail">
+      <EntityTypeMapping TypeName="SILOModel.LND_ListNumberDetail">
+        <MappingFragment StoreEntitySet="LND_ListNumberDetail">
+          <ScalarProperty Name="LND_Import" ColumnName="LND_Import" />
+          <ScalarProperty Name="LNR_LotteryNumber" ColumnName="LNR_LotteryNumber" />
+          <ScalarProperty Name="LTL_LotteryList" ColumnName="LTL_LotteryList" />
+          <ScalarProperty Name="LND_Id" ColumnName="LND_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LNR_LotteryNumber">
+      <EntityTypeMapping TypeName="SILOModel.LNR_LotteryNumber">
+        <MappingFragment StoreEntitySet="LNR_LotteryNumber">
+          <ScalarProperty Name="LNR_Number" ColumnName="LNR_Number" />
+          <ScalarProperty Name="LNR_Id" ColumnName="LNR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LPS_LotteryPointSale">
+      <EntityTypeMapping TypeName="SILOModel.LPS_LotteryPointSale">
+        <MappingFragment StoreEntitySet="LPS_LotteryPointSale">
+          <ScalarProperty Name="CPN_Company" ColumnName="CPN_Company" />
+          <ScalarProperty Name="LPS_Description" ColumnName="LPS_Description" />
+          <ScalarProperty Name="LPS_DisplayName" ColumnName="LPS_DisplayName" />
+          <ScalarProperty Name="LPS_Code" ColumnName="LPS_Code" />
+          <ScalarProperty Name="LPS_Id" ColumnName="LPS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LTD_LotteryDraw">
+      <EntityTypeMapping TypeName="SILOModel.LTD_LotteryDraw">
+        <MappingFragment StoreEntitySet="LTD_LotteryDraw">
+          <ScalarProperty Name="LTD_Status" ColumnName="LTD_Status" />
+          <ScalarProperty Name="LDT_LotteryDrawType" ColumnName="LDT_LotteryDrawType" />
+          <ScalarProperty Name="LTD_CreateDate" ColumnName="LTD_CreateDate" />
+          <ScalarProperty Name="LTD_Id" ColumnName="LTD_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LTL_LotteryList">
+      <EntityTypeMapping TypeName="SILOModel.LTL_LotteryList">
+        <MappingFragment StoreEntitySet="LTL_LotteryList">
+          <ScalarProperty Name="LTL_Status" ColumnName="LTL_Status" />
+          <ScalarProperty Name="LTL_CreateDate" ColumnName="LTL_CreateDate" />
+          <ScalarProperty Name="LTL_CustomerName" ColumnName="LTL_CustomerName" />
+          <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
+          <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
+          <ScalarProperty Name="LTL_Id" ColumnName="LTL_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

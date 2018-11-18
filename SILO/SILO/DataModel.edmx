@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SILOModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\SILO.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CPN_Company">
+          <Key>
+            <PropertyRef Name="CPN_Id" />
+          </Key>
+          <Property Name="CPN_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPN_Code" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CPN_DisplayName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CPN_Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LDT_LotteryDrawType">
+          <Key>
+            <PropertyRef Name="LDT_Id" />
+          </Key>
+          <Property Name="LDT_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LDT_Code" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LDT_Description" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LDT_DisplayName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LND_ListNumberDetail">
+          <Key>
+            <PropertyRef Name="LND_Id" />
+          </Key>
+          <Property Name="LND_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LTL_LotteryList" Type="integer" Nullable="false" />
+          <Property Name="LNR_LotteryNumber" Type="integer" Nullable="false" />
+          <Property Name="LND_Import" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LNR_LotteryNumber">
+          <Key>
+            <PropertyRef Name="LNR_Id" />
+          </Key>
+          <Property Name="LNR_Id" Type="integer" Nullable="false" />
+          <Property Name="LNR_Number" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LPS_LotteryPointSale">
+          <Key>
+            <PropertyRef Name="LPS_Id" />
+          </Key>
+          <Property Name="LPS_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LPS_Code" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LPS_DisplayName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="LPS_Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CPN_Company" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LTD_LotteryDraw">
+          <Key>
+            <PropertyRef Name="LTD_Id" />
+          </Key>
+          <Property Name="LTD_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LTD_CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LDT_LotteryDrawType" Type="integer" Nullable="false" />
+          <Property Name="LTD_Status" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LTL_LotteryList">
+          <Key>
+            <PropertyRef Name="LTL_Id" />
+          </Key>
+          <Property Name="LTL_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LTD_LotteryDraw" Type="integer" Nullable="false" />
+          <Property Name="LPS_LotteryPointSale" Type="integer" Nullable="false" />
+          <Property Name="LTL_CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LTL_CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LTL_Status" Type="integer" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_LND_ListNumberDetail_0_0">
+          <End Role="LTL_LotteryList" Type="Self.LTL_LotteryList" Multiplicity="1" />
+          <End Role="LND_ListNumberDetail" Type="Self.LND_ListNumberDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LTL_LotteryList">
+              <PropertyRef Name="LTL_Id" />
+            </Principal>
+            <Dependent Role="LND_ListNumberDetail">
+              <PropertyRef Name="LTL_LotteryList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LND_ListNumberDetail_1_0">
+          <End Role="LNR_LotteryNumber" Type="Self.LNR_LotteryNumber" Multiplicity="1" />
+          <End Role="LND_ListNumberDetail" Type="Self.LND_ListNumberDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LNR_LotteryNumber">
+              <PropertyRef Name="LNR_Id" />
+            </Principal>
+            <Dependent Role="LND_ListNumberDetail">
+              <PropertyRef Name="LNR_LotteryNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LPS_LotteryPointSale_0_0">
+          <End Role="CPN_Company" Type="Self.CPN_Company" Multiplicity="1" />
+          <End Role="LPS_LotteryPointSale" Type="Self.LPS_LotteryPointSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPN_Company">
+              <PropertyRef Name="CPN_Id" />
+            </Principal>
+            <Dependent Role="LPS_LotteryPointSale">
+              <PropertyRef Name="CPN_Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LTD_LotteryDraw_0_0">
+          <End Role="LDT_LotteryDrawType" Type="Self.LDT_LotteryDrawType" Multiplicity="1" />
+          <End Role="LTD_LotteryDraw" Type="Self.LTD_LotteryDraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LDT_LotteryDrawType">
+              <PropertyRef Name="LDT_Id" />
+            </Principal>
+            <Dependent Role="LTD_LotteryDraw">
+              <PropertyRef Name="LDT_LotteryDrawType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LTL_LotteryList_0_0">
+          <End Role="LPS_LotteryPointSale" Type="Self.LPS_LotteryPointSale" Multiplicity="1" />
+          <End Role="LTL_LotteryList" Type="Self.LTL_LotteryList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LPS_LotteryPointSale">
+              <PropertyRef Name="LPS_Id" />
+            </Principal>
+            <Dependent Role="LTL_LotteryList">
+              <PropertyRef Name="LPS_LotteryPointSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LTL_LotteryList_1_0">
+          <End Role="LTD_LotteryDraw" Type="Self.LTD_LotteryDraw" Multiplicity="1" />
+          <End Role="LTL_LotteryList" Type="Self.LTL_LotteryList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LTD_LotteryDraw">
+              <PropertyRef Name="LTD_Id" />
+            </Principal>
+            <Dependent Role="LTL_LotteryList">
+              <PropertyRef Name="LTD_LotteryDraw" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SILOModelStoreContainer">
+          <EntitySet Name="CPN_Company" EntityType="Self.CPN_Company" store:Type="Tables" />
+          <EntitySet Name="LDT_LotteryDrawType" EntityType="Self.LDT_LotteryDrawType" store:Type="Tables" />
+          <EntitySet Name="LND_ListNumberDetail" EntityType="Self.LND_ListNumberDetail" store:Type="Tables" />
+          <EntitySet Name="LNR_LotteryNumber" EntityType="Self.LNR_LotteryNumber" store:Type="Tables" />
+          <EntitySet Name="LPS_LotteryPointSale" EntityType="Self.LPS_LotteryPointSale" store:Type="Tables" />
+          <EntitySet Name="LTD_LotteryDraw" EntityType="Self.LTD_LotteryDraw" store:Type="Tables" />
+          <EntitySet Name="LTL_LotteryList" EntityType="Self.LTL_LotteryList" store:Type="Tables" />
+          <AssociationSet Name="FK_LND_ListNumberDetail_0_0" Association="Self.FK_LND_ListNumberDetail_0_0">
+            <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
+            <End Role="LND_ListNumberDetail" EntitySet="LND_ListNumberDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LND_ListNumberDetail_1_0" Association="Self.FK_LND_ListNumberDetail_1_0">
+            <End Role="LNR_LotteryNumber" EntitySet="LNR_LotteryNumber" />
+            <End Role="LND_ListNumberDetail" EntitySet="LND_ListNumberDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LPS_LotteryPointSale_0_0" Association="Self.FK_LPS_LotteryPointSale_0_0">
+            <End Role="CPN_Company" EntitySet="CPN_Company" />
+            <End Role="LPS_LotteryPointSale" EntitySet="LPS_LotteryPointSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LTD_LotteryDraw_0_0" Association="Self.FK_LTD_LotteryDraw_0_0">
+            <End Role="LDT_LotteryDrawType" EntitySet="LDT_LotteryDrawType" />
+            <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LTL_LotteryList_0_0" Association="Self.FK_LTL_LotteryList_0_0">
+            <End Role="LPS_LotteryPointSale" EntitySet="LPS_LotteryPointSale" />
+            <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LTL_LotteryList_1_0" Association="Self.FK_LTL_LotteryList_1_0">
+            <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
+            <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SILOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SILOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CPN_Company" EntityType="SILOModel.CPN_Company" />
+          <EntitySet Name="LDT_LotteryDrawType" EntityType="SILOModel.LDT_LotteryDrawType" />
+          <EntitySet Name="LND_ListNumberDetail" EntityType="SILOModel.LND_ListNumberDetail" />
+          <EntitySet Name="LNR_LotteryNumber" EntityType="SILOModel.LNR_LotteryNumber" />
+          <EntitySet Name="LPS_LotteryPointSale" EntityType="SILOModel.LPS_LotteryPointSale" />
+          <EntitySet Name="LTD_LotteryDraw" EntityType="SILOModel.LTD_LotteryDraw" />
+          <EntitySet Name="LTL_LotteryList" EntityType="SILOModel.LTL_LotteryList" />
+          <AssociationSet Name="FK_LPS_LotteryPointSale_0_0" Association="SILOModel.FK_LPS_LotteryPointSale_0_0">
+            <End Role="CPN_Company" EntitySet="CPN_Company" />
+            <End Role="LPS_LotteryPointSale" EntitySet="LPS_LotteryPointSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LTD_LotteryDraw_0_0" Association="SILOModel.FK_LTD_LotteryDraw_0_0">
+            <End Role="LDT_LotteryDrawType" EntitySet="LDT_LotteryDrawType" />
+            <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LND_ListNumberDetail_0_0" Association="SILOModel.FK_LND_ListNumberDetail_0_0">
+            <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
+            <End Role="LND_ListNumberDetail" EntitySet="LND_ListNumberDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LND_ListNumberDetail_1_0" Association="SILOModel.FK_LND_ListNumberDetail_1_0">
+            <End Role="LNR_LotteryNumber" EntitySet="LNR_LotteryNumber" />
+            <End Role="LND_ListNumberDetail" EntitySet="LND_ListNumberDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LTL_LotteryList_0_0" Association="SILOModel.FK_LTL_LotteryList_0_0">
+            <End Role="LPS_LotteryPointSale" EntitySet="LPS_LotteryPointSale" />
+            <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LTL_LotteryList_1_0" Association="SILOModel.FK_LTL_LotteryList_1_0">
+            <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
+            <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CPN_Company">
+          <Key>
+            <PropertyRef Name="CPN_Id" />
+          </Key>
+          <Property Name="CPN_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPN_Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CPN_DisplayName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CPN_Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LPS_LotteryPointSale" Relationship="SILOModel.FK_LPS_LotteryPointSale_0_0" FromRole="CPN_Company" ToRole="LPS_LotteryPointSale" />
+        </EntityType>
+        <EntityType Name="LDT_LotteryDrawType">
+          <Key>
+            <PropertyRef Name="LDT_Id" />
+          </Key>
+          <Property Name="LDT_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LDT_Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LDT_Description" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LDT_DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LTD_LotteryDraw" Relationship="SILOModel.FK_LTD_LotteryDraw_0_0" FromRole="LDT_LotteryDrawType" ToRole="LTD_LotteryDraw" />
+        </EntityType>
+        <EntityType Name="LND_ListNumberDetail">
+          <Key>
+            <PropertyRef Name="LND_Id" />
+          </Key>
+          <Property Name="LND_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LTL_LotteryList" Type="Int64" Nullable="false" />
+          <Property Name="LNR_LotteryNumber" Type="Int64" Nullable="false" />
+          <Property Name="LND_Import" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="LTL_LotteryList1" Relationship="SILOModel.FK_LND_ListNumberDetail_0_0" FromRole="LND_ListNumberDetail" ToRole="LTL_LotteryList" />
+          <NavigationProperty Name="LNR_LotteryNumber1" Relationship="SILOModel.FK_LND_ListNumberDetail_1_0" FromRole="LND_ListNumberDetail" ToRole="LNR_LotteryNumber" />
+        </EntityType>
+        <EntityType Name="LNR_LotteryNumber">
+          <Key>
+            <PropertyRef Name="LNR_Id" />
+          </Key>
+          <Property Name="LNR_Id" Type="Int64" Nullable="false" />
+          <Property Name="LNR_Number" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LND_ListNumberDetail" Relationship="SILOModel.FK_LND_ListNumberDetail_1_0" FromRole="LNR_LotteryNumber" ToRole="LND_ListNumberDetail" />
+        </EntityType>
+        <EntityType Name="LPS_LotteryPointSale">
+          <Key>
+            <PropertyRef Name="LPS_Id" />
+          </Key>
+          <Property Name="LPS_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LPS_Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LPS_DisplayName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LPS_Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CPN_Company" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="CPN_Company1" Relationship="SILOModel.FK_LPS_LotteryPointSale_0_0" FromRole="LPS_LotteryPointSale" ToRole="CPN_Company" />
+          <NavigationProperty Name="LTL_LotteryList" Relationship="SILOModel.FK_LTL_LotteryList_0_0" FromRole="LPS_LotteryPointSale" ToRole="LTL_LotteryList" />
+        </EntityType>
+        <EntityType Name="LTD_LotteryDraw">
+          <Key>
+            <PropertyRef Name="LTD_Id" />
+          </Key>
+          <Property Name="LTD_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LTD_CreateDate" Type="DateTime" Nullable="false" />
+          <Property Name="LDT_LotteryDrawType" Type="Int64" Nullable="false" />
+          <Property Name="LTD_Status" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="LDT_LotteryDrawType1" Relationship="SILOModel.FK_LTD_LotteryDraw_0_0" FromRole="LTD_LotteryDraw" ToRole="LDT_LotteryDrawType" />
+          <NavigationProperty Name="LTL_LotteryList" Relationship="SILOModel.FK_LTL_LotteryList_1_0" FromRole="LTD_LotteryDraw" ToRole="LTL_LotteryList" />
+        </EntityType>
+        <EntityType Name="LTL_LotteryList">
+          <Key>
+            <PropertyRef Name="LTL_Id" />
+          </Key>
+          <Property Name="LTL_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LTD_LotteryDraw" Type="Int64" Nullable="false" />
+          <Property Name="LPS_LotteryPointSale" Type="Int64" Nullable="false" />
+          <Property Name="LTL_CustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LTL_CreateDate" Type="DateTime" Nullable="false" />
+          <Property Name="LTL_Status" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="LND_ListNumberDetail" Relationship="SILOModel.FK_LND_ListNumberDetail_0_0" FromRole="LTL_LotteryList" ToRole="LND_ListNumberDetail" />
+          <NavigationProperty Name="LPS_LotteryPointSale1" Relationship="SILOModel.FK_LTL_LotteryList_0_0" FromRole="LTL_LotteryList" ToRole="LPS_LotteryPointSale" />
+          <NavigationProperty Name="LTD_LotteryDraw1" Relationship="SILOModel.FK_LTL_LotteryList_1_0" FromRole="LTL_LotteryList" ToRole="LTD_LotteryDraw" />
+        </EntityType>
+        <Association Name="FK_LPS_LotteryPointSale_0_0">
+          <End Type="SILOModel.CPN_Company" Role="CPN_Company" Multiplicity="1" />
+          <End Type="SILOModel.LPS_LotteryPointSale" Role="LPS_LotteryPointSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPN_Company">
+              <PropertyRef Name="CPN_Id" />
+            </Principal>
+            <Dependent Role="LPS_LotteryPointSale">
+              <PropertyRef Name="CPN_Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LTD_LotteryDraw_0_0">
+          <End Type="SILOModel.LDT_LotteryDrawType" Role="LDT_LotteryDrawType" Multiplicity="1" />
+          <End Type="SILOModel.LTD_LotteryDraw" Role="LTD_LotteryDraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LDT_LotteryDrawType">
+              <PropertyRef Name="LDT_Id" />
+            </Principal>
+            <Dependent Role="LTD_LotteryDraw">
+              <PropertyRef Name="LDT_LotteryDrawType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LND_ListNumberDetail_0_0">
+          <End Type="SILOModel.LTL_LotteryList" Role="LTL_LotteryList" Multiplicity="1" />
+          <End Type="SILOModel.LND_ListNumberDetail" Role="LND_ListNumberDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LTL_LotteryList">
+              <PropertyRef Name="LTL_Id" />
+            </Principal>
+            <Dependent Role="LND_ListNumberDetail">
+              <PropertyRef Name="LTL_LotteryList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LND_ListNumberDetail_1_0">
+          <End Type="SILOModel.LNR_LotteryNumber" Role="LNR_LotteryNumber" Multiplicity="1" />
+          <End Type="SILOModel.LND_ListNumberDetail" Role="LND_ListNumberDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LNR_LotteryNumber">
+              <PropertyRef Name="LNR_Id" />
+            </Principal>
+            <Dependent Role="LND_ListNumberDetail">
+              <PropertyRef Name="LNR_LotteryNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LTL_LotteryList_0_0">
+          <End Type="SILOModel.LPS_LotteryPointSale" Role="LPS_LotteryPointSale" Multiplicity="1" />
+          <End Type="SILOModel.LTL_LotteryList" Role="LTL_LotteryList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LPS_LotteryPointSale">
+              <PropertyRef Name="LPS_Id" />
+            </Principal>
+            <Dependent Role="LTL_LotteryList">
+              <PropertyRef Name="LPS_LotteryPointSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LTL_LotteryList_1_0">
+          <End Type="SILOModel.LTD_LotteryDraw" Role="LTD_LotteryDraw" Multiplicity="1" />
+          <End Type="SILOModel.LTL_LotteryList" Role="LTL_LotteryList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LTD_LotteryDraw">
+              <PropertyRef Name="LTD_Id" />
+            </Principal>
+            <Dependent Role="LTL_LotteryList">
+              <PropertyRef Name="LTD_LotteryDraw" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SILOModelStoreContainer" CdmEntityContainer="SILOEntities">
+          <EntitySetMapping Name="CPN_Company">
+            <EntityTypeMapping TypeName="SILOModel.CPN_Company">
+              <MappingFragment StoreEntitySet="CPN_Company">
+                <ScalarProperty Name="CPN_Description" ColumnName="CPN_Description" />
+                <ScalarProperty Name="CPN_DisplayName" ColumnName="CPN_DisplayName" />
+                <ScalarProperty Name="CPN_Code" ColumnName="CPN_Code" />
+                <ScalarProperty Name="CPN_Id" ColumnName="CPN_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LDT_LotteryDrawType">
+            <EntityTypeMapping TypeName="SILOModel.LDT_LotteryDrawType">
+              <MappingFragment StoreEntitySet="LDT_LotteryDrawType">
+                <ScalarProperty Name="LDT_DisplayName" ColumnName="LDT_DisplayName" />
+                <ScalarProperty Name="LDT_Description" ColumnName="LDT_Description" />
+                <ScalarProperty Name="LDT_Code" ColumnName="LDT_Code" />
+                <ScalarProperty Name="LDT_Id" ColumnName="LDT_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LND_ListNumberDetail">
+            <EntityTypeMapping TypeName="SILOModel.LND_ListNumberDetail">
+              <MappingFragment StoreEntitySet="LND_ListNumberDetail">
+                <ScalarProperty Name="LND_Import" ColumnName="LND_Import" />
+                <ScalarProperty Name="LNR_LotteryNumber" ColumnName="LNR_LotteryNumber" />
+                <ScalarProperty Name="LTL_LotteryList" ColumnName="LTL_LotteryList" />
+                <ScalarProperty Name="LND_Id" ColumnName="LND_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LNR_LotteryNumber">
+            <EntityTypeMapping TypeName="SILOModel.LNR_LotteryNumber">
+              <MappingFragment StoreEntitySet="LNR_LotteryNumber">
+                <ScalarProperty Name="LNR_Number" ColumnName="LNR_Number" />
+                <ScalarProperty Name="LNR_Id" ColumnName="LNR_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LPS_LotteryPointSale">
+            <EntityTypeMapping TypeName="SILOModel.LPS_LotteryPointSale">
+              <MappingFragment StoreEntitySet="LPS_LotteryPointSale">
+                <ScalarProperty Name="CPN_Company" ColumnName="CPN_Company" />
+                <ScalarProperty Name="LPS_Description" ColumnName="LPS_Description" />
+                <ScalarProperty Name="LPS_DisplayName" ColumnName="LPS_DisplayName" />
+                <ScalarProperty Name="LPS_Code" ColumnName="LPS_Code" />
+                <ScalarProperty Name="LPS_Id" ColumnName="LPS_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LTD_LotteryDraw">
+            <EntityTypeMapping TypeName="SILOModel.LTD_LotteryDraw">
+              <MappingFragment StoreEntitySet="LTD_LotteryDraw">
+                <ScalarProperty Name="LTD_Status" ColumnName="LTD_Status" />
+                <ScalarProperty Name="LDT_LotteryDrawType" ColumnName="LDT_LotteryDrawType" />
+                <ScalarProperty Name="LTD_CreateDate" ColumnName="LTD_CreateDate" />
+                <ScalarProperty Name="LTD_Id" ColumnName="LTD_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LTL_LotteryList">
+            <EntityTypeMapping TypeName="SILOModel.LTL_LotteryList">
+              <MappingFragment StoreEntitySet="LTL_LotteryList">
+                <ScalarProperty Name="LTL_Status" ColumnName="LTL_Status" />
+                <ScalarProperty Name="LTL_CreateDate" ColumnName="LTL_CreateDate" />
+                <ScalarProperty Name="LTL_CustomerName" ColumnName="LTL_CustomerName" />
+                <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
+                <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
+                <ScalarProperty Name="LTL_Id" ColumnName="LTL_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

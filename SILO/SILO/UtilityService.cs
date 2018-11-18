@@ -30,5 +30,29 @@ namespace SILO
             return tabla;
         }
 
+        public static DataTable drawTypeDataTable(String idLabel, String valueLabel)
+        {
+            LotteryDrawTypeRepository lotteryDrawTypeReposytory = new LotteryDrawTypeRepository();
+            List<LDT_LotteryDrawType> drawTypeList = lotteryDrawTypeReposytory.getAll();
+
+            DataTable tabla = new DataTable();
+            tabla.Columns.Add(idLabel);
+            tabla.Columns.Add(valueLabel);
+            // Opción por defecto
+            DataRow row = tabla.NewRow();
+            row[idLabel] = "0";
+            row[valueLabel] = "SELECCIONE UN GRUPO";
+            tabla.Rows.Add(row);
+            // Llenado del ComboBox
+            foreach (LDT_LotteryDrawType item in drawTypeList)
+            {
+                row = tabla.NewRow();
+                row[idLabel] = item.LDT_Id;
+                row[valueLabel] = item.LDT_Description;
+                tabla.Rows.Add(row);
+            }
+            return tabla;
+        }
+
     }
 }

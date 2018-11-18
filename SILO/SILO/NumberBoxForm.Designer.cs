@@ -67,6 +67,7 @@
             this.datePickerList.Name = "datePickerList";
             this.datePickerList.Size = new System.Drawing.Size(88, 23);
             this.datePickerList.TabIndex = 2;
+            this.datePickerList.ValueChanged += new System.EventHandler(this.datePickerList_ValueChanged);
             // 
             // label3
             // 
