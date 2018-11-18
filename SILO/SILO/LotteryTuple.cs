@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SILO
 {
-    class LotteryTuple
+    public class LotteryTuple
     {
         public string number { get; set; }
         public int import { get; set; }

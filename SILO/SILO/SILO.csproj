@@ -119,6 +119,13 @@
     </Compile>
     <Compile Include="LotteryDrawRepository.cs" />
     <Compile Include="LotteryDrawTypeRepository.cs" />
+    <Compile Include="LotteryList.cs" />
+    <Compile Include="LotteryListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LotteryListControl.Designer.cs">
+      <DependentUpon>LotteryListControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LotteryNumberRepository.cs" />
     <Compile Include="LotteryTuple.cs" />
     <Compile Include="LPS_LotteryPointSale.cs">
@@ -147,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListInstanceForm.resx">
       <DependentUpon>ListInstanceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LotteryListControl.resx">
+      <DependentUpon>LotteryListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NumberBoxForm.resx">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>

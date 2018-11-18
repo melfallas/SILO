@@ -39,9 +39,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.aboutButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
@@ -55,7 +55,7 @@
             this.ventasToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(824, 24);
+            this.mainMenu.Size = new System.Drawing.Size(967, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -85,7 +85,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 24);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(824, 443);
+            this.mainPanel.Size = new System.Drawing.Size(967, 538);
             this.mainPanel.TabIndex = 1;
             // 
             // centerBoxPanel
@@ -94,25 +94,25 @@
             this.centerBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.centerBoxPanel.Location = new System.Drawing.Point(220, 41);
             this.centerBoxPanel.Name = "centerBoxPanel";
-            this.centerBoxPanel.Size = new System.Drawing.Size(554, 361);
+            this.centerBoxPanel.Size = new System.Drawing.Size(697, 456);
             this.centerBoxPanel.TabIndex = 1;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(774, 41);
+            this.panel3.Location = new System.Drawing.Point(917, 41);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(50, 361);
+            this.panel3.Size = new System.Drawing.Size(50, 456);
             this.panel3.TabIndex = 3;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(220, 402);
+            this.panel2.Location = new System.Drawing.Point(220, 497);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(604, 41);
+            this.panel2.Size = new System.Drawing.Size(747, 41);
             this.panel2.TabIndex = 2;
             // 
             // panel1
@@ -121,7 +121,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(220, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(604, 41);
+            this.panel1.Size = new System.Drawing.Size(747, 41);
             this.panel1.TabIndex = 0;
             // 
             // lateralLeftPanel
@@ -131,7 +131,7 @@
             this.lateralLeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.lateralLeftPanel.Location = new System.Drawing.Point(0, 0);
             this.lateralLeftPanel.Name = "lateralLeftPanel";
-            this.lateralLeftPanel.Size = new System.Drawing.Size(220, 443);
+            this.lateralLeftPanel.Size = new System.Drawing.Size(220, 538);
             this.lateralLeftPanel.TabIndex = 0;
             // 
             // menuPanel
@@ -143,8 +143,25 @@
             this.menuPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
             this.menuPanel.Name = "menuPanel";
-            this.menuPanel.Size = new System.Drawing.Size(220, 443);
+            this.menuPanel.Size = new System.Drawing.Size(220, 538);
             this.menuPanel.TabIndex = 0;
+            // 
+            // aboutButton
+            // 
+            this.aboutButton.FlatAppearance.BorderSize = 0;
+            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aboutButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aboutButton.ForeColor = System.Drawing.Color.White;
+            this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
+            this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.aboutButton.Location = new System.Drawing.Point(2, 194);
+            this.aboutButton.Name = "aboutButton";
+            this.aboutButton.Size = new System.Drawing.Size(217, 54);
+            this.aboutButton.TabIndex = 2;
+            this.aboutButton.Text = "Acerca de";
+            this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.aboutButton.UseVisualStyleBackColor = true;
+            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // printMenuButton
             // 
@@ -179,29 +196,12 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
-            // aboutButton
-            // 
-            this.aboutButton.FlatAppearance.BorderSize = 0;
-            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aboutButton.ForeColor = System.Drawing.Color.White;
-            this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
-            this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(2, 194);
-            this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(217, 54);
-            this.aboutButton.TabIndex = 2;
-            this.aboutButton.Text = "Acerca de";
-            this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.aboutButton.UseVisualStyleBackColor = true;
-            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(824, 467);
+            this.ClientSize = new System.Drawing.Size(967, 562);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
