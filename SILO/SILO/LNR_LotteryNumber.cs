@@ -14,7 +14,16 @@ namespace SILO
     
     public partial class LNR_LotteryNumber
     {
-        public long LDT_Id { get; set; }
-        public string LDT_Number { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LNR_LotteryNumber()
+        {
+            this.LND_ListNumberDetail = new HashSet<LND_ListNumberDetail>();
+        }
+    
+        public long LNR_Id { get; set; }
+        public string LNR_Number { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }
     }
 }

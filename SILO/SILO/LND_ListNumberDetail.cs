@@ -12,11 +12,14 @@ namespace SILO
     using System;
     using System.Collections.Generic;
     
-    public partial class LLN_LotteryListNumber
+    public partial class LND_ListNumberDetail
     {
-        public long LLN_Id { get; set; }
+        public long LND_Id { get; set; }
         public long LTL_LotteryList { get; set; }
         public long LNR_LotteryNumber { get; set; }
-        public long LLN_Import { get; set; }
+        public long LND_Import { get; set; }
+    
+        public virtual LTL_LotteryList LTL_LotteryList1 { get; set; }
+        public virtual LNR_LotteryNumber LNR_LotteryNumber1 { get; set; }
     }
 }

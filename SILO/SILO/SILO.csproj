@@ -111,13 +111,16 @@
     <Compile Include="ListInstanceForm.Designer.cs">
       <DependentUpon>ListInstanceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LLN_LotteryListNumber.cs">
+    <Compile Include="LND_ListNumberDetail.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LNR_LotteryNumber.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LotteryDrawRepository.cs" />
     <Compile Include="LotteryDrawTypeRepository.cs" />
+    <Compile Include="LotteryNumberRepository.cs" />
+    <Compile Include="LotteryTuple.cs" />
     <Compile Include="LPS_LotteryPointSale.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

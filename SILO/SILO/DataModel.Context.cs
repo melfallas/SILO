@@ -27,7 +27,7 @@ namespace SILO
     
         public virtual DbSet<CPN_Company> CPN_Company { get; set; }
         public virtual DbSet<LDT_LotteryDrawType> LDT_LotteryDrawType { get; set; }
-        public virtual DbSet<LLN_LotteryListNumber> LLN_LotteryListNumber { get; set; }
+        public virtual DbSet<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }
         public virtual DbSet<LNR_LotteryNumber> LNR_LotteryNumber { get; set; }
         public virtual DbSet<LPS_LotteryPointSale> LPS_LotteryPointSale { get; set; }
         public virtual DbSet<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }

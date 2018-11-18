@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(228, 425);
             this.Name = "ListInstanceForm";
             this.Text = "ListInstanceForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListInstanceForm_FormClosing);
             this.ResumeLayout(false);
 
         }
