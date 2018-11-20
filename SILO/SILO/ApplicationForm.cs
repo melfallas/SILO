@@ -15,6 +15,7 @@ namespace SILO
         public MainForm()
         {
             InitializeComponent();
+            new NumberBoxForm();
         }
 
 

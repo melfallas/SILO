@@ -25,13 +25,18 @@ namespace SILO
 
         public void addControls()
         {
-            this.listInstancePanel.Controls.Add(new LotteryListControl());
+            this.listInstanceMainPanel.Controls.Add(new LotteryListControl());
         }
 
 
         private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LotteryListControl listControl = this.listInstancePanel.Controls.OfType<LotteryListControl>().First();
+            
+        }
+
+        private void saveList()
+        {
+            LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
             //var v = listControl.loteryList.tupleList;
             // Validar si la lista tiene datos
             if (listControl.loteryList.tupleList.Count > 0)
@@ -41,6 +46,7 @@ namespace SILO
             else
             {
                 MessageBox.Show("La lista no tiene datos");
+                this.togglePrintListButton();
             }
         }
 
@@ -81,5 +87,15 @@ namespace SILO
             }
         }
 
+        private void printListButton_Click(object sender, EventArgs e)
+        {
+            this.togglePrintListButton();
+            this.saveList();
+        }
+
+        private void togglePrintListButton() {
+            Button printButton = this.listInstanceBottomPanel.Controls.OfType<Button>().First();
+            printButton.Enabled = !printButton.Enabled;
+        }
     }
 }

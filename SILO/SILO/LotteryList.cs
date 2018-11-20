@@ -9,7 +9,7 @@ namespace SILO
 {
     public class LotteryList
     {
-        public Dictionary<int, LotteryTuple> tupleList { get; }
+        public Dictionary<int, LotteryTuple> tupleList { get; set; }
         public int count { get; set; }
 
         public LotteryList()
@@ -20,18 +20,40 @@ namespace SILO
 
         public LotteryList(DataGridView pGridView)
         {
+            this.fill(pGridView);
+        }
+
+
+        public void fill(DataGridView pGridView)
+        {
             this.count = pGridView.RowCount - 1;
             this.tupleList = new Dictionary<int, LotteryTuple>();
             for (int i = 0; i < this.count; i++)
             {
-                LotteryTuple tuple = new LotteryTuple(getGridCellValue(pGridView, i, 0), int.Parse(getGridCellValue(pGridView, i, 1)));
-                this.tupleList.Add(i + 1, tuple);
+                string numberCode = getGridCellValue(pGridView, i, 0);
+                string importItem = getGridCellValue(pGridView, i, 1);
+                Boolean emptyRegister = numberCode.Equals("") || importItem.Equals("");
+                if(!emptyRegister)
+                {
+                    LotteryTuple tuple = new LotteryTuple(numberCode, int.Parse(importItem));
+                    this.tupleList.Add(i + 1, tuple);
+                }
             }
         }
 
         public int getSize()
         {
             return tupleList.Count;
+        }
+
+        public int getTotalImport()
+        {
+            int import = 0;
+            foreach(var item in this.tupleList)
+            {
+                import += item.Value.import;
+            }
+            return import;
         }
 
 
