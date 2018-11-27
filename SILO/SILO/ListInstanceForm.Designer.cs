@@ -37,7 +37,7 @@
             // 
             // listInstanceMainPanel
             // 
-            this.listInstanceMainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.listInstanceMainPanel.BackColor = System.Drawing.Color.White;
             this.listInstanceMainPanel.Controls.Add(this.listInstanceBottomPanel);
             this.listInstanceMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listInstanceMainPanel.Location = new System.Drawing.Point(0, 0);
@@ -47,13 +47,13 @@
             // 
             // listInstanceBottomPanel
             // 
-            this.listInstanceBottomPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.listInstanceBottomPanel.BackColor = System.Drawing.Color.White;
             this.listInstanceBottomPanel.Controls.Add(this.printListButton);
             this.listInstanceBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listInstanceBottomPanel.Location = new System.Drawing.Point(0, 441);
             this.listInstanceBottomPanel.Name = "listInstanceBottomPanel";
             this.listInstanceBottomPanel.Size = new System.Drawing.Size(273, 56);
-            this.listInstanceBottomPanel.TabIndex = 1;
+            this.listInstanceBottomPanel.TabIndex = 99;
             // 
             // printListButton
             // 
@@ -73,6 +73,7 @@
             this.ClientSize = new System.Drawing.Size(273, 497);
             this.Controls.Add(this.listInstanceMainPanel);
             this.Name = "ListInstanceForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListInstanceForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListInstanceForm_FormClosing);
             this.listInstanceMainPanel.ResumeLayout(false);

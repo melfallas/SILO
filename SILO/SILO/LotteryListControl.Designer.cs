@@ -79,7 +79,7 @@
             this.listView.RowHeadersWidth = 60;
             this.listView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.listView.Size = new System.Drawing.Size(222, 362);
-            this.listView.TabIndex = 2;
+            this.listView.TabIndex = 0;
             this.listView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.listView_CellValueChanged);
             // 
             // listNumber

@@ -25,7 +25,11 @@ namespace SILO
 
         public void addControls()
         {
-            this.listInstanceMainPanel.Controls.Add(new LotteryListControl());
+            LotteryListControl lotteryListControl = new LotteryListControl();
+            lotteryListControl.TabIndex = 0;
+            lotteryListControl.Focus();
+            this.listInstanceMainPanel.Controls.Add(lotteryListControl);
+            this.listInstanceMainPanel.Focus();
         }
 
 
@@ -42,6 +46,7 @@ namespace SILO
             if (listControl.loteryList.tupleList.Count > 0)
             {
                 this.processList(listControl);
+                this.Close();
             }
             else
             {
