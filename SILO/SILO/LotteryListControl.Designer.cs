@@ -34,6 +34,8 @@
             this.listView = new System.Windows.Forms.DataGridView();
             this.listNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listImport = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalTextLabel = new System.Windows.Forms.Label();
+            this.txbTotalImport = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.listView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,8 +78,9 @@
             this.listView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.listView.RowHeadersWidth = 60;
             this.listView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.listView.Size = new System.Drawing.Size(222, 431);
-            this.listView.TabIndex = 2;
+            this.listView.Size = new System.Drawing.Size(222, 362);
+            this.listView.TabIndex = 0;
+            this.listView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.listView_CellValueChanged);
             // 
             // listNumber
             // 
@@ -97,16 +100,40 @@
             this.listImport.Name = "listImport";
             this.listImport.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // totalTextLabel
+            // 
+            this.totalTextLabel.AutoSize = true;
+            this.totalTextLabel.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTextLabel.Location = new System.Drawing.Point(41, 402);
+            this.totalTextLabel.Name = "totalTextLabel";
+            this.totalTextLabel.Size = new System.Drawing.Size(82, 22);
+            this.totalTextLabel.TabIndex = 3;
+            this.totalTextLabel.Text = "TOTAL:";
+            // 
+            // txbTotalImport
+            // 
+            this.txbTotalImport.Enabled = false;
+            this.txbTotalImport.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbTotalImport.Location = new System.Drawing.Point(129, 399);
+            this.txbTotalImport.Name = "txbTotalImport";
+            this.txbTotalImport.Size = new System.Drawing.Size(98, 26);
+            this.txbTotalImport.TabIndex = 5;
+            this.txbTotalImport.Text = "0";
+            this.txbTotalImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // LotteryListControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.txbTotalImport);
+            this.Controls.Add(this.totalTextLabel);
             this.Controls.Add(this.listView);
             this.Name = "LotteryListControl";
-            this.Size = new System.Drawing.Size(277, 492);
+            this.Size = new System.Drawing.Size(277, 435);
             ((System.ComponentModel.ISupportInitialize)(this.listView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -115,5 +142,7 @@
         private System.Windows.Forms.DataGridView listView;
         private System.Windows.Forms.DataGridViewTextBoxColumn listNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn listImport;
+        private System.Windows.Forms.Label totalTextLabel;
+        private System.Windows.Forms.TextBox txbTotalImport;
     }
 }

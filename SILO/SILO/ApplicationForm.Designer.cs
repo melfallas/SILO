@@ -50,7 +50,7 @@
             // 
             // mainMenu
             // 
-            this.mainMenu.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.mainMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ventasToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
@@ -90,38 +90,38 @@
             // 
             // centerBoxPanel
             // 
-            this.centerBoxPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.centerBoxPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.centerBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.centerBoxPanel.Location = new System.Drawing.Point(220, 41);
+            this.centerBoxPanel.Location = new System.Drawing.Point(220, 19);
             this.centerBoxPanel.Name = "centerBoxPanel";
-            this.centerBoxPanel.Size = new System.Drawing.Size(697, 456);
+            this.centerBoxPanel.Size = new System.Drawing.Size(697, 500);
             this.centerBoxPanel.TabIndex = 1;
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel3.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(917, 41);
+            this.panel3.Location = new System.Drawing.Point(917, 19);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(50, 456);
+            this.panel3.Size = new System.Drawing.Size(50, 500);
             this.panel3.TabIndex = 3;
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(220, 497);
+            this.panel2.Location = new System.Drawing.Point(220, 519);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(747, 41);
+            this.panel2.Size = new System.Drawing.Size(747, 19);
             this.panel2.TabIndex = 2;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(220, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(747, 41);
+            this.panel1.Size = new System.Drawing.Size(747, 19);
             this.panel1.TabIndex = 0;
             // 
             // lateralLeftPanel
@@ -206,6 +206,7 @@
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema Informático para Control de Lotería";
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();

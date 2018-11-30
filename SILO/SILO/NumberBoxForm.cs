@@ -15,7 +15,13 @@ namespace SILO
         public NumberBoxForm()
         {
             InitializeComponent();
-            loadControls();
+            this.erasePanels();
+            this.loadControls();
+            this.createBoxNumber();
+        }
+
+        private void erasePanels() {
+            this.titlePanel.Visible = false;
         }
 
         public void loadControls() {
@@ -23,6 +29,54 @@ namespace SILO
             this.drawTypeBox.DisplayMember = "display";
             this.drawTypeBox.DataSource = UtilityService.drawTypeDataTable(this.drawTypeBox.ValueMember, this.drawTypeBox.DisplayMember);
             this.drawTypeBox.SelectedIndex = 0;
+        }
+
+        public void createBoxNumber()
+        {            
+            int INI_X = 40;
+            int INI_Y = 10;
+            int SPACING_X = 90;
+            int SPACING_Y = 22;
+            int posX = INI_X;
+            int posY = INI_Y;
+
+            for (int i = 0; i < 100; i++)
+            {
+
+                if (i != 0 && i % 17 == 0)
+                {
+                    posX += SPACING_X;
+                    posY = INI_Y;
+                }
+
+                Label numberLabel = new Label();
+                numberLabel.Text = i.ToString();
+                numberLabel.Top = posY;
+                numberLabel.Left = posX;
+                numberLabel.Width = 20;
+                numberLabel.Height = 20;
+                this.numberBoxPanel.Controls.Add(numberLabel);
+
+                TextBox txbImport = new TextBox();
+                txbImport.Text = "0";
+                txbImport.Top = posY;
+                txbImport.Left = posX + 20;
+                txbImport.Width = 50;
+                txbImport.Height = 20;
+                txbImport.TextAlign = HorizontalAlignment.Right;
+                txbImport.ReadOnly = true;
+                this.numberBoxPanel.Controls.Add(txbImport);
+                posY += SPACING_Y;
+            }
+            
+            /*
+            txbImport = new TextBox();
+            txbImport.Text = "85000";
+            txbImport.Top = 100;
+            txbImport.Left = 50;
+            txbImport.Width = 50;
+            this.numberBoxPanel.Controls.Add(txbImport);
+            */
         }
 
         private void drawTypeBox_KeyPress(object sender, KeyPressEventArgs e)

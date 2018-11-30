@@ -15,10 +15,12 @@ namespace SILO
         public MainForm()
         {
             InitializeComponent();
+            new NumberBoxForm();
         }
 
 
         private void ShowFormInMainPanel(object pForm) {
+            this.centerBoxPanel.Hide();
             if (this.centerBoxPanel.Controls.Count > 0) {
                 this.centerBoxPanel.Controls.RemoveAt(0);
             }
@@ -28,6 +30,7 @@ namespace SILO
             this.centerBoxPanel.Controls.Add(formToAdd);
             this.centerBoxPanel.Tag = formToAdd;
             formToAdd.Show();
+            this.centerBoxPanel.Show();
         }
 
         private void ventaDePapelesToolStripMenuItem_Click(object sender, EventArgs e)

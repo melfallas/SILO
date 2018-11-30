@@ -56,9 +56,16 @@ namespace SILO
         {
             this.fillRowListNumber();
         }
+
         private void listView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            //this.totalTextLabel.Text = "15.500";
+        }
 
+        private void listView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            this.loteryList.fill(this.listView);
+            this.txbTotalImport.Text = this.loteryList.getTotalImport().ToString();
         }
     }
 }
