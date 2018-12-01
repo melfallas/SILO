@@ -17,5 +17,15 @@ namespace SILO
             }
             return drawTypeList;
         }
+
+        public LDT_LotteryDrawType getById(long pId)
+        {
+            LDT_LotteryDrawType drawType = null;
+            using (var context = new SILOEntities())
+            {
+                drawType = context.LDT_LotteryDrawType.Find(pId);
+            }
+            return drawType;
+        }
     }
 }

@@ -72,5 +72,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PSP_PointSaleParameter">
+      <EntityTypeMapping TypeName="SILOModel.PSP_PointSaleParameter">
+        <MappingFragment StoreEntitySet="PSP_PointSaleParameter">
+          <ScalarProperty Name="PSP_Value" ColumnName="PSP_Value" />
+          <ScalarProperty Name="PSP_Name" ColumnName="PSP_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

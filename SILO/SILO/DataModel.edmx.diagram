@@ -5,13 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="69177f79ce9a4262afc0e068c2773c50" Name="Diagram1">
-        <EntityTypeShape EntityType="SILOModel.CPN_Company" Width="2" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="SILOModel.LDT_LotteryDrawType" Width="2" PointX="0.75" PointY="1.375" />
-        <EntityTypeShape EntityType="SILOModel.LND_ListNumberDetail" Width="2" PointX="7.5" PointY="1.25" />
-        <EntityTypeShape EntityType="SILOModel.LNR_LotteryNumber" Width="2" PointX="5.25" PointY="5.5" />
-        <EntityTypeShape EntityType="SILOModel.LPS_LotteryPointSale" Width="2" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="SILOModel.LTD_LotteryDraw" Width="2" PointX="3" PointY="1.25" />
-        <EntityTypeShape EntityType="SILOModel.LTL_LotteryList" Width="2" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="SILOModel.CPN_Company" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="SILOModel.LDT_LotteryDrawType" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="SILOModel.LND_ListNumberDetail" Width="1.5" PointX="7.5" PointY="1.25" />
+        <EntityTypeShape EntityType="SILOModel.LNR_LotteryNumber" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="SILOModel.LPS_LotteryPointSale" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="SILOModel.LTD_LotteryDraw" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="SILOModel.LTL_LotteryList" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="SILOModel.PSP_PointSaleParameter" Width="1.5" PointX="7.75" PointY="4.75" />
         <AssociationConnector Association="SILOModel.FK_LPS_LotteryPointSale_0_0" />
         <AssociationConnector Association="SILOModel.FK_LTD_LotteryDraw_0_0" />
         <AssociationConnector Association="SILOModel.FK_LND_ListNumberDetail_0_0" />

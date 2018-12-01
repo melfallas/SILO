@@ -9,6 +9,16 @@ namespace SILO
 {
     public static class UtilityService
     {
+        public const string POS_NAME_PARAM = "Sucursal";
+
+        public static LPS_LotteryPointSale getPointSale()
+        {
+            LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
+            PointSaleParameterRepository posParam = new PointSaleParameterRepository();
+            long posId = Convert.ToInt64(posParam.getByName(POS_NAME_PARAM).PSP_Value);
+            return posRepository.getById(posId);
+        }
+
         public static DataTable buildDataTable() {
             DataTable tabla = new DataTable();
             tabla.Columns.Add("id");

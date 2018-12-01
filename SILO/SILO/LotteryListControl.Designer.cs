@@ -65,7 +65,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.listView.DefaultCellStyle = dataGridViewCellStyle2;
             this.listView.EnableHeadersVisualStyles = false;
-            this.listView.Location = new System.Drawing.Point(27, 31);
+            this.listView.Location = new System.Drawing.Point(30, 3);
             this.listView.Name = "listView";
             this.listView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
@@ -104,7 +104,7 @@
             // 
             this.totalTextLabel.AutoSize = true;
             this.totalTextLabel.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTextLabel.Location = new System.Drawing.Point(41, 402);
+            this.totalTextLabel.Location = new System.Drawing.Point(44, 374);
             this.totalTextLabel.Name = "totalTextLabel";
             this.totalTextLabel.Size = new System.Drawing.Size(82, 22);
             this.totalTextLabel.TabIndex = 3;
@@ -114,7 +114,7 @@
             // 
             this.txbTotalImport.Enabled = false;
             this.txbTotalImport.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbTotalImport.Location = new System.Drawing.Point(129, 399);
+            this.txbTotalImport.Location = new System.Drawing.Point(132, 371);
             this.txbTotalImport.Name = "txbTotalImport";
             this.txbTotalImport.Size = new System.Drawing.Size(98, 26);
             this.txbTotalImport.TabIndex = 5;
@@ -130,7 +130,7 @@
             this.Controls.Add(this.totalTextLabel);
             this.Controls.Add(this.listView);
             this.Name = "LotteryListControl";
-            this.Size = new System.Drawing.Size(277, 435);
+            this.Size = new System.Drawing.Size(277, 405);
             ((System.ComponentModel.ISupportInitialize)(this.listView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -64,6 +64,13 @@
     <Property Name="LTL_CreateDate" Type="datetime" Nullable="false" />
     <Property Name="LTL_Status" Type="integer" Nullable="false" />
   </EntityType>
+  <EntityType Name="PSP_PointSaleParameter">
+    <Key>
+      <PropertyRef Name="PSP_Name" />
+    </Key>
+    <Property Name="PSP_Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="PSP_Value" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <Association Name="FK_LND_ListNumberDetail_0_0">
     <End Role="LTL_LotteryList" Type="Self.LTL_LotteryList" Multiplicity="1" />
     <End Role="LND_ListNumberDetail" Type="Self.LND_ListNumberDetail" Multiplicity="*" />
@@ -144,6 +151,7 @@
     <EntitySet Name="LPS_LotteryPointSale" EntityType="Self.LPS_LotteryPointSale" store:Type="Tables" />
     <EntitySet Name="LTD_LotteryDraw" EntityType="Self.LTD_LotteryDraw" store:Type="Tables" />
     <EntitySet Name="LTL_LotteryList" EntityType="Self.LTL_LotteryList" store:Type="Tables" />
+    <EntitySet Name="PSP_PointSaleParameter" EntityType="Self.PSP_PointSaleParameter" store:Type="Tables" />
     <AssociationSet Name="FK_LND_ListNumberDetail_0_0" Association="Self.FK_LND_ListNumberDetail_0_0">
       <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
       <End Role="LND_ListNumberDetail" EntitySet="LND_ListNumberDetail" />
