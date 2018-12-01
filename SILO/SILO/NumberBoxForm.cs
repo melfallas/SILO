@@ -102,9 +102,18 @@ namespace SILO
         }
         
         private void displayNewListInstance() {
-            ListInstanceForm listInstance = new ListInstanceForm();
-            listInstance.drawType = this.drawTypeBox.SelectedIndex;
+            LotteryDrawTypeRepository typeRepository = new LotteryDrawTypeRepository();
+            ListInstanceForm listInstance = new ListInstanceForm(
+                UtilityService.getPointSale(),
+                typeRepository.getById(this.drawTypeBox.SelectedIndex),
+                this.datePickerList.Value.Date
+                );
+            /*
+            listInstance.pointSale = UtilityService.getPointSale();
+            listInstance.drawType = typeRepository.getById(this.drawTypeBox.SelectedIndex);
             listInstance.drawDate = this.datePickerList.Value.Date;
+            */
+            
             //formToAdd.TopLevel = false;
             //formToAdd.Dock = DockStyle.Fill;
             //this.centerBoxPanel.Controls.Add(formToAdd);

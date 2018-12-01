@@ -13,15 +13,36 @@ namespace SILO
     public partial class ListInstanceForm : Form
     {
         // Atributos de la instancia de lista
-        public long drawType { get; set; }
+        public LPS_LotteryPointSale pointSale { get; set; }
+        public LDT_LotteryDrawType drawType { get; set; }
         public DateTime drawDate { get; set; }
-
+        /*
         public ListInstanceForm()
         {
-            InitializeComponent();
-            this.addControls();
+            initializeComponent();
+        }
+        */
+        public ListInstanceForm(LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
+        {
+            this.pointSale = pPointSale;
+            this.drawType = pDrawType;
+            this.drawDate = pDrawDate;
+            initializeComponent();
         }
 
+        public void initializeComponent() {
+            InitializeComponent();
+            this.formatLabels();
+            this.addControls();
+            this.listInstanceBottomPanel.Hide();
+        }
+
+
+        public void formatLabels()
+        {
+            this.posLabel.Text = pointSale.LPS_DisplayName;
+            this.groupLabel.Text = drawType.LDT_DisplayName;
+        }
 
         public void addControls()
         {
@@ -62,7 +83,7 @@ namespace SILO
             // Crear y guardar nuevo sorteo
             LTD_LotteryDraw drawToSave = new LTD_LotteryDraw();
             drawToSave.LTD_CreateDate = this.drawDate;
-            drawToSave.LDT_LotteryDrawType = this.drawType;
+            drawToSave.LDT_LotteryDrawType = this.drawType.LDT_Id;
             drawToSave.LTD_Status = 2;
             lotteryDrawRepository.save(ref drawToSave);
             // Crear y guardar nueva lista
@@ -102,5 +123,29 @@ namespace SILO
             Button printButton = this.listInstanceBottomPanel.Controls.OfType<Button>().First();
             printButton.Enabled = !printButton.Enabled;
         }
+
+        private void ListInstanceForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            processMenuRequest(e);
+        }
+
+        private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            //MessageBox.Show("Tecla d presionada");
+        }
+
+
+        private void processMenuRequest(KeyPressEventArgs pEvent)
+        {
+            if (pEvent.KeyChar == '*')
+            {
+                MessageBox.Show("*");
+            }
+            else
+            {
+                //MessageBox.Show("Tecla presionada");
+            }
+        }
+
     }
 }

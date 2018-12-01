@@ -8,6 +8,7 @@
     <EntitySet Name="LPS_LotteryPointSale" EntityType="SILOModel.LPS_LotteryPointSale" />
     <EntitySet Name="LTD_LotteryDraw" EntityType="SILOModel.LTD_LotteryDraw" />
     <EntitySet Name="LTL_LotteryList" EntityType="SILOModel.LTL_LotteryList" />
+    <EntitySet Name="PSP_PointSaleParameter" EntityType="SILOModel.PSP_PointSaleParameter" />
     <AssociationSet Name="FK_LPS_LotteryPointSale_0_0" Association="SILOModel.FK_LPS_LotteryPointSale_0_0">
       <End Role="CPN_Company" EntitySet="CPN_Company" />
       <End Role="LPS_LotteryPointSale" EntitySet="LPS_LotteryPointSale" />
@@ -108,6 +109,13 @@
     <NavigationProperty Name="LND_ListNumberDetail" Relationship="SILOModel.FK_LND_ListNumberDetail_0_0" FromRole="LTL_LotteryList" ToRole="LND_ListNumberDetail" />
     <NavigationProperty Name="LPS_LotteryPointSale1" Relationship="SILOModel.FK_LTL_LotteryList_0_0" FromRole="LTL_LotteryList" ToRole="LPS_LotteryPointSale" />
     <NavigationProperty Name="LTD_LotteryDraw1" Relationship="SILOModel.FK_LTL_LotteryList_1_0" FromRole="LTL_LotteryList" ToRole="LTD_LotteryDraw" />
+  </EntityType>
+  <EntityType Name="PSP_PointSaleParameter">
+    <Key>
+      <PropertyRef Name="PSP_Name" />
+    </Key>
+    <Property Name="PSP_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="PSP_Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_LPS_LotteryPointSale_0_0">
     <End Type="SILOModel.CPN_Company" Role="CPN_Company" Multiplicity="1" />
