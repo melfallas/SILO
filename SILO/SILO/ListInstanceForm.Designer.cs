@@ -125,7 +125,6 @@
             this.Text = "ListInstanceForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListInstanceForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListInstanceForm_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ListInstanceForm_KeyPress);
             this.listInstanceTopPanel.ResumeLayout(false);
             this.listInstanceTopPanel.PerformLayout();
             this.listInstanceBottomPanel.ResumeLayout(false);

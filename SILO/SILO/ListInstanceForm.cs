@@ -16,7 +16,12 @@ namespace SILO
         public LPS_LotteryPointSale pointSale { get; set; }
         public LDT_LotteryDrawType drawType { get; set; }
         public DateTime drawDate { get; set; }
-        /*
+        public DateTime printDate { get; set; }
+        public LTL_LotteryList list { get; set; }
+        public MainOptionMenu mainOptionMenu { get; set; }
+        public string customerName { get; set; }
+
+        /*  
         public ListInstanceForm()
         {
             initializeComponent();
@@ -59,24 +64,32 @@ namespace SILO
             
         }
 
-        private void saveList()
+        public void processList()
         {
             LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
-            //var v = listControl.loteryList.tupleList;
             // Validar si la lista tiene datos
-            if (listControl.loteryList.tupleList.Count > 0)
-            {
-                this.processList(listControl);
-                this.Close();
-            }
-            else
+            if (listControl.loteryList.tupleList.Count == 0)
             {
                 MessageBox.Show("La lista no tiene datos");
-                this.togglePrintListButton();
+                //this.togglePrintListButton();
+            }
+            else {
+                //this.mainOptionMenu.Dispose();
+                ListNameForm listNameForm = new ListNameForm(this);
+                listNameForm.Show();
             }
         }
 
-        private void processList(LotteryListControl pListControl)
+        public void createList()
+        {
+            LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            this.saveList(listControl);
+            this.printList(this.list);
+            this.Dispose();
+        }
+
+
+        private void saveList(LotteryListControl pListControl)
         {
             //LTD_LotteryDraw newDraw = LTD_LotteryDraw.
             LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
@@ -88,19 +101,13 @@ namespace SILO
             lotteryDrawRepository.save(ref drawToSave);
             // Crear y guardar nueva lista
             LTL_LotteryList listToSave = new LTL_LotteryList();
-            listToSave.LPS_LotteryPointSale = 1;
+            listToSave.LPS_LotteryPointSale = UtilityService.getPointSale().LPS_Id;
             listToSave.LTD_LotteryDraw = drawToSave.LTD_Id;
-            listToSave.LTL_CustomerName = "MFC Prueba";
-            listToSave.LTL_CreateDate = DateTime.Now;
+            listToSave.LTL_CustomerName = this.customerName;
+            this.printDate = DateTime.Now;
+            listToSave.LTL_CreateDate = this.printDate;
             lotteryDrawRepository.saveList(ref listToSave);
-            // Crear y guardar el detalle de la lista
-            /*
-            List<LotteryTuple> numberList = new List<LotteryTuple>();
-            numberList.Add(new LotteryTuple("01", 1000));
-            numberList.Add(new LotteryTuple("02", 2000));
-            numberList.Add(new LotteryTuple("03", 3000));
-            */
-
+            this.list = listToSave;
             LotteryNumberRepository numberRepository = new LotteryNumberRepository();
             foreach (var register in pListControl.loteryList.tupleList)
             {
@@ -113,10 +120,43 @@ namespace SILO
             }
         }
 
+        private void printList(LTL_LotteryList pNumberList)
+        {
+            // Configurar impresión para Ticket de Venta
+            TicketPrinter ticketPrinter = new TicketPrinter();
+            SaleTicket saleTicket = new SaleTicket();
+            saleTicket.companyName = UtilityService.getCompanyName();
+            // Obtener datos del punto de venta
+            LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
+            saleTicket.pointSaleName = pointSale.LPS_DisplayName;
+            // Obtener datos del sorteo
+            LotteryDrawRepository drawRepo = new LotteryDrawRepository();
+            LTD_LotteryDraw drawObject = drawRepo.getById(pNumberList.LTD_LotteryDraw);
+            saleTicket.drawDate = drawObject.LTD_CreateDate;
+            // Obtener datos de tipo de sorteo
+            LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
+            LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
+            saleTicket.drawTypeCode = drawType.LDT_Code;
+
+            saleTicket.createDate = DateTime.Now;
+            saleTicket.ticketId = pNumberList.LTL_Id;
+            saleTicket.globalId = pointSale.LPS_Id + "" + saleTicket.ticketId;
+
+            saleTicket.customerName = this.customerName;
+            // Obtener detalle de la lista procesada
+            LotteryListRepository listRepo = new LotteryListRepository();
+            saleTicket.listNumberDetail = listRepo.getListDetail(pNumberList.LTL_Id);
+            ticketPrinter.saleTicket = saleTicket;
+            // Obtener nombre de impresora y enviar impresión
+            string printerName = UtilityService.getTicketPrinterName();
+            ticketPrinter.printLotterySaleTicket(printerName);
+        }
+
         private void printListButton_Click(object sender, EventArgs e)
         {
             this.togglePrintListButton();
-            this.saveList();
+            //this.saveList();
+            this.processList();
         }
 
         private void togglePrintListButton() {
@@ -124,28 +164,21 @@ namespace SILO
             printButton.Enabled = !printButton.Enabled;
         }
 
-        private void ListInstanceForm_KeyPress(object sender, KeyPressEventArgs e)
+        private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
         {
             processMenuRequest(e);
         }
 
-        private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
+        private void processMenuRequest(KeyEventArgs pEvent)
         {
-            //MessageBox.Show("Tecla d presionada");
-        }
-
-
-        private void processMenuRequest(KeyPressEventArgs pEvent)
-        {
-            if (pEvent.KeyChar == '*')
+            if (pEvent.KeyCode == Keys.Multiply)
             {
-                MessageBox.Show("*");
-            }
-            else
-            {
-                //MessageBox.Show("Tecla presionada");
+                //MessageBox.Show("* KD");
+                MainOptionMenu mainOptionMenu = new MainOptionMenu(this);
+                this.mainOptionMenu = mainOptionMenu;
+                mainOptionMenu.ShowDialog(this);
+                pEvent.SuppressKeyPress = true;
             }
         }
-
     }
 }

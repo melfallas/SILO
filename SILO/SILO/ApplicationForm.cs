@@ -16,6 +16,13 @@ namespace SILO
         {
             InitializeComponent();
             new NumberBoxForm();
+            //exec();
+        }
+
+        public void exec()
+        {
+            LotteryListRepository l = new LotteryListRepository();
+            l.getDrawListTotals();
         }
 
 

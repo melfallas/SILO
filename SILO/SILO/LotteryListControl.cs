@@ -67,5 +67,26 @@ namespace SILO
             this.loteryList.fill(this.listView);
             this.txbTotalImport.Text = this.loteryList.getTotalImport().ToString();
         }
+
+        private void listView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                /*
+                DataGridViewCell currentCell = this.listView.CurrentCell;
+                this.listView.EndEdit();
+                this.listView.CurrentCell = currentCell;
+                */
+                e.SuppressKeyPress = true;
+                //SendKeys.Send("{UP}");
+                SendKeys.Send("{TAB}");
+                //e.Handled = true;
+            }
+        }
+
+        private void listView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            //MessageBox.Show("dfdf");
+        }
     }
 }

@@ -10,14 +10,30 @@ namespace SILO
     public static class UtilityService
     {
         public const string POS_NAME_PARAM = "Sucursal";
+        public const string COMPANY_NAME_PARAM = "Nombre_Empresa";
+        public const string PRINTER_NAME_PARAM = "Nombre_Impresora";
+
+        public static PSP_PointSaleParameter getPointSaleParameter(string pParamName) {
+            PointSaleParameterRepository posParam = new PointSaleParameterRepository();
+            return posParam.getByName(pParamName);
+        }
 
         public static LPS_LotteryPointSale getPointSale()
         {
             LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
-            PointSaleParameterRepository posParam = new PointSaleParameterRepository();
-            long posId = Convert.ToInt64(posParam.getByName(POS_NAME_PARAM).PSP_Value);
+            long posId = Convert.ToInt64(getPointSaleParameter(POS_NAME_PARAM).PSP_Value);
             return posRepository.getById(posId);
         }
+
+        public static string getTicketPrinterName() {
+            return getPointSaleParameter(PRINTER_NAME_PARAM).PSP_Value;
+        }
+
+        public static string getCompanyName()
+        {
+            return getPointSaleParameter(COMPANY_NAME_PARAM).PSP_Value;
+        }
+
 
         public static DataTable buildDataTable() {
             DataTable tabla = new DataTable();

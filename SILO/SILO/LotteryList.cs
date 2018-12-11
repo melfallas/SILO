@@ -46,9 +46,9 @@ namespace SILO
             return tupleList.Count;
         }
 
-        public int getTotalImport()
+        public long getTotalImport()
         {
-            int import = 0;
+            long import = 0;
             foreach(var item in this.tupleList)
             {
                 import += item.Value.import;
