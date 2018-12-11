@@ -19,6 +19,17 @@ namespace SILO
         }
 
 
+        public LTD_LotteryDraw getById(long pId)
+        {
+            LTD_LotteryDraw draw = null;
+            using (var context = new SILOEntities())
+            {
+                draw = context.LTD_LotteryDraw.Find(pId);
+            }
+            return draw;
+        }
+
+
         public LTD_LotteryDraw getDrawRegister(LTD_LotteryDraw pDraw)
         {
             LTD_LotteryDraw findedDraw = null;

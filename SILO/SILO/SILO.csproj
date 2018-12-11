@@ -111,6 +111,12 @@
     <Compile Include="ListInstanceForm.Designer.cs">
       <DependentUpon>ListInstanceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListNameForm.Designer.cs">
+      <DependentUpon>ListNameForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LND_ListNumberDetail.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -126,8 +132,10 @@
     <Compile Include="LotteryListControl.Designer.cs">
       <DependentUpon>LotteryListControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="LotteryListRepository.cs" />
     <Compile Include="LotteryNumberRepository.cs" />
     <Compile Include="LotteryPointSaleRepository.cs" />
+    <Compile Include="ListTotalRecord.cs" />
     <Compile Include="LotteryTuple.cs" />
     <Compile Include="LPS_LotteryPointSale.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -137,6 +145,12 @@
     </Compile>
     <Compile Include="LTL_LotteryList.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainOptionMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainOptionMenu.Designer.cs">
+      <DependentUpon>MainOptionMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="NumberBoxForm.cs">
       <SubType>Form</SubType>
@@ -150,6 +164,8 @@
     <Compile Include="PSP_PointSaleParameter.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SaleTicket.cs" />
+    <Compile Include="TicketPrinter.cs" />
     <Compile Include="UtilityService.cs" />
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
@@ -160,8 +176,14 @@
     <EmbeddedResource Include="ListInstanceForm.resx">
       <DependentUpon>ListInstanceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ListNameForm.resx">
+      <DependentUpon>ListNameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LotteryListControl.resx">
       <DependentUpon>LotteryListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainOptionMenu.resx">
+      <DependentUpon>MainOptionMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NumberBoxForm.resx">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
@@ -174,6 +196,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EntityDeploy Include="DataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -207,6 +230,8 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\ticket_printer.jpg" />
+    <None Include="Resources\black_printer_t.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
