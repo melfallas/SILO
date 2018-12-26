@@ -76,7 +76,7 @@ namespace SILO
             else {
                 //this.mainOptionMenu.Dispose();
                 ListNameForm listNameForm = new ListNameForm(this);
-                listNameForm.Show();
+                listNameForm.ShowDialog();
             }
         }
 
@@ -84,7 +84,7 @@ namespace SILO
         {
             LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
             this.saveList(listControl);
-            this.printList(this.list);
+            UtilityService.printList(this.list);
             this.Dispose();
         }
 
@@ -118,38 +118,6 @@ namespace SILO
                 newListNumberDetail.LND_Import = register.Value.import;
                 lotteryDrawRepository.saveListDetail(ref newListNumberDetail);
             }
-        }
-
-        private void printList(LTL_LotteryList pNumberList)
-        {
-            // Configurar impresión para Ticket de Venta
-            TicketPrinter ticketPrinter = new TicketPrinter();
-            SaleTicket saleTicket = new SaleTicket();
-            saleTicket.companyName = UtilityService.getCompanyName();
-            // Obtener datos del punto de venta
-            LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
-            saleTicket.pointSaleName = pointSale.LPS_DisplayName;
-            // Obtener datos del sorteo
-            LotteryDrawRepository drawRepo = new LotteryDrawRepository();
-            LTD_LotteryDraw drawObject = drawRepo.getById(pNumberList.LTD_LotteryDraw);
-            saleTicket.drawDate = drawObject.LTD_CreateDate;
-            // Obtener datos de tipo de sorteo
-            LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
-            LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
-            saleTicket.drawTypeCode = drawType.LDT_Code;
-
-            saleTicket.createDate = DateTime.Now;
-            saleTicket.ticketId = pNumberList.LTL_Id;
-            saleTicket.globalId = pointSale.LPS_Id + "" + saleTicket.ticketId;
-
-            saleTicket.customerName = this.customerName;
-            // Obtener detalle de la lista procesada
-            LotteryListRepository listRepo = new LotteryListRepository();
-            saleTicket.listNumberDetail = listRepo.getListDetail(pNumberList.LTL_Id);
-            ticketPrinter.saleTicket = saleTicket;
-            // Obtener nombre de impresora y enviar impresión
-            string printerName = UtilityService.getTicketPrinterName();
-            ticketPrinter.printLotterySaleTicket(printerName);
         }
 
         private void printListButton_Click(object sender, EventArgs e)

@@ -21,3 +21,6 @@ C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.LotteryListControl.resources
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.MainOptionMenu.resources
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.ListNameForm.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.ListBoxSelector.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.ListSelectorForm.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.DisplayListForm.resources

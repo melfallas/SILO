@@ -8,13 +8,13 @@ namespace SILO
 {
     public class ListTotalRecord
     {
-        public int number { get; set; }
-        public int import { get; set; }
+        public int numberId { get; set; }
+        public int totalImport { get; set; }
 
         public ListTotalRecord()
         {
-            this.number = 0;
-            this.import = 0;
+            this.numberId = 0;
+            this.totalImport = 0;
         }
         
     }

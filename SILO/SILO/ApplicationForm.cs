@@ -16,7 +16,7 @@ namespace SILO
         {
             InitializeComponent();
             new NumberBoxForm();
-            //exec();
+            exec();
         }
 
         public void exec()
@@ -52,7 +52,11 @@ namespace SILO
 
         private void printMenuButton_Click(object sender, EventArgs e)
         {
-            ShowFormInMainPanel(new GeneralConfigurationForm());
+            //ShowFormInMainPanel(new GeneralConfigurationForm());
+            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.PRINTER_LIST_CODE);
+            ShowFormInMainPanel(displayListForm);
+            //ListSelectorForm listSelectorForm = new ListSelectorForm();
+            //listSelectorForm.ShowDialog();
         }
 
         private void aboutButton_Click(object sender, EventArgs e)

@@ -30,7 +30,7 @@ namespace SILO
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close();
+                this.Dispose();
             }
         }
 
@@ -42,7 +42,8 @@ namespace SILO
 
         private void reprintButton_Click(object sender, EventArgs e)
         {
-
+            //ListSelectorForm listSelectorForm = new ListSelectorForm();
+            //listSelectorForm.ShowDialog();
         }
     }
 }

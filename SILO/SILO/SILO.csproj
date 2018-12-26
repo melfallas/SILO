@@ -77,6 +77,7 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BoxNumberUnit.cs" />
     <Compile Include="CompanyRepository.cs" />
     <Compile Include="CPN_Company.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -96,6 +97,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DisplayListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayListForm.Designer.cs">
+      <DependentUpon>DisplayListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GeneralConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +112,13 @@
     <Compile Include="LDT_LotteryDrawType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ListBoxSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListBoxSelector.Designer.cs">
+      <DependentUpon>ListBoxSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListData.cs" />
     <Compile Include="ListInstanceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +130,12 @@
     </Compile>
     <Compile Include="ListNameForm.Designer.cs">
       <DependentUpon>ListNameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListSelectorForm.Designer.cs">
+      <DependentUpon>ListSelectorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LND_ListNumberDetail.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -165,19 +185,29 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SaleTicket.cs" />
+    <Compile Include="SystemConstants.cs" />
     <Compile Include="TicketPrinter.cs" />
     <Compile Include="UtilityService.cs" />
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DisplayListForm.resx">
+      <DependentUpon>DisplayListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GeneralConfigurationForm.resx">
       <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListBoxSelector.resx">
+      <DependentUpon>ListBoxSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListInstanceForm.resx">
       <DependentUpon>ListInstanceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListNameForm.resx">
       <DependentUpon>ListNameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListSelectorForm.resx">
+      <DependentUpon>ListSelectorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LotteryListControl.resx">
       <DependentUpon>LotteryListControl.cs</DependentUpon>

@@ -12,6 +12,10 @@ namespace SILO
 {
     public partial class NumberBoxForm : Form
     {
+
+        private BoxNumberUnit[] boxArray;
+
+
         public NumberBoxForm()
         {
             InitializeComponent();
@@ -32,23 +36,25 @@ namespace SILO
         }
 
         public void createBoxNumber()
-        {            
+        {
+            // Generar el array de controles
+            boxArray = new BoxNumberUnit[100];
+            // Establecer coordenadas para la caja
             int INI_X = 40;
             int INI_Y = 10;
             int SPACING_X = 90;
             int SPACING_Y = 22;
             int posX = INI_X;
             int posY = INI_Y;
-
+            // Iterar por el panel creando las 100 casillas
             for (int i = 0; i < 100; i++)
             {
-
                 if (i != 0 && i % 17 == 0)
                 {
                     posX += SPACING_X;
                     posY = INI_Y;
                 }
-
+                // Crear el Label para la casilla
                 Label numberLabel = new Label();
                 numberLabel.Text = i.ToString();
                 numberLabel.Top = posY;
@@ -56,7 +62,7 @@ namespace SILO
                 numberLabel.Width = 20;
                 numberLabel.Height = 20;
                 this.numberBoxPanel.Controls.Add(numberLabel);
-
+                // Crear el TextBox para la casilla
                 TextBox txbImport = new TextBox();
                 txbImport.Text = "0";
                 txbImport.Top = posY;
@@ -66,6 +72,8 @@ namespace SILO
                 txbImport.TextAlign = HorizontalAlignment.Right;
                 txbImport.ReadOnly = true;
                 this.numberBoxPanel.Controls.Add(txbImport);
+                // Agregar el Label y el Texbox al array de controles
+                this.boxArray[i] = new BoxNumberUnit(numberLabel, txbImport);
                 posY += SPACING_Y;
             }
             
@@ -79,6 +87,14 @@ namespace SILO
             */
         }
 
+        private void updateBoxArray(int[] importArray)
+        {
+            for (int i = 0; i < importArray.Length; i++)
+            {
+                this.boxArray[i].textbox.Text = importArray[i].ToString();
+            }
+        }
+
         private void drawTypeBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter)) {
@@ -90,6 +106,7 @@ namespace SILO
         private void datePickerList_ValueChanged(object sender, EventArgs e)
         {
             this.drawTypeBox.SelectedIndex = 0;
+            //MessageBox.Show(this.datePickerList.Value.Date);
         }
 
         private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,6 +114,8 @@ namespace SILO
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
                 this.displayNewListInstance();
+                LotteryListRepository lotteryListRepository = new LotteryListRepository();
+                this.updateBoxArray(lotteryListRepository.getDrawListTotals());
                 //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
             }
         }

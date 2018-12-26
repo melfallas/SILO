@@ -80,5 +80,37 @@ namespace SILO
             return tabla;
         }
 
+        public static void printList(LTL_LotteryList pNumberList)
+        {
+            // Configurar impresión para Ticket de Venta
+            TicketPrinter ticketPrinter = new TicketPrinter();
+            SaleTicket saleTicket = new SaleTicket();
+            saleTicket.companyName = UtilityService.getCompanyName();
+            // Obtener datos del punto de venta
+            LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
+            saleTicket.pointSaleName = pointSale.LPS_DisplayName;
+            // Obtener datos del sorteo
+            LotteryDrawRepository drawRepo = new LotteryDrawRepository();
+            LTD_LotteryDraw drawObject = drawRepo.getById(pNumberList.LTD_LotteryDraw);
+            saleTicket.drawDate = drawObject.LTD_CreateDate;
+            // Obtener datos de tipo de sorteo
+            LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
+            LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
+            saleTicket.drawTypeCode = drawType.LDT_Code;
+
+            saleTicket.createDate = DateTime.Now;
+            saleTicket.ticketId = pNumberList.LTL_Id;
+            saleTicket.globalId = pointSale.LPS_Id + "" + saleTicket.ticketId;
+
+            saleTicket.customerName = pNumberList.LTL_CustomerName;
+            // Obtener detalle de la lista procesada
+            LotteryListRepository listRepo = new LotteryListRepository();
+            saleTicket.listNumberDetail = listRepo.getListDetail(pNumberList.LTL_Id);
+            ticketPrinter.saleTicket = saleTicket;
+            // Obtener nombre de impresora y enviar impresión
+            string printerName = UtilityService.getTicketPrinterName();
+            ticketPrinter.printLotterySaleTicket(printerName);
+        }
+
     }
 }
