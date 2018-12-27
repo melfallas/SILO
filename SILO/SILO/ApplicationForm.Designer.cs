@@ -42,6 +42,7 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
+            this.eraseButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
@@ -137,6 +138,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.eraseButton);
             this.menuPanel.Controls.Add(this.aboutButton);
             this.menuPanel.Controls.Add(this.printMenuButton);
             this.menuPanel.Controls.Add(this.saleMenuButton);
@@ -154,7 +156,7 @@
             this.aboutButton.ForeColor = System.Drawing.Color.White;
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(2, 194);
+            this.aboutButton.Location = new System.Drawing.Point(0, 256);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(217, 54);
             this.aboutButton.TabIndex = 2;
@@ -196,6 +198,23 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
+            // eraseButton
+            // 
+            this.eraseButton.FlatAppearance.BorderSize = 0;
+            this.eraseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.eraseButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eraseButton.ForeColor = System.Drawing.Color.White;
+            this.eraseButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseButton.Image")));
+            this.eraseButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.eraseButton.Location = new System.Drawing.Point(3, 185);
+            this.eraseButton.Name = "eraseButton";
+            this.eraseButton.Size = new System.Drawing.Size(217, 54);
+            this.eraseButton.TabIndex = 3;
+            this.eraseButton.Text = "Borrado de Papeles";
+            this.eraseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.eraseButton.UseVisualStyleBackColor = true;
+            this.eraseButton.Click += new System.EventHandler(this.eraseButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,6 +252,7 @@
         private System.Windows.Forms.Button saleMenuButton;
         private System.Windows.Forms.Button printMenuButton;
         private System.Windows.Forms.Button aboutButton;
+        private System.Windows.Forms.Button eraseButton;
     }
 }
 

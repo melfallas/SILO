@@ -35,6 +35,20 @@ namespace SILO
         }
 
 
+        public void updateList(LTL_LotteryList pList)
+        {
+            LTL_LotteryList list = null;
+            using (var context = new SILOEntities())
+            {
+                list = context.LTL_LotteryList.Find(pList.LTL_Id);
+                list.LTL_CreateDate = pList.LTL_CreateDate;
+                list.LTL_CustomerName = pList.LTL_CustomerName;
+                list.LTL_Status = pList.LTL_Status;
+                context.SaveChanges();
+            }
+        }
+
+
         public List<ListData> getListCollection(DateTime pDate, long pGroup)
         {
             string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
@@ -43,7 +57,9 @@ namespace SILO
             {
                 var query = "SELECT '0' || L.LPS_LotteryPointSale || '000' || L.LTL_Id AS global, '0' || L.LTL_Id AS id, L.LTL_CreateDate AS date, L.LTL_CustomerName AS name FROM LTL_LotteryList AS L INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw " 
                     + "WHERE D.LTD_CreateDate = '"+ drawDate + "' " 
-                    + "AND D.LDT_LotteryDrawType = " + pGroup + " ;";
+                    + "AND D.LDT_LotteryDrawType = " + pGroup + " "
+                    + "AND L.LTL_Status <> 2 "
+                    + " ;";
                 listDataCollection = context.Database.
                     SqlQuery<ListData>(query)
                     .ToList()
@@ -79,24 +95,28 @@ namespace SILO
         */
 
 
-        public int[] getDrawListTotals()
+        public int[] getDrawListTotals(DateTime pDate, long pGroup)
         {
             int[] importArray = new int[100];
+            string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
             Dictionary<int, int> importCollection = new Dictionary<int, int>();
             using (var context = new SILOEntities())
             {
-                var listDetail = context.Database.
-                    SqlQuery<ListTotalRecord>
-                    ("SELECT N.LNR_LotteryNumber AS numberId, SUM(N.LND_Import) AS totalImport "
+                string query =
+                    "SELECT N.LNR_LotteryNumber AS numberId, SUM(N.LND_Import) AS totalImport "
                     + "FROM LTL_LotteryList AS L "
-                    + "INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id " 
-                    + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw " 
-                    + "INNER JOIN LDT_LotteryDrawType AS T ON T.LDT_Id = D.LDT_LotteryDrawType " 
-                    + "WHERE L.LPS_LotteryPointSale = 1 AND D.LTD_CreateDate = '2018-12-24 00:00:00' " 
-                    + "AND D.LDT_LotteryDrawType = 2 GROUP BY N.LNR_LotteryNumber ;"
-                    )
-                    .ToList()
+                    + "INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id "
+                    + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw "
+                    + "INNER JOIN LDT_LotteryDrawType AS T ON T.LDT_Id = D.LDT_LotteryDrawType "
+                    + "WHERE L.LPS_LotteryPointSale = 1 "
+                    + "AND L.LTL_Status <> 2 "
+                    + "AND D.LTD_CreateDate = '" + drawDate + "' "
+                    + "AND D.LDT_LotteryDrawType = " + pGroup + " "
+                    + "GROUP BY N.LNR_LotteryNumber "
+                    + ";"
                     ;
+                var listDetail = context.Database.SqlQuery<ListTotalRecord>(query).ToList();
+                Console.WriteLine(query);
                 // Crear diccionario para realizar la conversión
                 foreach (var item in listDetail)
                 {

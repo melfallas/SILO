@@ -31,7 +31,7 @@ namespace SILO
         }
 
         // Método para procesado de la lista según el tipo operación
-        public void execOperation(long pListId)
+        public void processOperation(long pListId)
         {
             switch (this.operationType)
             {
@@ -39,11 +39,22 @@ namespace SILO
                     this.printList(pListId);
                     break;
                 case SystemConstants.ERASER_LIST_CODE:
+                    //MessageBox.Show("Erase");
+                    this.eraseList(pListId);
                     //this.printList();
                     break;
                 default:
                     break;
             }
+        }
+
+
+        public void eraseList(long pListId)
+        {
+            LotteryListRepository listRepository = new LotteryListRepository();
+            LTL_LotteryList list = listRepository.getById(pListId);
+            list.LTL_Status = 2;
+            listRepository.updateList(list);
         }
 
         public void printList(long pListId)

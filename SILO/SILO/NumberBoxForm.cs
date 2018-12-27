@@ -111,11 +111,12 @@ namespace SILO
 
         private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
+            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+            if (groupId != 0)
             {
                 this.displayNewListInstance();
                 LotteryListRepository lotteryListRepository = new LotteryListRepository();
-                this.updateBoxArray(lotteryListRepository.getDrawListTotals());
+                this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, groupId));
                 //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
             }
         }

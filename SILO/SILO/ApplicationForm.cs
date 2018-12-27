@@ -16,15 +16,7 @@ namespace SILO
         {
             InitializeComponent();
             new NumberBoxForm();
-            exec();
         }
-
-        public void exec()
-        {
-            LotteryListRepository l = new LotteryListRepository();
-            l.getDrawListTotals();
-        }
-
 
         private void ShowFormInMainPanel(object pForm) {
             this.centerBoxPanel.Hide();
@@ -57,6 +49,12 @@ namespace SILO
             ShowFormInMainPanel(displayListForm);
             //ListSelectorForm listSelectorForm = new ListSelectorForm();
             //listSelectorForm.ShowDialog();
+        }
+
+        private void eraseButton_Click(object sender, EventArgs e)
+        {
+            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.ERASER_LIST_CODE);
+            ShowFormInMainPanel(displayListForm);
         }
 
         private void aboutButton_Click(object sender, EventArgs e)

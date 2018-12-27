@@ -42,7 +42,7 @@ namespace SILO
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
                 ListSelectorForm listBoxSelector = 
-                    new ListSelectorForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex, SystemConstants.PRINTER_LIST_CODE);
+                    new ListSelectorForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex, this.type);
                 listBoxSelector.ShowDialog();
                 //MessageBox.Show("Valor" + this.drawTypeBox.SelectedIndex);
             }

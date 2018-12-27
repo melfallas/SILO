@@ -31,7 +31,7 @@ namespace SILO
             this.fillTable();
         }
 
-        private void fillTable() {
+        public void fillTable() {
             LotteryListRepository lotteryListRepository = new LotteryListRepository();
             List<ListData> listData = lotteryListRepository.getListCollection(this.drawDate, this.drawType);
             if(listData.Count == 0)
@@ -52,7 +52,7 @@ namespace SILO
             var cell = this.listSelectorGrid.CurrentRow.Cells[0];
             long listId = Convert.ToInt64(cell.Value.ToString());
             MessageBox.Show(listId.ToString());
-            this.selector.execOperation(listId);
+            this.selector.processOperation(listId);
         }
 
     }
