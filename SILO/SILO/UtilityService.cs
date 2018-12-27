@@ -80,6 +80,37 @@ namespace SILO
             return tabla;
         }
 
+
+        public static bool[] getProhibitedArray() {
+            bool[] prohibitedArray = new bool[100];
+            Dictionary<long, bool> prohibitedCollection = new Dictionary<long, bool>();
+            LotteryNumberRepository numberRepository = new LotteryNumberRepository();
+            // Crear diccionario para realizar la conversión
+            foreach (var item in numberRepository.getAll())
+            {
+                bool prohibited = item.LNR_IsProhibited == 1 ? true : false;
+                prohibitedCollection.Add(item.LNR_Id, prohibited);
+                Console.WriteLine(item.LNR_Id.ToString(), prohibited);
+            }
+            // Llenar el array de los prohibidos
+            for (int i = 0; i < prohibitedArray.Length; i++)
+            {
+                bool isProhibited = false;
+                int numberId = (i == 0 ? 100 : i);
+                if (prohibitedCollection.TryGetValue(numberId, out isProhibited))
+                {
+                    prohibitedArray[i] = isProhibited;
+                }
+                else
+                {
+                    prohibitedArray[i] = false;
+                }
+            }
+            return prohibitedArray;
+        }
+
+
+
         public static void printList(LTL_LotteryList pNumberList)
         {
             // Configurar impresión para Ticket de Venta

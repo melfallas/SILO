@@ -38,6 +38,7 @@
           </Key>
           <Property Name="LNR_Id" Type="integer" Nullable="false" />
           <Property Name="LNR_Number" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="LNR_IsProhibited" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="LPS_LotteryPointSale">
           <Key>
@@ -258,6 +259,7 @@
           <Property Name="LNR_Id" Type="Int64" Nullable="false" />
           <Property Name="LNR_Number" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="LND_ListNumberDetail" Relationship="SILOModel.FK_LND_ListNumberDetail_1_0" FromRole="LNR_LotteryNumber" ToRole="LND_ListNumberDetail" />
+          <Property Name="LNR_IsProhibited" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="LPS_LotteryPointSale">
           <Key>
@@ -414,6 +416,7 @@
           <EntitySetMapping Name="LNR_LotteryNumber">
             <EntityTypeMapping TypeName="SILOModel.LNR_LotteryNumber">
               <MappingFragment StoreEntitySet="LNR_LotteryNumber">
+                <ScalarProperty Name="LNR_IsProhibited" ColumnName="LNR_IsProhibited" />
                 <ScalarProperty Name="LNR_Number" ColumnName="LNR_Number" />
                 <ScalarProperty Name="LNR_Id" ColumnName="LNR_Id" />
               </MappingFragment>

@@ -34,6 +34,7 @@
     <EntitySetMapping Name="LNR_LotteryNumber">
       <EntityTypeMapping TypeName="SILOModel.LNR_LotteryNumber">
         <MappingFragment StoreEntitySet="LNR_LotteryNumber">
+          <ScalarProperty Name="LNR_IsProhibited" ColumnName="LNR_IsProhibited" />
           <ScalarProperty Name="LNR_Number" ColumnName="LNR_Number" />
           <ScalarProperty Name="LNR_Id" ColumnName="LNR_Id" />
         </MappingFragment>

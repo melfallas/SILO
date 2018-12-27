@@ -72,6 +72,7 @@
     <Property Name="LNR_Id" Type="Int64" Nullable="false" />
     <Property Name="LNR_Number" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="LND_ListNumberDetail" Relationship="SILOModel.FK_LND_ListNumberDetail_1_0" FromRole="LNR_LotteryNumber" ToRole="LND_ListNumberDetail" />
+    <Property Name="LNR_IsProhibited" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="LPS_LotteryPointSale">
     <Key>

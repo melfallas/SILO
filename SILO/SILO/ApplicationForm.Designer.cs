@@ -39,10 +39,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.eraseButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.eraseButton = new System.Windows.Forms.Button();
+            this.catálogosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.prohibidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
@@ -53,7 +55,8 @@
             // 
             this.mainMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ventasToolStripMenuItem});
+            this.ventasToolStripMenuItem,
+            this.catálogosToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(967, 24);
@@ -148,6 +151,23 @@
             this.menuPanel.Size = new System.Drawing.Size(220, 538);
             this.menuPanel.TabIndex = 0;
             // 
+            // eraseButton
+            // 
+            this.eraseButton.FlatAppearance.BorderSize = 0;
+            this.eraseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.eraseButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eraseButton.ForeColor = System.Drawing.Color.White;
+            this.eraseButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseButton.Image")));
+            this.eraseButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.eraseButton.Location = new System.Drawing.Point(3, 185);
+            this.eraseButton.Name = "eraseButton";
+            this.eraseButton.Size = new System.Drawing.Size(217, 54);
+            this.eraseButton.TabIndex = 3;
+            this.eraseButton.Text = "Borrado de Papeles";
+            this.eraseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.eraseButton.UseVisualStyleBackColor = true;
+            this.eraseButton.Click += new System.EventHandler(this.eraseButton_Click);
+            // 
             // aboutButton
             // 
             this.aboutButton.FlatAppearance.BorderSize = 0;
@@ -198,22 +218,20 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
-            // eraseButton
+            // catálogosToolStripMenuItem
             // 
-            this.eraseButton.FlatAppearance.BorderSize = 0;
-            this.eraseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.eraseButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eraseButton.ForeColor = System.Drawing.Color.White;
-            this.eraseButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseButton.Image")));
-            this.eraseButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.eraseButton.Location = new System.Drawing.Point(3, 185);
-            this.eraseButton.Name = "eraseButton";
-            this.eraseButton.Size = new System.Drawing.Size(217, 54);
-            this.eraseButton.TabIndex = 3;
-            this.eraseButton.Text = "Borrado de Papeles";
-            this.eraseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.eraseButton.UseVisualStyleBackColor = true;
-            this.eraseButton.Click += new System.EventHandler(this.eraseButton_Click);
+            this.catálogosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.prohibidosToolStripMenuItem});
+            this.catálogosToolStripMenuItem.Name = "catálogosToolStripMenuItem";
+            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.catálogosToolStripMenuItem.Text = "Catálogos";
+            // 
+            // prohibidosToolStripMenuItem
+            // 
+            this.prohibidosToolStripMenuItem.Name = "prohibidosToolStripMenuItem";
+            this.prohibidosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.prohibidosToolStripMenuItem.Text = "Prohibidos";
+            this.prohibidosToolStripMenuItem.Click += new System.EventHandler(this.prohibidosToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -253,6 +271,8 @@
         private System.Windows.Forms.Button printMenuButton;
         private System.Windows.Forms.Button aboutButton;
         private System.Windows.Forms.Button eraseButton;
+        private System.Windows.Forms.ToolStripMenuItem catálogosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem prohibidosToolStripMenuItem;
     }
 }
 

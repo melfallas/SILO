@@ -33,6 +33,7 @@
     </Key>
     <Property Name="LNR_Id" Type="integer" Nullable="false" />
     <Property Name="LNR_Number" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="LNR_IsProhibited" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="LPS_LotteryPointSale">
     <Key>

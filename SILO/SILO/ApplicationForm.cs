@@ -37,10 +37,17 @@ namespace SILO
             ShowFormInMainPanel(new NumberBoxForm());
         }
 
+        private void prohibidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProhibitedNumberForm prohibitedForm = new ProhibitedNumberForm();
+            prohibitedForm.ShowDialog();
+        }
+
         private void saleMenuButton_Click(object sender, EventArgs e)
         {
             ShowFormInMainPanel(new NumberBoxForm());
         }
+
 
         private void printMenuButton_Click(object sender, EventArgs e)
         {
@@ -62,5 +69,6 @@ namespace SILO
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
         }
+        
     }
 }

@@ -39,6 +39,8 @@ namespace SILO
         {
             // Generar el array de controles
             boxArray = new BoxNumberUnit[100];
+            // Obtener parámetros
+            bool[] prohibitedNumbers = UtilityService.getProhibitedArray();
             // Establecer coordenadas para la caja
             int INI_X = 40;
             int INI_Y = 10;
@@ -61,6 +63,10 @@ namespace SILO
                 numberLabel.Left = posX;
                 numberLabel.Width = 20;
                 numberLabel.Height = 20;
+                // Marcar los números prohibidos
+                if (prohibitedNumbers[i]) {
+                    numberLabel.ForeColor = Color.FromArgb(255, 0, 0);
+                }
                 this.numberBoxPanel.Controls.Add(numberLabel);
                 // Crear el TextBox para la casilla
                 TextBox txbImport = new TextBox();

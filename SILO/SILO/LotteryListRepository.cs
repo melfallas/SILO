@@ -116,13 +116,10 @@ namespace SILO
                     + ";"
                     ;
                 var listDetail = context.Database.SqlQuery<ListTotalRecord>(query).ToList();
-                Console.WriteLine(query);
                 // Crear diccionario para realizar la conversión
                 foreach (var item in listDetail)
                 {
                     importCollection.Add(item.numberId, item.totalImport);
-                    Console.WriteLine(item.numberId.ToString() + " - " + item.totalImport);
-                    //Console.WriteLine(item.number + " " + item.import + " ");
                 }
             }
             // Llenar el array

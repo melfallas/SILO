@@ -36,6 +36,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.footerPanel = new System.Windows.Forms.Panel();
+            this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.titlePanel.SuspendLayout();
             this.headerPanel.SuspendLayout();
             this.SuspendLayout();
@@ -128,11 +129,21 @@
             this.footerPanel.Size = new System.Drawing.Size(551, 47);
             this.footerPanel.TabIndex = 3;
             // 
+            // numberBoxPanel
+            // 
+            this.numberBoxPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.numberBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numberBoxPanel.Location = new System.Drawing.Point(0, 100);
+            this.numberBoxPanel.Name = "numberBoxPanel";
+            this.numberBoxPanel.Size = new System.Drawing.Size(551, 180);
+            this.numberBoxPanel.TabIndex = 4;
+            // 
             // DisplayListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(551, 327);
+            this.Controls.Add(this.numberBoxPanel);
             this.Controls.Add(this.footerPanel);
             this.Controls.Add(this.headerPanel);
             this.Controls.Add(this.titlePanel);
@@ -157,5 +168,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel footerPanel;
+        private System.Windows.Forms.Panel numberBoxPanel;
     }
 }
