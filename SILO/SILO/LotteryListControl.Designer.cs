@@ -80,7 +80,9 @@
             this.listView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.listView.Size = new System.Drawing.Size(222, 362);
             this.listView.TabIndex = 0;
+            this.listView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listView_CellClick);
             this.listView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.listView_CellEndEdit);
+            this.listView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.listView_CellEnter);
             this.listView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.listView_CellValueChanged);
             this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             // 

@@ -51,3 +51,4 @@ C:\Users\melvin.fallas\Documents\Proyectos\Tiempos\App\SILO\SILO\SILO\bin\Debug\
 C:\Users\melvin.fallas\Documents\Proyectos\Tiempos\App\SILO\SILO\SILO\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\melvin.fallas\Documents\Proyectos\Tiempos\App\SILO\SILO\SILO\bin\Debug\System.Data.SQLite.xml
 C:\Users\melvin.fallas\Documents\Proyectos\Tiempos\App\SILO\SILO\SILO\obj\Debug\SILO.ProhibitedNumberForm.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.ProhibitedNumberForm.resources

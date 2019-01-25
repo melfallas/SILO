@@ -20,6 +20,8 @@ namespace SILO
 
         private void initializeControls()
         {
+            // Obtener parámetros de números prohibidos
+            bool[] prohibitedNumbers = UtilityService.getProhibitedArray();
             // Establecer coordenadas para la caja
             int INI_X = 40;
             int INI_Y = 10;
@@ -47,6 +49,9 @@ namespace SILO
                 cbxProhibitedNumber.Left = posX + 20;
                 cbxProhibitedNumber.Width = 25;
                 cbxProhibitedNumber.Height = 20;
+                if (prohibitedNumbers[i]) {
+                    cbxProhibitedNumber.Checked = true;
+                }
                 this.prohibitedMainPanel.Controls.Add(cbxProhibitedNumber);
                 /*
                 TextBox txbImport = new TextBox();

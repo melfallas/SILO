@@ -47,6 +47,7 @@ namespace SILO
         {
             this.posLabel.Text = pointSale.LPS_DisplayName;
             this.groupLabel.Text = drawType.LDT_DisplayName;
+            this.dateLabel.Text = this.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.drawDate.ToString("dd/MM/yyyy");
         }
 
         public void addControls()
@@ -64,9 +65,13 @@ namespace SILO
             
         }
 
+        private LotteryListControl getCurrentListControl() {
+            return this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+        }
+
         public void processList()
         {
-            LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            LotteryListControl listControl = this.getCurrentListControl();
             // Validar si la lista tiene datos
             if (listControl.loteryList.tupleList.Count == 0)
             {
@@ -141,7 +146,10 @@ namespace SILO
         {
             if (pEvent.KeyCode == Keys.Multiply)
             {
-                //MessageBox.Show("* KD");
+                // Actualizar la estructura de lista antes de desplegar menú de opciones
+                LotteryListControl listControl = this.getCurrentListControl();
+                listControl.getList().EndEdit();
+                // Desplegar menú de opciones
                 MainOptionMenu mainOptionMenu = new MainOptionMenu(this);
                 this.mainOptionMenu = mainOptionMenu;
                 mainOptionMenu.ShowDialog(this);

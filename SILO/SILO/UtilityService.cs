@@ -35,6 +35,28 @@ namespace SILO
         }
 
 
+        public static string fillString(string pStringToFill, int pSpaces, string pFillPattern = " ")
+        {
+            string filledString = "";
+            string originalString = pStringToFill;
+            if (originalString.Length < pSpaces)
+            {
+                int fillCount = pSpaces - originalString.Length;
+                for (int i = 0; i < fillCount; i++)
+                {
+                    filledString += pFillPattern;
+                }
+            }
+            filledString += originalString;
+            return filledString;
+        }
+
+        public static string fillNumberString(string pStringToFill, int pSpaces)
+        {
+            return fillString(pStringToFill, pSpaces, "0");
+        }
+
+
         public static DataTable buildDataTable() {
             DataTable tabla = new DataTable();
             tabla.Columns.Add("id");
@@ -128,11 +150,10 @@ namespace SILO
             LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
             LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
             saleTicket.drawTypeCode = drawType.LDT_Code;
-
+            // Llenar datos del número de lista
             saleTicket.createDate = DateTime.Now;
             saleTicket.ticketId = pNumberList.LTL_Id;
             saleTicket.globalId = pointSale.LPS_Id + "" + saleTicket.ticketId;
-
             saleTicket.customerName = pNumberList.LTL_CustomerName;
             // Obtener detalle de la lista procesada
             LotteryListRepository listRepo = new LotteryListRepository();

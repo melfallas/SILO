@@ -28,7 +28,9 @@ namespace SILO
                     List<LND_ListNumberDetail> numberList = context.LND_ListNumberDetail
                         .Where(item => item.LTL_LotteryList == pId).ToList();
                     // Transformar datos a lista de tuplas
-                    tupleList = numberList.Select(x => new LotteryTuple(x.LNR_LotteryNumber, x.LND_Import)).ToList();
+                    tupleList = numberList.Select(
+                        x => new LotteryTuple((x.LNR_LotteryNumber == 100 ? 0 : x.LNR_LotteryNumber), x.LND_Import)
+                        ).ToList();
                 }
             }
             return tupleList;
