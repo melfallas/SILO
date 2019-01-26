@@ -55,7 +55,7 @@
             // 
             this.posLabel.AutoSize = true;
             this.posLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.posLabel.Location = new System.Drawing.Point(65, 43);
+            this.posLabel.Location = new System.Drawing.Point(91, 45);
             this.posLabel.Name = "posLabel";
             this.posLabel.Size = new System.Drawing.Size(69, 19);
             this.posLabel.TabIndex = 2;

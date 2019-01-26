@@ -21,5 +21,15 @@ namespace SILO
             }
             return findedNumber;
         }
+
+        public List<LNR_LotteryNumber> getAll()
+        {
+            List<LNR_LotteryNumber> numberList = null;
+            using (var context = new SILOEntities())
+            {
+                numberList = context.LNR_LotteryNumber.ToList();
+            }
+            return numberList;
+        }
     }
 }

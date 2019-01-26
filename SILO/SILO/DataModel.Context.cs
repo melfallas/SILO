@@ -33,5 +33,7 @@ namespace SILO
         public virtual DbSet<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
         public virtual DbSet<LTL_LotteryList> LTL_LotteryList { get; set; }
         public virtual DbSet<PSP_PointSaleParameter> PSP_PointSaleParameter { get; set; }
+        public virtual DbSet<DNW_DrawNumberWinning> DNW_DrawNumberWinning { get; set; }
+        public virtual DbSet<SYS_SynchronyStatus> SYS_SynchronyStatus { get; set; }
     }
 }

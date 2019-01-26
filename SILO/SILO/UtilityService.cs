@@ -35,6 +35,33 @@ namespace SILO
         }
 
 
+        public static string getLargeDate(DateTime pDate) {
+            return pDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + pDate.ToString("dd/MM/yyyy");
+        }
+
+
+        public static string fillString(string pStringToFill, int pSpaces, string pFillPattern = " ")
+        {
+            string filledString = "";
+            string originalString = pStringToFill;
+            if (originalString.Length < pSpaces)
+            {
+                int fillCount = pSpaces - originalString.Length;
+                for (int i = 0; i < fillCount; i++)
+                {
+                    filledString += pFillPattern;
+                }
+            }
+            filledString += originalString;
+            return filledString;
+        }
+
+        public static string fillNumberString(string pStringToFill, int pSpaces)
+        {
+            return fillString(pStringToFill, pSpaces, "0");
+        }
+
+
         public static DataTable buildDataTable() {
             DataTable tabla = new DataTable();
             tabla.Columns.Add("id");
@@ -78,6 +105,68 @@ namespace SILO
                 tabla.Rows.Add(row);
             }
             return tabla;
+        }
+
+
+        public static bool[] getProhibitedArray() {
+            bool[] prohibitedArray = new bool[100];
+            Dictionary<long, bool> prohibitedCollection = new Dictionary<long, bool>();
+            LotteryNumberRepository numberRepository = new LotteryNumberRepository();
+            // Crear diccionario para realizar la conversión
+            foreach (var item in numberRepository.getAll())
+            {
+                bool prohibited = item.LNR_IsProhibited == 1 ? true : false;
+                prohibitedCollection.Add(item.LNR_Id, prohibited);
+                Console.WriteLine(item.LNR_Id.ToString(), prohibited);
+            }
+            // Llenar el array de los prohibidos
+            for (int i = 0; i < prohibitedArray.Length; i++)
+            {
+                bool isProhibited = false;
+                int numberId = (i == 0 ? 100 : i);
+                if (prohibitedCollection.TryGetValue(numberId, out isProhibited))
+                {
+                    prohibitedArray[i] = isProhibited;
+                }
+                else
+                {
+                    prohibitedArray[i] = false;
+                }
+            }
+            return prohibitedArray;
+        }
+
+
+
+        public static void printList(LTL_LotteryList pNumberList)
+        {
+            // Configurar impresión para Ticket de Venta
+            TicketPrinter ticketPrinter = new TicketPrinter();
+            SaleTicket saleTicket = new SaleTicket();
+            saleTicket.companyName = UtilityService.getCompanyName();
+            // Obtener datos del punto de venta
+            LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
+            saleTicket.pointSaleName = pointSale.LPS_DisplayName;
+            // Obtener datos del sorteo
+            LotteryDrawRepository drawRepo = new LotteryDrawRepository();
+            LTD_LotteryDraw drawObject = drawRepo.getById(pNumberList.LTD_LotteryDraw);
+            saleTicket.drawDate = drawObject.LTD_CreateDate;
+            // Obtener datos de tipo de sorteo
+            LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
+            LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
+            saleTicket.drawTypeCode = drawType.LDT_Code;
+            // Llenar datos del número de lista
+            saleTicket.createDate = DateTime.Now;
+            saleTicket.ticketId = pNumberList.LTL_Id;
+            saleTicket.globalId = pointSale.LPS_Id + "" + saleTicket.ticketId;
+            saleTicket.customerName = pNumberList.LTL_CustomerName;
+            // Obtener detalle de la lista procesada
+            LotteryListRepository listRepo = new LotteryListRepository();
+            saleTicket.listNumberDetail = listRepo.getListDetail(pNumberList.LTL_Id);
+            ticketPrinter.saleTicket = saleTicket;
+            // Obtener nombre de impresora y enviar impresión
+            string printerName = UtilityService.getTicketPrinterName();
+            ticketPrinter.printLotterySaleTicket(printerName);
         }
 
     }

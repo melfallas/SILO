@@ -82,11 +82,31 @@ namespace SILO
                 SendKeys.Send("{TAB}");
                 //e.Handled = true;
             }
+            else
+            {
+                if (e.KeyCode == Keys.Multiply)
+                {
+                    SendKeys.Send("{TAB}");
+                }
+            }
         }
 
         private void listView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             //MessageBox.Show("dfdf");
+            SendKeys.Send("{UP}");
+            SendKeys.Send("{TAB}");
+        }
+
+        private void listView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //MessageBox.Show("F: " + e.RowIndex + "C: " + e.ColumnIndex);
+        }
+
+        private void listView_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            //MessageBox.Show("F: " + e.RowIndex + "C: " + e.ColumnIndex);
+            //this.listView.CurrentCell = this.listView[e.RowIndex, e.ColumnIndex];
         }
     }
 }
