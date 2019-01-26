@@ -45,9 +45,9 @@ namespace SILO
 
         public void formatLabels()
         {
-            this.posLabel.Text = pointSale.LPS_DisplayName;
-            this.groupLabel.Text = drawType.LDT_DisplayName;
-            this.dateLabel.Text = this.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.drawDate.ToString("dd/MM/yyyy");
+            this.posLabel.Text = this.pointSale.LPS_DisplayName;
+            this.groupLabel.Text = this.drawType.LDT_DisplayName;
+            this.dateLabel.Text = UtilityService.getLargeDate(this.drawDate);
         }
 
         public void addControls()

@@ -103,12 +103,23 @@
     <Compile Include="DisplayListForm.Designer.cs">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DNW_DrawNumberWinning.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DrawNumberWinningForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawNumberWinningForm.Designer.cs">
+      <DependentUpon>DrawNumberWinningForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DrawNumberWinningRepository.cs" />
     <Compile Include="GeneralConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GeneralConfigurationForm.Designer.cs">
       <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GeneralConstants.cs" />
     <Compile Include="LDT_LotteryDrawType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -192,6 +203,9 @@
     </Compile>
     <Compile Include="SaleTicket.cs" />
     <Compile Include="SystemConstants.cs" />
+    <Compile Include="SYS_SynchronyStatus.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TicketPrinter.cs" />
     <Compile Include="UtilityService.cs" />
     <EmbeddedResource Include="ApplicationForm.resx">
@@ -199,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DisplayListForm.resx">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DrawNumberWinningForm.resx">
+      <DependentUpon>DrawNumberWinningForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GeneralConfigurationForm.resx">
       <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>

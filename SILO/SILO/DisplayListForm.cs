@@ -32,8 +32,8 @@ namespace SILO
 
         public void loadControls()
         {
-            this.drawTypeBox.ValueMember = "id";
-            this.drawTypeBox.DisplayMember = "display";
+            this.drawTypeBox.ValueMember = GeneralConstants.DISPLAY_DRAWTYPE_KEY_LABEL;
+            this.drawTypeBox.DisplayMember = GeneralConstants.DISPLAY_DRAWTYPE_VALUE_LABEL;
             this.drawTypeBox.DataSource = UtilityService.drawTypeDataTable(this.drawTypeBox.ValueMember, this.drawTypeBox.DisplayMember);
             this.drawTypeBox.SelectedIndex = 0;
         }

@@ -12,22 +12,20 @@ namespace SILO
     using System;
     using System.Collections.Generic;
     
-    public partial class LTD_LotteryDraw
+    public partial class SYS_SynchronyStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LTD_LotteryDraw()
+        public SYS_SynchronyStatus()
         {
-            this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
+            this.DNW_DrawNumberWinning = new HashSet<DNW_DrawNumberWinning>();
         }
     
-        public long LTD_Id { get; set; }
-        public System.DateTime LTD_CreateDate { get; set; }
-        public long LDT_LotteryDrawType { get; set; }
-        public long LTD_Status { get; set; }
+        public long SYS_Id { get; set; }
+        public string SYS_Code { get; set; }
+        public string SYS_Description { get; set; }
+        public string SYS_DisplayName { get; set; }
     
-        public virtual LDT_LotteryDrawType LDT_LotteryDrawType1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
-        public virtual DNW_DrawNumberWinning DNW_DrawNumberWinning { get; set; }
+        public virtual ICollection<DNW_DrawNumberWinning> DNW_DrawNumberWinning { get; set; }
     }
 }

@@ -18,6 +18,14 @@ namespace SILO
             this.initializeControls();
         }
 
+        private void ProhibitedNumberForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Dispose();
+            }
+        }
+
         private void initializeControls()
         {
             // Obtener parámetros de números prohibidos
@@ -67,7 +75,5 @@ namespace SILO
                 posY += SPACING_Y;
             }
         }
-
-
     }
 }

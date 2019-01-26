@@ -37,12 +37,6 @@ namespace SILO
             ShowFormInMainPanel(new NumberBoxForm());
         }
 
-        private void prohibidosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ProhibitedNumberForm prohibitedForm = new ProhibitedNumberForm();
-            prohibitedForm.ShowDialog();
-        }
-
         private void saleMenuButton_Click(object sender, EventArgs e)
         {
             ShowFormInMainPanel(new NumberBoxForm());
@@ -69,6 +63,20 @@ namespace SILO
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
         }
-        
+
+
+        //--------------------------------------- Acciones de Menú --------------------------------------//
+
+        private void prohibidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProhibitedNumberForm prohibitedForm = new ProhibitedNumberForm();
+            prohibitedForm.ShowDialog();
+        }
+
+        private void ingresarGanadoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawNumberWinningForm winningForm = new DrawNumberWinningForm();
+            winningForm.ShowDialog();
+        }
     }
 }

@@ -35,6 +35,11 @@ namespace SILO
         }
 
 
+        public static string getLargeDate(DateTime pDate) {
+            return pDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + pDate.ToString("dd/MM/yyyy");
+        }
+
+
         public static string fillString(string pStringToFill, int pSpaces, string pFillPattern = " ")
         {
             string filledString = "";

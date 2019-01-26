@@ -65,9 +65,12 @@
             this.Controls.Add(this.prohibitedMainPanel);
             this.Controls.Add(this.prohibitedBottomPanel);
             this.Controls.Add(this.prohibitedTopPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.KeyPreview = true;
             this.Name = "ProhibitedNumberForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Números Prohibidos";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProhibitedNumberForm_KeyDown);
             this.ResumeLayout(false);
 
         }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\melvin.fallas\Documents\Proyectos\Tiempos\App\SILO\SILO\SILO\DataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\DataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

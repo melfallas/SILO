@@ -33,8 +33,8 @@
             this.headerPanel = new System.Windows.Forms.Panel();
             this.drawTypeBox = new System.Windows.Forms.ComboBox();
             this.datePickerList = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupSelectorLabel = new System.Windows.Forms.Label();
+            this.dateSelectorLabel = new System.Windows.Forms.Label();
             this.footerPanel = new System.Windows.Forms.Panel();
             this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.titlePanel.SuspendLayout();
@@ -66,8 +66,8 @@
             this.headerPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.headerPanel.Controls.Add(this.drawTypeBox);
             this.headerPanel.Controls.Add(this.datePickerList);
-            this.headerPanel.Controls.Add(this.label3);
-            this.headerPanel.Controls.Add(this.label2);
+            this.headerPanel.Controls.Add(this.groupSelectorLabel);
+            this.headerPanel.Controls.Add(this.dateSelectorLabel);
             this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.headerPanel.Location = new System.Drawing.Point(0, 37);
             this.headerPanel.Name = "headerPanel";
@@ -96,29 +96,29 @@
             this.datePickerList.TabIndex = 2;
             this.datePickerList.ValueChanged += new System.EventHandler(this.datePickerList_ValueChanged);
             // 
-            // label3
+            // groupSelectorLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Navy;
-            this.label3.Location = new System.Drawing.Point(238, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 19);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Grupo:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.groupSelectorLabel.AutoSize = true;
+            this.groupSelectorLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupSelectorLabel.ForeColor = System.Drawing.Color.Navy;
+            this.groupSelectorLabel.Location = new System.Drawing.Point(238, 23);
+            this.groupSelectorLabel.Name = "groupSelectorLabel";
+            this.groupSelectorLabel.Size = new System.Drawing.Size(63, 19);
+            this.groupSelectorLabel.TabIndex = 3;
+            this.groupSelectorLabel.Text = "Grupo:";
+            this.groupSelectorLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label2
+            // dateSelectorLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(48, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 19);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Fecha:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.dateSelectorLabel.AutoSize = true;
+            this.dateSelectorLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateSelectorLabel.ForeColor = System.Drawing.Color.Navy;
+            this.dateSelectorLabel.Location = new System.Drawing.Point(48, 23);
+            this.dateSelectorLabel.Name = "dateSelectorLabel";
+            this.dateSelectorLabel.Size = new System.Drawing.Size(62, 19);
+            this.dateSelectorLabel.TabIndex = 1;
+            this.dateSelectorLabel.Text = "Fecha:";
+            this.dateSelectorLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // footerPanel
             // 
@@ -165,8 +165,8 @@
         private System.Windows.Forms.Panel headerPanel;
         private System.Windows.Forms.ComboBox drawTypeBox;
         private System.Windows.Forms.DateTimePicker datePickerList;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label groupSelectorLabel;
+        private System.Windows.Forms.Label dateSelectorLabel;
         private System.Windows.Forms.Panel footerPanel;
         private System.Windows.Forms.Panel numberBoxPanel;
     }
