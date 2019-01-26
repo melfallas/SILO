@@ -16,15 +16,7 @@ namespace SILO
         {
             InitializeComponent();
             new NumberBoxForm();
-            //exec();
         }
-
-        public void exec()
-        {
-            LotteryListRepository l = new LotteryListRepository();
-            l.getDrawListTotals();
-        }
-
 
         private void ShowFormInMainPanel(object pForm) {
             this.centerBoxPanel.Hide();
@@ -50,15 +42,41 @@ namespace SILO
             ShowFormInMainPanel(new NumberBoxForm());
         }
 
+
         private void printMenuButton_Click(object sender, EventArgs e)
         {
-            ShowFormInMainPanel(new GeneralConfigurationForm());
+            //ShowFormInMainPanel(new GeneralConfigurationForm());
+            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.PRINTER_LIST_CODE);
+            ShowFormInMainPanel(displayListForm);
+            //ListSelectorForm listSelectorForm = new ListSelectorForm();
+            //listSelectorForm.ShowDialog();
+        }
+
+        private void eraseButton_Click(object sender, EventArgs e)
+        {
+            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.ERASER_LIST_CODE);
+            ShowFormInMainPanel(displayListForm);
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
         {
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
+        }
+
+
+        //--------------------------------------- Acciones de Menú --------------------------------------//
+
+        private void prohibidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProhibitedNumberForm prohibitedForm = new ProhibitedNumberForm();
+            prohibitedForm.ShowDialog();
+        }
+
+        private void ingresarGanadoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawNumberWinningForm winningForm = new DrawNumberWinningForm();
+            winningForm.ShowDialog();
         }
     }
 }

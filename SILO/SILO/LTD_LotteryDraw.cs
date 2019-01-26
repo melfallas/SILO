@@ -28,5 +28,6 @@ namespace SILO
         public virtual LDT_LotteryDrawType LDT_LotteryDrawType1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
+        public virtual DNW_DrawNumberWinning DNW_DrawNumberWinning { get; set; }
     }
 }

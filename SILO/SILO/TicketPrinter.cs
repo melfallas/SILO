@@ -225,6 +225,12 @@ namespace SILO
             return pNumberToFormat.ToString("#,#", System.Globalization.CultureInfo.InvariantCulture);
         }
 
+        public string formatNumber(string pNumberToFormat)
+        {
+            return Convert.ToInt64(pNumberToFormat).ToString("#,#", System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+
         /*
         public string formatNumber(string pNumberToFormat)
         {
@@ -320,6 +326,7 @@ namespace SILO
             string drawDate = this.saleTicket.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.saleTicket.drawDate.ToString("dd/MM/yyyy");
             string ticketId = this.fillString(this.saleTicket.ticketId.ToString(), 4, "0");
             string globalId = this.fillString(this.saleTicket.globalId.ToString(), 6, "0");
+            this.drawCenterLine(printDate);
             string line = "/" + printTime + "/----------/" + ticketId + "/";
             this.drawCenterLine(line);
             line = "<< " + this.saleTicket.customerName + " >>";
@@ -355,13 +362,12 @@ namespace SILO
 
         private void printSaleTicketList()
         {
-            int[] montos = { 500, 500, 1000, 500, 1500 };
-            int[] numeros = { 84, 07, 42, 23, 00 };
             string listHeaders = this.fillString("MONTO", 6) + "   No";
             this.drawLine(this.printInColumns(listHeaders, 3));
             foreach (LotteryTuple tuple in this.saleTicket.listNumberDetail)
             {
-                string itemList = "" + this.fillString(tuple.import.ToString(), 6) + " X " + this.fillString(tuple.number, 2, "0");
+                string itemList = "" + this.fillString(this.formatNumber(tuple.import).ToString(), 6)
+                    + " X " + this.fillString(tuple.number, 2, "0");
                 this.drawLine(this.printInColumns(itemList, 3));
             }
             string totalLabel = "+++TOTAL: " + this.fillString(this.formatNumber(this.saleTicket.getTotalImport()), 8, "*");

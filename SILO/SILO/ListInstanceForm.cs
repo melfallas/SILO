@@ -45,8 +45,9 @@ namespace SILO
 
         public void formatLabels()
         {
-            this.posLabel.Text = pointSale.LPS_DisplayName;
-            this.groupLabel.Text = drawType.LDT_DisplayName;
+            this.posLabel.Text = this.pointSale.LPS_DisplayName;
+            this.groupLabel.Text = this.drawType.LDT_DisplayName;
+            this.dateLabel.Text = UtilityService.getLargeDate(this.drawDate);
         }
 
         public void addControls()
@@ -64,9 +65,13 @@ namespace SILO
             
         }
 
+        private LotteryListControl getCurrentListControl() {
+            return this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+        }
+
         public void processList()
         {
-            LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            LotteryListControl listControl = this.getCurrentListControl();
             // Validar si la lista tiene datos
             if (listControl.loteryList.tupleList.Count == 0)
             {
@@ -76,7 +81,7 @@ namespace SILO
             else {
                 //this.mainOptionMenu.Dispose();
                 ListNameForm listNameForm = new ListNameForm(this);
-                listNameForm.Show();
+                listNameForm.ShowDialog();
             }
         }
 
@@ -84,7 +89,7 @@ namespace SILO
         {
             LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
             this.saveList(listControl);
-            this.printList(this.list);
+            UtilityService.printList(this.list);
             this.Dispose();
         }
 
@@ -120,38 +125,6 @@ namespace SILO
             }
         }
 
-        private void printList(LTL_LotteryList pNumberList)
-        {
-            // Configurar impresión para Ticket de Venta
-            TicketPrinter ticketPrinter = new TicketPrinter();
-            SaleTicket saleTicket = new SaleTicket();
-            saleTicket.companyName = UtilityService.getCompanyName();
-            // Obtener datos del punto de venta
-            LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
-            saleTicket.pointSaleName = pointSale.LPS_DisplayName;
-            // Obtener datos del sorteo
-            LotteryDrawRepository drawRepo = new LotteryDrawRepository();
-            LTD_LotteryDraw drawObject = drawRepo.getById(pNumberList.LTD_LotteryDraw);
-            saleTicket.drawDate = drawObject.LTD_CreateDate;
-            // Obtener datos de tipo de sorteo
-            LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
-            LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
-            saleTicket.drawTypeCode = drawType.LDT_Code;
-
-            saleTicket.createDate = DateTime.Now;
-            saleTicket.ticketId = pNumberList.LTL_Id;
-            saleTicket.globalId = pointSale.LPS_Id + "" + saleTicket.ticketId;
-
-            saleTicket.customerName = this.customerName;
-            // Obtener detalle de la lista procesada
-            LotteryListRepository listRepo = new LotteryListRepository();
-            saleTicket.listNumberDetail = listRepo.getListDetail(pNumberList.LTL_Id);
-            ticketPrinter.saleTicket = saleTicket;
-            // Obtener nombre de impresora y enviar impresión
-            string printerName = UtilityService.getTicketPrinterName();
-            ticketPrinter.printLotterySaleTicket(printerName);
-        }
-
         private void printListButton_Click(object sender, EventArgs e)
         {
             this.togglePrintListButton();
@@ -173,7 +146,10 @@ namespace SILO
         {
             if (pEvent.KeyCode == Keys.Multiply)
             {
-                //MessageBox.Show("* KD");
+                // Actualizar la estructura de lista antes de desplegar menú de opciones
+                LotteryListControl listControl = this.getCurrentListControl();
+                listControl.getList().EndEdit();
+                // Desplegar menú de opciones
                 MainOptionMenu mainOptionMenu = new MainOptionMenu(this);
                 this.mainOptionMenu = mainOptionMenu;
                 mainOptionMenu.ShowDialog(this);

@@ -32,6 +32,13 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventaDePapelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.catálogosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingresarGanadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.prohibidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parámetrosGeneralesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parámetrosDeSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parámetrosDeSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.centerBoxPanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -39,9 +46,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.eraseButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reimpresiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.borradoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
@@ -52,7 +64,10 @@
             // 
             this.mainMenu.BackColor = System.Drawing.SystemColors.ControlLight;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ventasToolStripMenuItem});
+            this.ventasToolStripMenuItem,
+            this.catálogosToolStripMenuItem,
+            this.configuraciónToolStripMenuItem,
+            this.salirToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(967, 24);
@@ -62,7 +77,9 @@
             // ventasToolStripMenuItem
             // 
             this.ventasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ventaDePapelesToolStripMenuItem});
+            this.ventaDePapelesToolStripMenuItem,
+            this.reimpresiónToolStripMenuItem,
+            this.borradoToolStripMenuItem});
             this.ventasToolStripMenuItem.Name = "ventasToolStripMenuItem";
             this.ventasToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ventasToolStripMenuItem.Text = "Ventas";
@@ -73,6 +90,57 @@
             this.ventaDePapelesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.ventaDePapelesToolStripMenuItem.Text = "Venta de Papeles";
             this.ventaDePapelesToolStripMenuItem.Click += new System.EventHandler(this.ventaDePapelesToolStripMenuItem_Click);
+            // 
+            // catálogosToolStripMenuItem
+            // 
+            this.catálogosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ingresarGanadoresToolStripMenuItem,
+            this.prohibidosToolStripMenuItem});
+            this.catálogosToolStripMenuItem.Name = "catálogosToolStripMenuItem";
+            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
+            this.catálogosToolStripMenuItem.Text = "Mantenimientos";
+            // 
+            // ingresarGanadoresToolStripMenuItem
+            // 
+            this.ingresarGanadoresToolStripMenuItem.Name = "ingresarGanadoresToolStripMenuItem";
+            this.ingresarGanadoresToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.ingresarGanadoresToolStripMenuItem.Text = "Ingresar Ganadores";
+            this.ingresarGanadoresToolStripMenuItem.Click += new System.EventHandler(this.ingresarGanadoresToolStripMenuItem_Click);
+            // 
+            // prohibidosToolStripMenuItem
+            // 
+            this.prohibidosToolStripMenuItem.Name = "prohibidosToolStripMenuItem";
+            this.prohibidosToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.prohibidosToolStripMenuItem.Text = "Números Prohibidos";
+            this.prohibidosToolStripMenuItem.Click += new System.EventHandler(this.prohibidosToolStripMenuItem_Click);
+            // 
+            // configuraciónToolStripMenuItem
+            // 
+            this.configuraciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parámetrosGeneralesToolStripMenuItem,
+            this.parámetrosDeSucursalToolStripMenuItem,
+            this.parámetrosDeSistemaToolStripMenuItem});
+            this.configuraciónToolStripMenuItem.Name = "configuraciónToolStripMenuItem";
+            this.configuraciónToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.configuraciónToolStripMenuItem.Text = "Configuración";
+            // 
+            // parámetrosGeneralesToolStripMenuItem
+            // 
+            this.parámetrosGeneralesToolStripMenuItem.Name = "parámetrosGeneralesToolStripMenuItem";
+            this.parámetrosGeneralesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.parámetrosGeneralesToolStripMenuItem.Text = "Parámetros Generales";
+            // 
+            // parámetrosDeSucursalToolStripMenuItem
+            // 
+            this.parámetrosDeSucursalToolStripMenuItem.Name = "parámetrosDeSucursalToolStripMenuItem";
+            this.parámetrosDeSucursalToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.parámetrosDeSucursalToolStripMenuItem.Text = "Parámetros de Sucursal";
+            // 
+            // parámetrosDeSistemaToolStripMenuItem
+            // 
+            this.parámetrosDeSistemaToolStripMenuItem.Name = "parámetrosDeSistemaToolStripMenuItem";
+            this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.parámetrosDeSistemaToolStripMenuItem.Text = "Parámetros de Sistema";
             // 
             // mainPanel
             // 
@@ -137,6 +205,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.eraseButton);
             this.menuPanel.Controls.Add(this.aboutButton);
             this.menuPanel.Controls.Add(this.printMenuButton);
             this.menuPanel.Controls.Add(this.saleMenuButton);
@@ -146,6 +215,23 @@
             this.menuPanel.Size = new System.Drawing.Size(220, 538);
             this.menuPanel.TabIndex = 0;
             // 
+            // eraseButton
+            // 
+            this.eraseButton.FlatAppearance.BorderSize = 0;
+            this.eraseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.eraseButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eraseButton.ForeColor = System.Drawing.Color.White;
+            this.eraseButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseButton.Image")));
+            this.eraseButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.eraseButton.Location = new System.Drawing.Point(3, 185);
+            this.eraseButton.Name = "eraseButton";
+            this.eraseButton.Size = new System.Drawing.Size(217, 54);
+            this.eraseButton.TabIndex = 3;
+            this.eraseButton.Text = "Borrado de Papeles";
+            this.eraseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.eraseButton.UseVisualStyleBackColor = true;
+            this.eraseButton.Click += new System.EventHandler(this.eraseButton_Click);
+            // 
             // aboutButton
             // 
             this.aboutButton.FlatAppearance.BorderSize = 0;
@@ -154,7 +240,7 @@
             this.aboutButton.ForeColor = System.Drawing.Color.White;
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(2, 194);
+            this.aboutButton.Location = new System.Drawing.Point(0, 256);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(217, 54);
             this.aboutButton.TabIndex = 2;
@@ -196,6 +282,32 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.salirDelSistemaToolStripMenuItem});
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.salirToolStripMenuItem.Text = "Salir";
+            // 
+            // salirDelSistemaToolStripMenuItem
+            // 
+            this.salirDelSistemaToolStripMenuItem.Name = "salirDelSistemaToolStripMenuItem";
+            this.salirDelSistemaToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.salirDelSistemaToolStripMenuItem.Text = "Salir del Sistema";
+            // 
+            // reimpresiónToolStripMenuItem
+            // 
+            this.reimpresiónToolStripMenuItem.Name = "reimpresiónToolStripMenuItem";
+            this.reimpresiónToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.reimpresiónToolStripMenuItem.Text = "Reimpresión";
+            // 
+            // borradoToolStripMenuItem
+            // 
+            this.borradoToolStripMenuItem.Name = "borradoToolStripMenuItem";
+            this.borradoToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.borradoToolStripMenuItem.Text = "Borrado";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,6 +345,18 @@
         private System.Windows.Forms.Button saleMenuButton;
         private System.Windows.Forms.Button printMenuButton;
         private System.Windows.Forms.Button aboutButton;
+        private System.Windows.Forms.Button eraseButton;
+        private System.Windows.Forms.ToolStripMenuItem catálogosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem prohibidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ingresarGanadoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configuraciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parámetrosGeneralesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parámetrosDeSucursalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parámetrosDeSistemaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reimpresiónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem borradoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirDelSistemaToolStripMenuItem;
     }
 }
 

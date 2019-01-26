@@ -12,6 +12,10 @@ namespace SILO
 {
     public partial class NumberBoxForm : Form
     {
+
+        private BoxNumberUnit[] boxArray;
+
+
         public NumberBoxForm()
         {
             InitializeComponent();
@@ -25,38 +29,46 @@ namespace SILO
         }
 
         public void loadControls() {
-            this.drawTypeBox.ValueMember = "id";
-            this.drawTypeBox.DisplayMember = "display";
+            this.drawTypeBox.ValueMember = GeneralConstants.DISPLAY_DRAWTYPE_KEY_LABEL;
+            this.drawTypeBox.DisplayMember = GeneralConstants.DISPLAY_DRAWTYPE_VALUE_LABEL;
             this.drawTypeBox.DataSource = UtilityService.drawTypeDataTable(this.drawTypeBox.ValueMember, this.drawTypeBox.DisplayMember);
             this.drawTypeBox.SelectedIndex = 0;
         }
 
         public void createBoxNumber()
-        {            
+        {
+            // Generar el array de controles
+            boxArray = new BoxNumberUnit[100];
+            // Obtener parámetros
+            bool[] prohibitedNumbers = UtilityService.getProhibitedArray();
+            // Establecer coordenadas para la caja
             int INI_X = 40;
             int INI_Y = 10;
             int SPACING_X = 90;
             int SPACING_Y = 22;
             int posX = INI_X;
             int posY = INI_Y;
-
+            // Iterar por el panel creando las 100 casillas
             for (int i = 0; i < 100; i++)
             {
-
                 if (i != 0 && i % 17 == 0)
                 {
                     posX += SPACING_X;
                     posY = INI_Y;
                 }
-
+                // Crear el Label para la casilla
                 Label numberLabel = new Label();
                 numberLabel.Text = i.ToString();
                 numberLabel.Top = posY;
                 numberLabel.Left = posX;
                 numberLabel.Width = 20;
                 numberLabel.Height = 20;
+                // Marcar los números prohibidos
+                if (prohibitedNumbers[i]) {
+                    numberLabel.ForeColor = Color.FromArgb(255, 0, 0);
+                }
                 this.numberBoxPanel.Controls.Add(numberLabel);
-
+                // Crear el TextBox para la casilla
                 TextBox txbImport = new TextBox();
                 txbImport.Text = "0";
                 txbImport.Top = posY;
@@ -66,6 +78,8 @@ namespace SILO
                 txbImport.TextAlign = HorizontalAlignment.Right;
                 txbImport.ReadOnly = true;
                 this.numberBoxPanel.Controls.Add(txbImport);
+                // Agregar el Label y el Texbox al array de controles
+                this.boxArray[i] = new BoxNumberUnit(numberLabel, txbImport);
                 posY += SPACING_Y;
             }
             
@@ -79,6 +93,14 @@ namespace SILO
             */
         }
 
+        private void updateBoxArray(int[] importArray)
+        {
+            for (int i = 0; i < importArray.Length; i++)
+            {
+                this.boxArray[i].textbox.Text = importArray[i].ToString();
+            }
+        }
+
         private void drawTypeBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter)) {
@@ -90,13 +112,17 @@ namespace SILO
         private void datePickerList_ValueChanged(object sender, EventArgs e)
         {
             this.drawTypeBox.SelectedIndex = 0;
+            //MessageBox.Show(this.datePickerList.Value.Date);
         }
 
         private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
+            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+            if (groupId != 0)
             {
                 this.displayNewListInstance();
+                LotteryListRepository lotteryListRepository = new LotteryListRepository();
+                this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, groupId));
                 //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
             }
         }

@@ -22,6 +22,7 @@ namespace SILO
     
         public long LNR_Id { get; set; }
         public string LNR_Number { get; set; }
+        public long LNR_IsProhibited { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }

@@ -33,6 +33,16 @@
       <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
       <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
     </AssociationSet>
+    <EntitySet Name="DNW_DrawNumberWinning" EntityType="SILOModel.DNW_DrawNumberWinning" />
+    <EntitySet Name="SYS_SynchronyStatus" EntityType="SILOModel.SYS_SynchronyStatus" />
+    <AssociationSet Name="FK_DNW_DrawNumberWinning_0_0" Association="SILOModel.FK_DNW_DrawNumberWinning_0_0">
+      <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
+      <End Role="DNW_DrawNumberWinning" EntitySet="DNW_DrawNumberWinning" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DNW_DrawNumberWinning_1_0" Association="SILOModel.FK_DNW_DrawNumberWinning_1_0">
+      <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
+      <End Role="DNW_DrawNumberWinning" EntitySet="DNW_DrawNumberWinning" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="CPN_Company">
     <Key>
@@ -72,6 +82,7 @@
     <Property Name="LNR_Id" Type="Int64" Nullable="false" />
     <Property Name="LNR_Number" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="LND_ListNumberDetail" Relationship="SILOModel.FK_LND_ListNumberDetail_1_0" FromRole="LNR_LotteryNumber" ToRole="LND_ListNumberDetail" />
+    <Property Name="LNR_IsProhibited" Type="Int64" Nullable="false" />
   </EntityType>
   <EntityType Name="LPS_LotteryPointSale">
     <Key>
@@ -95,6 +106,7 @@
     <Property Name="LTD_Status" Type="Int64" Nullable="false" />
     <NavigationProperty Name="LDT_LotteryDrawType1" Relationship="SILOModel.FK_LTD_LotteryDraw_0_0" FromRole="LTD_LotteryDraw" ToRole="LDT_LotteryDrawType" />
     <NavigationProperty Name="LTL_LotteryList" Relationship="SILOModel.FK_LTL_LotteryList_1_0" FromRole="LTD_LotteryDraw" ToRole="LTL_LotteryList" />
+    <NavigationProperty Name="DNW_DrawNumberWinning" Relationship="SILOModel.FK_DNW_DrawNumberWinning_1_0" FromRole="LTD_LotteryDraw" ToRole="DNW_DrawNumberWinning" />
   </EntityType>
   <EntityType Name="LTL_LotteryList">
     <Key>
@@ -185,6 +197,53 @@
         <PropertyRef Name="LTD_Id" />
       </Principal>
       <Dependent Role="LTL_LotteryList">
+        <PropertyRef Name="LTD_LotteryDraw" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DNW_DrawNumberWinning">
+    <Key>
+      <PropertyRef Name="LTD_LotteryDraw" />
+    </Key>
+    <Property Name="LTD_LotteryDraw" Type="Int64" Nullable="false" />
+    <Property Name="DNW_FirtsNumber" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="DNW_SecondNumber" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="DNW_ThirdNumber" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="DNW_CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="SYS_SynchronyStatus" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="SYS_SynchronyStatus1" Relationship="SILOModel.FK_DNW_DrawNumberWinning_0_0" FromRole="DNW_DrawNumberWinning" ToRole="SYS_SynchronyStatus" />
+    <NavigationProperty Name="LTD_LotteryDraw1" Relationship="SILOModel.FK_DNW_DrawNumberWinning_1_0" FromRole="DNW_DrawNumberWinning" ToRole="LTD_LotteryDraw" />
+  </EntityType>
+  <EntityType Name="SYS_SynchronyStatus">
+    <Key>
+      <PropertyRef Name="SYS_Id" />
+    </Key>
+    <Property Name="SYS_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SYS_Code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="SYS_Description" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="SYS_DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DNW_DrawNumberWinning" Relationship="SILOModel.FK_DNW_DrawNumberWinning_0_0" FromRole="SYS_SynchronyStatus" ToRole="DNW_DrawNumberWinning" />
+  </EntityType>
+  <Association Name="FK_DNW_DrawNumberWinning_0_0">
+    <End Type="SILOModel.SYS_SynchronyStatus" Role="SYS_SynchronyStatus" Multiplicity="1" />
+    <End Type="SILOModel.DNW_DrawNumberWinning" Role="DNW_DrawNumberWinning" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_SynchronyStatus">
+        <PropertyRef Name="SYS_Id" />
+      </Principal>
+      <Dependent Role="DNW_DrawNumberWinning">
+        <PropertyRef Name="SYS_SynchronyStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DNW_DrawNumberWinning_1_0">
+    <End Type="SILOModel.LTD_LotteryDraw" Role="LTD_LotteryDraw" Multiplicity="1" />
+    <End Type="SILOModel.DNW_DrawNumberWinning" Role="DNW_DrawNumberWinning" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="LTD_LotteryDraw">
+        <PropertyRef Name="LTD_Id" />
+      </Principal>
+      <Dependent Role="DNW_DrawNumberWinning">
         <PropertyRef Name="LTD_LotteryDraw" />
       </Dependent>
     </ReferentialConstraint>
