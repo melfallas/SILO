@@ -37,7 +37,9 @@ namespace SILO
 
         private string fontName = "Lucida Console";
 
-        private int fontSize = 9;
+        private int fontSize = 7;
+        private int saleTicketFontSize = 9;
+        private int prizeTicketFontSize = 7;
 
         private Font printFont;
 
@@ -49,9 +51,10 @@ namespace SILO
 
         #endregion
 
-        #region Propiedades
+        #region Propiedades de los Tickets
 
         public SaleTicket saleTicket { get; set; }
+        public PrizeTicket prizeTicket { get; set; }
 
         #endregion
 
@@ -185,7 +188,7 @@ namespace SILO
 
 
         #region Métodos Principales
-
+        /*
         public void printPrizeTicket(string impresora)
         {
             printFont = new Font(fontName, (float)fontSize, FontStyle.Regular);
@@ -208,12 +211,11 @@ namespace SILO
                 headerImage.Dispose();
             }
         }
-
+        */
         #endregion
-
+        
 
         #region Utilitarios
-
 
         public string formatNumber(int pNumberToFormat)
         {
@@ -230,27 +232,58 @@ namespace SILO
             return Convert.ToInt64(pNumberToFormat).ToString("#,#", System.Globalization.CultureInfo.InvariantCulture);
         }
 
-
-        /*
-        public string formatNumber(string pNumberToFormat)
-        {
-            return pNumberToFormat.ToString("#,#", System.Globalization.CultureInfo.InvariantCulture);
-        }
-        */
-
         #endregion
 
 
-        #region Prize Components
+        #region Prize Ticket
+
+        public void printPrizeTicket(string impresora)
+        {
+            this.maxChar = 31;
+            this.printFont = new Font(fontName, (float)prizeTicketFontSize, FontStyle.Regular);
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrinterSettings.PrinterName = impresora;
+            printDocument.PrintPage += printPrizePage;
+            printDocument.Print();
+        }
+
+        private void printPrizePage(object sender, PrintPageEventArgs e)
+        {
+            e.Graphics.PageUnit = GraphicsUnit.Millimeter;
+            gfx = e.Graphics;
+            this.generatePrizeHeader();
+            this.generatePrizeList();
+            this.generatePrizeFooter();
+            if (headerImage != null)
+            {
+                HeaderImage.Dispose();
+                headerImage.Dispose();
+            }
+        }
 
         private void generatePrizeHeader()
         {
-            this.drawCenterLine(this.saleTicket.companyName);
-            line = "**NOCHE**";
+            string line = "";
+            string printTime = this.prizeTicket.createDate.ToString("HH:mm");
+            string printDate = this.prizeTicket.createDate.ToString("dd-MM-yyyy");
+            string drawDate = this.prizeTicket.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.prizeTicket.drawDate.ToString("dd/MM/yyyy");
+            // Imprimir líneas de encabezado
+            this.drawCenterLine(this.prizeTicket.companyName);
+            this.drawCenterLine(this.prizeTicket.title);
+            line = "**" + this.prizeTicket.drawTypeCode + "**";
             this.drawCenterLine(line);
-            line = "JUEVES 18/10/2018";
+            this.drawCenterLine(drawDate);
+            this.DrawEspacio();
+            line = "PREMIOS: -";
+            for (int i = 0; i < this.prizeTicket.winnerNumbers.Length; i++)
+            {
+                line += (this.prizeTicket.winnerNumbers[i] != "" ? this.prizeTicket.winnerNumbers[i] + "-" : "NA-");
+            }
             this.drawCenterLine(line);
-            line = "GRUPO: SAN PABLO";
+            line = "SUC: " + this.prizeTicket.pointSaleName;
+            this.drawCenterLine(line);
+            this.DrawEspacio();
+            line = "" + printTime + "                " + printDate + "";
             this.drawCenterLine(line);
         }
 
@@ -260,13 +293,31 @@ namespace SILO
             string listHeaders = "No \t MONTO \t PREMIO \t CLAVE";
             this.drawLine(listHeaders);
             this.generateLine("=");
-            //this.printPriceList();
             this.DrawEspacio();
             this.printPriceList();
 
         }
 
         private void printPriceList()
+        {
+            foreach(WinningNumberInfo item in this.prizeTicket.listWinningInfo)
+            {
+                string itemList =
+                    this.fillString(item.numberCode, 2, "0")
+                    + " " + this.fillString(this.formatNumber(item.saleImport), 6) + " "
+                    + this.fillString(this.formatNumber(item.prizeImport), 7)
+                    + "->" + UtilityService.getGlobalId(item.localId)
+                    + "/" + item.localId
+                    //+ "123456789"
+                    ;
+                this.drawLine(itemList);
+                string customerName = (item.customerName.Trim() == "" ? GeneralConstants.NO_NAME_LABEL : item.customerName);
+                this.drawLine("--> " + customerName);
+                this.DrawEspacio();
+            }
+        }
+
+        private void printPriceList2()
         {
             int[] numeros = { 84, 07, 42, 23, 00 };
             int[] montos = { 500, 500, 1000, 500, 1500 };
@@ -278,17 +329,22 @@ namespace SILO
             {
                 string itemList =
                     this.fillString(numeros[i].ToString(), 2, "0")
-                    + " \t" + this.formatNumber(montos[i]) + " \t"
-                    + this.formatNumber(premios[i])
-                    + " > \t" + claves[i] + "/" + idArray[i]
+                    + " " + this.fillString(this.formatNumber(montos[i]), 6) + " "
+                    + this.fillString(this.formatNumber(premios[i]), 7)
+                    + "->" + claves[i] + "/" + idArray[i]
                     ;
                 this.drawLine(itemList);
                 this.drawLine("--> ESTRELLA");
                 this.DrawEspacio();
-                //this.drawLine(itemList);
             }
-            //string totalLabel = "+++TOTAL: ***5,500";
-            //this.drawLine(this.printInColumns(totalLabel, 3));
+        }
+
+        private void generatePrizeFooter() {
+            this.generateLine("=");
+            long saleImport = this.prizeTicket.getTotalSaleImport();
+            long prizeImport = this.prizeTicket.getTotalPrizeImport();
+            string line = "**TOTAL   " + this.formatNumber(saleImport) + "      " + this.formatNumber(prizeImport);
+            this.drawCenterLine(line);
         }
 
         #endregion
@@ -298,7 +354,7 @@ namespace SILO
 
         public void printLotterySaleTicket(string impresora)
         {
-            printFont = new Font(fontName, (float)fontSize, FontStyle.Regular);
+            printFont = new Font(fontName, (float)saleTicketFontSize, FontStyle.Regular);
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrinterSettings.PrinterName = impresora;
             printDocument.PrintPage += saleTicketPage;
@@ -321,15 +377,16 @@ namespace SILO
 
         private void generateSaleTicketHeader()
         {
-            string printTime = this.saleTicket.createDate.ToString("hh:mm");
-            string printDate = this.saleTicket.createDate.ToString("dd/MM/yyyy");
+            string printTime = this.saleTicket.createDate.ToString("HH:mm");
+            string printDate = this.saleTicket.createDate.ToString("dd-MM-yyyy");
             string drawDate = this.saleTicket.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.saleTicket.drawDate.ToString("dd/MM/yyyy");
             string ticketId = this.fillString(this.saleTicket.ticketId.ToString(), 4, "0");
-            string globalId = this.fillString(this.saleTicket.globalId.ToString(), 6, "0");
+            string globalId = this.fillString(UtilityService.getGlobalId(this.saleTicket.ticketId), 6, "0");
             this.drawCenterLine(printDate);
             string line = "/" + printTime + "/----------/" + ticketId + "/";
             this.drawCenterLine(line);
-            line = "<< " + this.saleTicket.customerName + " >>";
+            string customerName = this.saleTicket.customerName.Trim() == "" ? GeneralConstants.NO_NAME_LABEL : this.saleTicket.customerName;
+            line = "<< " + customerName + " >>";
             this.drawCenterLine(line);
             this.drawCenterLine(this.saleTicket.companyName);
             line = "**" + this.saleTicket.drawTypeCode + "**";
@@ -378,7 +435,7 @@ namespace SILO
 
         #endregion
 
-
+        /*
         private void pr_PrintPage(object sender, PrintPageEventArgs e)
         {
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
@@ -399,7 +456,7 @@ namespace SILO
             }
         }
 
-
+        
         private void generateHeader()
         {
             string line = "/17:15/----------------------/0039/";
@@ -452,7 +509,7 @@ namespace SILO
             string totalLabel = "+++TOTAL: ***5,500";
             this.drawLine(this.printInColumns(totalLabel, 3));
         }
-
+        */
 
         private string printInColumns(string pText, int pColumns)
         {

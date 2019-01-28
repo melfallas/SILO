@@ -190,6 +190,7 @@
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PointSaleParameterRepository.cs" />
+    <Compile Include="PrizeTicket.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProhibitedNumberForm.cs">
       <SubType>Form</SubType>
@@ -208,6 +209,7 @@
     </Compile>
     <Compile Include="TicketPrinter.cs" />
     <Compile Include="UtilityService.cs" />
+    <Compile Include="WinningNumberInfo.cs" />
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>

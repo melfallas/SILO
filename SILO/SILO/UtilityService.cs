@@ -18,6 +18,11 @@ namespace SILO
             return posParam.getByName(pParamName);
         }
 
+        public static string getCompanyName()
+        {
+            return getPointSaleParameter(COMPANY_NAME_PARAM).PSP_Value;
+        }
+
         public static LPS_LotteryPointSale getPointSale()
         {
             LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
@@ -29,9 +34,9 @@ namespace SILO
             return getPointSaleParameter(PRINTER_NAME_PARAM).PSP_Value;
         }
 
-        public static string getCompanyName()
+        public static string getGlobalId(long pId)
         {
-            return getPointSaleParameter(COMPANY_NAME_PARAM).PSP_Value;
+            return UtilityService.fillNumberString(UtilityService.getPointSale().LPS_Id.ToString(), 2) + UtilityService.fillNumberString(pId.ToString(), 4);
         }
 
 
@@ -117,7 +122,6 @@ namespace SILO
             {
                 bool prohibited = item.LNR_IsProhibited == 1 ? true : false;
                 prohibitedCollection.Add(item.LNR_Id, prohibited);
-                Console.WriteLine(item.LNR_Id.ToString(), prohibited);
             }
             // Llenar el array de los prohibidos
             for (int i = 0; i < prohibitedArray.Length; i++)
@@ -167,6 +171,33 @@ namespace SILO
             // Obtener nombre de impresora y enviar impresión
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printLotterySaleTicket(printerName);
+        }
+
+        public static void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            // Configurar impresión para Ticket de Venta
+            TicketPrinter ticketPrinter = new TicketPrinter();
+            PrizeTicket prizeTicket = new PrizeTicket();
+            prizeTicket.companyName = UtilityService.getCompanyName();
+            prizeTicket.title = "NÚMEROS PREMIADOS";
+            // Obtener datos del punto de venta
+            LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
+            prizeTicket.pointSaleName = pointSale.LPS_DisplayName;
+            prizeTicket.drawDate = pDraw.LTD_CreateDate;
+            // Obtener datos de tipo de sorteo
+            LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
+            LDT_LotteryDrawType drawType = drawTypeRepo.getById(pDraw.LDT_LotteryDrawType);
+            prizeTicket.drawTypeCode = drawType.LDT_Code;
+            // Llenar datos del número de lista
+            prizeTicket.createDate = DateTime.Now;
+            // Obtener listado de información de ganadores
+            LotteryListRepository lotteryListRepository = new LotteryListRepository();
+            prizeTicket.listWinningInfo = lotteryListRepository.getWinningNumbersList(pDraw, pWinningNumberArray);
+            prizeTicket.winnerNumbers = pWinningNumberArray;
+            ticketPrinter.prizeTicket = prizeTicket;
+            // Obtener nombre de impresora y enviar impresión
+            string printerName = UtilityService.getTicketPrinterName();
+            ticketPrinter.printPrizeTicket(printerName);
         }
 
     }

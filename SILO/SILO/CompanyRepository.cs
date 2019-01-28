@@ -15,7 +15,7 @@ namespace SILO
                 var lista = context.CPN_Company.ToList();
                 foreach (var item in lista)
                 {
-                    Console.WriteLine(item.CPN_Code);
+                    //Console.WriteLine(item.CPN_Code);
                 }
                 /*
                 //var nombres = context.CPN_Company.SqlQuery("SELECT *, getTicketId(1) FROM CPN_Company").ToList();

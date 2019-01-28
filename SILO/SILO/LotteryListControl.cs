@@ -37,7 +37,6 @@ namespace SILO
         public void print()
         {
             this.loteryList = new LotteryList(this.listView);
-            Console.WriteLine(this.loteryList.toString());
         }
 
 
