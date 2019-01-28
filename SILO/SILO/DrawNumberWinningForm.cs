@@ -111,6 +111,7 @@ namespace SILO
                     // Validar si existe el sorteo seleccionado
                     if (selectedDraw == null)
                     {
+                        //TODO: Sincronizar con el servidor central
                         MessageBox.Show("El sorteo seleccionado no existe y no puede ser ingresado");
                     }
                     else
@@ -125,8 +126,17 @@ namespace SILO
                         drawNumberWinning.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_PENDING_SEND;
                         DrawNumberWinningRepository drawNumberWinningRepository = new DrawNumberWinningRepository();
                         drawNumberWinningRepository.save(ref drawNumberWinning);
+                        // Imprimir tiquete de premios / ganadores
+                        if (this.ckbPrint.Checked)
+                        {
+                            string[] winningNumberArray = new string[3];
+                            winningNumberArray[0] = this.txbFirst.Text.Trim() == "" ? "NA" : this.txbFirst.Text;
+                            winningNumberArray[1] = this.txbSecond.Text.Trim() == "" ? "NA" : this.txbSecond.Text;
+                            winningNumberArray[2] = this.txbThird.Text.Trim() == "" ? "NA" : this.txbThird.Text;
+                            UtilityService.printPrizeTicket(selectedDraw, winningNumberArray);
+                        }
                         //PC: MessageBox.Show(selectedDraw.LTD_Id.ToString());
-                        this.Dispose();
+                        //this.Dispose();
                     }
                 }
             }

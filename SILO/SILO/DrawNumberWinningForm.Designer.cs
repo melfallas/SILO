@@ -33,6 +33,7 @@
             this.winningTitleLabel = new System.Windows.Forms.Label();
             this.winningBottomPanel = new System.Windows.Forms.Panel();
             this.actionPanel = new System.Windows.Forms.Panel();
+            this.ckbPrintScreen = new System.Windows.Forms.CheckBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.ckbPrint = new System.Windows.Forms.CheckBox();
@@ -61,7 +62,6 @@
             this.dateSelectorLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.winningTopPanel.SuspendLayout();
             this.winningBottomPanel.SuspendLayout();
             this.actionPanel.SuspendLayout();
@@ -105,7 +105,7 @@
             // 
             // actionPanel
             // 
-            this.actionPanel.Controls.Add(this.checkBox1);
+            this.actionPanel.Controls.Add(this.ckbPrintScreen);
             this.actionPanel.Controls.Add(this.cancelButton);
             this.actionPanel.Controls.Add(this.saveButton);
             this.actionPanel.Controls.Add(this.ckbPrint);
@@ -114,6 +114,19 @@
             this.actionPanel.Name = "actionPanel";
             this.actionPanel.Size = new System.Drawing.Size(626, 92);
             this.actionPanel.TabIndex = 19;
+            // 
+            // ckbPrintScreen
+            // 
+            this.ckbPrintScreen.AutoSize = true;
+            this.ckbPrintScreen.Checked = true;
+            this.ckbPrintScreen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbPrintScreen.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckbPrintScreen.Location = new System.Drawing.Point(53, 47);
+            this.ckbPrintScreen.Name = "ckbPrintScreen";
+            this.ckbPrintScreen.Size = new System.Drawing.Size(178, 23);
+            this.ckbPrintScreen.TabIndex = 25;
+            this.ckbPrintScreen.Text = "Imprimir en Pantalla";
+            this.ckbPrintScreen.UseVisualStyleBackColor = true;
             // 
             // cancelButton
             // 
@@ -424,19 +437,6 @@
             this.panel1.Size = new System.Drawing.Size(40, 63);
             this.panel1.TabIndex = 1;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(53, 47);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(178, 23);
-            this.checkBox1.TabIndex = 25;
-            this.checkBox1.Text = "Imprimir en Pantalla";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // DrawNumberWinningForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -502,6 +502,6 @@
         private System.Windows.Forms.CheckBox ckbPrint;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox ckbPrintScreen;
     }
 }

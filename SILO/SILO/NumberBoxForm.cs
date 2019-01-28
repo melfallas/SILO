@@ -82,15 +82,6 @@ namespace SILO
                 this.boxArray[i] = new BoxNumberUnit(numberLabel, txbImport);
                 posY += SPACING_Y;
             }
-            
-            /*
-            txbImport = new TextBox();
-            txbImport.Text = "85000";
-            txbImport.Top = 100;
-            txbImport.Left = 50;
-            txbImport.Width = 50;
-            this.numberBoxPanel.Controls.Add(txbImport);
-            */
         }
 
         private void updateBoxArray(int[] importArray)

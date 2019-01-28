@@ -66,15 +66,38 @@ namespace SILO
                     SqlQuery<ListData>(query)
                     .ToList()
                     ;
-                foreach (var item in listDataCollection)
-                {
-                    Console.WriteLine(item.global.ToString());
-                    //Console.WriteLine(item.number + " " + item.import + " ");
-                }
             }
             return listDataCollection;
         }
 
+
+        public List<WinningNumberInfo> getWinningNumbersList(LTD_LotteryDraw pDraw, string [] pWinningNumberArray)
+        {
+            List<WinningNumberInfo> listDataCollection = new List<WinningNumberInfo>();
+            if (pDraw.LTD_Id != 0)
+            {
+                using (var context = new SILOEntities())
+                {
+                    long posId = UtilityService.getPointSale().LPS_Id;
+                    var query = "SELECT LN.LNR_Number AS numberCode, N.LND_Import AS saleImport, N.LND_Import * 75 AS prizeImport, " 
+                        + "L.LPS_LotteryPointSale AS salePoint, L.LTL_Id AS localId, L.LTL_CustomerName AS customerName"
+                        + " FROM LTL_LotteryList AS L INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id " 
+                        + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw INNER JOIN LNR_LotteryNumber AS LN ON LN.LNR_Id = N.LNR_LotteryNumber "
+                        + "WHERE L.LPS_LotteryPointSale = " + posId + " "
+                        + " AND D.LTD_Id = " + pDraw.LTD_Id + " AND LN.LNR_Number = '" + pWinningNumberArray[0] + "' ;";
+                    listDataCollection = context.Database.
+                        SqlQuery<WinningNumberInfo>(query)
+                        .ToList()
+                        ;
+                    foreach (var item in listDataCollection)
+                    {
+                        //Console.WriteLine(item.prizeImport.ToString());
+                        //Console.WriteLine(item.number + " " + item.import + " ");
+                    }
+                }
+            }
+            return listDataCollection;
+        }
 
 
         /*
