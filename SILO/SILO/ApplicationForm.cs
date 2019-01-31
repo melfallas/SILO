@@ -60,6 +60,8 @@ namespace SILO
 
         private void aboutButton_Click(object sender, EventArgs e)
         {
+            ServerConnectionService serverConnection = new ServerConnectionService();
+            serverConnection.getConnection();
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
         }

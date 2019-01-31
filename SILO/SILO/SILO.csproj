@@ -71,6 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +209,8 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SaleTicket.cs" />
+    <Compile Include="ServerConnectionService.cs" />
+    <Compile Include="SynchronizeService.cs" />
     <Compile Include="SystemConstants.cs" />
     <Compile Include="SYS_SynchronyStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -210,6 +218,9 @@
     <Compile Include="TicketPrinter.cs" />
     <Compile Include="UtilityService.cs" />
     <Compile Include="WinningNumberInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
