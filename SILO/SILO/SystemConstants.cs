@@ -13,6 +13,8 @@ namespace SILO
         public const long SYNC_STATUS_PENDING_SEND = 1;
         public const long SYNC_STATUS_PENDING_RECEIVED = 2;
         public const long SYNC_STATUS_COMPLETED = 3;
+        // Constantes de Estados
+        public const long LIST_STATUS_CREATED = 1;
         // Constantes de operaciones de lista
         public const int PRINTER_LIST_CODE = 1;
         public const int ERASER_LIST_CODE = 2;

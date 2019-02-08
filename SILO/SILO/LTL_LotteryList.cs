@@ -9,9 +9,11 @@
 
 namespace SILO
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class LTL_LotteryList
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,15 +23,19 @@ namespace SILO
         }
     
         public long LTL_Id { get; set; }
-        public long LTD_LotteryDraw { get; set; }
         public long LPS_LotteryPointSale { get; set; }
+        public long LTD_LotteryDraw { get; set; }
         public string LTL_CustomerName { get; set; }
+        //[JsonConverter(typeof(IsoDateTimeConverter), "yyyy-MM-dd HH:mm:ss")]
         public System.DateTime LTL_CreateDate { get; set; }
-        public long LTL_Status { get; set; }
+        public long LLS_LotteryListStatus { get; set; }
+        public long SYS_SynchronyStatus { get; set; }
     
+        public virtual LLS_LotteryListStatus LLS_LotteryListStatus1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }
         public virtual LPS_LotteryPointSale LPS_LotteryPointSale1 { get; set; }
         public virtual LTD_LotteryDraw LTD_LotteryDraw1 { get; set; }
+        public virtual SYS_SynchronyStatus SYS_SynchronyStatus1 { get; set; }
     }
 }

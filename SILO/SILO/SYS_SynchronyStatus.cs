@@ -18,14 +18,20 @@ namespace SILO
         public SYS_SynchronyStatus()
         {
             this.DNW_DrawNumberWinning = new HashSet<DNW_DrawNumberWinning>();
+            this.LPS_LotteryPointSale = new HashSet<LPS_LotteryPointSale>();
+            this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
         }
     
         public long SYS_Id { get; set; }
         public string SYS_Code { get; set; }
-        public string SYS_Description { get; set; }
         public string SYS_DisplayName { get; set; }
+        public string SYS_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DNW_DrawNumberWinning> DNW_DrawNumberWinning { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LPS_LotteryPointSale> LPS_LotteryPointSale { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
     }
 }

@@ -106,7 +106,7 @@ namespace SILO
             {
                 row = tabla.NewRow();
                 row[idLabel] = item.LDT_Id;
-                row[valueLabel] = item.LDT_Description;
+                row[valueLabel] = item.LDT_DisplayName;
                 tabla.Rows.Add(row);
             }
             return tabla;

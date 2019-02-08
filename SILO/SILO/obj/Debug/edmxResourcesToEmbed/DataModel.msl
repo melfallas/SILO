@@ -4,6 +4,7 @@
     <EntitySetMapping Name="CPN_Company">
       <EntityTypeMapping TypeName="SILOModel.CPN_Company">
         <MappingFragment StoreEntitySet="CPN_Company">
+          <ScalarProperty Name="CPN_CreateDate" ColumnName="CPN_CreateDate" />
           <ScalarProperty Name="CPN_Description" ColumnName="CPN_Description" />
           <ScalarProperty Name="CPN_DisplayName" ColumnName="CPN_DisplayName" />
           <ScalarProperty Name="CPN_Code" ColumnName="CPN_Code" />
@@ -11,20 +12,52 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DNW_DrawNumberWinning">
+      <EntityTypeMapping TypeName="SILOModel.DNW_DrawNumberWinning">
+        <MappingFragment StoreEntitySet="DNW_DrawNumberWinning">
+          <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
+          <ScalarProperty Name="DNW_CreateDate" ColumnName="DNW_CreateDate" />
+          <ScalarProperty Name="DNW_ThirdNumber" ColumnName="DNW_ThirdNumber" />
+          <ScalarProperty Name="DNW_SecondNumber" ColumnName="DNW_SecondNumber" />
+          <ScalarProperty Name="DNW_FirtsNumber" ColumnName="DNW_FirtsNumber" />
+          <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LDS_LotteryDrawStatus">
+      <EntityTypeMapping TypeName="SILOModel.LDS_LotteryDrawStatus">
+        <MappingFragment StoreEntitySet="LDS_LotteryDrawStatus">
+          <ScalarProperty Name="LDS_Description" ColumnName="LDS_Description" />
+          <ScalarProperty Name="LDS_DisplayName" ColumnName="LDS_DisplayName" />
+          <ScalarProperty Name="LDS_Code" ColumnName="LDS_Code" />
+          <ScalarProperty Name="LDS_Id" ColumnName="LDS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="LDT_LotteryDrawType">
       <EntityTypeMapping TypeName="SILOModel.LDT_LotteryDrawType">
         <MappingFragment StoreEntitySet="LDT_LotteryDrawType">
-          <ScalarProperty Name="LDT_DisplayName" ColumnName="LDT_DisplayName" />
           <ScalarProperty Name="LDT_Description" ColumnName="LDT_Description" />
+          <ScalarProperty Name="LDT_DisplayName" ColumnName="LDT_DisplayName" />
           <ScalarProperty Name="LDT_Code" ColumnName="LDT_Code" />
           <ScalarProperty Name="LDT_Id" ColumnName="LDT_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LLS_LotteryListStatus">
+      <EntityTypeMapping TypeName="SILOModel.LLS_LotteryListStatus">
+        <MappingFragment StoreEntitySet="LLS_LotteryListStatus">
+          <ScalarProperty Name="LLS_Description" ColumnName="LLS_Description" />
+          <ScalarProperty Name="LLS_DisplayName" ColumnName="LLS_DisplayName" />
+          <ScalarProperty Name="LLS_Code" ColumnName="LLS_Code" />
+          <ScalarProperty Name="LLS_Id" ColumnName="LLS_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LND_ListNumberDetail">
       <EntityTypeMapping TypeName="SILOModel.LND_ListNumberDetail">
         <MappingFragment StoreEntitySet="LND_ListNumberDetail">
-          <ScalarProperty Name="LND_Import" ColumnName="LND_Import" />
+          <ScalarProperty Name="LND_SaleImport" ColumnName="LND_SaleImport" />
           <ScalarProperty Name="LNR_LotteryNumber" ColumnName="LNR_LotteryNumber" />
           <ScalarProperty Name="LTL_LotteryList" ColumnName="LTL_LotteryList" />
           <ScalarProperty Name="LND_Id" ColumnName="LND_Id" />
@@ -43,7 +76,9 @@
     <EntitySetMapping Name="LPS_LotteryPointSale">
       <EntityTypeMapping TypeName="SILOModel.LPS_LotteryPointSale">
         <MappingFragment StoreEntitySet="LPS_LotteryPointSale">
+          <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
           <ScalarProperty Name="CPN_Company" ColumnName="CPN_Company" />
+          <ScalarProperty Name="LPS_CreateDate" ColumnName="LPS_CreateDate" />
           <ScalarProperty Name="LPS_Description" ColumnName="LPS_Description" />
           <ScalarProperty Name="LPS_DisplayName" ColumnName="LPS_DisplayName" />
           <ScalarProperty Name="LPS_Code" ColumnName="LPS_Code" />
@@ -54,7 +89,7 @@
     <EntitySetMapping Name="LTD_LotteryDraw">
       <EntityTypeMapping TypeName="SILOModel.LTD_LotteryDraw">
         <MappingFragment StoreEntitySet="LTD_LotteryDraw">
-          <ScalarProperty Name="LTD_Status" ColumnName="LTD_Status" />
+          <ScalarProperty Name="LDS_LotteryDrawStatus" ColumnName="LDS_LotteryDrawStatus" />
           <ScalarProperty Name="LDT_LotteryDrawType" ColumnName="LDT_LotteryDrawType" />
           <ScalarProperty Name="LTD_CreateDate" ColumnName="LTD_CreateDate" />
           <ScalarProperty Name="LTD_Id" ColumnName="LTD_Id" />
@@ -64,11 +99,12 @@
     <EntitySetMapping Name="LTL_LotteryList">
       <EntityTypeMapping TypeName="SILOModel.LTL_LotteryList">
         <MappingFragment StoreEntitySet="LTL_LotteryList">
-          <ScalarProperty Name="LTL_Status" ColumnName="LTL_Status" />
+          <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
+          <ScalarProperty Name="LLS_LotteryListStatus" ColumnName="LLS_LotteryListStatus" />
           <ScalarProperty Name="LTL_CreateDate" ColumnName="LTL_CreateDate" />
           <ScalarProperty Name="LTL_CustomerName" ColumnName="LTL_CustomerName" />
-          <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
           <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
+          <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
           <ScalarProperty Name="LTL_Id" ColumnName="LTL_Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -81,23 +117,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DNW_DrawNumberWinning">
-      <EntityTypeMapping TypeName="SILOModel.DNW_DrawNumberWinning">
-        <MappingFragment StoreEntitySet="DNW_DrawNumberWinning">
-          <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
-          <ScalarProperty Name="DNW_CreateDate" ColumnName="DNW_CreateDate" />
-          <ScalarProperty Name="DNW_ThirdNumber" ColumnName="DNW_ThirdNumber" />
-          <ScalarProperty Name="DNW_SecondNumber" ColumnName="DNW_SecondNumber" />
-          <ScalarProperty Name="DNW_FirtsNumber" ColumnName="DNW_FirtsNumber" />
-          <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="SYS_SynchronyStatus">
       <EntityTypeMapping TypeName="SILOModel.SYS_SynchronyStatus">
         <MappingFragment StoreEntitySet="SYS_SynchronyStatus">
-          <ScalarProperty Name="SYS_DisplayName" ColumnName="SYS_DisplayName" />
           <ScalarProperty Name="SYS_Description" ColumnName="SYS_Description" />
+          <ScalarProperty Name="SYS_DisplayName" ColumnName="SYS_DisplayName" />
           <ScalarProperty Name="SYS_Code" ColumnName="SYS_Code" />
           <ScalarProperty Name="SYS_Id" ColumnName="SYS_Id" />
         </MappingFragment>

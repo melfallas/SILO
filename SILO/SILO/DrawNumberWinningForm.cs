@@ -136,7 +136,7 @@ namespace SILO
                             UtilityService.printPrizeTicket(selectedDraw, winningNumberArray);
                         }
                         //PC: MessageBox.Show(selectedDraw.LTD_Id.ToString());
-                        //this.Dispose();
+                        this.Dispose();
                     }
                 }
             }

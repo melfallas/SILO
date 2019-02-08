@@ -24,6 +24,7 @@ namespace SILO
         public string CPN_Code { get; set; }
         public string CPN_DisplayName { get; set; }
         public string CPN_Description { get; set; }
+        public System.DateTime CPN_CreateDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LPS_LotteryPointSale> LPS_LotteryPointSale { get; set; }
