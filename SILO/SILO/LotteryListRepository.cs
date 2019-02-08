@@ -29,7 +29,7 @@ namespace SILO
                         .Where(item => item.LTL_LotteryList == pId).ToList();
                     // Transformar datos a lista de tuplas
                     tupleList = numberList.Select(
-                        x => new LotteryTuple((x.LNR_LotteryNumber == 100 ? 0 : x.LNR_LotteryNumber), x.LND_Import)
+                        x => new LotteryTuple((x.LNR_LotteryNumber == 100 ? 0 : x.LNR_LotteryNumber), x.LND_SaleImport)
                         ).ToList();
                 }
             }
@@ -45,7 +45,7 @@ namespace SILO
                 list = context.LTL_LotteryList.Find(pList.LTL_Id);
                 list.LTL_CreateDate = pList.LTL_CreateDate;
                 list.LTL_CustomerName = pList.LTL_CustomerName;
-                list.LTL_Status = pList.LTL_Status;
+                list.LLS_LotteryListStatus = pList.LLS_LotteryListStatus;
                 context.SaveChanges();
             }
         }
@@ -60,7 +60,7 @@ namespace SILO
                 var query = "SELECT '0' || L.LPS_LotteryPointSale || '000' || L.LTL_Id AS global, '0' || L.LTL_Id AS id, L.LTL_CreateDate AS date, L.LTL_CustomerName AS name FROM LTL_LotteryList AS L INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw " 
                     + "WHERE D.LTD_CreateDate = '"+ drawDate + "' " 
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
-                    + "AND L.LTL_Status <> 2 "
+                    + "AND L.LLS_LotteryListStatus <> 2 "
                     + " ;";
                 listDataCollection = context.Database.
                     SqlQuery<ListData>(query)
@@ -79,7 +79,7 @@ namespace SILO
                 using (var context = new SILOEntities())
                 {
                     long posId = UtilityService.getPointSale().LPS_Id;
-                    var query = "SELECT LN.LNR_Number AS numberCode, N.LND_Import AS saleImport, N.LND_Import * 75 AS prizeImport, " 
+                    var query = "SELECT LN.LNR_Number AS numberCode, N.LND_SaleImport AS saleImport, N.LND_SaleImport * 75 AS prizeImport, " 
                         + "L.LPS_LotteryPointSale AS salePoint, L.LTL_Id AS localId, L.LTL_CustomerName AS customerName"
                         + " FROM LTL_LotteryList AS L INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id " 
                         + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw INNER JOIN LNR_LotteryNumber AS LN ON LN.LNR_Id = N.LNR_LotteryNumber "
@@ -107,7 +107,7 @@ namespace SILO
             using (var context = new SILOEntities())
             {
                 var listDetail = context.Database.
-                    SqlQuery<LotteryTuple>("SELECT LNR_LotteryNumber AS number, CAST(LND_Import AS INTEGER) AS import FROM LND_ListNumberDetail  WHERE LTL_LotteryList = 1; ")
+                    SqlQuery<LotteryTuple>("SELECT LNR_LotteryNumber AS number, CAST(LND_SaleImport AS INTEGER) AS import FROM LND_ListNumberDetail  WHERE LTL_LotteryList = 1; ")
                     .ToList()
                     ;
                 foreach (var item in listDetail)
@@ -128,13 +128,13 @@ namespace SILO
             using (var context = new SILOEntities())
             {
                 string query =
-                    "SELECT N.LNR_LotteryNumber AS numberId, SUM(N.LND_Import) AS totalImport "
+                    "SELECT N.LNR_LotteryNumber AS numberId, SUM(N.LND_SaleImport) AS totalImport "
                     + "FROM LTL_LotteryList AS L "
                     + "INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id "
                     + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw "
                     + "INNER JOIN LDT_LotteryDrawType AS T ON T.LDT_Id = D.LDT_LotteryDrawType "
                     + "WHERE L.LPS_LotteryPointSale = 1 "
-                    + "AND L.LTL_Status <> 2 "
+                    + "AND L.LLS_LotteryListStatus <> 2 "
                     + "AND D.LTD_CreateDate = '" + drawDate + "' "
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
                     + "GROUP BY N.LNR_LotteryNumber "

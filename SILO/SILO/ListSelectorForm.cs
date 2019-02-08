@@ -53,7 +53,7 @@ namespace SILO
         {
             LotteryListRepository listRepository = new LotteryListRepository();
             LTL_LotteryList list = listRepository.getById(pListId);
-            list.LTL_Status = 2;
+            list.LLS_LotteryListStatus = 2;
             listRepository.updateList(list);
         }
 

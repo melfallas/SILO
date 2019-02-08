@@ -67,6 +67,7 @@
             this.Controls.Add(this.prohibitedTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
+            this.MinimizeBox = false;
             this.Name = "ProhibitedNumberForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Números Prohibidos";

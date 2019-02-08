@@ -23,11 +23,12 @@ namespace SILO
         public long LTD_Id { get; set; }
         public System.DateTime LTD_CreateDate { get; set; }
         public long LDT_LotteryDrawType { get; set; }
-        public long LTD_Status { get; set; }
+        public long LDS_LotteryDrawStatus { get; set; }
     
+        public virtual DNW_DrawNumberWinning DNW_DrawNumberWinning { get; set; }
+        public virtual LDS_LotteryDrawStatus LDS_LotteryDrawStatus1 { get; set; }
         public virtual LDT_LotteryDrawType LDT_LotteryDrawType1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
-        public virtual DNW_DrawNumberWinning DNW_DrawNumberWinning { get; set; }
     }
 }

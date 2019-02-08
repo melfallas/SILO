@@ -43,6 +43,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -58,6 +62,10 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +134,9 @@
       <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneralConstants.cs" />
+    <Compile Include="LDS_LotteryDrawStatus.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LDT_LotteryDrawType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -142,11 +159,15 @@
     <Compile Include="ListNameForm.Designer.cs">
       <DependentUpon>ListNameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListNumberDetail.cs" />
     <Compile Include="ListSelectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListSelectorForm.Designer.cs">
       <DependentUpon>ListSelectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LLS_LotteryListStatus.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LND_ListNumberDetail.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -203,6 +224,10 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SaleTicket.cs" />
+    <Compile Include="ServerConnectionService.cs" />
+    <Compile Include="ServiceConectionConstants.cs" />
+    <Compile Include="ServiceResponseResult.cs" />
+    <Compile Include="SynchronizeService.cs" />
     <Compile Include="SystemConstants.cs" />
     <Compile Include="SYS_SynchronyStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -210,6 +235,9 @@
     <Compile Include="TicketPrinter.cs" />
     <Compile Include="UtilityService.cs" />
     <Compile Include="WinningNumberInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>

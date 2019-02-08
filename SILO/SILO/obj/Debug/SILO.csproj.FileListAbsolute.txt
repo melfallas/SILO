@@ -53,3 +53,9 @@ C:\Users\melvin.fallas\Documents\Proyectos\Tiempos\App\SILO\SILO\SILO\bin\Debug\
 C:\Users\melvin.fallas\Documents\Proyectos\Tiempos\App\SILO\SILO\SILO\obj\Debug\SILO.ProhibitedNumberForm.resources
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.ProhibitedNumberForm.resources
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.DrawNumberWinningForm.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\obj\Debug\SILO.AboutBox.resources
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\System.Net.Http.Formatting.xml

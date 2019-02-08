@@ -14,5 +14,6 @@ namespace SILO
         public const string NO_NAME_LABEL = "Sin Nombre";
         public const string SELECT_GROUP_LABEL = "Seleccione un grupo";
 
+
     }
 }

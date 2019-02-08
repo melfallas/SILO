@@ -96,13 +96,12 @@ namespace SILO
 
         private void saveList(LotteryListControl pListControl)
         {
-            //LTD_LotteryDraw newDraw = LTD_LotteryDraw.
             LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
             // Crear y guardar nuevo sorteo
             LTD_LotteryDraw drawToSave = new LTD_LotteryDraw();
             drawToSave.LTD_CreateDate = this.drawDate;
             drawToSave.LDT_LotteryDrawType = this.drawType.LDT_Id;
-            drawToSave.LTD_Status = 2;
+            drawToSave.LDS_LotteryDrawStatus = 2;
             lotteryDrawRepository.save(ref drawToSave);
             // Crear y guardar nueva lista
             LTL_LotteryList listToSave = new LTL_LotteryList();
@@ -113,6 +112,8 @@ namespace SILO
             listToSave.LTL_CreateDate = this.printDate;
             lotteryDrawRepository.saveList(ref listToSave);
             this.list = listToSave;
+            // Crear colección y guardar a nivel local detalle de números de la lista
+            List<LND_ListNumberDetail> numberDetailCollection = new List<LND_ListNumberDetail>();
             LotteryNumberRepository numberRepository = new LotteryNumberRepository();
             foreach (var register in pListControl.loteryList.tupleList)
             {
@@ -120,9 +121,17 @@ namespace SILO
                 newListNumberDetail.LTL_LotteryList = listToSave.LTL_Id;
                 newListNumberDetail.LND_Id = register.Key;
                 newListNumberDetail.LNR_LotteryNumber = numberRepository.getByNumberCode(register.Value.number).LNR_Id;
-                newListNumberDetail.LND_Import = register.Value.import;
+                newListNumberDetail.LND_SaleImport = register.Value.import;
                 lotteryDrawRepository.saveListDetail(ref newListNumberDetail);
+                numberDetailCollection.Add(newListNumberDetail);
             }
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult response = service.generateList(listToSave, numberDetailCollection);
+            Console.WriteLine(response.result);
+
+            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(listToSave);
+            //json.repl
+            //Console.WriteLine(json);
         }
 
         private void printListButton_Click(object sender, EventArgs e)

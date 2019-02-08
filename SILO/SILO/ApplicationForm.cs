@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -60,6 +61,17 @@ namespace SILO
 
         private void aboutButton_Click(object sender, EventArgs e)
         {
+            /*
+            ServerConnectionService serverConnection = new ServerConnectionService();
+            Object result = serverConnection.synchronizeDrawAssociation().result;
+            Console.WriteLine(result);
+            JObject jsonObject = JObject.FromObject(result);
+            Console.WriteLine(jsonObject);
+            string createDate = (string) jsonObject["createDate"];
+            Console.WriteLine(createDate);
+            JObject draw = (JObject) jsonObject["lotteryDraw"];
+            Console.WriteLine(draw);
+            */
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
         }

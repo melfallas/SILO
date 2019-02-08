@@ -22,8 +22,8 @@ namespace SILO
     
         public long LDT_Id { get; set; }
         public string LDT_Code { get; set; }
-        public string LDT_Description { get; set; }
         public string LDT_DisplayName { get; set; }
+        public string LDT_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
