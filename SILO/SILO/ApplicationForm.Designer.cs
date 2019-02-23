@@ -32,6 +32,8 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventaDePapelesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reimpresiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.borradoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catálogosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ingresarGanadoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.prohibidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,6 +41,8 @@
             this.parámetrosGeneralesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.centerBoxPanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -46,14 +50,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.displayQRMenuButton = new System.Windows.Forms.Button();
             this.eraseButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reimpresiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.borradoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
@@ -90,6 +91,18 @@
             this.ventaDePapelesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.ventaDePapelesToolStripMenuItem.Text = "Venta de Papeles";
             this.ventaDePapelesToolStripMenuItem.Click += new System.EventHandler(this.ventaDePapelesToolStripMenuItem_Click);
+            // 
+            // reimpresiónToolStripMenuItem
+            // 
+            this.reimpresiónToolStripMenuItem.Name = "reimpresiónToolStripMenuItem";
+            this.reimpresiónToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.reimpresiónToolStripMenuItem.Text = "Reimpresión";
+            // 
+            // borradoToolStripMenuItem
+            // 
+            this.borradoToolStripMenuItem.Name = "borradoToolStripMenuItem";
+            this.borradoToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.borradoToolStripMenuItem.Text = "Borrado";
             // 
             // catálogosToolStripMenuItem
             // 
@@ -141,6 +154,20 @@
             this.parámetrosDeSistemaToolStripMenuItem.Name = "parámetrosDeSistemaToolStripMenuItem";
             this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.parámetrosDeSistemaToolStripMenuItem.Text = "Parámetros de Sistema";
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.salirDelSistemaToolStripMenuItem});
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.salirToolStripMenuItem.Text = "Salir";
+            // 
+            // salirDelSistemaToolStripMenuItem
+            // 
+            this.salirDelSistemaToolStripMenuItem.Name = "salirDelSistemaToolStripMenuItem";
+            this.salirDelSistemaToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.salirDelSistemaToolStripMenuItem.Text = "Salir del Sistema";
             // 
             // mainPanel
             // 
@@ -205,6 +232,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.displayQRMenuButton);
             this.menuPanel.Controls.Add(this.eraseButton);
             this.menuPanel.Controls.Add(this.aboutButton);
             this.menuPanel.Controls.Add(this.printMenuButton);
@@ -214,6 +242,23 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(220, 538);
             this.menuPanel.TabIndex = 0;
+            // 
+            // displayQRMenuButton
+            // 
+            this.displayQRMenuButton.FlatAppearance.BorderSize = 0;
+            this.displayQRMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.displayQRMenuButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.displayQRMenuButton.ForeColor = System.Drawing.Color.White;
+            this.displayQRMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("displayQRMenuButton.Image")));
+            this.displayQRMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.displayQRMenuButton.Location = new System.Drawing.Point(2, 242);
+            this.displayQRMenuButton.Name = "displayQRMenuButton";
+            this.displayQRMenuButton.Size = new System.Drawing.Size(217, 54);
+            this.displayQRMenuButton.TabIndex = 4;
+            this.displayQRMenuButton.Text = "Generar QR";
+            this.displayQRMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.displayQRMenuButton.UseVisualStyleBackColor = true;
+            this.displayQRMenuButton.Click += new System.EventHandler(this.displayQRMenuButton_Click);
             // 
             // eraseButton
             // 
@@ -240,7 +285,7 @@
             this.aboutButton.ForeColor = System.Drawing.Color.White;
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(0, 256);
+            this.aboutButton.Location = new System.Drawing.Point(0, 302);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(217, 54);
             this.aboutButton.TabIndex = 2;
@@ -281,32 +326,6 @@
             this.saleMenuButton.Text = "          Venta de Papeles";
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
-            // 
-            // salirToolStripMenuItem
-            // 
-            this.salirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.salirDelSistemaToolStripMenuItem});
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.salirToolStripMenuItem.Text = "Salir";
-            // 
-            // salirDelSistemaToolStripMenuItem
-            // 
-            this.salirDelSistemaToolStripMenuItem.Name = "salirDelSistemaToolStripMenuItem";
-            this.salirDelSistemaToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.salirDelSistemaToolStripMenuItem.Text = "Salir del Sistema";
-            // 
-            // reimpresiónToolStripMenuItem
-            // 
-            this.reimpresiónToolStripMenuItem.Name = "reimpresiónToolStripMenuItem";
-            this.reimpresiónToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.reimpresiónToolStripMenuItem.Text = "Reimpresión";
-            // 
-            // borradoToolStripMenuItem
-            // 
-            this.borradoToolStripMenuItem.Name = "borradoToolStripMenuItem";
-            this.borradoToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.borradoToolStripMenuItem.Text = "Borrado";
             // 
             // MainForm
             // 
@@ -357,6 +376,7 @@
         private System.Windows.Forms.ToolStripMenuItem borradoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirDelSistemaToolStripMenuItem;
+        private System.Windows.Forms.Button displayQRMenuButton;
     }
 }
 

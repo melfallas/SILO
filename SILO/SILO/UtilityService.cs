@@ -1,6 +1,11 @@
-﻿using System;
+﻿using Gma.QrCodeNet.Encoding;
+using Gma.QrCodeNet.Encoding.Windows.Render;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +23,15 @@ namespace SILO
             return posParam.getByName(pParamName);
         }
 
+        public static string getPointSaleParameterValue(string pParamName)
+        {
+            PointSaleParameterRepository posParam = new PointSaleParameterRepository();
+            return posParam.getByName(pParamName).PSP_Value;
+        }
+
         public static string getCompanyName()
         {
-            return getPointSaleParameter(COMPANY_NAME_PARAM).PSP_Value;
+            return getPointSaleParameterValue(COMPANY_NAME_PARAM);
         }
 
         public static LPS_LotteryPointSale getPointSale()
@@ -28,6 +39,13 @@ namespace SILO
             LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
             long posId = Convert.ToInt64(getPointSaleParameter(POS_NAME_PARAM).PSP_Value);
             return posRepository.getById(posId);
+        }
+
+        public static long getPointSaleId()
+        {
+            LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
+            long posId = Convert.ToInt64(getPointSaleParameter(POS_NAME_PARAM).PSP_Value);
+            return posRepository.getById(posId).LPS_Id;
         }
 
         public static string getTicketPrinterName() {
@@ -110,6 +128,49 @@ namespace SILO
                 tabla.Rows.Add(row);
             }
             return tabla;
+        }
+
+
+        public static string getEncodeQRString(String pNumberListString, DateTime pDate, long pGroup)
+        {
+            return fillNumberString(pGroup.ToString(), 2) + pDate.ToString("yyyyMMdd") + "N" + pNumberListString;
+        }
+
+        public static string getPendingTransactions(DateTime pDate, long pGroup)
+        {
+            LotteryListRepository lotteryListRepository = new LotteryListRepository();
+            return lotteryListRepository.getPosTotalListString(pDate, pGroup);
+        }
+
+        public static string compressNumberString(string pNumberString)
+        {
+            pNumberString = pNumberString.Trim();
+            string newCompressNumber = "";
+            if (pNumberString.Length == 1)
+            {
+                newCompressNumber = pNumberString;
+            }
+            else
+            {
+                int pos = 0;
+                int counter = 0;
+                bool isCompressible = true;
+                int numberSize = pNumberString.Length - 1;
+                while (isCompressible && pos < numberSize)
+                {
+                    if (pNumberString[numberSize - pos] == '0')
+                    {
+                        counter++;
+                    }
+                    else
+                    {
+                        isCompressible = false;
+                    }
+                    pos++;
+                }
+                newCompressNumber = pNumberString.Substring(0, numberSize + 1 - counter) + counter;
+            }
+            return newCompressNumber;
         }
 
 
@@ -198,6 +259,21 @@ namespace SILO
             // Obtener nombre de impresora y enviar impresión
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printPrizeTicket(printerName);
+        }
+
+        public static Bitmap buildQRCode(string pCodeText, int pBitmapWidth, int pBitmapHeight)
+        {
+            QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.H);
+            QrCode qrCode = new QrCode();
+            qrEncoder.TryEncode(pCodeText, out qrCode);
+
+            GraphicsRenderer renderer = new GraphicsRenderer(new FixedCodeSize(400, QuietZoneModules.Zero), Brushes.Black, Brushes.White);
+
+            MemoryStream ms = new MemoryStream();
+            renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, ms);
+            Bitmap imageTemporal = new Bitmap(ms);
+            Bitmap imagen = new Bitmap(imageTemporal, new Size(new Point(pBitmapWidth, pBitmapHeight)));
+            return imagen;
         }
 
     }

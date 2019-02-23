@@ -33,16 +33,12 @@ namespace SILO
             this.centerBoxPanel.Show();
         }
 
-        private void ventaDePapelesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowFormInMainPanel(new NumberBoxForm());
-        }
+        //--------------------------------------- Botones de Menú Lateral --------------------------------------//
 
         private void saleMenuButton_Click(object sender, EventArgs e)
         {
             ShowFormInMainPanel(new NumberBoxForm());
         }
-
 
         private void printMenuButton_Click(object sender, EventArgs e)
         {
@@ -59,6 +55,12 @@ namespace SILO
             ShowFormInMainPanel(displayListForm);
         }
 
+        private void displayQRMenuButton_Click(object sender, EventArgs e)
+        {
+            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.DISPLAY_QR_CODE);
+            ShowFormInMainPanel(displayListForm);
+        }
+
         private void aboutButton_Click(object sender, EventArgs e)
         {
             /*
@@ -72,12 +74,24 @@ namespace SILO
             JObject draw = (JObject) jsonObject["lotteryDraw"];
             Console.WriteLine(draw);
             */
+            
+            /*
+            DisplayQRForm qrForm = new DisplayQRForm();
+            qrForm.Show();
+            */
+            
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
+            
         }
 
 
         //--------------------------------------- Acciones de Menú --------------------------------------//
+
+        private void ventaDePapelesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowFormInMainPanel(new NumberBoxForm());
+        }
 
         private void prohibidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -90,5 +104,6 @@ namespace SILO
             DrawNumberWinningForm winningForm = new DrawNumberWinningForm();
             winningForm.ShowDialog();
         }
+
     }
 }
