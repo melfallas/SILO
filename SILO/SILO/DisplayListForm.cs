@@ -41,10 +41,23 @@ namespace SILO
         public void displayListForm() {
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
-                ListSelectorForm listBoxSelector = 
-                    new ListSelectorForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex, this.type);
-                listBoxSelector.ShowDialog();
-                //MessageBox.Show("Valor" + this.drawTypeBox.SelectedIndex);
+                // Validar el tipo de pantalla de despliegue
+                // DisplayScreenForm
+                if(this.type == SystemConstants.DISPLAY_QR_CODE)
+                {
+                    // Pantalla de despliegue de Código QR
+                    DisplayQRForm qrForm = new DisplayQRForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex);
+                    if (qrForm.generateQRCode())
+                    {
+                        qrForm.Show();
+                    }
+                }
+                else
+                {
+                    // Pantalla de despliegue de Selección de Lista
+                    ListSelectorForm listBoxSelector = new ListSelectorForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex, this.type);
+                    listBoxSelector.ShowDialog();
+                }
             }
         }
 
@@ -55,7 +68,8 @@ namespace SILO
 
         private void datePickerList_ValueChanged(object sender, EventArgs e)
         {
-            this.displayListForm();
+            this.drawTypeBox.SelectedIndex = 0;
+            //this.displayListForm();
         }
     }
 }

@@ -43,6 +43,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gma.QrCodeNet.0.4.1.2\lib\net40\Gma.QrCodeNet.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -116,6 +120,12 @@
     </Compile>
     <Compile Include="DisplayListForm.Designer.cs">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DisplayQRForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayQRForm.Designer.cs">
+      <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DNW_DrawNumberWinning.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -243,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DisplayListForm.resx">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayQRForm.resx">
+      <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DrawNumberWinningForm.resx">
       <DependentUpon>DrawNumberWinningForm.cs</DependentUpon>

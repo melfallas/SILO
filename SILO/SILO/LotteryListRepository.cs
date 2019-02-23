@@ -164,5 +164,102 @@ namespace SILO
             return importArray;
         }
 
+        //******************* Obtiene ListString de una Sucursal Específica *******************//
+        public string getPosTotalListString(DateTime pDate, long pGroup)
+        {
+            long salePointId = UtilityService.getPointSaleId();
+            return this.getDrawListTotalCompressString(salePointId, pDate, pGroup);
+        }
+
+        public string getDrawListTotalCompressString(long pSalePointId, DateTime pDate, long pGroup)
+        {
+            string totalString = "";
+            int[] importArray = new int[100];
+            // Obtener colección con totales de números y su importe
+            Dictionary<int, int> numberImportCollection = getDrawListTotalCollection(pSalePointId, pDate, pGroup);
+            // Construir hilera de números e importes comprimida
+            for (int i = 0; i < importArray.Length; i++)
+            {
+                int importValue = 0;
+                int numberId = (i == 0 ? 100 : i);
+                if (numberImportCollection.TryGetValue(numberId, out importValue))
+                {
+                    totalString += UtilityService.fillString(i.ToString(), 2, "0") + "" + UtilityService.compressNumberString(importValue.ToString()) + "N";
+                }
+            }
+            return totalString;
+        }
+
+        public Dictionary<int, int> getDrawListTotalCollection(long pSalePointId, DateTime pDate, long pGroup)
+        {
+            string aditionalQueryFilters = " ";
+            int[] importArray = new int[100];
+            //string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+            Dictionary<int, int> importCollection = new Dictionary<int, int>();
+            // Verificar parámetros para aplicar filtros
+            if (pDate == null)
+            {
+                if (pGroup != 0)
+                {
+                    aditionalQueryFilters = " AND D.LDT_LotteryDrawType = " + pGroup + " ";
+                }
+            }
+            else
+            {
+                if (pGroup == 0)
+                {
+                    aditionalQueryFilters = " AND D.LTD_CreateDate = '" + pDate.ToString("yyyy-MM-dd") + " 00:00:00' ";
+                }
+                else
+                {
+                    aditionalQueryFilters = " AND D.LDT_LotteryDrawType = " + pGroup + " ";
+                    aditionalQueryFilters += " AND D.LTD_CreateDate = '" + pDate.ToString("yyyy-MM-dd") + " 00:00:00' ";
+                }
+            }
+            // Aplicar el query para obtener los datos
+            using (var context = new SILOEntities())
+            {
+                string query =
+                    "SELECT N.LNR_LotteryNumber AS numberId, SUM(N.LND_SaleImport) AS totalImport "
+                    + "FROM LTL_LotteryList AS L "
+                    + "INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id "
+                    + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw "
+                    + "INNER JOIN LDT_LotteryDrawType AS T ON T.LDT_Id = D.LDT_LotteryDrawType "
+                    + "WHERE L.LPS_LotteryPointSale = " + pSalePointId + " "
+                    + "AND L.LLS_LotteryListStatus <> 2 "
+                    + aditionalQueryFilters
+                    + "GROUP BY N.LNR_LotteryNumber "
+                    + ";"
+                    ;
+                var listDetail = context.Database.SqlQuery<ListTotalRecord>(query).ToList();
+                // Crear diccionario para realizar la conversión
+                foreach (var item in listDetail)
+                {
+                    importCollection.Add(item.numberId, item.totalImport);
+                }
+            }
+            return importCollection;
+        }
+
+        /*
+        public string getDrawListTotalString()
+        {
+            string totalString = "";
+            int[] importArray = new int[100];
+            //string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+            // Llenar el array
+            for (int i = 0; i < importArray.Length; i++)
+            {
+                int importValue = 0;
+                int numberId = (i == 0 ? 100 : i);
+                if (getDrawListTotalCollection().TryGetValue(numberId, out importValue))
+                {
+                    totalString += i + "S" + importValue + "N";
+                }
+            }
+            return totalString;
+        }
+        */
+
     }
 }

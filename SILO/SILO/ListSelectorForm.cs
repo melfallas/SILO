@@ -39,9 +39,7 @@ namespace SILO
                     this.printList(pListId);
                     break;
                 case SystemConstants.ERASER_LIST_CODE:
-                    //MessageBox.Show("Erase");
                     this.eraseList(pListId);
-                    //this.printList();
                     break;
                 default:
                     break;
@@ -59,7 +57,6 @@ namespace SILO
 
         public void printList(long pListId)
         {
-            //MessageBox.Show("Printer");
             LotteryListRepository listRepository = new LotteryListRepository();
             UtilityService.printList(listRepository.getById(pListId));
         }
