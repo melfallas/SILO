@@ -127,11 +127,7 @@ namespace SILO
             }
             ServerConnectionService service = new ServerConnectionService();
             ServiceResponseResult response = service.generateList(listToSave, numberDetailCollection);
-            Console.WriteLine(response.result);
-
-            //var json = Newtonsoft.Json.JsonConvert.SerializeObject(listToSave);
-            //json.repl
-            //Console.WriteLine(json);
+            Console.WriteLine("Respuesta Venta: " + response.result);
         }
 
         private void printListButton_Click(object sender, EventArgs e)
