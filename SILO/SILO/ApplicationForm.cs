@@ -81,7 +81,7 @@ namespace SILO
             */
             
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            MessageBox.Show($"Aplicación de prueba. Version: {version} ");
+            MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
             
         }
 
