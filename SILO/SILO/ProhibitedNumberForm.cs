@@ -75,5 +75,10 @@ namespace SILO
                 posY += SPACING_Y;
             }
         }
+
+        private void entryProhibitedButtom_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
