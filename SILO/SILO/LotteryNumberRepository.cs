@@ -31,5 +31,18 @@ namespace SILO
             }
             return numberList;
         }
+
+        public void saveProhibitedNumbers(int[] pProhibitedArray) {
+            Console.Write("Estoy funcionando");
+
+            LNR_LotteryNumber number = null;
+            using (var context = new SILOEntities())
+            {
+                number = context.LNR_LotteryNumber.Find(10);
+                //number.LNR_IsProhibited = 1;
+                context.SaveChanges();
+            }
+
+        }
     }
 }

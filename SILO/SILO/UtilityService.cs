@@ -276,5 +276,12 @@ namespace SILO
             return imagen;
         }
 
+        public static void saveProhibitedNumbers() {
+            int[] array = new int[100];
+            array[5] = 1;
+            LotteryNumberRepository pointSaleRepository = new LotteryNumberRepository();
+            pointSaleRepository.saveProhibitedNumbers(array);
+        } 
+
     }
 }
