@@ -82,9 +82,21 @@ namespace SILO
         }
 
         private void entryProhibitedButtom_Click(object sender, EventArgs e)
-        {
-            //this.arrayCheckBox;
-            UtilityService.saveProhibitedNumbers();
+        {    
+
+            int[] array = new int[100];
+            for (int i = 0; i < 100; i++) {
+
+               
+                if (arrayCheckBox[i].Checked) {
+                    array[i] = 1;
+                }
+                else {
+                    array[i] = 0;
+                }
+
+            }
+                UtilityService.saveProhibitedNumbers(array);
         }
     }
 }

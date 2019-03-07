@@ -14,7 +14,7 @@ namespace SILO
             using (var context = new SILOEntities())
             {
                 List<LNR_LotteryNumber> numberlist = context.LNR_LotteryNumber.Where(n => n.LNR_Number.Equals(pNumberCode)).ToList();
-                if(numberlist.Count > 0)
+                if (numberlist.Count > 0)
                 {
                     findedNumber = numberlist[0];
                 }
@@ -33,13 +33,27 @@ namespace SILO
         }
 
         public void saveProhibitedNumbers(int[] pProhibitedArray) {
-            Console.Write("Estoy funcionando");
-
+            
             LNR_LotteryNumber number = null;
             using (var context = new SILOEntities())
             {
-                number = context.LNR_LotteryNumber.Find(10);
-                //number.LNR_IsProhibited = 1;
+                //for determina cual es 1 y cual es 0 y lo guarda en la tabla
+
+                for (int i = 1; i <= 100; i++) {
+
+                   
+                   else if (pProhibitedArray[i] == 1)
+                    {
+                        number = context.LNR_LotteryNumber.Find(i);
+                        number.LNR_IsProhibited = 1;
+                    }
+                    else if (pProhibitedArray[i] == 0) {
+                        number = context.LNR_LotteryNumber.Find(i);
+                        number.LNR_IsProhibited =0 ;
+                    }
+                }
+                
+                
                 context.SaveChanges();
             }
 
