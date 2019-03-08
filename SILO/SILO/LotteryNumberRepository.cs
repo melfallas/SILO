@@ -33,16 +33,12 @@ namespace SILO
         }
 
         public void saveProhibitedNumbers(int[] pProhibitedArray) {
-            
             LNR_LotteryNumber number = null;
             using (var context = new SILOEntities())
             {
                 //for determina cual es 1 y cual es 0 y lo guarda en la tabla
-
                 for (int i = 1; i < 100; i++) {
-                                    
-                    if (pProhibitedArray[i] == 1)
-                    {
+                    if (pProhibitedArray[i] == 1) {
                         number = context.LNR_LotteryNumber.Find(i);
                         number.LNR_IsProhibited = 1;
                     }
@@ -51,11 +47,8 @@ namespace SILO
                         number.LNR_IsProhibited =0 ;
                     }
                 }
-                
-                
                 context.SaveChanges();
             }
-
         }
     }
 }
