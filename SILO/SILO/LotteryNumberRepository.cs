@@ -39,10 +39,9 @@ namespace SILO
             {
                 //for determina cual es 1 y cual es 0 y lo guarda en la tabla
 
-                for (int i = 1; i <= 100; i++) {
-
-                   
-                   else if (pProhibitedArray[i] == 1)
+                for (int i = 1; i < 100; i++) {
+                                    
+                    if (pProhibitedArray[i] == 1)
                     {
                         number = context.LNR_LotteryNumber.Find(i);
                         number.LNR_IsProhibited = 1;
