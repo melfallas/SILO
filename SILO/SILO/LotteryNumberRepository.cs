@@ -37,8 +37,9 @@ namespace SILO
             using (var context = new SILOEntities())
             {
                 // Determina cual es 1 y cual es 0 en el array de prohibidos y lo guarda en la tabla
-                for (int i = 1; i < 100; i++) {
-                    number = context.LNR_LotteryNumber.Find(i);
+                for (int i = 0; i < 100; i++) {
+                    int positionArray = (i == 0 ? 100 : i);
+                    number = context.LNR_LotteryNumber.Find(positionArray);
                     number.LNR_IsProhibited = pProhibitedArray[i];
                 }
                 context.SaveChanges();

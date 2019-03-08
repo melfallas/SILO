@@ -295,8 +295,7 @@ namespace SILO
             return imagen;
         }
 
-        public static void saveProhibitedNumbers(int [] pArray) {
-            
+        public static void saveProhibitedNumbers(int [] pArray) {            
             LotteryNumberRepository pointSaleRepository = new LotteryNumberRepository();
             pointSaleRepository.saveProhibitedNumbers(pArray);
         } 

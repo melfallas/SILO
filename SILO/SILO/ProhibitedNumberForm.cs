@@ -86,17 +86,15 @@ namespace SILO
 
             int[] array = new int[100];
             for (int i = 0; i < 100; i++) {
-
-               
-                if (arrayCheckBox[i].Checked) {
+                if (arrayCheckBox[i].Checked){
                     array[i] = 1;
                 }
-                else {
+                else{
                     array[i] = 0;
                 }
-
             }
                 UtilityService.saveProhibitedNumbers(array);
+            Close();
         }
     }
 }
