@@ -41,7 +41,7 @@ namespace SILO
             {
                 text = UtilityService.getEncodeQRString(text, this.drawDate, this.drawType);
                 Console.WriteLine("Original QR: " + text);
-                text = UtilityService.compressText(text);
+                //text = UtilityService.compressText(text);
                 Console.WriteLine("Compress QR: " + text);
                 this.countLabel.Text = text.Length.ToString() + " | " + (from c in text where c == '0' select c).Count().ToString();
                 this.displayQRPanel.BackgroundImage = UtilityService.buildQRCode(text, this.displayQRPanel.Width, this.displayQRPanel.Height);

@@ -168,13 +168,15 @@ namespace SILO
         public string getPosTotalListString(DateTime pDate, long pGroup)
         {
             long salePointId = UtilityService.getPointSaleId();
-            //return this.getDrawListTotalCompressString(salePointId, pDate, pGroup);
+            return this.getDrawListTotalCompressString(salePointId, pDate, pGroup);
+            /*
             string compressText = this.getDrawListTotalCompressString(salePointId, pDate, pGroup);
             for (int i = 0; i < 5; i++)
             {
                 compressText += compressText;
             }
             return compressText;
+            */
         }
 
         public string getDrawListTotalCompressString(long pSalePointId, DateTime pDate, long pGroup)
