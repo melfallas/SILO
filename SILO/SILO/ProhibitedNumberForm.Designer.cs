@@ -31,10 +31,15 @@
             this.prohibitedTopPanel = new System.Windows.Forms.Panel();
             this.prohibitedBottomPanel = new System.Windows.Forms.Panel();
             this.prohibitedMainPanel = new System.Windows.Forms.Panel();
+            this.entryProhibitedButtom = new System.Windows.Forms.Button();
+            this.prohibedNumberLabel = new System.Windows.Forms.Label();
+            this.prohibitedTopPanel.SuspendLayout();
+            this.prohibitedBottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // prohibitedTopPanel
             // 
+            this.prohibitedTopPanel.Controls.Add(this.prohibedNumberLabel);
             this.prohibitedTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.prohibitedTopPanel.Location = new System.Drawing.Point(0, 0);
             this.prohibitedTopPanel.Name = "prohibitedTopPanel";
@@ -43,6 +48,7 @@
             // 
             // prohibitedBottomPanel
             // 
+            this.prohibitedBottomPanel.Controls.Add(this.entryProhibitedButtom);
             this.prohibitedBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.prohibitedBottomPanel.Location = new System.Drawing.Point(0, 353);
             this.prohibitedBottomPanel.Name = "prohibitedBottomPanel";
@@ -51,11 +57,33 @@
             // 
             // prohibitedMainPanel
             // 
+            this.prohibitedMainPanel.BackColor = System.Drawing.SystemColors.Control;
             this.prohibitedMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.prohibitedMainPanel.Location = new System.Drawing.Point(0, 64);
             this.prohibitedMainPanel.Name = "prohibitedMainPanel";
             this.prohibitedMainPanel.Size = new System.Drawing.Size(587, 289);
             this.prohibitedMainPanel.TabIndex = 2;
+            // 
+            // entryProhibitedButtom
+            // 
+            this.entryProhibitedButtom.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.entryProhibitedButtom.Location = new System.Drawing.Point(244, 25);
+            this.entryProhibitedButtom.Name = "entryProhibitedButtom";
+            this.entryProhibitedButtom.Size = new System.Drawing.Size(75, 23);
+            this.entryProhibitedButtom.TabIndex = 0;
+            this.entryProhibitedButtom.Text = "Ingresar";
+            this.entryProhibitedButtom.UseVisualStyleBackColor = false;
+            this.entryProhibitedButtom.Click += new System.EventHandler(this.entryProhibitedButtom_Click);
+            // 
+            // prohibedNumberLabel
+            // 
+            this.prohibedNumberLabel.AutoSize = true;
+            this.prohibedNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.prohibedNumberLabel.Location = new System.Drawing.Point(40, 19);
+            this.prohibedNumberLabel.Name = "prohibedNumberLabel";
+            this.prohibedNumberLabel.Size = new System.Drawing.Size(279, 24);
+            this.prohibedNumberLabel.TabIndex = 0;
+            this.prohibedNumberLabel.Text = "Ingrese los Numeros prohibidos";
             // 
             // ProhibitedNumberForm
             // 
@@ -72,6 +100,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Números Prohibidos";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProhibitedNumberForm_KeyDown);
+            this.prohibitedTopPanel.ResumeLayout(false);
+            this.prohibitedTopPanel.PerformLayout();
+            this.prohibitedBottomPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -81,5 +112,7 @@
         private System.Windows.Forms.Panel prohibitedTopPanel;
         private System.Windows.Forms.Panel prohibitedBottomPanel;
         private System.Windows.Forms.Panel prohibitedMainPanel;
+        private System.Windows.Forms.Button entryProhibitedButtom;
+        private System.Windows.Forms.Label prohibedNumberLabel;
     }
 }
