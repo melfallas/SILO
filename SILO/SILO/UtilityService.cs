@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -134,6 +135,24 @@ namespace SILO
         public static string getEncodeQRString(String pNumberListString, DateTime pDate, long pGroup)
         {
             return fillNumberString(pGroup.ToString(), 2) + pDate.ToString("yyyyMMdd") + "N" + pNumberListString;
+        }
+
+
+        public static string compressText(string textToCompress)
+        {
+            string resultText = "";
+            byte[] raw = Encoding.UTF8.GetBytes(textToCompress);
+            using (MemoryStream memory = new MemoryStream())
+            {
+                using (GZipStream gzip = new GZipStream(memory,
+                    CompressionMode.Compress, true))
+                {
+                    gzip.Write(raw, 0, raw.Length);
+                }
+                byte[] buffer = memory.ToArray();
+                resultText = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+            }
+            return resultText;
         }
 
         public static string getPendingTransactions(DateTime pDate, long pGroup)
@@ -275,6 +294,11 @@ namespace SILO
             Bitmap imagen = new Bitmap(imageTemporal, new Size(new Point(pBitmapWidth, pBitmapHeight)));
             return imagen;
         }
+
+        public static void saveProhibitedNumbers(int [] pArray) {            
+            LotteryNumberRepository pointSaleRepository = new LotteryNumberRepository();
+            pointSaleRepository.saveProhibitedNumbers(pArray);
+        } 
 
     }
 }

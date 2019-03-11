@@ -12,6 +12,8 @@ namespace SILO
 {
     public partial class ProhibitedNumberForm : Form
     {
+        public CheckBox[]  arrayCheckBox { get; set; }
+
         public ProhibitedNumberForm()
         {
             InitializeComponent();
@@ -28,6 +30,7 @@ namespace SILO
 
         private void initializeControls()
         {
+            arrayCheckBox = new CheckBox[100];
             // Obtener parámetros de números prohibidos
             bool[] prohibitedNumbers = UtilityService.getProhibitedArray();
             // Establecer coordenadas para la caja
@@ -60,6 +63,8 @@ namespace SILO
                 if (prohibitedNumbers[i]) {
                     cbxProhibitedNumber.Checked = true;
                 }
+                arrayCheckBox[i] = cbxProhibitedNumber;
+
                 this.prohibitedMainPanel.Controls.Add(cbxProhibitedNumber);
                 /*
                 TextBox txbImport = new TextBox();
@@ -74,6 +79,22 @@ namespace SILO
                 */
                 posY += SPACING_Y;
             }
+        }
+
+        private void entryProhibitedButtom_Click(object sender, EventArgs e)
+        {    
+
+            int[] array = new int[100];
+            for (int i = 0; i < 100; i++) {
+                if (arrayCheckBox[i].Checked){
+                    array[i] = 1;
+                }
+                else{
+                    array[i] = 0;
+                }
+            }
+                UtilityService.saveProhibitedNumbers(array);
+            Close();
         }
     }
 }

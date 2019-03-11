@@ -49,6 +49,8 @@ namespace SILO
             List<ListNumberDetail> numberDetail = pListNumberDetail.Select(
                 x => new ListNumberDetail(x.LND_Id, x.LTL_LotteryList, x.LNR_LotteryNumber, x.LND_SaleImport)
             ).ToList();
+            LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
+            LTD_LotteryDraw draw = lotteryDrawRepository.getById(pListObject.LTD_LotteryDraw);
             // Crear el objeto JSON
             var jsonObject = new
             {
@@ -57,9 +59,9 @@ namespace SILO
                 lotteryDraw = new
                 {
                     id = pListObject.LTD_LotteryDraw,
-                    lotteryDrawType = 2,
-                    lotteryDrawStatus = 1,
-                    createDate = "2019-01-30"
+                    lotteryDrawType = draw.LDT_LotteryDrawType,
+                    lotteryDrawStatus = draw.LDS_LotteryDrawStatus,
+                    createDate = draw.LTD_CreateDate
                 },
                 customerName = pListObject.LTL_CustomerName,
                 createDate = pListObject.LTL_CreateDate.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -67,6 +69,7 @@ namespace SILO
                 listNumberDetail = numberDetail
             }
             ;
+            Console.WriteLine("Request Venta: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
             return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
