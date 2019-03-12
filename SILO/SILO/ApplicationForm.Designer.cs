@@ -168,6 +168,7 @@
             this.salirDelSistemaToolStripMenuItem.Name = "salirDelSistemaToolStripMenuItem";
             this.salirDelSistemaToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.salirDelSistemaToolStripMenuItem.Text = "Salir del Sistema";
+            this.salirDelSistemaToolStripMenuItem.Click += new System.EventHandler(this.salirDelSistemaToolStripMenuItem_Click);
             // 
             // mainPanel
             // 
@@ -335,10 +336,12 @@
             this.ClientSize = new System.Drawing.Size(967, 562);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.mainMenu;
             this.Name = "ApplicationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema Informático para Control de Lotería";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ApplicationForm_FormClosed);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.mainPanel.ResumeLayout(false);

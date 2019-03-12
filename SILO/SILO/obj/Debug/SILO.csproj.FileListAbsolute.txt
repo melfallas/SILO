@@ -96,3 +96,4 @@ C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.exe
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.pdb
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.ApplicationForm.resources
+C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Security.Login.LoginForm.resources
