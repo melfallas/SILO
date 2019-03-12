@@ -141,7 +141,6 @@
         <MappingFragment StoreEntitySet="PSP_PointSaleParameter">
           <ScalarProperty Name="PSP_Value" ColumnName="PSP_Value" />
           <ScalarProperty Name="PSP_Name" ColumnName="PSP_Name" />
-          <ScalarProperty Name="PSP_Id" ColumnName="PSP_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

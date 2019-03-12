@@ -14,7 +14,6 @@ namespace SILO
     
     public partial class PSP_PointSaleParameter
     {
-        public long PSP_Id { get; set; }
         public string PSP_Name { get; set; }
         public string PSP_Value { get; set; }
     }

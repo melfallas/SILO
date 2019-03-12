@@ -18,7 +18,8 @@ namespace SILO
             {*/
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new ApplicationForm());/*
+                Application.Run(new ApplicationForm());
+            /*
             }
             catch (Exception e)
             {

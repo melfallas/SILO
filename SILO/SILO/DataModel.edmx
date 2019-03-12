@@ -130,9 +130,8 @@
         </EntityType>
         <EntityType Name="PSP_PointSaleParameter">
           <Key>
-            <PropertyRef Name="PSP_Id" />
+            <PropertyRef Name="PSP_Name" />
           </Key>
-          <Property Name="PSP_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PSP_Name" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="PSP_Value" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -686,9 +685,8 @@
         </EntityType>
         <EntityType Name="PSP_PointSaleParameter">
           <Key>
-            <PropertyRef Name="PSP_Id" />
+            <PropertyRef Name="PSP_Name" />
           </Key>
-          <Property Name="PSP_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PSP_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="PSP_Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -1065,7 +1063,6 @@
               <MappingFragment StoreEntitySet="PSP_PointSaleParameter">
                 <ScalarProperty Name="PSP_Value" ColumnName="PSP_Value" />
                 <ScalarProperty Name="PSP_Name" ColumnName="PSP_Name" />
-                <ScalarProperty Name="PSP_Id" ColumnName="PSP_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

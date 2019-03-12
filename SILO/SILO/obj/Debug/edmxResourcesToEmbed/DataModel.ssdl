@@ -125,9 +125,8 @@
   </EntityType>
   <EntityType Name="PSP_PointSaleParameter">
     <Key>
-      <PropertyRef Name="PSP_Id" />
+      <PropertyRef Name="PSP_Name" />
     </Key>
-    <Property Name="PSP_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PSP_Name" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="PSP_Value" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
