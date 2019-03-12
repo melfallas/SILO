@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace SILO
 {
-    public partial class MainForm : Form
+    public partial class ApplicationForm : Form
     {
-        public MainForm()
+        public ApplicationForm()
         {
             InitializeComponent();
             new NumberBoxForm();
