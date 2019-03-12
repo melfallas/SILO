@@ -12,23 +12,20 @@ namespace SILO
     using System;
     using System.Collections.Generic;
     
-    public partial class LDT_LotteryDrawType
+    public partial class USR_UserRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LDT_LotteryDrawType()
+        public USR_UserRole()
         {
-            this.LTD_LotteryDraw = new HashSet<LTD_LotteryDraw>();
-            this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
+            this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
         }
     
-        public long LDT_Id { get; set; }
-        public string LDT_Code { get; set; }
-        public string LDT_DisplayName { get; set; }
-        public string LDT_Description { get; set; }
+        public long USR_Id { get; set; }
+        public string CPN_DisplayName { get; set; }
+        public string CPN_Description { get; set; }
+        public System.DateTime CPN_CreateDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
+        public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
     }
 }

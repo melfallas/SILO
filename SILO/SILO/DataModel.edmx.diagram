@@ -29,6 +29,14 @@
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_2_0" />
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_3_0" />
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_0_0" />
+        <EntityTypeShape EntityType="SILOModel.AUS_ApplicationUser" Width="1.5" PointX="10.5" PointY="5" />
+        <EntityTypeShape EntityType="SILOModel.LPF_LotteryPrizeFactor" Width="1.5" PointX="10.5" PointY="9" />
+        <EntityTypeShape EntityType="SILOModel.USR_UserRole" Width="1.5" PointX="8.25" PointY="9.25" />
+        <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_0_0" />
+        <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_1_0" />
+        <AssociationConnector Association="SILOModel.FK_LPF_LotteryPrizeFactor_1_0" />
+        <AssociationConnector Association="SILOModel.FK_LPF_LotteryPrizeFactor_0_0" />
+        <AssociationConnector Association="SILOModel.FK_LPF_LotteryPrizeFactor_2_0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

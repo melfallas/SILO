@@ -12,10 +12,16 @@ namespace SILO
     using System;
     using System.Collections.Generic;
     
-    public partial class PSP_PointSaleParameter
+    public partial class AUS_ApplicationUser
     {
-        public string PSP_Name { get; set; }
-        public string PSP_Value { get; set; }
-        public long PSP_Id { get; set; }
+        public long AUS_Id { get; set; }
+        public string AUS_Username { get; set; }
+        public string AUS_Password { get; set; }
+        public long USR_UserRole { get; set; }
+        public long LPS_LotteryPointSale { get; set; }
+        public System.DateTime AUS_CreateDate { get; set; }
+    
+        public virtual LPS_LotteryPointSale LPS_LotteryPointSale1 { get; set; }
+        public virtual USR_UserRole USR_UserRole1 { get; set; }
     }
 }

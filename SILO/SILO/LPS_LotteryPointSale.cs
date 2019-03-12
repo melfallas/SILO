@@ -18,6 +18,8 @@ namespace SILO
         public LPS_LotteryPointSale()
         {
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
+            this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
+            this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
         }
     
         public long LPS_Id { get; set; }
@@ -27,10 +29,16 @@ namespace SILO
         public System.DateTime LPS_CreateDate { get; set; }
         public long CPN_Company { get; set; }
         public long SYS_SynchronyStatus { get; set; }
+        public long LPS_Counter { get; set; }
+        public long LPS_IsActive { get; set; }
     
         public virtual CPN_Company CPN_Company1 { get; set; }
         public virtual SYS_SynchronyStatus SYS_SynchronyStatus1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
     }
 }
