@@ -17,8 +17,8 @@ namespace SILO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LDT_LotteryDrawType()
         {
-            this.LTD_LotteryDraw = new HashSet<LTD_LotteryDraw>();
             this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
+            this.LTD_LotteryDraw = new HashSet<LTD_LotteryDraw>();
         }
     
         public long LDT_Id { get; set; }
@@ -27,8 +27,8 @@ namespace SILO
         public string LDT_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
     }
 }

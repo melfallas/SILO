@@ -95,6 +95,9 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AUS_ApplicationUser.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BoxNumberUnit.cs" />
     <Compile Include="CompanyRepository.cs" />
     <Compile Include="CPN_Company.cs">
@@ -199,6 +202,9 @@
     <Compile Include="LotteryPointSaleRepository.cs" />
     <Compile Include="ListTotalRecord.cs" />
     <Compile Include="LotteryTuple.cs" />
+    <Compile Include="LPF_LotteryPrizeFactor.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LPS_LotteryPointSale.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -243,6 +249,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TicketPrinter.cs" />
+    <Compile Include="USR_UserRole.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UtilityService.cs" />
     <Compile Include="WinningNumberInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">

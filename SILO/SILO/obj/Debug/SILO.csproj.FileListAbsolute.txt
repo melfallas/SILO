@@ -62,8 +62,6 @@ C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\SILO.exe
 C:\Users\Melvin\Documents\Projects\Tiempos\Fuentes\SILO\SILO\SILO\SILO\bin\Debug\SILO.pdb
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug\SILO.exe.config
-C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.exe
-C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.pdb
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug\SILO.exe
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug\SILO.pdb
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug\EntityFramework.dll
@@ -80,7 +78,6 @@ C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug\Newtonsoft.Json.xml
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug\System.Data.SQLite.xml
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\bin\Debug\System.Net.Http.Formatting.xml
-C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.csprojResolveAssemblyReference.cache
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.AboutBox.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.MainForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DisplayListForm.resources
@@ -97,3 +94,5 @@ C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.ProhibitedNumberForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.Properties.Resources.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.csproj.GenerateResource.Cache
+C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.exe
+C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.pdb

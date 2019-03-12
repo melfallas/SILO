@@ -18,9 +18,9 @@ namespace SILO
         public SYS_SynchronyStatus()
         {
             this.DNW_DrawNumberWinning = new HashSet<DNW_DrawNumberWinning>();
+            this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
             this.LPS_LotteryPointSale = new HashSet<LPS_LotteryPointSale>();
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
-            this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
         }
     
         public long SYS_Id { get; set; }
@@ -31,10 +31,10 @@ namespace SILO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DNW_DrawNumberWinning> DNW_DrawNumberWinning { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LPS_LotteryPointSale> LPS_LotteryPointSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
     }
 }
