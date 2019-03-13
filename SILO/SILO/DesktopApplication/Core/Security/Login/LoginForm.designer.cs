@@ -30,8 +30,8 @@
         {
             this.userLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txbUser = new System.Windows.Forms.TextBox();
+            this.txbPass = new System.Windows.Forms.TextBox();
             this.loginButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -58,22 +58,22 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Contraseña";
             // 
-            // textBox1
+            // txbUser
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(186, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(174, 30);
-            this.textBox1.TabIndex = 2;
+            this.txbUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbUser.Location = new System.Drawing.Point(186, 104);
+            this.txbUser.Name = "txbUser";
+            this.txbUser.Size = new System.Drawing.Size(174, 30);
+            this.txbUser.TabIndex = 2;
             // 
-            // textBox2
+            // txbPass
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(186, 152);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(174, 30);
-            this.textBox2.TabIndex = 3;
+            this.txbPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbPass.Location = new System.Drawing.Point(186, 152);
+            this.txbPass.Name = "txbPass";
+            this.txbPass.PasswordChar = '*';
+            this.txbPass.Size = new System.Drawing.Size(174, 30);
+            this.txbPass.TabIndex = 3;
             // 
             // loginButton
             // 
@@ -105,8 +105,8 @@
             this.ClientSize = new System.Drawing.Size(412, 301);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txbPass);
+            this.Controls.Add(this.txbUser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.userLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -122,8 +122,8 @@
 
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txbUser;
+        private System.Windows.Forms.TextBox txbPass;
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button exitButton;
     }

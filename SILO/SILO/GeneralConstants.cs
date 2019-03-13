@@ -14,6 +14,10 @@ namespace SILO
         public const string NO_NAME_LABEL = "Sin Nombre";
         public const string SELECT_GROUP_LABEL = "Seleccione un grupo";
 
+        // Security Constants
+        public const string BAD_USER_OR_PASS                    = "Usuario o contraseña incorrectos";
+        public const string USER_AND_PASS_REQUIRED_VALIDATION   = "Por favor, ingrese usuario y contraseña";
+
 
     }
 }
