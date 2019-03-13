@@ -95,6 +95,9 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AUS_ApplicationUser.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="BoxNumberUnit.cs" />
     <Compile Include="CompanyRepository.cs" />
     <Compile Include="CPN_Company.cs">
@@ -114,6 +117,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Security\Login\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Security\Login\LoginForm.designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DisplayListForm.cs">
       <SubType>Form</SubType>
@@ -199,6 +208,9 @@
     <Compile Include="LotteryPointSaleRepository.cs" />
     <Compile Include="ListTotalRecord.cs" />
     <Compile Include="LotteryTuple.cs" />
+    <Compile Include="LPF_LotteryPrizeFactor.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LPS_LotteryPointSale.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -243,6 +255,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TicketPrinter.cs" />
+    <Compile Include="USR_UserRole.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UtilityService.cs" />
     <Compile Include="WinningNumberInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
@@ -250,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Security\Login\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DisplayListForm.resx">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
@@ -334,6 +352,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DesktopApplication\Data\" />
+    <Folder Include="DesktopApplication\View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" />

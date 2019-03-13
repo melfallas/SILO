@@ -5,26 +5,34 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="69177f79ce9a4262afc0e068c2773c50" Name="Diagram1">
-        <EntityTypeShape EntityType="SILOModel.CPN_Company" Width="1.5" PointX="8.125" PointY="1" />
-        <EntityTypeShape EntityType="SILOModel.DNW_DrawNumberWinning" Width="1.5" PointX="2.625" PointY="10.5" />
-        <EntityTypeShape EntityType="SILOModel.LDS_LotteryDrawStatus" Width="1.5" PointX="0.5" PointY="7.375" />
-        <EntityTypeShape EntityType="SILOModel.LDT_LotteryDrawType" Width="1.5" PointX="0.625" PointY="5" />
-        <EntityTypeShape EntityType="SILOModel.LLS_LotteryListStatus" Width="1.5" PointX="3.125" PointY="3.25" />
-        <EntityTypeShape EntityType="SILOModel.LND_ListNumberDetail" Width="1.5" PointX="5.5" PointY="3.25" />
-        <EntityTypeShape EntityType="SILOModel.LNR_LotteryNumber" Width="1.5" PointX="5.5" PointY="0.875" />
-        <EntityTypeShape EntityType="SILOModel.LPS_LotteryPointSale" Width="1.5" PointX="8.25" PointY="4.375" />
-        <EntityTypeShape EntityType="SILOModel.LTD_LotteryDraw" Width="1.5" PointX="2.875" PointY="6.875" />
-        <EntityTypeShape EntityType="SILOModel.LTL_LotteryList" Width="1.5" PointX="5.5" PointY="6" />
-        <EntityTypeShape EntityType="SILOModel.PSP_PointSaleParameter" Width="1.5" PointX="0.5" PointY="10.625" />
-        <EntityTypeShape EntityType="SILOModel.SYS_SynchronyStatus" Width="1.5" PointX="5.5" PointY="10.125" />
+        <EntityTypeShape EntityType="SILOModel.AUS_ApplicationUser" Width="1.5" PointX="8.25" PointY="8.5" />
+        <EntityTypeShape EntityType="SILOModel.CPN_Company" Width="1.5" PointX="0.75" PointY="19.625" />
+        <EntityTypeShape EntityType="SILOModel.DNW_DrawNumberWinning" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="SILOModel.LDS_LotteryDrawStatus" Width="1.5" PointX="1.5" PointY="13.25" />
+        <EntityTypeShape EntityType="SILOModel.LDT_LotteryDrawType" Width="1.5" PointX="1.5" PointY="16" />
+        <EntityTypeShape EntityType="SILOModel.LLS_LotteryListStatus" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="SILOModel.LND_ListNumberDetail" Width="1.5" PointX="7.5" PointY="4.625" />
+        <EntityTypeShape EntityType="SILOModel.LNR_LotteryNumber" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="SILOModel.LPF_LotteryPrizeFactor" Width="1.5" PointX="5.25" PointY="8.25" />
+        <EntityTypeShape EntityType="SILOModel.LPS_LotteryPointSale" Width="1.5" PointX="3" PointY="7.875" />
+        <EntityTypeShape EntityType="SILOModel.LTD_LotteryDraw" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="SILOModel.LTL_LotteryList" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="SILOModel.PSP_PointSaleParameter" Width="1.5" PointX="7.75" PointY="2.125" />
+        <EntityTypeShape EntityType="SILOModel.SYS_SynchronyStatus" Width="1.5" PointX="0.75" PointY="8.5" />
+        <EntityTypeShape EntityType="SILOModel.USR_UserRole" Width="1.5" PointX="6" PointY="12.75" />
+        <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_0_0" />
+        <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_1_0" />
         <AssociationConnector Association="SILOModel.FK_LPS_LotteryPointSale_1_0" />
         <AssociationConnector Association="SILOModel.FK_DNW_DrawNumberWinning_0_0" />
         <AssociationConnector Association="SILOModel.FK_DNW_DrawNumberWinning_1_0" />
         <AssociationConnector Association="SILOModel.FK_LTD_LotteryDraw_0_0" />
+        <AssociationConnector Association="SILOModel.FK_LPF_LotteryPrizeFactor_1_0" />
         <AssociationConnector Association="SILOModel.FK_LTD_LotteryDraw_1_0" />
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_1_0" />
         <AssociationConnector Association="SILOModel.FK_LND_ListNumberDetail_0_0" />
         <AssociationConnector Association="SILOModel.FK_LND_ListNumberDetail_1_0" />
+        <AssociationConnector Association="SILOModel.FK_LPF_LotteryPrizeFactor_0_0" />
+        <AssociationConnector Association="SILOModel.FK_LPF_LotteryPrizeFactor_2_0" />
         <AssociationConnector Association="SILOModel.FK_LPS_LotteryPointSale_0_0" />
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_2_0" />
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_3_0" />
