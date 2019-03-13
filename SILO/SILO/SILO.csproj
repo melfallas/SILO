@@ -124,6 +124,7 @@
     <Compile Include="DesktopApplication\Core\Security\Login\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Services\SecurityService.cs" />
     <Compile Include="DisplayListForm.cs">
       <SubType>Form</SubType>
     </Compile>

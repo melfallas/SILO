@@ -20,7 +20,7 @@ namespace SILO.DesktopApplication.Core.Security.Login
         private bool isValidLoginForm(string pUser, string pPassword)
         {
             bool validFields = false;
-            if (pUser == "" || pPassword == "")
+            if (pUser.Trim() == "" || pPassword.Trim() == "")
             {
                 MessageBox.Show(GeneralConstants.USER_AND_PASS_REQUIRED_VALIDATION);
             }
@@ -34,7 +34,7 @@ namespace SILO.DesktopApplication.Core.Security.Login
         private bool requestUserAuthetication(string pUser, string pPassword)
         {
             bool validFields = false;
-            if (pUser == "fsandi" && pPassword == "fsandi")
+            if (pUser.Trim() == "fsandi" && pPassword.Trim() == "fsandi")
             {
                 validFields = true;
             }
@@ -44,6 +44,7 @@ namespace SILO.DesktopApplication.Core.Security.Login
         private void cleanFields()
         {
             this.txbPass.Text = "";
+            this.txbUser.Text = this.txbUser.Text.Trim();
         }
 
         private void launchApplication() {
