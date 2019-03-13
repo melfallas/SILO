@@ -11,12 +11,15 @@ using System.Windows.Forms;
 
 namespace SILO
 {
-    public partial class MainForm : Form
+    public partial class ApplicationForm : Form
     {
-        public MainForm()
+        public Form parentForm { get; set; }
+
+        public ApplicationForm(Form pParentForm)
         {
             InitializeComponent();
-            new NumberBoxForm();
+            this.parentForm = pParentForm;
+            //new NumberBoxForm();
         }
 
         private void ShowFormInMainPanel(object pForm) {
@@ -105,5 +108,16 @@ namespace SILO
             winningForm.ShowDialog();
         }
 
+        private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //--------------------------------------- Otros Eventos --------------------------------------//
+
+        private void ApplicationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.parentForm.Dispose();
+        }
     }
 }

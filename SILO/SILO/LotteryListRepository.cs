@@ -119,7 +119,6 @@ namespace SILO
         }
         */
 
-
         public int[] getDrawListTotals(DateTime pDate, long pGroup)
         {
             int[] importArray = new int[100];
