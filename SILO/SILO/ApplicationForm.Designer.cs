@@ -48,6 +48,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.userNameLabel = new System.Windows.Forms.Label();
+            this.userLabel = new System.Windows.Forms.Label();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.displayQRMenuButton = new System.Windows.Forms.Button();
@@ -57,6 +59,7 @@
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -181,32 +184,32 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 24);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(967, 538);
+            this.mainPanel.Size = new System.Drawing.Size(967, 562);
             this.mainPanel.TabIndex = 1;
             // 
             // centerBoxPanel
             // 
             this.centerBoxPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.centerBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.centerBoxPanel.Location = new System.Drawing.Point(220, 19);
+            this.centerBoxPanel.Location = new System.Drawing.Point(220, 30);
             this.centerBoxPanel.Name = "centerBoxPanel";
-            this.centerBoxPanel.Size = new System.Drawing.Size(697, 500);
+            this.centerBoxPanel.Size = new System.Drawing.Size(697, 513);
             this.centerBoxPanel.TabIndex = 1;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(917, 19);
+            this.panel3.Location = new System.Drawing.Point(917, 30);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(50, 500);
+            this.panel3.Size = new System.Drawing.Size(50, 513);
             this.panel3.TabIndex = 3;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(220, 519);
+            this.panel2.Location = new System.Drawing.Point(220, 543);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(747, 19);
             this.panel2.TabIndex = 2;
@@ -214,11 +217,30 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel1.Controls.Add(this.userNameLabel);
+            this.panel1.Controls.Add(this.userLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(220, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(747, 19);
+            this.panel1.Size = new System.Drawing.Size(747, 30);
             this.panel1.TabIndex = 0;
+            // 
+            // userNameLabel
+            // 
+            this.userNameLabel.AutoSize = true;
+            this.userNameLabel.Location = new System.Drawing.Point(659, 11);
+            this.userNameLabel.Name = "userNameLabel";
+            this.userNameLabel.Size = new System.Drawing.Size(0, 13);
+            this.userNameLabel.TabIndex = 1;
+            // 
+            // userLabel
+            // 
+            this.userLabel.AutoSize = true;
+            this.userLabel.Location = new System.Drawing.Point(615, 11);
+            this.userLabel.Name = "userLabel";
+            this.userLabel.Size = new System.Drawing.Size(49, 13);
+            this.userLabel.TabIndex = 0;
+            this.userLabel.Text = "Usuario: ";
             // 
             // lateralLeftPanel
             // 
@@ -227,7 +249,7 @@
             this.lateralLeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.lateralLeftPanel.Location = new System.Drawing.Point(0, 0);
             this.lateralLeftPanel.Name = "lateralLeftPanel";
-            this.lateralLeftPanel.Size = new System.Drawing.Size(220, 538);
+            this.lateralLeftPanel.Size = new System.Drawing.Size(220, 562);
             this.lateralLeftPanel.TabIndex = 0;
             // 
             // menuPanel
@@ -241,7 +263,7 @@
             this.menuPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
             this.menuPanel.Name = "menuPanel";
-            this.menuPanel.Size = new System.Drawing.Size(220, 538);
+            this.menuPanel.Size = new System.Drawing.Size(220, 562);
             this.menuPanel.TabIndex = 0;
             // 
             // displayQRMenuButton
@@ -333,7 +355,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(967, 562);
+            this.ClientSize = new System.Drawing.Size(967, 586);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -345,6 +367,8 @@
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.mainPanel.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.lateralLeftPanel.ResumeLayout(false);
             this.menuPanel.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -380,6 +404,8 @@
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirDelSistemaToolStripMenuItem;
         private System.Windows.Forms.Button displayQRMenuButton;
+        private System.Windows.Forms.Label userNameLabel;
+        private System.Windows.Forms.Label userLabel;
     }
 }
 
