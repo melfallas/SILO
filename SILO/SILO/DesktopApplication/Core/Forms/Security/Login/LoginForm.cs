@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SILO.DesktopApplication.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,18 +34,20 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private bool requestUserAuthetication(string pUser, string pPassword)
         {
-            bool validFields = false;
-            if (pUser.Trim() == "fsandi" && pPassword.Trim() == "fsandi")
+            bool validCredentials = false;
+            LoginService loginService = new LoginService();
+            if (loginService.doLogin(pUser.Trim(), pPassword.Trim()))
             {
-                validFields = true;
+                validCredentials = true;
             }
-            return validFields;
+            return validCredentials;
         }
 
         private void cleanFields()
         {
             this.txbPass.Text = "";
             this.txbUser.Text = this.txbUser.Text.Trim();
+            this.txbUser.Focus();
         }
 
         private void launchApplication() {
@@ -61,6 +64,10 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             }
         }
 
+
+        //--------------------------------------- Eventos de controles principales --------------------------------------//
+
+        // Acción que controla el evento de Login al Ingresar
         private void loginButton_Click(object sender, EventArgs e)
         {
             if (!this.isValidLoginForm(this.txbUser.Text, this.txbPass.Text))
