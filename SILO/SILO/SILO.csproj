@@ -118,10 +118,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DesktopApplication\Core\Security\Login\LoginForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DesktopApplication\Core\Security\Login\LoginForm.designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesktopApplication\Core\Services\SecurityService.cs" />
@@ -267,7 +267,7 @@
     <EmbeddedResource Include="ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DesktopApplication\Core\Security\Login\LoginForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DisplayListForm.resx">
@@ -355,6 +355,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DesktopApplication\Core\Model\" />
+    <Folder Include="DesktopApplication\Core\Repositories\" />
     <Folder Include="DesktopApplication\Data\" />
     <Folder Include="DesktopApplication\View\" />
   </ItemGroup>

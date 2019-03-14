@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SILO.DesktopApplication.Core.Security.Login
+namespace SILO.DesktopApplication.Core.Forms.Security.Login
 {
     public partial class LoginForm : Form
     {
