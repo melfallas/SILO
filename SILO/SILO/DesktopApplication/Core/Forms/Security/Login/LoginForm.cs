@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SILO.DesktopApplication.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SILO.DesktopApplication.Core.Security.Login
+namespace SILO.DesktopApplication.Core.Forms.Security.Login
 {
     public partial class LoginForm : Form
     {
@@ -20,7 +21,7 @@ namespace SILO.DesktopApplication.Core.Security.Login
         private bool isValidLoginForm(string pUser, string pPassword)
         {
             bool validFields = false;
-            if (pUser == "" || pPassword == "")
+            if (pUser.Trim() == "" || pPassword.Trim() == "")
             {
                 MessageBox.Show(GeneralConstants.USER_AND_PASS_REQUIRED_VALIDATION);
             }
@@ -33,17 +34,20 @@ namespace SILO.DesktopApplication.Core.Security.Login
 
         private bool requestUserAuthetication(string pUser, string pPassword)
         {
-            bool validFields = false;
-            if (pUser == "fsandi" && pPassword == "fsandi")
+            bool validCredentials = false;
+            LoginService loginService = new LoginService();
+            if (loginService.doLogin(pUser.Trim(), pPassword.Trim()))
             {
-                validFields = true;
+                validCredentials = true;
             }
-            return validFields;
+            return validCredentials;
         }
 
         private void cleanFields()
         {
             this.txbPass.Text = "";
+            this.txbUser.Text = this.txbUser.Text.Trim();
+            this.txbUser.Focus();
         }
 
         private void launchApplication() {
@@ -60,6 +64,10 @@ namespace SILO.DesktopApplication.Core.Security.Login
             }
         }
 
+
+        //--------------------------------------- Eventos de controles principales --------------------------------------//
+
+        // Acción que controla el evento de Login al Ingresar
         private void loginButton_Click(object sender, EventArgs e)
         {
             if (!this.isValidLoginForm(this.txbUser.Text, this.txbPass.Text))

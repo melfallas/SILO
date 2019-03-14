@@ -1,4 +1,4 @@
-﻿namespace SILO.DesktopApplication.Core.Security.Login
+﻿namespace SILO.DesktopApplication.Core.Forms.Security.Login
 {
     partial class LoginForm
     {
