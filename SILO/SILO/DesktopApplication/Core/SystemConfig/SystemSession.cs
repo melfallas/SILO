@@ -10,6 +10,6 @@ namespace SILO.DesktopApplication.Core.SystemConfig
     {
         public static AUS_ApplicationUser sessionUser { get; set; }
 
-        //public static string username { get { } }
+        public static string username { get { return sessionUser == null ? "" : sessionUser.AUS_Username; } }
     }
 }
