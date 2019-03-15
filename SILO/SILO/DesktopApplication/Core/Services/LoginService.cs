@@ -18,7 +18,7 @@ namespace SILO.DesktopApplication.Core.Services
             if (authenticatedUser != null)
             {
                 successAuthentication = true;
-                SystemSession.sessionUser = authenticatedUser;
+                SystemSession.sessionUser = authenticatedUser;  // Guardar el usuario en sesión
             }
             return successAuthentication;
         }
