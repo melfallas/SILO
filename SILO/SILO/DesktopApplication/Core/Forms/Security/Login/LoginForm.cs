@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Services;
+﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,13 +80,26 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                 // Realizar autenticación del usuario
                 if (this.requestUserAuthetication(this.txbUser.Text, this.txbPass.Text))
                 {
-                    // Lanzar aplicación si la autenticación es exitosa
-                    this.launchApplication();
+                    // Si la autenticación es exitosa, probar la inicializació de la instancia
+                    ProgramInitializationService programInicializer = new ProgramInitializationService();
+                    if (programInicializer.setInstancePointSale())
+                    {
+                        // Lanzar aplicación si la instancia está inicializada
+                        this.launchApplication();
+                    }
+                    else {
+                        // Si la instancia no está inicializada, cerrar el programa
+                        this.cleanFields();
+                    }
+
                 }
                 else
                 {
                     // Mensaje de error para credenciales inválidas
-                    MessageBox.Show(GeneralConstants.BAD_USER_OR_PASS);
+                    MessageService.displayErrorMessage(
+                            GeneralConstants.BAD_USER_OR_PASS_ERROR,
+                            GeneralConstants.BAD_USER_OR_PASS_TITLE
+                            );
                     this.cleanFields();
                 }
             }

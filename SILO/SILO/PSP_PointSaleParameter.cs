@@ -16,5 +16,13 @@ namespace SILO
     {
         public string PSP_Name { get; set; }
         public string PSP_Value { get; set; }
+        /*
+        public PSP_PointSaleParameter(string pSP_Name, string pSP_Value)
+        {
+            PSP_Name = pSP_Name;
+            PSP_Value = pSP_Value;
+        }
+        */
+
     }
 }

@@ -118,6 +118,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Constants\ParameterConstants.cs" />
     <Compile Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +127,9 @@
     </Compile>
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ProgramInitializationService.cs" />
     <Compile Include="DesktopApplication\Core\Services\SecurityService.cs" />
     <Compile Include="DesktopApplication\Core\SystemConfig\SystemSession.cs" />
     <Compile Include="DisplayListForm.cs">
@@ -156,7 +160,7 @@
     <Compile Include="GeneralConfigurationForm.Designer.cs">
       <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeneralConstants.cs" />
+    <Compile Include="DesktopApplication\Core\Constants\GeneralConstants.cs" />
     <Compile Include="LDS_LotteryDrawStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -254,7 +258,7 @@
     <Compile Include="ServiceConectionConstants.cs" />
     <Compile Include="ServiceResponseResult.cs" />
     <Compile Include="SynchronizeService.cs" />
-    <Compile Include="SystemConstants.cs" />
+    <Compile Include="DesktopApplication\Core\Constants\SystemConstants.cs" />
     <Compile Include="SYS_SynchronyStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -262,7 +266,7 @@
     <Compile Include="USR_UserRole.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="UtilityService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\UtilityService.cs" />
     <Compile Include="WinningNumberInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
