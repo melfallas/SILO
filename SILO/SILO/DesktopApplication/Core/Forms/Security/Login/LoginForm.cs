@@ -1,5 +1,6 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Start;
+using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -70,16 +71,19 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void startInitialSynchronization()
         {
+            ServiceResponseResult responseResult = null;
+            SynchronizeService syncService = new SynchronizeService();
             LoginForm.waitHandle.WaitOne();
-            ServerConnectionService service = new ServerConnectionService();
+            ServerConnectionService connection = new ServerConnectionService();
             this.changeStatusLegend("Iniciando la carga...");
-            ServiceResponseResult responseResult = service.processGetRequest();
+            syncService.syncCompany_ServerToLocal();
+            //ServiceResponseResult responseResult = connection.getCompaniesFromServer();
             this.changeStatusLegend("Cargando sucursales...");
-            responseResult = service.processGetRequest();
+            responseResult = connection.getSalePointsFromServer();
             this.changeStatusLegend("Cargando roles...");
-            responseResult = service.processGetRequest();
+            responseResult = connection.getSalePointsFromServer();
             this.changeStatusLegend("Cargando usuarios...");
-            responseResult = service.processGetRequest();
+            responseResult = connection.getSalePointsFromServer();
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
         }
 

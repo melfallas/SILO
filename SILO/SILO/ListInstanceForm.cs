@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Services;
+﻿using SILO.DesktopApplication.Core.Model;
+using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

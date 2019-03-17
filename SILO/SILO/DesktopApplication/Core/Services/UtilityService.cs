@@ -1,5 +1,6 @@
 ﻿using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
+using SILO.DesktopApplication.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data;
