@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SILO.DesktopApplication.Core.Constants;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,9 +9,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Services
 {
-    class ServerConnectionService
+    public class ServerConnectionService
     {
 
 
@@ -104,6 +105,24 @@ namespace SILO
             return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
 
+
+        public ServiceResponseResult processGetRequest()
+        {
+            ServiceResponseResult responseResult = null;
+            var url = "https://silo-services.herokuapp.com/company/";
+            var webrequest = (HttpWebRequest) System.Net.WebRequest.Create(url);
+            using (var response = webrequest.GetResponse())
+            using (var reader = new StreamReader(response.GetResponseStream()))
+            {
+                string responseContent = reader.ReadToEnd();
+                Console.WriteLine(responseContent);
+                responseResult = JsonConvert.DeserializeObject<ServiceResponseResult>(responseContent);
+            }
+            return responseResult;
+        }
+
+
+        //--******************** Método Utilizado para servicios *********************--//
         public ServiceResponseResult processHttpRequest(string pUrlEndPoint, Object pJsonObject, string pHttpMethod)
         {
             // Serializar objeto json y convertirlo a bits

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Services
 {
     public static class UtilityService
     {

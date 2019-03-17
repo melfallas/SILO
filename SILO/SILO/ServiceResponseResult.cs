@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SILO
 {
-    class ServiceResponseResult
+    public class ServiceResponseResult
     {
         public string type { get; set; }
         public string message { get; set; }

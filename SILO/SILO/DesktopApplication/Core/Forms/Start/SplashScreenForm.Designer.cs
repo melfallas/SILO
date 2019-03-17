@@ -31,6 +31,7 @@
             this.versionAppLabel = new System.Windows.Forms.Label();
             this.userLabel = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.loadStatusLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // versionAppLabel
@@ -67,12 +68,23 @@
             this.progressBar1.UseWaitCursor = true;
             this.progressBar1.Value = 70;
             // 
+            // loadStatusLabel
+            // 
+            this.loadStatusLabel.AutoSize = true;
+            this.loadStatusLabel.ForeColor = System.Drawing.Color.White;
+            this.loadStatusLabel.Location = new System.Drawing.Point(115, 169);
+            this.loadStatusLabel.Name = "loadStatusLabel";
+            this.loadStatusLabel.Size = new System.Drawing.Size(131, 13);
+            this.loadStatusLabel.TabIndex = 3;
+            this.loadStatusLabel.Text = "Cargando datos iniciales...";
+            // 
             // SplashScreenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SlateGray;
-            this.ClientSize = new System.Drawing.Size(336, 198);
+            this.ClientSize = new System.Drawing.Size(336, 216);
+            this.Controls.Add(this.loadStatusLabel);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.userLabel);
             this.Controls.Add(this.versionAppLabel);
@@ -91,5 +103,6 @@
         private System.Windows.Forms.Label versionAppLabel;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.ProgressBar progressBar1;
+        public System.Windows.Forms.Label loadStatusLabel;
     }
 }

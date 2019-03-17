@@ -89,10 +89,10 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Start\ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ApplicationForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Start\ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AUS_ApplicationUser.cs">
@@ -260,8 +260,8 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SaleTicket.cs" />
-    <Compile Include="ServerConnectionService.cs" />
-    <Compile Include="ServiceConectionConstants.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ServerConnectionService.cs" />
+    <Compile Include="DesktopApplication\Core\Constants\ServiceConectionConstants.cs" />
     <Compile Include="ServiceResponseResult.cs" />
     <Compile Include="SynchronizeService.cs" />
     <Compile Include="DesktopApplication\Core\Constants\SystemConstants.cs" />
@@ -277,7 +277,7 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ApplicationForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Start\ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.resx">

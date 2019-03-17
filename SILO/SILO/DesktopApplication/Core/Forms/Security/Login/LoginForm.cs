@@ -16,6 +16,8 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 {
     public partial class LoginForm : Form
     {
+        public SplashScreenForm splashScreen { get; set; }
+
         public LoginForm()
         {
             this.launchSplashThread();
@@ -27,18 +29,30 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         {
             Thread splashThread = new Thread(new ThreadStart(launchSplashScreen));
             splashThread.Start();
-            startInitialSynchronization();
-            splashThread.Abort();
+            this.startInitialSynchronization();
+            this.splashScreen.DisposeForm();
+            this.splashScreen = null;
+            //splashThread.Abort();
         }
 
         private void startInitialSynchronization()
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(1000);
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult responseResult = service.processGetRequest();
+            this.splashScreen.SetText("Cargando sucursales...");
+            responseResult = service.processGetRequest();
+            this.splashScreen.SetText("Cargando roles...");
+            responseResult = service.processGetRequest();
+            this.splashScreen.SetText("Cargando usuarios...");
+            responseResult = service.processGetRequest();
+            this.splashScreen.SetText("");
         }
 
         private void launchSplashScreen()
         {
-            Application.Run(new SplashScreenForm());
+            this.splashScreen = new SplashScreenForm();
+            Application.Run(this.splashScreen);
         }
 
         private bool isValidLoginForm(string pUser, string pPassword)
