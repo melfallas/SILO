@@ -137,6 +137,7 @@
     <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ProgramInitializationService.cs" />
     <Compile Include="DesktopApplication\Core\Services\SecurityService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ValidationService.cs" />
     <Compile Include="DesktopApplication\Core\SystemConfig\SystemSession.cs" />
     <Compile Include="DisplayListForm.cs">
       <SubType>Form</SubType>

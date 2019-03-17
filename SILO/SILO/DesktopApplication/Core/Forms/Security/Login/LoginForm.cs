@@ -16,10 +16,15 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 {
     public partial class LoginForm : Form
     {
+        public static EventWaitHandle waitHandle = new AutoResetEvent(false);
+
+        public bool displayLogin { get; set; }
         public SplashScreenForm splashScreen { get; set; }
 
         public LoginForm()
         {
+            this.displayLogin = true;
+            this.splashScreen = null;
             this.launchSplashThread();
             InitializeComponent();
             this.versionLabel.Text = UtilityService.getApplicationVersion();
@@ -27,38 +32,69 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void launchSplashThread()
         {
+            // Lanzar el Thread para el Splash Screen
             Thread splashThread = new Thread(new ThreadStart(launchSplashScreen));
             splashThread.Start();
-            this.startInitialSynchronization();
-            this.splashScreen.DisposeForm();
-            this.splashScreen = null;
-            //splashThread.Abort();
-        }
-
-        private void startInitialSynchronization()
-        {
-            //Thread.Sleep(1000);
-            ServerConnectionService service = new ServerConnectionService();
-            ServiceResponseResult responseResult = service.processGetRequest();
-            this.splashScreen.SetText("Cargando sucursales...");
-            responseResult = service.processGetRequest();
-            this.splashScreen.SetText("Cargando roles...");
-            responseResult = service.processGetRequest();
-            this.splashScreen.SetText("Cargando usuarios...");
-            responseResult = service.processGetRequest();
-            this.splashScreen.SetText("");
+            string companyId = UtilityService.getCompanyId();
+            // Verificar si la compañía está especificada y es válida
+            if(ValidationService.isValidId(companyId))
+            {
+                // Realizar sincronización inicial
+                this.startInitialSynchronization();
+                //splashThread.Abort();
+            }
+            else
+            {
+                // Mensaje de error para compañía no especificada
+                MessageService.displayErrorMessage(
+                        GeneralConstants.UNINITIALIZED_COMPANY_ERROR,
+                        GeneralConstants.UNINITIALIZED_COMPANY_TITLE
+                        );
+                this.displayLogin = false;
+            }
+            this.closeSplashScreen();
         }
 
         private void launchSplashScreen()
         {
             this.splashScreen = new SplashScreenForm();
+            LoginForm.waitHandle.Set();
             Application.Run(this.splashScreen);
+        }
+
+        private void closeSplashScreen()
+        {
+            this.splashScreen.DisposeForm();
+            this.splashScreen = null;
+        }
+
+        private void startInitialSynchronization()
+        {
+            LoginForm.waitHandle.WaitOne();
+            ServerConnectionService service = new ServerConnectionService();
+            this.changeStatusLegend("Iniciando la carga...");
+            ServiceResponseResult responseResult = service.processGetRequest();
+            this.changeStatusLegend("Cargando sucursales...");
+            responseResult = service.processGetRequest();
+            this.changeStatusLegend("Cargando roles...");
+            responseResult = service.processGetRequest();
+            this.changeStatusLegend("Cargando usuarios...");
+            responseResult = service.processGetRequest();
+            this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
+        }
+
+        private void changeStatusLegend(string plegendText)
+        {
+            if (this.splashScreen != null)
+            {
+                this.splashScreen.SetText(plegendText);
+            }
         }
 
         private bool isValidLoginForm(string pUser, string pPassword)
         {
             bool validFields = false;
-            if (pUser.Trim() == "" || pPassword.Trim() == "")
+            if (pUser.Trim() == GeneralConstants.EMPTY_STRING || pPassword.Trim() == GeneralConstants.EMPTY_STRING)
             {
                 MessageBox.Show(GeneralConstants.USER_AND_PASS_REQUIRED_VALIDATION);
             }
@@ -82,7 +118,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void cleanFields()
         {
-            this.txbPass.Text = "";
+            this.txbPass.Text = GeneralConstants.EMPTY_STRING;
             this.txbUser.Text = this.txbUser.Text.Trim();
             this.txbUser.Focus();
         }
@@ -144,6 +180,14 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            if (!this.displayLogin)
+            {
+                this.Dispose();
+            }
         }
     }
 }

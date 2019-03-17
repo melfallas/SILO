@@ -8,6 +8,9 @@ namespace SILO.Core.Constants
 {
     class GeneralConstants
     {
+        // Constantes Generales
+        public const string EMPTY_STRING = "";
+
         public const string DISPLAY_DRAWTYPE_KEY_LABEL = "id";
         public const string DISPLAY_DRAWTYPE_VALUE_LABEL = "display";
 
@@ -22,6 +25,9 @@ namespace SILO.Core.Constants
 
         // Inicialization Constants
         public const string GET_SESSION_USER_ERROR = "Error al obtener la sesión del usuario";
+        // Compañía no inicializada
+        public const string UNINITIALIZED_COMPANY_TITLE = "COMPAÑÍA NO ESPECIFICADA";
+        public const string UNINITIALIZED_COMPANY_ERROR = "La compañía no ha sido especificada.\nPor favor, contacte al administrador.";
         //--- Sistema no inicializado
         public const string UNINITIALIZED_SYSTEM_TITLE = "SISTEMA NO INICIALIZADO";
         public const string UNINITIALIZED_SYSTEM_ERROR = "El sistema no ha sido inicializado.\nDebe ingresar con un usuario de venta.";
