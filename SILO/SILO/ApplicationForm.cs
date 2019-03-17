@@ -85,7 +85,7 @@ namespace SILO
             qrForm.Show();
             */
             
-            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            String version = UtilityService.getApplicationVersion();
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
             
         }

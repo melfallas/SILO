@@ -17,6 +17,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         public LoginForm()
         {
             InitializeComponent();
+            this.versionLabel.Text = UtilityService.getApplicationVersion();
         }
 
         private bool isValidLoginForm(string pUser, string pPassword)
