@@ -21,7 +21,6 @@ namespace SILO
             InitializeComponent();
             this.parentForm = pParentForm;
             this.userNameLabel.Text = SystemSession.username;
-            //new NumberBoxForm();
         }
 
         private void ShowFormInMainPanel(object pForm) {

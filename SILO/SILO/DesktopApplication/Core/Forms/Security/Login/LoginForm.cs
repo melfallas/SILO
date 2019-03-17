@@ -1,4 +1,5 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Forms.Start;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,8 +18,27 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
     {
         public LoginForm()
         {
+            this.launchSplashThread();
             InitializeComponent();
             this.versionLabel.Text = UtilityService.getApplicationVersion();
+        }
+
+        private void launchSplashThread()
+        {
+            Thread splashThread = new Thread(new ThreadStart(launchSplashScreen));
+            splashThread.Start();
+            startInitialSynchronization();
+            splashThread.Abort();
+        }
+
+        private void startInitialSynchronization()
+        {
+            Thread.Sleep(5000);
+        }
+
+        private void launchSplashScreen()
+        {
+            Application.Run(new SplashScreenForm());
         }
 
         private bool isValidLoginForm(string pUser, string pPassword)
