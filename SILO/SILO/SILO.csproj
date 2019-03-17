@@ -125,6 +125,12 @@
     <Compile Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Start\SplashScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Start\SplashScreenForm.Designer.cs">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
@@ -276,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Start\SplashScreenForm.resx">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DisplayListForm.resx">
       <DependentUpon>DisplayListForm.cs</DependentUpon>

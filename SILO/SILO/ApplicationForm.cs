@@ -21,7 +21,6 @@ namespace SILO
             InitializeComponent();
             this.parentForm = pParentForm;
             this.userNameLabel.Text = SystemSession.username;
-            //new NumberBoxForm();
         }
 
         private void ShowFormInMainPanel(object pForm) {
@@ -85,7 +84,7 @@ namespace SILO
             qrForm.Show();
             */
             
-            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            String version = UtilityService.getApplicationVersion();
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
             
         }

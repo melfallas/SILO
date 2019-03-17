@@ -17,7 +17,7 @@ namespace SILO.Core.Constants
         // Security Constants
         public const string BAD_USER_OR_PASS_TITLE = "ERROR DE AUTENTICACIÓN";
         //public const string BAD_USER_OR_PASS_TITLE = "Error de Autenticación";
-        public const string BAD_USER_OR_PASS_ERROR = "Usuario o contraseña incorrectos";
+        public const string BAD_USER_OR_PASS_ERROR = "Usuario o contraseña incorrectos.\nPor favor, ingrese sus credenciales nuevamente.";
         public const string USER_AND_PASS_REQUIRED_VALIDATION = "Por favor, ingrese usuario y contraseña";
 
         // Inicialization Constants
@@ -30,7 +30,7 @@ namespace SILO.Core.Constants
         public const string POS_CONFIRM_MESSAGE = "Debe especificar sucursal";
         //--- Sucursal no especificada
         public const string POS_INITIALIZATION_TITLE = "SUCURSAL NO ESPECIFICADA";
-        public const string POS_INITIALIZATION_ERROR = "No fue posible inicializar la sucursal.\nPor favor, confirme el punto de venta.";
+        public const string POS_INITIALIZATION_ERROR = "No fue posible inicializar la sucursal.\nPor favor, vuelva a ingresar sus credenciales.\nPosteriormente confirme el punto de venta.";
         public const string GET_SESSION_USER_ERROR2 = "Error";
 
 

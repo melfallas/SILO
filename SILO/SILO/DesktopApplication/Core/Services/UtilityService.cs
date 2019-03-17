@@ -16,6 +16,7 @@ namespace SILO
     public static class UtilityService
     {
         public const string POS_NAME_PARAM = "Sucursal";
+        public const string COMPANY_ID_PARAM = "Empresa";
         public const string COMPANY_NAME_PARAM = "Nombre_Empresa";
         public const string PRINTER_NAME_PARAM = "Nombre_Impresora";
 
@@ -28,6 +29,11 @@ namespace SILO
         {
             PointSaleParameterRepository posParam = new PointSaleParameterRepository();
             return posParam.getByName(pParamName).PSP_Value;
+        }
+
+        public static string getCompanyId()
+        {
+            return getPointSaleParameterValue(COMPANY_ID_PARAM);
         }
 
         public static string getCompanyName()
@@ -295,10 +301,15 @@ namespace SILO
             return imagen;
         }
 
-        public static void saveProhibitedNumbers(int [] pArray) {            
+        public static void saveProhibitedNumbers(int [] pArray) {
             LotteryNumberRepository pointSaleRepository = new LotteryNumberRepository();
             pointSaleRepository.saveProhibitedNumbers(pArray);
         } 
+
+        public static string getApplicationVersion()
+        {
+            return "v " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
 
     }
 }

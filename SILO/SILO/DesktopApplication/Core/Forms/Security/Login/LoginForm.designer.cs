@@ -34,6 +34,7 @@
             this.txbPass = new System.Windows.Forms.TextBox();
             this.loginButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // userLabel
@@ -97,12 +98,23 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.ForeColor = System.Drawing.Color.White;
+            this.versionLabel.Location = new System.Drawing.Point(339, 9);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(49, 13);
+            this.versionLabel.TabIndex = 6;
+            this.versionLabel.Text = "v 0.1.1.1";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSlateGray;
             this.ClientSize = new System.Drawing.Size(412, 301);
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.txbPass);
@@ -126,5 +138,6 @@
         private System.Windows.Forms.TextBox txbPass;
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Label versionLabel;
     }
 }
