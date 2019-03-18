@@ -1,4 +1,4 @@
-﻿namespace SILO
+﻿namespace SILO.DesktopApplication.Core.Forms.Start
 {
     partial class ApplicationForm
     {
