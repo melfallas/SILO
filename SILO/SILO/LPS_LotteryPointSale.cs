@@ -21,6 +21,18 @@ namespace SILO
             this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
         }
+
+        public void copy(LPS_LotteryPointSale pSalePoint)
+        {
+            this.LPS_Code = pSalePoint.LPS_Code;
+            this.LPS_DisplayName = pSalePoint.LPS_DisplayName;
+            this.LPS_Description = pSalePoint.LPS_Description;
+            this.CPN_Company = pSalePoint.CPN_Company;
+            this.LPS_Counter = pSalePoint.LPS_Counter;
+            this.LPS_IsActive = pSalePoint.LPS_IsActive;
+            this.SYS_SynchronyStatus = pSalePoint.SYS_SynchronyStatus;
+            this.LPS_CreateDate = pSalePoint.LPS_CreateDate;
+        }
     
         public long LPS_Id { get; set; }
         public string LPS_Code { get; set; }

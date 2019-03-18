@@ -71,19 +71,16 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void startInitialSynchronization()
         {
-            ServiceResponseResult responseResult = null;
-            SynchronizeService syncService = new SynchronizeService();
             LoginForm.waitHandle.WaitOne();
-            ServerConnectionService connection = new ServerConnectionService();
             this.changeStatusLegend("Iniciando la carga...");
+            SynchronizeService syncService = new SynchronizeService();
             syncService.syncCompany_ServerToLocal();
-            //ServiceResponseResult responseResult = connection.getCompaniesFromServer();
             this.changeStatusLegend("Cargando sucursales...");
-            responseResult = connection.getSalePointsFromServer();
+            syncService.syncSalePoint_ServerToLocal();
             this.changeStatusLegend("Cargando roles...");
-            responseResult = connection.getSalePointsFromServer();
+            syncService.syncCompany_ServerToLocal();
             this.changeStatusLegend("Cargando usuarios...");
-            responseResult = connection.getSalePointsFromServer();
+            syncService.syncCompany_ServerToLocal();
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
         }
 

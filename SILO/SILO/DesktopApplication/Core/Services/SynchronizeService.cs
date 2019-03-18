@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Util;
@@ -19,7 +20,7 @@ namespace SILO.DesktopApplication.Core.Services
             ServiceResponseResult responseResult = connection.getCompaniesFromServer();
             string result = responseResult.result.ToString();
             // Parsear el json de respuesta
-            JsonObjectParser parser = new JsonObjectParser();
+            JsonObjectParser parser = new JsonObjectParser((int)EntityType.Company);
             string parsedJsonString = parser.parse(result);
             // Realizar la persistencia de los cambios
             CompanyRepository companyRepo = new CompanyRepository();
@@ -28,8 +29,23 @@ namespace SILO.DesktopApplication.Core.Services
 
         public void syncSalePoint_ServerToLocal()
         {
-
+            // Realizar la petición http
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getSalePointsFromServer();
+            string jsonStringResult = responseResult.result.ToString();
+            JsonObjectParser parser = new JsonObjectParser((int)EntityType.PointSale);
+            // Reemplazar objetos complejos en el json por su id
+            JArray jsonArray = JArray.Parse(jsonStringResult);
+            foreach (var item in jsonArray)
+            {
+                parser.changeJsonProp(item, "company");
+                parser.changeJsonProp(item, "synchronyStatus");
+            }
+            // Parsear el json de respuesta
+            string parsedJsonString = parser.parse(jsonArray.ToString());
+            // Realizar la persistencia de los cambios
+            LotteryPointSaleRepository posRepo = new LotteryPointSaleRepository();
+            posRepo.saveList(JsonConvert.DeserializeObject<List<LPS_LotteryPointSale>>(parsedJsonString));
         }
-
     }
 }
