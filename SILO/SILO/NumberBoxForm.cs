@@ -1,4 +1,5 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

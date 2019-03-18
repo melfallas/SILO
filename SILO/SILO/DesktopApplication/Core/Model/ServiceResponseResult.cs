@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Model
 {
-    class ServiceResponseResult
+    public class ServiceResponseResult
     {
         public string type { get; set; }
         public string message { get; set; }

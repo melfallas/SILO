@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Services;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Forms.Start
 {
     public partial class ApplicationForm : Form
     {

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,11 +10,37 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Services
 {
-    class ServerConnectionService
+    public class ServerConnectionService
     {
 
+        public ServiceResponseResult getCompaniesFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_COMPANIES_RESOURCE_URL);
+        }
+
+        public ServiceResponseResult getSalePointsFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_POINT_SALE_RESOURCE_URL);
+        }
+
+
+        public ServiceResponseResult processGetRequest(string pServiceURL)
+        {
+            RestClientService restClient = new RestClientService();
+            return restClient.processGetRequest(pServiceURL);
+        }
+
+
+        /*
+        public ServiceResponseResult processGetRequest()
+        {
+            RestClientService restClient = new RestClientService();
+            var url = "https://silo-services.herokuapp.com/company/";
+            return restClient.processGetRequest(url);
+        }
+        */
 
         public void getConnection()
         {
@@ -104,6 +132,8 @@ namespace SILO
             return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
 
+
+        //--******************** Método Utilizado para servicios *********************--//
         public ServiceResponseResult processHttpRequest(string pUrlEndPoint, Object pJsonObject, string pHttpMethod)
         {
             // Serializar objeto json y convertirlo a bits

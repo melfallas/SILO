@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Collections;
 using System.Drawing.Printing;
 using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Services;
 
 namespace SILO
 {

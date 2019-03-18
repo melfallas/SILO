@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Constants
 {
     class ServiceConectionConstants
     {
@@ -17,6 +17,12 @@ namespace SILO
         // Constantes para end point urls de las API
         //public const string ROOT_SERVICE_API_END_POINT          = "http://localhost:5555/";
         public const string ROOT_SERVICE_API_END_POINT          = "https://silo-services.herokuapp.com/";
+
+        // URLs de los servicios principales
+        public const string GET_ALL_COMPANIES_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "company/";
+        public const string GET_ALL_POINT_SALE_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotterypointsale/";
+
+
         public const string DRAW_TYPE_RESOURCE_URL              = ROOT_SERVICE_API_END_POINT + "lotterydrawtype/";
         public const string DRAW_ASSOCIATION_RESOURCE_URL       = ROOT_SERVICE_API_END_POINT + "lotterydrawassociation/synchronize/";
         public const string LIST_RESOURCE_URL                   = ROOT_SERVICE_API_END_POINT + "lotterylist/generate/";

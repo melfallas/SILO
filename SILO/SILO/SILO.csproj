@@ -89,17 +89,16 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Start\ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ApplicationForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Start\ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AUS_ApplicationUser.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BoxNumberUnit.cs" />
-    <Compile Include="CompanyRepository.cs" />
     <Compile Include="CPN_Company.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -132,12 +131,17 @@
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\CompanyRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ProgramInitializationService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\RestClientService.cs" />
     <Compile Include="DesktopApplication\Core\Services\SecurityService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ValidationService.cs" />
     <Compile Include="DesktopApplication\Core\SystemConfig\SystemSession.cs" />
+    <Compile Include="DesktopApplication\Core\Util\EntityType.cs" />
+    <Compile Include="DesktopApplication\Core\Util\JsonObjectParser.cs" />
     <Compile Include="DisplayListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,7 +223,7 @@
     </Compile>
     <Compile Include="LotteryListRepository.cs" />
     <Compile Include="LotteryNumberRepository.cs" />
-    <Compile Include="LotteryPointSaleRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LotteryPointSaleRepository.cs" />
     <Compile Include="ListTotalRecord.cs" />
     <Compile Include="LotteryTuple.cs" />
     <Compile Include="LPF_LotteryPrizeFactor.cs">
@@ -260,10 +264,10 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SaleTicket.cs" />
-    <Compile Include="ServerConnectionService.cs" />
-    <Compile Include="ServiceConectionConstants.cs" />
-    <Compile Include="ServiceResponseResult.cs" />
-    <Compile Include="SynchronizeService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ServerConnectionService.cs" />
+    <Compile Include="DesktopApplication\Core\Constants\ServiceConectionConstants.cs" />
+    <Compile Include="DesktopApplication\Core\Model\ServiceResponseResult.cs" />
+    <Compile Include="DesktopApplication\Core\Services\SynchronizeService.cs" />
     <Compile Include="DesktopApplication\Core\Constants\SystemConstants.cs" />
     <Compile Include="SYS_SynchronyStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
@@ -277,7 +281,7 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ApplicationForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Start\ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Security\Login\LoginForm.resx">
@@ -371,7 +375,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DesktopApplication\Core\Model\" />
     <Folder Include="DesktopApplication\Data\" />
     <Folder Include="DesktopApplication\View\" />
   </ItemGroup>
