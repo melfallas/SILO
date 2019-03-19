@@ -98,6 +98,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="LPR_LocalParameter">
+      <EntityTypeMapping TypeName="SILOModel.LPR_LocalParameter">
+        <MappingFragment StoreEntitySet="LPR_LocalParameter">
+          <ScalarProperty Name="LPT_LocalParameterType" ColumnName="LPT_LocalParameterType" />
+          <ScalarProperty Name="LPR_Value" ColumnName="LPR_Value" />
+          <ScalarProperty Name="LPR_Name" ColumnName="LPR_Name" />
+          <ScalarProperty Name="LPR_Id" ColumnName="LPR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="LPS_LotteryPointSale">
       <EntityTypeMapping TypeName="SILOModel.LPS_LotteryPointSale">
         <MappingFragment StoreEntitySet="LPS_LotteryPointSale">
@@ -110,6 +120,15 @@
           <ScalarProperty Name="LPS_DisplayName" ColumnName="LPS_DisplayName" />
           <ScalarProperty Name="LPS_Code" ColumnName="LPS_Code" />
           <ScalarProperty Name="LPS_Id" ColumnName="LPS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LPT_LocalParameterType">
+      <EntityTypeMapping TypeName="SILOModel.LPT_LocalParameterType">
+        <MappingFragment StoreEntitySet="LPT_LocalParameterType">
+          <ScalarProperty Name="LPT_Description" ColumnName="LPT_Description" />
+          <ScalarProperty Name="LPT_DisplayName" ColumnName="LPT_DisplayName" />
+          <ScalarProperty Name="LPT_Id" ColumnName="LPT_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -133,14 +152,6 @@
           <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
           <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
           <ScalarProperty Name="LTL_Id" ColumnName="LTL_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PSP_PointSaleParameter">
-      <EntityTypeMapping TypeName="SILOModel.PSP_PointSaleParameter">
-        <MappingFragment StoreEntitySet="PSP_PointSaleParameter">
-          <ScalarProperty Name="PSP_Value" ColumnName="PSP_Value" />
-          <ScalarProperty Name="PSP_Name" ColumnName="PSP_Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
