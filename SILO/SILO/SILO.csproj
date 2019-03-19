@@ -229,7 +229,13 @@
     <Compile Include="LPF_LotteryPrizeFactor.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LPR_LocalParameter.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LPS_LotteryPointSale.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LPT_LocalParameterType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LTD_LotteryDraw.cs">
@@ -250,7 +256,7 @@
     <Compile Include="NumberBoxForm.Designer.cs">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PointSaleParameterRepository.cs" />
+    <Compile Include="LocalParameterRepository.cs" />
     <Compile Include="PrizeTicket.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProhibitedNumberForm.cs">
@@ -260,9 +266,6 @@
       <DependentUpon>ProhibitedNumberForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PSP_PointSaleParameter.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="SaleTicket.cs" />
     <Compile Include="DesktopApplication\Core\Services\ServerConnectionService.cs" />
     <Compile Include="DesktopApplication\Core\Constants\ServiceConectionConstants.cs" />

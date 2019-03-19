@@ -33,7 +33,7 @@ namespace SILO
             this.SYS_SynchronyStatus = pSalePoint.SYS_SynchronyStatus;
             this.LPS_CreateDate = pSalePoint.LPS_CreateDate;
         }
-    
+
         public long LPS_Id { get; set; }
         public string LPS_Code { get; set; }
         public string LPS_DisplayName { get; set; }

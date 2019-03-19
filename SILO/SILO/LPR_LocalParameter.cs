@@ -12,17 +12,13 @@ namespace SILO
     using System;
     using System.Collections.Generic;
     
-    public partial class PSP_PointSaleParameter
+    public partial class LPR_LocalParameter
     {
-        public string PSP_Name { get; set; }
-        public string PSP_Value { get; set; }
-        /*
-        public PSP_PointSaleParameter(string pSP_Name, string pSP_Value)
-        {
-            PSP_Name = pSP_Name;
-            PSP_Value = pSP_Value;
-        }
-        */
-
+        public long LPR_Id { get; set; }
+        public string LPR_Name { get; set; }
+        public string LPR_Value { get; set; }
+        public long LPT_LocalParameterType { get; set; }
+    
+        public virtual LPT_LocalParameterType LPT_LocalParameterType1 { get; set; }
     }
 }

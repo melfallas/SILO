@@ -20,44 +20,44 @@ namespace SILO.DesktopApplication.Core.Services
         public const string COMPANY_ID_PARAM = "Empresa";
         public const string COMPANY_NAME_PARAM = "Nombre_Empresa";
         public const string PRINTER_NAME_PARAM = "Nombre_Impresora";
-
-        public static PSP_PointSaleParameter getPointSaleParameter(string pParamName) {
-            PointSaleParameterRepository posParam = new PointSaleParameterRepository();
+        /*
+        public static LPR_LocalParameter getLocalParameter(string pParamName) {
+            LocalParameterRepository posParam = new LocalParameterRepository();
             return posParam.getByName(pParamName);
         }
-
-        public static string getPointSaleParameterValue(string pParamName)
+        */
+        public static string getLocalParameterValue(string pParamName)
         {
-            PointSaleParameterRepository posParam = new PointSaleParameterRepository();
-            return posParam.getByName(pParamName).PSP_Value;
+            LocalParameterRepository posParam = new LocalParameterRepository();
+            return posParam.getParamValue(pParamName);
         }
 
         public static string getCompanyId()
         {
-            return getPointSaleParameterValue(COMPANY_ID_PARAM);
+            return getLocalParameterValue(COMPANY_ID_PARAM);
         }
 
         public static string getCompanyName()
         {
-            return getPointSaleParameterValue(COMPANY_NAME_PARAM);
+            return getLocalParameterValue(COMPANY_NAME_PARAM);
         }
 
         public static LPS_LotteryPointSale getPointSale()
         {
             LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
-            long posId = Convert.ToInt64(getPointSaleParameter(POS_NAME_PARAM).PSP_Value);
+            long posId = Convert.ToInt64(getLocalParameterValue(POS_NAME_PARAM));
             return posRepository.getById(posId);
         }
 
         public static long getPointSaleId()
         {
             LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
-            long posId = Convert.ToInt64(getPointSaleParameter(POS_NAME_PARAM).PSP_Value);
+            long posId = Convert.ToInt64(getLocalParameterValue(POS_NAME_PARAM));
             return posRepository.getById(posId).LPS_Id;
         }
 
         public static string getTicketPrinterName() {
-            return getPointSaleParameter(PRINTER_NAME_PARAM).PSP_Value;
+            return getLocalParameterValue(PRINTER_NAME_PARAM);
         }
 
         public static string getGlobalId(long pId)
