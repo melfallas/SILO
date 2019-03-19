@@ -14,7 +14,7 @@ namespace SILO.DesktopApplication.Core.Services
         public string getPointSaleInstance()
         {
             string posInstance = null;
-            posInstance = UtilityService.getPointSaleParameterValue(ParameterConstants.POS_NAME_PARAM);
+            posInstance = UtilityService.getLocalParameterValue(ParameterConstants.POS_NAME_PARAM);
             posInstance = posInstance.Trim() == "" ? null : posInstance;
             return posInstance;
         }
@@ -23,17 +23,17 @@ namespace SILO.DesktopApplication.Core.Services
         {
             LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
             // TODO: Validar si es número
-            long posId = Convert.ToInt64(UtilityService.getPointSaleParameter(ParameterConstants.POS_NAME_PARAM).PSP_Value);
+            long posId = Convert.ToInt64(UtilityService.getLocalParameterValue(ParameterConstants.POS_NAME_PARAM));
             return posRepository.getById(posId);
         }
 
         public void initialize(long posId)
         {
             //PSP_PointSaleParameter parameter = new PSP_PointSaleParameter(ParameterConstants.POS_NAME_PARAM, posId.ToString());
-            PSP_PointSaleParameter parameter = new PSP_PointSaleParameter();
-            parameter.PSP_Name = ParameterConstants.POS_NAME_PARAM;
-            parameter.PSP_Value = posId.ToString();
-            PointSaleParameterRepository pointSaleParameterRepository = new PointSaleParameterRepository();
+            LPR_LocalParameter parameter = new LPR_LocalParameter();
+            parameter.LPR_Name = ParameterConstants.POS_NAME_PARAM;
+            parameter.LPR_Value = posId.ToString();
+            LocalParameterRepository pointSaleParameterRepository = new LocalParameterRepository();
             pointSaleParameterRepository.save(parameter);
         }
     }

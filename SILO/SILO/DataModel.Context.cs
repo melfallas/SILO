@@ -34,10 +34,11 @@ namespace SILO
         public virtual DbSet<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }
         public virtual DbSet<LNR_LotteryNumber> LNR_LotteryNumber { get; set; }
         public virtual DbSet<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
+        public virtual DbSet<LPR_LocalParameter> LPR_LocalParameter { get; set; }
         public virtual DbSet<LPS_LotteryPointSale> LPS_LotteryPointSale { get; set; }
+        public virtual DbSet<LPT_LocalParameterType> LPT_LocalParameterType { get; set; }
         public virtual DbSet<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
         public virtual DbSet<LTL_LotteryList> LTL_LotteryList { get; set; }
-        public virtual DbSet<PSP_PointSaleParameter> PSP_PointSaleParameter { get; set; }
         public virtual DbSet<SYS_SynchronyStatus> SYS_SynchronyStatus { get; set; }
         public virtual DbSet<USR_UserRole> USR_UserRole { get; set; }
     }

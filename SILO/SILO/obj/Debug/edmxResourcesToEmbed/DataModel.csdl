@@ -10,10 +10,11 @@
     <EntitySet Name="LND_ListNumberDetail" EntityType="SILOModel.LND_ListNumberDetail" />
     <EntitySet Name="LNR_LotteryNumber" EntityType="SILOModel.LNR_LotteryNumber" />
     <EntitySet Name="LPF_LotteryPrizeFactor" EntityType="SILOModel.LPF_LotteryPrizeFactor" />
+    <EntitySet Name="LPR_LocalParameter" EntityType="SILOModel.LPR_LocalParameter" />
     <EntitySet Name="LPS_LotteryPointSale" EntityType="SILOModel.LPS_LotteryPointSale" />
+    <EntitySet Name="LPT_LocalParameterType" EntityType="SILOModel.LPT_LocalParameterType" />
     <EntitySet Name="LTD_LotteryDraw" EntityType="SILOModel.LTD_LotteryDraw" />
     <EntitySet Name="LTL_LotteryList" EntityType="SILOModel.LTL_LotteryList" />
-    <EntitySet Name="PSP_PointSaleParameter" EntityType="SILOModel.PSP_PointSaleParameter" />
     <EntitySet Name="SYS_SynchronyStatus" EntityType="SILOModel.SYS_SynchronyStatus" />
     <EntitySet Name="USR_UserRole" EntityType="SILOModel.USR_UserRole" />
     <AssociationSet Name="FK_AUS_ApplicationUser_0_0" Association="SILOModel.FK_AUS_ApplicationUser_0_0">
@@ -67,6 +68,10 @@
     <AssociationSet Name="FK_LPF_LotteryPrizeFactor_2_0" Association="SILOModel.FK_LPF_LotteryPrizeFactor_2_0">
       <End Role="LPS_LotteryPointSale" EntitySet="LPS_LotteryPointSale" />
       <End Role="LPF_LotteryPrizeFactor" EntitySet="LPF_LotteryPrizeFactor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LPR_LocalParameter_0_0" Association="SILOModel.FK_LPR_LocalParameter_0_0">
+      <End Role="LPT_LocalParameterType" EntitySet="LPT_LocalParameterType" />
+      <End Role="LPR_LocalParameter" EntitySet="LPR_LocalParameter" />
     </AssociationSet>
     <AssociationSet Name="FK_LPS_LotteryPointSale_0_0" Association="SILOModel.FK_LPS_LotteryPointSale_0_0">
       <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
@@ -188,6 +193,16 @@
     <NavigationProperty Name="SYS_SynchronyStatus1" Relationship="SILOModel.FK_LPF_LotteryPrizeFactor_0_0" FromRole="LPF_LotteryPrizeFactor" ToRole="SYS_SynchronyStatus" />
     <NavigationProperty Name="LPS_LotteryPointSale1" Relationship="SILOModel.FK_LPF_LotteryPrizeFactor_2_0" FromRole="LPF_LotteryPrizeFactor" ToRole="LPS_LotteryPointSale" />
   </EntityType>
+  <EntityType Name="LPR_LocalParameter">
+    <Key>
+      <PropertyRef Name="LPR_Id" />
+    </Key>
+    <Property Name="LPR_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LPR_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="LPR_Value" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="LPT_LocalParameterType" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="LPT_LocalParameterType1" Relationship="SILOModel.FK_LPR_LocalParameter_0_0" FromRole="LPR_LocalParameter" ToRole="LPT_LocalParameterType" />
+  </EntityType>
   <EntityType Name="LPS_LotteryPointSale">
     <Key>
       <PropertyRef Name="LPS_Id" />
@@ -206,6 +221,15 @@
     <NavigationProperty Name="LPF_LotteryPrizeFactor" Relationship="SILOModel.FK_LPF_LotteryPrizeFactor_2_0" FromRole="LPS_LotteryPointSale" ToRole="LPF_LotteryPrizeFactor" />
     <NavigationProperty Name="SYS_SynchronyStatus1" Relationship="SILOModel.FK_LPS_LotteryPointSale_0_0" FromRole="LPS_LotteryPointSale" ToRole="SYS_SynchronyStatus" />
     <NavigationProperty Name="LTL_LotteryList" Relationship="SILOModel.FK_LTL_LotteryList_2_0" FromRole="LPS_LotteryPointSale" ToRole="LTL_LotteryList" />
+  </EntityType>
+  <EntityType Name="LPT_LocalParameterType">
+    <Key>
+      <PropertyRef Name="LPT_Id" />
+    </Key>
+    <Property Name="LPT_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LPT_DisplayName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="LPT_Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LPR_LocalParameter" Relationship="SILOModel.FK_LPR_LocalParameter_0_0" FromRole="LPT_LocalParameterType" ToRole="LPR_LocalParameter" />
   </EntityType>
   <EntityType Name="LTD_LotteryDraw">
     <Key>
@@ -236,13 +260,6 @@
     <NavigationProperty Name="LPS_LotteryPointSale1" Relationship="SILOModel.FK_LTL_LotteryList_2_0" FromRole="LTL_LotteryList" ToRole="LPS_LotteryPointSale" />
     <NavigationProperty Name="LTD_LotteryDraw1" Relationship="SILOModel.FK_LTL_LotteryList_3_0" FromRole="LTL_LotteryList" ToRole="LTD_LotteryDraw" />
     <NavigationProperty Name="SYS_SynchronyStatus1" Relationship="SILOModel.FK_LTL_LotteryList_0_0" FromRole="LTL_LotteryList" ToRole="SYS_SynchronyStatus" />
-  </EntityType>
-  <EntityType Name="PSP_PointSaleParameter">
-    <Key>
-      <PropertyRef Name="PSP_Name" />
-    </Key>
-    <Property Name="PSP_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="PSP_Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="SYS_SynchronyStatus">
     <Key>
@@ -420,6 +437,18 @@
       </Principal>
       <Dependent Role="LPF_LotteryPrizeFactor">
         <PropertyRef Name="LPS_LotteryPointSale" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LPR_LocalParameter_0_0">
+    <End Type="SILOModel.LPT_LocalParameterType" Role="LPT_LocalParameterType" Multiplicity="1" />
+    <End Type="SILOModel.LPR_LocalParameter" Role="LPR_LocalParameter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LPT_LocalParameterType">
+        <PropertyRef Name="LPT_Id" />
+      </Principal>
+      <Dependent Role="LPR_LocalParameter">
+        <PropertyRef Name="LPT_LocalParameterType" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
