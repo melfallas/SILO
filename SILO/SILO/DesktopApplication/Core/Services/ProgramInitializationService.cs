@@ -1,5 +1,6 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace SILO.DesktopApplication.Core.Services
                 {
                     case SystemConstants.ROLE_SA_ID:
                     case SystemConstants.ROLE_ADMIN_ID:
+
                         instanceSetup = this.validateSalePointInstance();
                         break;
                     case SystemConstants.ROLE_SALLER_ID:
@@ -42,11 +44,10 @@ namespace SILO.DesktopApplication.Core.Services
             return instanceSetup;
         }
 
-        public bool isPointSaleSetting()
+        public string getLocalPointSale()
         {
             PointSaleService pointSaleService = new PointSaleService();
-            string posInstance = pointSaleService.getPointSaleInstance();
-            return posInstance == null ? false : true;
+            return pointSaleService.getPointSaleInstance();
         }
 
         public string getPointSaleInstance()
@@ -70,7 +71,13 @@ namespace SILO.DesktopApplication.Core.Services
         private bool validateSalePointInstance()
         {
             bool instanceSetting = true;
-            if (!this.isPointSaleSetting())
+            string salePointId = this.getLocalPointSale();
+            if (ValidationService.isValidId(salePointId))
+            {
+                LotteryPointSaleRepository pointSaleRepo = new LotteryPointSaleRepository();
+                SystemSession.sessionPointSale = pointSaleRepo.getById(long.Parse(salePointId));
+            }
+            else
             {
                 // Sucursal no inicializada, lanzar error
                 instanceSetting = false;
@@ -86,7 +93,13 @@ namespace SILO.DesktopApplication.Core.Services
         private bool requestPosId()
         {
             bool instanceSetting = true;
-            if (!this.isPointSaleSetting())
+            string salePointId = this.getLocalPointSale();
+            if (ValidationService.isValidId(salePointId))
+            {
+                LotteryPointSaleRepository pointSaleRepo = new LotteryPointSaleRepository();
+                SystemSession.sessionPointSale = pointSaleRepo.getById(long.Parse(salePointId));
+            }
+            else
             {
                 // Solicitar inicialización de Sucursal
                 DialogResult msgResult = 

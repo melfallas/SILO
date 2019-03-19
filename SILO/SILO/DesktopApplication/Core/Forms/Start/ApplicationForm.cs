@@ -22,7 +22,9 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
             InitializeComponent();
             this.parentForm = pParentForm;
-            this.userNameLabel.Text = SystemSession.username;
+            this.userContentLabel.Text = SystemSession.username;
+            this.posContentLabel.Text = SystemSession.salePoint;
+            this.companyContentLabel.Text = SystemSession.company;
         }
 
         private void ShowFormInMainPanel(object pForm) {
@@ -121,6 +123,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         private void ApplicationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.parentForm.Dispose();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -256,7 +256,7 @@
     <Compile Include="NumberBoxForm.Designer.cs">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LocalParameterRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LocalParameterRepository.cs" />
     <Compile Include="PrizeTicket.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProhibitedNumberForm.cs">

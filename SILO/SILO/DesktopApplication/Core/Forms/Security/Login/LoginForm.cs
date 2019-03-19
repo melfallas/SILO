@@ -1,7 +1,9 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Start;
 using SILO.DesktopApplication.Core.Model;
+using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.SystemConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,6 +42,9 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             // Verificar si la compañía está especificada y es válida
             if(ValidationService.isValidId(companyId))
             {
+                // Guardar en sesión la compañía
+                CompanyRepository companyRepository = new CompanyRepository();
+                SystemSession.sessionCompany = companyRepository.getById(long.Parse(companyId));
                 // Realizar sincronización inicial
                 this.startInitialSynchronization();
                 //splashThread.Abort();
@@ -164,7 +169,6 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                         // Si la instancia no está inicializada, cerrar el programa
                         this.cleanFields();
                     }
-
                 }
                 else
                 {

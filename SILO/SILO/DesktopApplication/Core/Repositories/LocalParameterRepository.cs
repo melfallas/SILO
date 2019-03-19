@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Repositories
 {
     class LocalParameterRepository
     {
@@ -32,7 +32,8 @@ namespace SILO
             {
                 using (var context = new SILOEntities())
                 {
-                    List<LPR_LocalParameter> paramList = context.LPR_LocalParameter.Where(param => param.LPR_Name == pName).ToList();
+                    List<LPR_LocalParameter> paramList = context.LPR_LocalParameter
+                        .Where(param => param.LPR_Name == pName).ToList();
                     if (paramList.Count > 0)
                     {
                         paramValue = paramList[0];
@@ -53,15 +54,17 @@ namespace SILO
             LPR_LocalParameter parameter = null;
             using (var context = new SILOEntities())
             {
-                parameter = context.LPR_LocalParameter.Find(pPosParam.LPR_Name);
+                List<LPR_LocalParameter> paramList = context.LPR_LocalParameter
+                        .Where(param => param.LPR_Name == pPosParam.LPR_Name).ToList();
+                if (paramList.Count > 0)
+                {
+                    parameter = paramList[0];
+                }
                 if(parameter == null)
                 {
-                    //parameter = new LPR_LocalParameter(pPosParam.LPR_Name, pPosParam.LPR_Value);
                     parameter = new LPR_LocalParameter();
                     parameter.LPR_Name = pPosParam.LPR_Name;
                     parameter.LPR_Value = pPosParam.LPR_Value;
-                    //parameter.LPR_Name = ParameterConstants.POS_NAME_PARAM;
-                    // parameter.LPR_Value = posId.ToString();
                 }
                 else
                 {

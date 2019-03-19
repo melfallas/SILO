@@ -20,18 +20,23 @@ namespace SILO.DesktopApplication.Core.Services
         public const string COMPANY_ID_PARAM = "Empresa";
         public const string COMPANY_NAME_PARAM = "Nombre_Empresa";
         public const string PRINTER_NAME_PARAM = "Nombre_Impresora";
-        /*
+        
         public static LPR_LocalParameter getLocalParameter(string pParamName) {
             LocalParameterRepository posParam = new LocalParameterRepository();
             return posParam.getByName(pParamName);
         }
-        */
+        
         public static string getLocalParameterValue(string pParamName)
         {
             LocalParameterRepository posParam = new LocalParameterRepository();
             return posParam.getParamValue(pParamName);
         }
-
+        /*
+        public static LPR_LocalParameter getLocalCompany()
+        {
+            return getLocalParameter(COMPANY_ID_PARAM);
+        }
+        */
         public static string getCompanyId()
         {
             return getLocalParameterValue(COMPANY_ID_PARAM);
