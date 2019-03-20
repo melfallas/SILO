@@ -15,6 +15,17 @@ namespace SILO.DesktopApplication.Core.Services
     {
         public void syncCompany_ServerToLocal()
         {
+            /*
+            GenericRepository<CPN_Company, Object> gr = new GenericRepository<CPN_Company, Object>();
+            CPN_Company company = gr.getById(1);
+            Console.WriteLine(company.CPN_DisplayName);
+            company.CPN_DisplayName = company.CPN_DisplayName + "1";
+            CPN_Company c2 = gr.save(company, company.CPN_Id, x => x.copy(company));
+            Console.WriteLine(c2.CPN_DisplayName);
+            CPN_Company c3 = gr.getById(1);
+            Console.WriteLine(c3.CPN_DisplayName);
+            */
+
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getCompaniesFromServer();

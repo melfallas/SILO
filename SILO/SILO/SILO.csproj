@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\CompanyRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
