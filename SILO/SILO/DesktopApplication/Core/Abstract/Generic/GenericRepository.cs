@@ -34,7 +34,7 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
         }
 
         // Save
-        public DataType save(DataType pEntityInstance, KeyType pEntityId, Func<DataType, DataType> pCopyFuntion)
+        public DataType save(DataType pEntityInstance, KeyType pEntityId, Func<DataType, DataType, DataType> pCopyFuntion)
         {
             DataType findedEntity = null;
             using (var context = new SILOEntities())
@@ -49,7 +49,7 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
                     }
                     else
                     {
-                        findedEntity = pCopyFuntion(pEntityInstance);
+                        findedEntity = pCopyFuntion(findedEntity, pEntityInstance);
                     }
                     context.SaveChanges();
                 }

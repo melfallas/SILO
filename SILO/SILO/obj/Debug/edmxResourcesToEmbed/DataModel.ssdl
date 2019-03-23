@@ -9,6 +9,7 @@
     <Property Name="AUS_Password" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="USR_UserRole" Type="integer" Nullable="false" />
     <Property Name="LPS_LotteryPointSale" Type="integer" Nullable="false" />
+    <Property Name="AUS_IsActive" Type="integer" Nullable="false" />
     <Property Name="AUS_CreateDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="CPN_Company">
@@ -154,9 +155,9 @@
       <PropertyRef Name="USR_Id" />
     </Key>
     <Property Name="USR_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CPN_DisplayName" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="CPN_Description" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="CPN_CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="USR_DisplayName" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="USR_Description" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="USR_CreateDate" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="FK_AUS_ApplicationUser_0_0">
     <End Role="LPS_LotteryPointSale" Type="Self.LPS_LotteryPointSale" Multiplicity="1" />

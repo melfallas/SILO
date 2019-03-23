@@ -77,16 +77,29 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         private void startInitialSynchronization()
         {
             LoginForm.waitHandle.WaitOne();
+            this.updateProgressBar(15);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
             syncService.syncCompany_ServerToLocal();
+            this.updateProgressBar(40);
             this.changeStatusLegend("Cargando sucursales...");
             syncService.syncSalePoint_ServerToLocal();
+            this.updateProgressBar(75);
             this.changeStatusLegend("Cargando roles...");
-            syncService.syncCompany_ServerToLocal();
+            syncService.syncRole_ServerToLocal();
+            this.updateProgressBar(90);
             this.changeStatusLegend("Cargando usuarios...");
-            syncService.syncCompany_ServerToLocal();
+            syncService.syncAppUsers_ServerToLocal();
+            this.updateProgressBar(100);
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
+        }
+
+        private void updateProgressBar(int pProgressValue)
+        {
+            if (this.splashScreen != null)
+            {
+                this.splashScreen.updateProgressBar(pProgressValue);
+            }
         }
 
         private void changeStatusLegend(string plegendText)
@@ -96,6 +109,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                 this.splashScreen.SetText(plegendText);
             }
         }
+
 
         private bool isValidLoginForm(string pUser, string pPassword)
         {

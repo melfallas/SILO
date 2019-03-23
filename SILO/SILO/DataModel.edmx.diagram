@@ -20,9 +20,7 @@
         <EntityTypeShape EntityType="SILOModel.LTD_LotteryDraw" Width="1.5" PointX="6" PointY="13.75" />
         <EntityTypeShape EntityType="SILOModel.LTL_LotteryList" Width="1.5" PointX="8.25" PointY="5.75" />
         <EntityTypeShape EntityType="SILOModel.SYS_SynchronyStatus" Width="1.5" PointX="0.75" PointY="8.5" />
-        <EntityTypeShape EntityType="SILOModel.USR_UserRole" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_0_0" />
-        <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_1_0" />
         <AssociationConnector Association="SILOModel.FK_LPS_LotteryPointSale_1_0" />
         <AssociationConnector Association="SILOModel.FK_DNW_DrawNumberWinning_0_0" />
         <AssociationConnector Association="SILOModel.FK_DNW_DrawNumberWinning_1_0" />
@@ -39,6 +37,8 @@
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_2_0" />
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_3_0" />
         <AssociationConnector Association="SILOModel.FK_LTL_LotteryList_0_0" />
+        <EntityTypeShape EntityType="SILOModel.USR_UserRole" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_1_0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

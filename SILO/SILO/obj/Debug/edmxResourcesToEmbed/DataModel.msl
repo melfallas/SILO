@@ -4,6 +4,7 @@
     <EntitySetMapping Name="AUS_ApplicationUser">
       <EntityTypeMapping TypeName="SILOModel.AUS_ApplicationUser">
         <MappingFragment StoreEntitySet="AUS_ApplicationUser">
+          <ScalarProperty Name="AUS_IsActive" ColumnName="AUS_IsActive" />
           <ScalarProperty Name="AUS_CreateDate" ColumnName="AUS_CreateDate" />
           <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
           <ScalarProperty Name="USR_UserRole" ColumnName="USR_UserRole" />
@@ -168,9 +169,9 @@
     <EntitySetMapping Name="USR_UserRole">
       <EntityTypeMapping TypeName="SILOModel.USR_UserRole">
         <MappingFragment StoreEntitySet="USR_UserRole">
-          <ScalarProperty Name="CPN_CreateDate" ColumnName="CPN_CreateDate" />
-          <ScalarProperty Name="CPN_Description" ColumnName="CPN_Description" />
-          <ScalarProperty Name="CPN_DisplayName" ColumnName="CPN_DisplayName" />
+          <ScalarProperty Name="USR_CreateDate" ColumnName="USR_CreateDate" />
+          <ScalarProperty Name="USR_Description" ColumnName="USR_Description" />
+          <ScalarProperty Name="USR_DisplayName" ColumnName="USR_DisplayName" />
           <ScalarProperty Name="USR_Id" ColumnName="USR_Id" />
         </MappingFragment>
       </EntityTypeMapping>

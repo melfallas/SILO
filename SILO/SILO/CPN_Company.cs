@@ -19,17 +19,7 @@ namespace SILO
         {
             this.LPS_LotteryPointSale = new HashSet<LPS_LotteryPointSale>();
         }
-
-        public CPN_Company copy(CPN_Company pCompany)
-        {
-            this.CPN_Code = pCompany.CPN_Code;
-            this.CPN_DisplayName = pCompany.CPN_DisplayName;
-            this.CPN_Description = pCompany.CPN_Description;
-            this.CPN_CreateDate = pCompany.CPN_CreateDate;
-            return this;
-        }
-
-
+    
         public long CPN_Id { get; set; }
         public string CPN_Code { get; set; }
         public string CPN_DisplayName { get; set; }

@@ -25,6 +25,16 @@ namespace SILO.DesktopApplication.Core.Services
             return this.processGetRequest(ServiceConectionConstants.GET_ALL_POINT_SALE_RESOURCE_URL);
         }
 
+        public ServiceResponseResult getRolesFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_ROLES_RESOURCE_URL);
+        }
+
+        public ServiceResponseResult getUsersFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_USERS_RESOURCE_URL);
+        }
+
 
         public ServiceResponseResult processGetRequest(string pServiceURL)
         {

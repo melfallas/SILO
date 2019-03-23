@@ -14,6 +14,7 @@
           <Property Name="AUS_Password" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="USR_UserRole" Type="integer" Nullable="false" />
           <Property Name="LPS_LotteryPointSale" Type="integer" Nullable="false" />
+          <Property Name="AUS_IsActive" Type="integer" Nullable="false" />
           <Property Name="AUS_CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="CPN_Company">
@@ -159,9 +160,9 @@
             <PropertyRef Name="USR_Id" />
           </Key>
           <Property Name="USR_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CPN_DisplayName" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="CPN_Description" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CPN_CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="USR_DisplayName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="USR_Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="USR_CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_AUS_ApplicationUser_0_0">
           <End Role="LPS_LotteryPointSale" Type="Self.LPS_LotteryPointSale" Multiplicity="1" />
@@ -489,13 +490,8 @@
           <EntitySet Name="LTD_LotteryDraw" EntityType="SILOModel.LTD_LotteryDraw" />
           <EntitySet Name="LTL_LotteryList" EntityType="SILOModel.LTL_LotteryList" />
           <EntitySet Name="SYS_SynchronyStatus" EntityType="SILOModel.SYS_SynchronyStatus" />
-          <EntitySet Name="USR_UserRole" EntityType="SILOModel.USR_UserRole" />
           <AssociationSet Name="FK_AUS_ApplicationUser_0_0" Association="SILOModel.FK_AUS_ApplicationUser_0_0">
             <End Role="LPS_LotteryPointSale" EntitySet="LPS_LotteryPointSale" />
-            <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AUS_ApplicationUser_1_0" Association="SILOModel.FK_AUS_ApplicationUser_1_0">
-            <End Role="USR_UserRole" EntitySet="USR_UserRole" />
             <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
           </AssociationSet>
           <AssociationSet Name="FK_LPS_LotteryPointSale_1_0" Association="SILOModel.FK_LPS_LotteryPointSale_1_0">
@@ -562,6 +558,11 @@
             <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
             <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />
           </AssociationSet>
+          <EntitySet Name="USR_UserRole" EntityType="SILOModel.USR_UserRole" />
+          <AssociationSet Name="FK_AUS_ApplicationUser_1_0" Association="SILOModel.FK_AUS_ApplicationUser_1_0">
+            <End Role="USR_UserRole" EntitySet="USR_UserRole" />
+            <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AUS_ApplicationUser">
           <Key>
@@ -574,6 +575,7 @@
           <Property Name="LPS_LotteryPointSale" Type="Int64" Nullable="false" />
           <Property Name="AUS_CreateDate" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="LPS_LotteryPointSale1" Relationship="SILOModel.FK_AUS_ApplicationUser_0_0" FromRole="AUS_ApplicationUser" ToRole="LPS_LotteryPointSale" />
+          <Property Name="AUS_IsActive" Type="Int64" Nullable="false" />
           <NavigationProperty Name="USR_UserRole1" Relationship="SILOModel.FK_AUS_ApplicationUser_1_0" FromRole="AUS_ApplicationUser" ToRole="USR_UserRole" />
         </EntityType>
         <EntityType Name="CPN_Company">
@@ -747,16 +749,6 @@
           <NavigationProperty Name="LPS_LotteryPointSale" Relationship="SILOModel.FK_LPS_LotteryPointSale_0_0" FromRole="SYS_SynchronyStatus" ToRole="LPS_LotteryPointSale" />
           <NavigationProperty Name="LTL_LotteryList" Relationship="SILOModel.FK_LTL_LotteryList_0_0" FromRole="SYS_SynchronyStatus" ToRole="LTL_LotteryList" />
         </EntityType>
-        <EntityType Name="USR_UserRole">
-          <Key>
-            <PropertyRef Name="USR_Id" />
-          </Key>
-          <Property Name="USR_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CPN_DisplayName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="CPN_Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CPN_CreateDate" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="AUS_ApplicationUser" Relationship="SILOModel.FK_AUS_ApplicationUser_1_0" FromRole="USR_UserRole" ToRole="AUS_ApplicationUser" />
-        </EntityType>
         <Association Name="FK_AUS_ApplicationUser_0_0">
           <End Type="SILOModel.LPS_LotteryPointSale" Role="LPS_LotteryPointSale" Multiplicity="1" />
           <End Type="SILOModel.AUS_ApplicationUser" Role="AUS_ApplicationUser" Multiplicity="*" />
@@ -766,18 +758,6 @@
             </Principal>
             <Dependent Role="AUS_ApplicationUser">
               <PropertyRef Name="LPS_LotteryPointSale" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AUS_ApplicationUser_1_0">
-          <End Type="SILOModel.USR_UserRole" Role="USR_UserRole" Multiplicity="1" />
-          <End Type="SILOModel.AUS_ApplicationUser" Role="AUS_ApplicationUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USR_UserRole">
-              <PropertyRef Name="USR_Id" />
-            </Principal>
-            <Dependent Role="AUS_ApplicationUser">
-              <PropertyRef Name="USR_UserRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -973,6 +953,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="USR_UserRole">
+          <Key>
+            <PropertyRef Name="USR_Id" />
+          </Key>
+          <Property Name="USR_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USR_DisplayName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="USR_Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USR_CreateDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="AUS_ApplicationUser" Relationship="SILOModel.FK_AUS_ApplicationUser_1_0" FromRole="USR_UserRole" ToRole="AUS_ApplicationUser" />
+        </EntityType>
+        <Association Name="FK_AUS_ApplicationUser_1_0">
+          <End Type="SILOModel.USR_UserRole" Role="USR_UserRole" Multiplicity="1" />
+          <End Type="SILOModel.AUS_ApplicationUser" Role="AUS_ApplicationUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR_UserRole">
+              <PropertyRef Name="USR_Id" />
+            </Principal>
+            <Dependent Role="AUS_ApplicationUser">
+              <PropertyRef Name="USR_UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -982,6 +984,7 @@
           <EntitySetMapping Name="AUS_ApplicationUser">
             <EntityTypeMapping TypeName="SILOModel.AUS_ApplicationUser">
               <MappingFragment StoreEntitySet="AUS_ApplicationUser">
+                <ScalarProperty Name="AUS_IsActive" ColumnName="AUS_IsActive" />
                 <ScalarProperty Name="AUS_CreateDate" ColumnName="AUS_CreateDate" />
                 <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
                 <ScalarProperty Name="USR_UserRole" ColumnName="USR_UserRole" />
@@ -1146,9 +1149,9 @@
           <EntitySetMapping Name="USR_UserRole">
             <EntityTypeMapping TypeName="SILOModel.USR_UserRole">
               <MappingFragment StoreEntitySet="USR_UserRole">
-                <ScalarProperty Name="CPN_CreateDate" ColumnName="CPN_CreateDate" />
-                <ScalarProperty Name="CPN_Description" ColumnName="CPN_Description" />
-                <ScalarProperty Name="CPN_DisplayName" ColumnName="CPN_DisplayName" />
+                <ScalarProperty Name="USR_CreateDate" ColumnName="USR_CreateDate" />
+                <ScalarProperty Name="USR_Description" ColumnName="USR_Description" />
+                <ScalarProperty Name="USR_DisplayName" ColumnName="USR_DisplayName" />
                 <ScalarProperty Name="USR_Id" ColumnName="USR_Id" />
               </MappingFragment>
             </EntityTypeMapping>

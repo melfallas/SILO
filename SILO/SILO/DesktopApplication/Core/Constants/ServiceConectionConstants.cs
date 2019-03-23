@@ -21,7 +21,8 @@ namespace SILO.DesktopApplication.Core.Constants
         // URLs de los servicios principales
         public const string GET_ALL_COMPANIES_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "company/";
         public const string GET_ALL_POINT_SALE_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotterypointsale/";
-
+        public const string GET_ALL_ROLES_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "userrole/";
+        public const string GET_ALL_USERS_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "applicationuser/";
 
         public const string DRAW_TYPE_RESOURCE_URL              = ROOT_SERVICE_API_END_POINT + "lotterydrawtype/";
         public const string DRAW_ASSOCIATION_RESOURCE_URL       = ROOT_SERVICE_API_END_POINT + "lotterydrawassociation/synchronize/";
