@@ -22,7 +22,7 @@ namespace SILO
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
         }
 
-        public void copy(LPS_LotteryPointSale pSalePoint)
+        public LPS_LotteryPointSale copy(LPS_LotteryPointSale pSalePoint)
         {
             this.LPS_Code = pSalePoint.LPS_Code;
             this.LPS_DisplayName = pSalePoint.LPS_DisplayName;
@@ -32,6 +32,7 @@ namespace SILO
             this.LPS_IsActive = pSalePoint.LPS_IsActive;
             this.SYS_SynchronyStatus = pSalePoint.SYS_SynchronyStatus;
             this.LPS_CreateDate = pSalePoint.LPS_CreateDate;
+            return this;
         }
 
         public long LPS_Id { get; set; }

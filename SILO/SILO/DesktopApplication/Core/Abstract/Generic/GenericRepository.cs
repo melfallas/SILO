@@ -49,8 +49,7 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
                     }
                     else
                     {
-                        //findedEntity.copy(pEntityInstance);
-                        findedEntity = pCopyFuntion(findedEntity);
+                        findedEntity = pCopyFuntion(pEntityInstance);
                     }
                     context.SaveChanges();
                 }
