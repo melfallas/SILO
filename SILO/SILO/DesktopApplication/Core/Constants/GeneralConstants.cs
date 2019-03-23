@@ -25,6 +25,8 @@ namespace SILO.Core.Constants
 
         // Inicialization Constants
         public const string GET_SESSION_USER_ERROR = "Error al obtener la sesión del usuario";
+        public const string INITIAL_SYNCHRONIZATION_TITLE = "ERROR DE SINCRONIZACIÓN";
+        public const string INITIAL_SYNCHRONIZATION_ERROR = "Error al conectarse al servidor.\nPor favor, revise su conexión de internet.";
         // Compañía no inicializada
         public const string UNINITIALIZED_COMPANY_TITLE = "COMPAÑÍA NO ESPECIFICADA";
         public const string UNINITIALIZED_COMPANY_ERROR = "La compañía no ha sido especificada.\nPor favor, contacte al administrador.";

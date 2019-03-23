@@ -135,6 +135,7 @@
     <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\LogService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ProgramInitializationService.cs" />

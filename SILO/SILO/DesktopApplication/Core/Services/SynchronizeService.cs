@@ -13,7 +13,18 @@ namespace SILO.DesktopApplication.Core.Services
 {
     class SynchronizeService
     {
-        public void syncCompany_ServerToLocal()
+
+        private bool isValidResponse(ServiceResponseResult pResponseResult)
+        {
+            bool validResponse = true;
+            if (pResponseResult == null)
+            {
+                validResponse = false;
+            }
+            return validResponse;
+        }
+
+        public bool syncCompany_ServerToLocal()
         {
             /*
             GenericRepository<CPN_Company, Object> gr = new GenericRepository<CPN_Company, Object>();
@@ -25,74 +36,96 @@ namespace SILO.DesktopApplication.Core.Services
             CPN_Company c3 = gr.getById(1);
             Console.WriteLine(c3.CPN_DisplayName);
             */
-
+            bool successProcess = true;
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getCompaniesFromServer();
-            string result = responseResult.result.ToString();
-            // Parsear el json de respuesta
-            JsonObjectParser parser = new JsonObjectParser((int)EntityType.Company);
-            string parsedJsonString = parser.parse(result);
-            // Realizar la persistencia de los cambios
-            CompanyRepository companyRepo = new CompanyRepository();
-            companyRepo.saveList(JsonConvert.DeserializeObject<List<CPN_Company>>(parsedJsonString));
+            successProcess = isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string result = responseResult.result.ToString();
+                // Parsear el json de respuesta
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.Company);
+                string parsedJsonString = parser.parse(result);
+                // Realizar la persistencia de los cambios
+                CompanyRepository companyRepo = new CompanyRepository();
+                companyRepo.saveList(JsonConvert.DeserializeObject<List<CPN_Company>>(parsedJsonString));
+            }
+            return successProcess;
         }
 
-        public void syncSalePoint_ServerToLocal()
+        public bool syncSalePoint_ServerToLocal()
         {
+            bool successProcess = true;
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getSalePointsFromServer();
-            string jsonStringResult = responseResult.result.ToString();
-            JsonObjectParser parser = new JsonObjectParser((int)EntityType.PointSale);
-            // Reemplazar objetos complejos en el json por su id
-            JArray jsonArray = JArray.Parse(jsonStringResult);
-            foreach (var item in jsonArray)
+            successProcess = isValidResponse(responseResult);
+            if (successProcess)
             {
-                parser.changeJsonProp(item, "company");
-                parser.changeJsonProp(item, "synchronyStatus");
+                string jsonStringResult = responseResult.result.ToString();
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.PointSale);
+                // Reemplazar objetos complejos en el json por su id
+                JArray jsonArray = JArray.Parse(jsonStringResult);
+                foreach (var item in jsonArray)
+                {
+                    parser.changeJsonProp(item, "company");
+                    parser.changeJsonProp(item, "synchronyStatus");
+                }
+                // Parsear el json de respuesta
+                string parsedJsonString = parser.parse(jsonArray.ToString());
+                // Realizar la persistencia de los cambios
+                LotteryPointSaleRepository posRepo = new LotteryPointSaleRepository();
+                posRepo.saveList(JsonConvert.DeserializeObject<List<LPS_LotteryPointSale>>(parsedJsonString));
             }
-            // Parsear el json de respuesta
-            string parsedJsonString = parser.parse(jsonArray.ToString());
-            // Realizar la persistencia de los cambios
-            LotteryPointSaleRepository posRepo = new LotteryPointSaleRepository();
-            posRepo.saveList(JsonConvert.DeserializeObject<List<LPS_LotteryPointSale>>(parsedJsonString));
+            return successProcess;
         }
 
-        public void syncRole_ServerToLocal()
+        public bool syncRole_ServerToLocal()
         {
+            bool successProcess = true;
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getRolesFromServer();
-            string result = responseResult.result.ToString();
-            // Parsear el json de respuesta
-            JsonObjectParser parser = new JsonObjectParser((int)EntityType.UserRole);
-            string parsedJsonString = parser.parse(result);
-            // Realizar la persistencia de los cambios
-            RoleRepository roleRepository = new RoleRepository();
-            roleRepository.saveList(JsonConvert.DeserializeObject<List<USR_UserRole>>(parsedJsonString));
+            successProcess = isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string result = responseResult.result.ToString();
+                // Parsear el json de respuesta
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.UserRole);
+                string parsedJsonString = parser.parse(result);
+                // Realizar la persistencia de los cambios
+                RoleRepository roleRepository = new RoleRepository();
+                roleRepository.saveList(JsonConvert.DeserializeObject<List<USR_UserRole>>(parsedJsonString));
+            }
+            return successProcess;
         }
 
-        public void syncAppUsers_ServerToLocal()
+        public bool syncAppUsers_ServerToLocal()
         {
+            bool successProcess = true;
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getUsersFromServer();
-            string jsonStringResult = responseResult.result.ToString();
-            JsonObjectParser parser = new JsonObjectParser((int)EntityType.ApplicationUser);
-            // Reemplazar objetos complejos en el json por su id
-            JArray jsonArray = JArray.Parse(jsonStringResult);
-            foreach (var item in jsonArray)
+            successProcess = isValidResponse(responseResult);
+            if (successProcess)
             {
-                parser.changeJsonProp(item, "userRole");
-                parser.changeJsonProp(item, "lotteryPointSale");
+                string jsonStringResult = responseResult.result.ToString();
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.ApplicationUser);
+                // Reemplazar objetos complejos en el json por su id
+                JArray jsonArray = JArray.Parse(jsonStringResult);
+                foreach (var item in jsonArray)
+                {
+                    parser.changeJsonProp(item, "userRole");
+                    parser.changeJsonProp(item, "lotteryPointSale");
+                }
+                // Parsear el json de respuesta
+                string parsedJsonString = parser.parse(jsonArray.ToString());
+                // Realizar la persistencia de los cambios
+                ApplicationUserRepository userRepo = new ApplicationUserRepository();
+                userRepo.saveList(JsonConvert.DeserializeObject<List<AUS_ApplicationUser>>(parsedJsonString));
             }
-            // Parsear el json de respuesta
-            string parsedJsonString = parser.parse(jsonArray.ToString());
-            // Realizar la persistencia de los cambios
-            ApplicationUserRepository userRepo = new ApplicationUserRepository();
-            userRepo.saveList(JsonConvert.DeserializeObject<List<AUS_ApplicationUser>>(parsedJsonString));
-            
+            return successProcess;
         }
 
     }

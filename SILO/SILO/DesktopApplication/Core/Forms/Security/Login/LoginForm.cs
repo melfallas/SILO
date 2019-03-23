@@ -76,22 +76,36 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void startInitialSynchronization()
         {
+            bool[] synStatusArray = new bool[4];
             LoginForm.waitHandle.WaitOne();
             this.updateProgressBar(15);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
-            syncService.syncCompany_ServerToLocal();
+            synStatusArray[0] = syncService.syncCompany_ServerToLocal();
             this.updateProgressBar(40);
             this.changeStatusLegend("Cargando sucursales...");
-            syncService.syncSalePoint_ServerToLocal();
+            synStatusArray[1] = syncService.syncSalePoint_ServerToLocal();
             this.updateProgressBar(75);
             this.changeStatusLegend("Cargando roles...");
-            syncService.syncRole_ServerToLocal();
+            synStatusArray[2] = syncService.syncRole_ServerToLocal();
             this.updateProgressBar(90);
             this.changeStatusLegend("Cargando usuarios...");
-            syncService.syncAppUsers_ServerToLocal();
+            synStatusArray[3] = syncService.syncAppUsers_ServerToLocal();
             this.updateProgressBar(100);
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
+            bool successProcess = true;
+            // Verificar estados de sincronización de los módulos
+            for (int i = 0; i < synStatusArray.Length; i++)
+            {
+                if (!synStatusArray[i])
+                {
+                    successProcess = false;
+                }
+            }
+            if (!successProcess)
+            {
+                MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
+            }
         }
 
         private void updateProgressBar(int pProgressValue)

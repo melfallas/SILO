@@ -15,12 +15,21 @@ namespace SILO.DesktopApplication.Core.Services
         public ServiceResponseResult processGetRequest(string pUrl)
         {
             ServiceResponseResult responseResult = null;
-            HttpWebRequest webrequest = (HttpWebRequest) WebRequest.Create(pUrl);
-            using (WebResponse response = webrequest.GetResponse())
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            try
             {
-                string responseContent = reader.ReadToEnd();
-                responseResult = JsonConvert.DeserializeObject<ServiceResponseResult>(responseContent);
+                HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(pUrl);
+                using (WebResponse response = webrequest.GetResponse())
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string responseContent = reader.ReadToEnd();
+                    responseResult = JsonConvert.DeserializeObject<ServiceResponseResult>(responseContent);
+                }
+            }
+            catch (Exception e)
+            {
+                // Capturar errores
+                LogService.log(e.Message, e.StackTrace);
+                //throw;
             }
             return responseResult;
         }
