@@ -19,8 +19,9 @@ namespace SILO
         public string AUS_Password { get; set; }
         public long USR_UserRole { get; set; }
         public long LPS_LotteryPointSale { get; set; }
-        public System.DateTime AUS_CreateDate { get; set; }
         public long AUS_IsActive { get; set; }
+        public long SYS_SynchronyStatus { get; set; }
+        public System.DateTime AUS_CreateDate { get; set; }
 
         public AUS_ApplicationUser copy(AUS_ApplicationUser pAppUser)
         {
@@ -28,12 +29,14 @@ namespace SILO
             this.AUS_Password = pAppUser.AUS_Password;
             this.USR_UserRole = pAppUser.USR_UserRole;
             this.LPS_LotteryPointSale = pAppUser.LPS_LotteryPointSale;
-            this.AUS_CreateDate = pAppUser.AUS_CreateDate;
             this.AUS_IsActive = pAppUser.AUS_IsActive;
+            this.SYS_SynchronyStatus = pAppUser.SYS_SynchronyStatus;
+            this.AUS_CreateDate = pAppUser.AUS_CreateDate;
             return this;
         }
 
         public virtual LPS_LotteryPointSale LPS_LotteryPointSale1 { get; set; }
+        public virtual SYS_SynchronyStatus SYS_SynchronyStatus1 { get; set; }
         public virtual USR_UserRole USR_UserRole1 { get; set; }
     }
 }

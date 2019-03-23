@@ -1,4 +1,5 @@
 ﻿using SILO.DesktopApplication.Core.Abstract.Generic;
+using SILO.DesktopApplication.Core.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace SILO.DesktopApplication.Core.Repositories
         {
             foreach (AUS_ApplicationUser entity in pEntityList)
             {
+                entity.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_COMPLETED;
                 this.save(entity, entity.AUS_Id, (e1, e2) => e1.copy(e2));
             }
         }

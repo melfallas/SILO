@@ -10,6 +10,7 @@
     <Property Name="USR_UserRole" Type="integer" Nullable="false" />
     <Property Name="LPS_LotteryPointSale" Type="integer" Nullable="false" />
     <Property Name="AUS_IsActive" Type="integer" Nullable="false" />
+    <Property Name="SYS_SynchronyStatus" Type="integer" Nullable="false" />
     <Property Name="AUS_CreateDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="CPN_Company">
@@ -172,6 +173,18 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AUS_ApplicationUser_1_0">
+    <End Role="SYS_SynchronyStatus" Type="Self.SYS_SynchronyStatus" Multiplicity="1" />
+    <End Role="AUS_ApplicationUser" Type="Self.AUS_ApplicationUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_SynchronyStatus">
+        <PropertyRef Name="SYS_Id" />
+      </Principal>
+      <Dependent Role="AUS_ApplicationUser">
+        <PropertyRef Name="SYS_SynchronyStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AUS_ApplicationUser_2_0">
     <End Role="USR_UserRole" Type="Self.USR_UserRole" Multiplicity="1" />
     <End Role="AUS_ApplicationUser" Type="Self.AUS_ApplicationUser" Multiplicity="*" />
     <ReferentialConstraint>
@@ -397,6 +410,10 @@
       <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
     </AssociationSet>
     <AssociationSet Name="FK_AUS_ApplicationUser_1_0" Association="Self.FK_AUS_ApplicationUser_1_0">
+      <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
+      <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AUS_ApplicationUser_2_0" Association="Self.FK_AUS_ApplicationUser_2_0">
       <End Role="USR_UserRole" EntitySet="USR_UserRole" />
       <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
     </AssociationSet>
