@@ -9,9 +9,10 @@
 
 namespace SILO
 {
+    using DesktopApplication.Core.Constants;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class LPS_LotteryPointSale
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +23,9 @@ namespace SILO
             this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
         }
 
-        public LPS_LotteryPointSale copy(LPS_LotteryPointSale pSalePoint)
+        public long copy(LPS_LotteryPointSale pSalePoint)
         {
+            long actualStatus = this.SYS_SynchronyStatus;
             this.LPS_Code = pSalePoint.LPS_Code;
             this.LPS_DisplayName = pSalePoint.LPS_DisplayName;
             this.LPS_Description = pSalePoint.LPS_Description;
@@ -32,7 +34,7 @@ namespace SILO
             this.LPS_IsActive = pSalePoint.LPS_IsActive;
             this.SYS_SynchronyStatus = pSalePoint.SYS_SynchronyStatus;
             this.LPS_CreateDate = pSalePoint.LPS_CreateDate;
-            return this;
+            return actualStatus;
         }
 
         public long LPS_Id { get; set; }

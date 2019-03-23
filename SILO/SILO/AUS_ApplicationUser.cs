@@ -23,8 +23,9 @@ namespace SILO
         public long SYS_SynchronyStatus { get; set; }
         public System.DateTime AUS_CreateDate { get; set; }
 
-        public AUS_ApplicationUser copy(AUS_ApplicationUser pAppUser)
+        public long copy(AUS_ApplicationUser pAppUser)
         {
+            long actualStatus = this.SYS_SynchronyStatus;
             this.AUS_Username = pAppUser.AUS_Username;
             this.AUS_Password = pAppUser.AUS_Password;
             this.USR_UserRole = pAppUser.USR_UserRole;
@@ -32,7 +33,7 @@ namespace SILO
             this.AUS_IsActive = pAppUser.AUS_IsActive;
             this.SYS_SynchronyStatus = pAppUser.SYS_SynchronyStatus;
             this.AUS_CreateDate = pAppUser.AUS_CreateDate;
-            return this;
+            return actualStatus;
         }
 
         public virtual LPS_LotteryPointSale LPS_LotteryPointSale1 { get; set; }

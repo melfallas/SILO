@@ -9,9 +9,10 @@
 
 namespace SILO
 {
+    using DesktopApplication.Core.Constants;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class USR_UserRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,12 +21,13 @@ namespace SILO
             this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
         }
 
-        public USR_UserRole copy(USR_UserRole pUserRole)
+        public long copy(USR_UserRole pUserRole)
         {
+            long actualStatus = SystemConstants.SYNC_STATUS_COMPLETED;
             this.USR_DisplayName = pUserRole.USR_DisplayName;
             this.USR_Description = pUserRole.USR_Description;
             this.USR_CreateDate = pUserRole.USR_CreateDate;
-            return this;
+            return actualStatus;
         }
 
         public long USR_Id { get; set; }

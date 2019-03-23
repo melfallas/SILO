@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SILO.DesktopApplication.Core.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,7 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
         }
 
         // Save
-        public DataType save(DataType pEntityInstance, KeyType pEntityId, Func<DataType, DataType, DataType> pCopyFuntion)
+        public DataType save(DataType pEntityInstance, KeyType pEntityId, Func<DataType, DataType, long> pCopyFuntion)
         {
             DataType findedEntity = null;
             using (var context = new SILOEntities())
@@ -44,14 +45,21 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
                     findedEntity = context.Set<DataType>().Find(pEntityId);
                     if (findedEntity == null)
                     {
-                        findedEntity = pEntityInstance;
+                        // Si no existe la entidad, añadirla y guardar cambios
                         context.Set<DataType>().Add(pEntityInstance);
+                        context.SaveChanges();
+                        findedEntity = pEntityInstance;
                     }
                     else
                     {
-                        findedEntity = pCopyFuntion(findedEntity, pEntityInstance);
+                        long actualStatus = pCopyFuntion(findedEntity, pEntityInstance);
+                        // Validar estado de la entidad para determinar si se actualiza
+                        if (actualStatus == SystemConstants.SYNC_STATUS_COMPLETED)
+                        {
+                            // Update solamente si el estado es completamente sincronizado
+                            context.SaveChanges();
+                        }
                     }
-                    context.SaveChanges();
                 }
             }
             return findedEntity;

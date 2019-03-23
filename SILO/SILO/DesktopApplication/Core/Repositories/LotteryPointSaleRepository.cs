@@ -64,7 +64,7 @@ namespace SILO.DesktopApplication.Core.Repositories
         }
         */
 
-        // Métodos que registra la persistencia de una lista de objetos
+        // Método que registra la persistencia de una lista de objetos
         public void saveList(List<LPS_LotteryPointSale> pEntityList)
         {
             foreach (LPS_LotteryPointSale entity in pEntityList)
