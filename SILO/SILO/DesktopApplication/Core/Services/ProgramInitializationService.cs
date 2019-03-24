@@ -102,9 +102,12 @@ namespace SILO.DesktopApplication.Core.Services
             else
             {
                 // Solicitar inicialización de Sucursal
+                long userPosId = SystemSession.sessionUser.LPS_LotteryPointSale;
+                LotteryPointSaleRepository pointSaleRepo = new LotteryPointSaleRepository();
+                SystemSession.sessionPointSale = pointSaleRepo.getById(userPosId);
                 DialogResult msgResult = 
                     MessageService.displayConfirmMessage(
-                            GeneralConstants.POS_CONFIRM_MESSAGE,
+                            GeneralConstants.getPosConfirmMessage(SystemSession.sessionUser, SystemSession.sessionPointSale),
                             GeneralConstants.POS_CONFIRM_TITLE
                             );
                 // Procesar el resultado de la confirmación
@@ -112,7 +115,7 @@ namespace SILO.DesktopApplication.Core.Services
                 {
                     case DialogResult.Yes:
                         // Configurar la instancia de sucursal
-                        this.initializePosParameter(SystemSession.sessionUser.LPS_LotteryPointSale);
+                        this.initializePosParameter(userPosId);
                         break;
                     case DialogResult.No:
                         instanceSetting = false;

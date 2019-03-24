@@ -35,12 +35,23 @@ namespace SILO.Core.Constants
         public const string UNINITIALIZED_SYSTEM_ERROR = "El sistema no ha sido inicializado.\nDebe ingresar con un usuario de venta.";
         //--- Confirmación de sucursal
         public const string POS_CONFIRM_TITLE = "CONFIRMACIÓN DE SUCURSAL";
-        public const string POS_CONFIRM_MESSAGE = "Debe especificar sucursal";
+        public const string POS_CONFIRM_MESSAGE1 = "Inicializando sucursal con usuario ";
+        public const string POS_CONFIRM_MESSAGE2 = "El usuario está configurado para iniciar con:\n\n";
+        public const string POS_CONFIRM_MESSAGE3 = "¿Desea inicialiar el sistema con este punto de venta?\n";
         //--- Sucursal no especificada
         public const string POS_INITIALIZATION_TITLE = "SUCURSAL NO ESPECIFICADA";
         public const string POS_INITIALIZATION_ERROR = "No fue posible inicializar la sucursal.\nPor favor, vuelva a ingresar sus credenciales.\nPosteriormente confirme el punto de venta.";
         public const string GET_SESSION_USER_ERROR2 = "Error";
 
+
+        public static string getPosConfirmMessage(AUS_ApplicationUser pAppUser, LPS_LotteryPointSale pSalePoint) {
+            string message = "";
+            message += POS_CONFIRM_MESSAGE1 + pAppUser.AUS_Username.ToUpper() + "\n";
+            message += POS_CONFIRM_MESSAGE2;
+            message += "Sucursal #" + pSalePoint.LPS_Id + " - " + pSalePoint.LPS_DisplayName + "\n\n";
+            message += POS_CONFIRM_MESSAGE3;
+            return message;
+        }
 
 
     }

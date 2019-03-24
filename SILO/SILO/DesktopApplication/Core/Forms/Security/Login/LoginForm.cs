@@ -78,7 +78,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         {
             bool[] synStatusArray = new bool[4];
             LoginForm.waitHandle.WaitOne();
-            this.updateProgressBar(15);
+            this.updateProgressBar(25);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
             synStatusArray[0] = syncService.syncCompany_ServerToLocal();
@@ -186,7 +186,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                 // Realizar autenticación del usuario
                 if (this.requestUserAuthetication(this.txbUser.Text, this.txbPass.Text))
                 {
-                    // Si la autenticación es exitosa, probar la inicializació de la instancia
+                    // Si la autenticación es exitosa, probar la inicialización de la instancia
                     ProgramInitializationService programInicializer = new ProgramInitializationService();
                     if (programInicializer.setInstancePointSale())
                     {
