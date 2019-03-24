@@ -10,6 +10,12 @@ namespace SILO.DesktopApplication.Core.Repositories
 {
     class ApplicationUserRepository : GenericRepository<AUS_ApplicationUser, Object>
     {
+
+        public List<AUS_ApplicationUser> findUnsynUsers()
+        {
+            return this.getAll().Where(user => user.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER).ToList();
+        }
+
         // Métodos que registra la persistencia de una lista de objetos
         public void saveList(List<AUS_ApplicationUser> pEntityList)
         {

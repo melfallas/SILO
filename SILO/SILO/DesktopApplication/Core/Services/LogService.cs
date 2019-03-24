@@ -13,7 +13,7 @@ namespace SILO.DesktopApplication.Core.Services
         public static void log(string pMessage, string pStackTraceError)
         {
             // Get Error Detail
-            Match match = Regex.Match(pStackTraceError, @"\\?[A-za-z]+.cs:line 21");
+            Match match = Regex.Match(pStackTraceError, @"\\[A-za-z]+.cs:line [0-9]+");
             string errorDetail = match.Success ? match.Captures[0].Value : "";
             string[] detailArray = errorDetail.Split('\\');
             errorDetail = detailArray.Length > 0 ? detailArray[detailArray.Length-1]: "";
@@ -24,6 +24,13 @@ namespace SILO.DesktopApplication.Core.Services
             string username = SystemSession.username == "" ? "N/A" : SystemSession.username;
             // Registrar error en el log
             string errorMessage = pMessage + " | " + errorOrigin + " | " + errorDetail + " | " + username + " | ";
+            Console.WriteLine(errorMessage);
+        }
+
+        public static void logErrorServiceResponse(string pMessage, string pErrorType, string pDetail)
+        {
+            string username = SystemSession.username == "" ? "N/A" : SystemSession.username;
+            string errorMessage = pMessage + " | " + pErrorType + " | " + pDetail + " | " + username + " | ";
             Console.WriteLine(errorMessage);
         }
     }

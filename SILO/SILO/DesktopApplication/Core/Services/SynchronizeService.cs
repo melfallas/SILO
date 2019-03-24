@@ -6,6 +6,7 @@ using SILO.DesktopApplication.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,33 +15,42 @@ namespace SILO.DesktopApplication.Core.Services
     class SynchronizeService
     {
 
-        private bool isValidResponse(ServiceResponseResult pResponseResult)
+        private bool isValidResponse(ServiceResponseResult pResponseResult, string pCodeSectionDetail = "SynchronizeService: ")
         {
             bool validResponse = true;
             if (pResponseResult == null)
             {
                 validResponse = false;
             }
+            else
+            {
+                // Registrar evento de error en servicio rest
+                if (pResponseResult.type != "success" /*|| pResponseResult.result == null*/)
+                {
+                    validResponse = false;
+                    LogService.logErrorServiceResponse(pResponseResult.message, pResponseResult.type, pCodeSectionDetail);
+                }
+            }
             return validResponse;
         }
 
+        /*
+        private string getCodeSectionDetail()
+        {
+            return MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
+        }
+        */
+
+
+        //----------------- Sincronizaciones ServerToLocal -----------------//
+
         public bool syncCompany_ServerToLocal()
         {
-            /*
-            GenericRepository<CPN_Company, Object> gr = new GenericRepository<CPN_Company, Object>();
-            CPN_Company company = gr.getById(1);
-            Console.WriteLine(company.CPN_DisplayName);
-            company.CPN_DisplayName = company.CPN_DisplayName + "1";
-            CPN_Company c2 = gr.save(company, company.CPN_Id, x => x.copy(company));
-            Console.WriteLine(c2.CPN_DisplayName);
-            CPN_Company c3 = gr.getById(1);
-            Console.WriteLine(c3.CPN_DisplayName);
-            */
             bool successProcess = true;
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getCompaniesFromServer();
-            successProcess = isValidResponse(responseResult);
+            successProcess = this.isValidResponse(responseResult);
             if (successProcess)
             {
                 string result = responseResult.result.ToString();
@@ -60,7 +70,7 @@ namespace SILO.DesktopApplication.Core.Services
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getSalePointsFromServer();
-            successProcess = isValidResponse(responseResult);
+            successProcess = this.isValidResponse(responseResult);
             if (successProcess)
             {
                 string jsonStringResult = responseResult.result.ToString();
@@ -87,7 +97,7 @@ namespace SILO.DesktopApplication.Core.Services
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getRolesFromServer();
-            successProcess = isValidResponse(responseResult);
+            successProcess = this.isValidResponse(responseResult);
             if (successProcess)
             {
                 string result = responseResult.result.ToString();
@@ -107,7 +117,7 @@ namespace SILO.DesktopApplication.Core.Services
             // Realizar la petición http
             ServerConnectionService connection = new ServerConnectionService();
             ServiceResponseResult responseResult = connection.getUsersFromServer();
-            successProcess = isValidResponse(responseResult);
+            successProcess = this.isValidResponse(responseResult);
             if (successProcess)
             {
                 string jsonStringResult = responseResult.result.ToString();
@@ -125,6 +135,50 @@ namespace SILO.DesktopApplication.Core.Services
                 ApplicationUserRepository userRepo = new ApplicationUserRepository();
                 userRepo.saveList(JsonConvert.DeserializeObject<List<AUS_ApplicationUser>>(parsedJsonString));
             }
+            return successProcess;
+        }
+
+
+        //----------------- Sincronizaciones LocalToServer -----------------//
+
+        public bool syncAppUsers_LocalToServer()
+        {
+            bool successProcess = true;
+            ApplicationUserRepository userRepo = new ApplicationUserRepository();
+            List <AUS_ApplicationUser> unsynUserList = userRepo.findUnsynUsers();
+            foreach (var userItem in unsynUserList)
+            {
+                Console.WriteLine(userItem.AUS_Username);
+            }
+            return successProcess;
+        }
+
+        // Enviar sincronización de números al servidor
+        public bool syncNumbers_LocalToServer()
+        {
+            bool successProcess = true;
+            LotteryNumberRepository numberRepository = new LotteryNumberRepository();
+            List<LNR_LotteryNumber> unsynNumberList = numberRepository.findUnsynUsers();
+            // Crear JsonArray
+            var jsonObjectArray = new dynamic[unsynNumberList.Count()];
+            for (int i = 0; i < unsynNumberList.Count(); i++)
+            {
+                // Crear objeto json
+                var jsonObject = new
+                {
+                    id = unsynNumberList[i].LNR_Id,
+                    number = unsynNumberList[i].LNR_Number,
+                    //isProhibited = unsynNumberList[i].LNR_IsProhibited
+                    isProhibited = unsynNumberList[i].LNR_IsProhibited == 1 ? true : false
+                };
+                // Agregar el objeto al array
+                jsonObjectArray[i] = jsonObject;
+            }
+            var jsonNumberArray = new { items = jsonObjectArray };
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.sendNumberDataToService(jsonNumberArray);
+            string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
+            successProcess = this.isValidResponse(responseResult, codeSectionDetail);
             return successProcess;
         }
 

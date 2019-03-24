@@ -9,10 +9,9 @@
 
 namespace SILO
 {
-    using DesktopApplication.Core.Constants;
     using System;
     using System.Collections.Generic;
-
+    
     public partial class LPS_LotteryPointSale
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

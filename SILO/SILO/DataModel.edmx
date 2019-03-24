@@ -82,6 +82,7 @@
           <Property Name="LNR_Id" Type="integer" Nullable="false" />
           <Property Name="LNR_Number" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="LNR_IsProhibited" Type="integer" Nullable="false" />
+          <Property Name="SYS_SynchronyStatus" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="LPF_LotteryPrizeFactor">
           <Key>
@@ -246,6 +247,18 @@
             </Principal>
             <Dependent Role="LND_ListNumberDetail">
               <PropertyRef Name="LNR_LotteryNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LNR_LotteryNumber_0_0">
+          <End Role="SYS_SynchronyStatus" Type="Self.SYS_SynchronyStatus" Multiplicity="1" />
+          <End Role="LNR_LotteryNumber" Type="Self.LNR_LotteryNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_SynchronyStatus">
+              <PropertyRef Name="SYS_Id" />
+            </Principal>
+            <Dependent Role="LNR_LotteryNumber">
+              <PropertyRef Name="SYS_SynchronyStatus" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -438,6 +451,10 @@
             <End Role="LNR_LotteryNumber" EntitySet="LNR_LotteryNumber" />
             <End Role="LND_ListNumberDetail" EntitySet="LND_ListNumberDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_LNR_LotteryNumber_0_0" Association="Self.FK_LNR_LotteryNumber_0_0">
+            <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
+            <End Role="LNR_LotteryNumber" EntitySet="LNR_LotteryNumber" />
+          </AssociationSet>
           <AssociationSet Name="FK_LPF_LotteryPrizeFactor_0_0" Association="Self.FK_LPF_LotteryPrizeFactor_0_0">
             <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
             <End Role="LPF_LotteryPrizeFactor" EntitySet="LPF_LotteryPrizeFactor" />
@@ -584,6 +601,10 @@
             <End Role="USR_UserRole" EntitySet="USR_UserRole" />
             <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
           </AssociationSet>
+          <AssociationSet Name="FK_LNR_LotteryNumber_0_0" Association="SILOModel.FK_LNR_LotteryNumber_0_0">
+            <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
+            <End Role="LNR_LotteryNumber" EntitySet="LNR_LotteryNumber" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CPN_Company">
           <Key>
@@ -659,6 +680,8 @@
           <Property Name="LNR_Number" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="LNR_IsProhibited" Type="Int64" Nullable="false" />
           <NavigationProperty Name="LND_ListNumberDetail" Relationship="SILOModel.FK_LND_ListNumberDetail_1_0" FromRole="LNR_LotteryNumber" ToRole="LND_ListNumberDetail" />
+          <Property Name="SYS_SynchronyStatus" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SYS_SynchronyStatus1" Relationship="SILOModel.FK_LNR_LotteryNumber_0_0" FromRole="LNR_LotteryNumber" ToRole="SYS_SynchronyStatus" />
         </EntityType>
         <EntityType Name="LPF_LotteryPrizeFactor">
           <Key>
@@ -756,6 +779,7 @@
           <NavigationProperty Name="LPS_LotteryPointSale" Relationship="SILOModel.FK_LPS_LotteryPointSale_0_0" FromRole="SYS_SynchronyStatus" ToRole="LPS_LotteryPointSale" />
           <NavigationProperty Name="LTL_LotteryList" Relationship="SILOModel.FK_LTL_LotteryList_0_0" FromRole="SYS_SynchronyStatus" ToRole="LTL_LotteryList" />
           <NavigationProperty Name="AUS_ApplicationUser" Relationship="SILOModel.FK_AUS_ApplicationUser_1_0" FromRole="SYS_SynchronyStatus" ToRole="AUS_ApplicationUser" />
+          <NavigationProperty Name="LNR_LotteryNumber" Relationship="SILOModel.FK_LNR_LotteryNumber_0_0" FromRole="SYS_SynchronyStatus" ToRole="LNR_LotteryNumber" />
         </EntityType>
         <Association Name="FK_LPS_LotteryPointSale_1_0">
           <End Type="SILOModel.CPN_Company" Role="CPN_Company" Multiplicity="1" />
@@ -1011,6 +1035,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LNR_LotteryNumber_0_0">
+          <End Type="SILOModel.SYS_SynchronyStatus" Role="SYS_SynchronyStatus" Multiplicity="1" />
+          <End Type="SILOModel.LNR_LotteryNumber" Role="LNR_LotteryNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_SynchronyStatus">
+              <PropertyRef Name="SYS_Id" />
+            </Principal>
+            <Dependent Role="LNR_LotteryNumber">
+              <PropertyRef Name="SYS_SynchronyStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1083,6 +1119,7 @@
           <EntitySetMapping Name="LNR_LotteryNumber">
             <EntityTypeMapping TypeName="SILOModel.LNR_LotteryNumber">
               <MappingFragment StoreEntitySet="LNR_LotteryNumber">
+                <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
                 <ScalarProperty Name="LNR_IsProhibited" ColumnName="LNR_IsProhibited" />
                 <ScalarProperty Name="LNR_Number" ColumnName="LNR_Number" />
                 <ScalarProperty Name="LNR_Id" ColumnName="LNR_Id" />

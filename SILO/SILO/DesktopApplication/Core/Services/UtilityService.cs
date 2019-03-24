@@ -317,5 +317,19 @@ namespace SILO.DesktopApplication.Core.Services
             return "v " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
+        public static bool verifySynStatusFromArray(bool[] synRestultArray)
+        {
+            bool successProcess = true;
+            // Verificar estados de sincronización de los módulos
+            for (int i = 0; i < synRestultArray.Length; i++)
+            {
+                if (!synRestultArray[i])
+                {
+                    successProcess = false;
+                }
+            }
+            return successProcess;
+        }
+
     }
 }

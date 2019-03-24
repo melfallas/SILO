@@ -22,6 +22,7 @@ namespace SILO
             this.LPS_LotteryPointSale = new HashSet<LPS_LotteryPointSale>();
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
             this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
+            this.LNR_LotteryNumber = new HashSet<LNR_LotteryNumber>();
         }
     
         public long SYS_Id { get; set; }
@@ -39,5 +40,7 @@ namespace SILO
         public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LNR_LotteryNumber> LNR_LotteryNumber { get; set; }
     }
 }

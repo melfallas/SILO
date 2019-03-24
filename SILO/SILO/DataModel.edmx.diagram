@@ -40,6 +40,7 @@
         <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_0_0" />
         <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_1_0" />
         <AssociationConnector Association="SILOModel.FK_AUS_ApplicationUser_2_0" />
+        <AssociationConnector Association="SILOModel.FK_LNR_LotteryNumber_0_0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

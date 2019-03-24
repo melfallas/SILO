@@ -216,7 +216,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LotteryDrawRepository.cs" />
-    <Compile Include="LotteryDrawTypeRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LotteryDrawTypeRepository.cs" />
     <Compile Include="LotteryList.cs" />
     <Compile Include="LotteryListControl.cs">
       <SubType>UserControl</SubType>

@@ -15,8 +15,8 @@ namespace SILO.DesktopApplication.Core.Constants
         public const long ROLE_SALLER_ID = 3;
         // Constantes de estados de sincronización
         public const long SYNC_STATUS_NONE = 0;
-        public const long SYNC_STATUS_PENDING_SEND = 1;
-        public const long SYNC_STATUS_PENDING_RECEIVED = 2;
+        public const long SYNC_STATUS_PENDING_TO_SERVER = 1;
+        public const long SYNC_STATUS_PENDING_TO_CLIENT = 2;
         public const long SYNC_STATUS_COMPLETED = 3;
         // Constantes de estados de lista
         public const long LIST_STATUS_CREATED = 1;

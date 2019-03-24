@@ -76,11 +76,14 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void startInitialSynchronization()
         {
+
             bool[] synStatusArray = new bool[4];
             LoginForm.waitHandle.WaitOne();
             this.updateProgressBar(25);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
+            //synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            /*
             synStatusArray[0] = syncService.syncCompany_ServerToLocal();
             this.updateProgressBar(40);
             this.changeStatusLegend("Cargando sucursales...");
@@ -92,20 +95,13 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.changeStatusLegend("Cargando usuarios...");
             synStatusArray[3] = syncService.syncAppUsers_ServerToLocal();
             this.updateProgressBar(100);
-            this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
-            bool successProcess = true;
-            // Verificar estados de sincronización de los módulos
-            for (int i = 0; i < synStatusArray.Length; i++)
-            {
-                if (!synStatusArray[i])
-                {
-                    successProcess = false;
-                }
-            }
-            if (!successProcess)
+            this.changeStatusLegend(GeneralConstants.EMPTY_STRING);            
+            // Verificar si falló algún proceso de sincronización
+            if (!UtilityService.verifySynStatusFromArray(synStatusArray))
             {
                 MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
             }
+            */
         }
 
         private void updateProgressBar(int pProgressValue)
@@ -157,6 +153,35 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.txbUser.Focus();
         }
 
+        private void notifySyncProcessStep(string pMessage)
+        {
+            Console.WriteLine(pMessage);
+        }
+
+        private void verifySynStatus(bool[] pSynStatusArray)
+        {
+            if (!UtilityService.verifySynStatusFromArray(pSynStatusArray))
+            {
+                MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
+            }
+        }
+
+        private void initDataSync()
+        {
+            bool[] synStatusArray = new bool[1];
+            this.notifySyncProcessStep("Iniciando sincronización del sistema...");
+            SynchronizeService syncService = new SynchronizeService();
+            // Sincronizar usuarios al servidor
+            //synStatusArray[0] = syncService.syncAppUsers_LocalToServer();
+            // Enviar sincronización de números al servidor
+            this.notifySyncProcessStep("Sincronizando datos de números...");
+            synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            // Verificar si falló algún proceso de sincronización
+            this.verifySynStatus(synStatusArray);
+            // Lanzar aplicación tras la sincronización
+            this.launchApplication();
+        }
+
         private void launchApplication() {
             try
             {
@@ -190,8 +215,8 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                     ProgramInitializationService programInicializer = new ProgramInitializationService();
                     if (programInicializer.setInstancePointSale())
                     {
-                        // Lanzar aplicación si la instancia está inicializada
-                        this.launchApplication();
+                        // Iniciar sincronización de datos
+                        this.initDataSync();
                     }
                     else {
                         // Si la instancia no está inicializada, cerrar el programa
