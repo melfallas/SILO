@@ -37,6 +37,7 @@
     <EntitySetMapping Name="LDT_LotteryDrawType">
       <EntityTypeMapping TypeName="SILOModel.LDT_LotteryDrawType">
         <MappingFragment StoreEntitySet="LDT_LotteryDrawType">
+          <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
           <ScalarProperty Name="LDT_Description" ColumnName="LDT_Description" />
           <ScalarProperty Name="LDT_DisplayName" ColumnName="LDT_DisplayName" />
           <ScalarProperty Name="LDT_Code" ColumnName="LDT_Code" />

@@ -45,6 +45,11 @@ namespace SILO.DesktopApplication.Core.Services
             return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_NUMBER_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
         }
 
+        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = "POST")
+        {
+            return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
+        }
+
 
 
         //----------------- Métodos utilitarios para acceder a servicios -----------------//

@@ -182,5 +182,37 @@ namespace SILO.DesktopApplication.Core.Services
             return successProcess;
         }
 
+
+        
+        // Enviar sincronización de números al servidor
+        public bool syncDrawType_LocalToServer()
+        {
+            bool successProcess = true;
+            LotteryDrawTypeRepository drawTypeRepository = new LotteryDrawTypeRepository();
+            List<LDT_LotteryDrawType> unsynDrawTypeList = drawTypeRepository.findUnsynTypes();
+            // Crear JsonArray
+            var jsonObjectArray = new dynamic[unsynDrawTypeList.Count()];
+            for (int i = 0; i < unsynDrawTypeList.Count(); i++)
+            {
+                // Crear objeto json
+                var jsonObject = new
+                {
+                    id = unsynDrawTypeList[i].LDT_Id,
+                    code = unsynDrawTypeList[i].LDT_Code,
+                    displayName = unsynDrawTypeList[i].LDT_DisplayName,
+                    description = unsynDrawTypeList[i].LDT_Description
+                };
+                // Agregar el objeto al array
+                jsonObjectArray[i] = jsonObject;
+            }
+            var jsonNumberArray = new { items = jsonObjectArray };
+            //Console.WriteLine(JsonConvert.SerializeObject(jsonNumberArray));
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.sendDrawTypeToService(jsonNumberArray);
+            string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
+            successProcess = this.isValidResponse(responseResult, codeSectionDetail);
+            return successProcess;
+        }
+        
     }
 }

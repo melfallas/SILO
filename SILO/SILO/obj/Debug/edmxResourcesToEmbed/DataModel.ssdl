@@ -51,6 +51,7 @@
     <Property Name="LDT_Code" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="LDT_DisplayName" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="LDT_Description" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SYS_SynchronyStatus" Type="integer" Nullable="false" />
   </EntityType>
   <EntityType Name="LLS_LotteryListStatus">
     <Key>
@@ -218,6 +219,18 @@
       </Principal>
       <Dependent Role="DNW_DrawNumberWinning">
         <PropertyRef Name="LTD_LotteryDraw" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LDT_LotteryDrawType_0_0">
+    <End Role="SYS_SynchronyStatus" Type="Self.SYS_SynchronyStatus" Multiplicity="1" />
+    <End Role="LDT_LotteryDrawType" Type="Self.LDT_LotteryDrawType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SYS_SynchronyStatus">
+        <PropertyRef Name="SYS_Id" />
+      </Principal>
+      <Dependent Role="LDT_LotteryDrawType">
+        <PropertyRef Name="SYS_SynchronyStatus" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -437,6 +450,10 @@
     <AssociationSet Name="FK_DNW_DrawNumberWinning_1_0" Association="Self.FK_DNW_DrawNumberWinning_1_0">
       <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
       <End Role="DNW_DrawNumberWinning" EntitySet="DNW_DrawNumberWinning" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LDT_LotteryDrawType_0_0" Association="Self.FK_LDT_LotteryDrawType_0_0">
+      <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />
+      <End Role="LDT_LotteryDrawType" EntitySet="LDT_LotteryDrawType" />
     </AssociationSet>
     <AssociationSet Name="FK_LND_ListNumberDetail_0_0" Association="Self.FK_LND_ListNumberDetail_0_0">
       <End Role="LTL_LotteryList" EntitySet="LTL_LotteryList" />

@@ -174,8 +174,11 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             // Sincronizar usuarios al servidor
             //synStatusArray[0] = syncService.syncAppUsers_LocalToServer();
             // Enviar sincronización de números al servidor
-            this.notifySyncProcessStep("Sincronizando datos de números...");
-            synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            this.notifySyncProcessStep("Sincronizando datos numéricos...");
+            //synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            this.notifySyncProcessStep("Sincronizando tipos de sorteo...");
+            synStatusArray[0] = syncService.syncDrawType_LocalToServer();
+
             // Verificar si falló algún proceso de sincronización
             this.verifySynStatus(synStatusArray);
             // Lanzar aplicación tras la sincronización
