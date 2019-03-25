@@ -92,10 +92,10 @@ C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.ListSelectorForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.LotteryListControl.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.MainOptionMenu.resources
-C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.NumberBoxForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.ProhibitedNumberForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.Properties.Resources.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.csproj.GenerateResource.Cache
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.exe
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.pdb
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.csprojResolveAssemblyReference.cache
+C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Sale.NumberBoxForm.resources

@@ -1,4 +1,4 @@
-﻿namespace SILO
+﻿namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 {
     partial class NumberBoxForm
     {

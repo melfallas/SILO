@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 {
     public partial class NumberBoxForm : Form
     {
@@ -112,6 +112,7 @@ namespace SILO
         private void displayNewListInstance() {
             LotteryDrawTypeRepository typeRepository = new LotteryDrawTypeRepository();
             ListInstanceForm listInstance = new ListInstanceForm(
+                this,
                 UtilityService.getPointSale(),
                 typeRepository.getById(this.drawTypeBox.SelectedIndex),
                 this.datePickerList.Value.Date
@@ -155,10 +156,16 @@ namespace SILO
             if (groupId != 0)
             {
                 this.displayNewListInstance();
-                LotteryListRepository lotteryListRepository = new LotteryListRepository();
-                this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, groupId));
-                //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
+                this.updateNumberBox(groupId);
             }
+        }
+
+        public void updateNumberBox(long pGroupId)
+        {
+            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+            LotteryListRepository lotteryListRepository = new LotteryListRepository();
+            this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, groupId));
+            //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
         }
 
 

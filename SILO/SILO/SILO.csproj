@@ -253,10 +253,10 @@
     <Compile Include="MainOptionMenu.Designer.cs">
       <DependentUpon>MainOptionMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="NumberBoxForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Sale\NumberBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NumberBoxForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Sale\NumberBoxForm.Designer.cs">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesktopApplication\Core\Repositories\LocalParameterRepository.cs" />
@@ -326,7 +326,7 @@
     <EmbeddedResource Include="MainOptionMenu.resx">
       <DependentUpon>MainOptionMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NumberBoxForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Sale\NumberBoxForm.resx">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProhibitedNumberForm.resx">
@@ -381,6 +381,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DesktopApplication\Core\Controls\" />
     <Folder Include="DesktopApplication\Data\" />
     <Folder Include="DesktopApplication\View\" />
   </ItemGroup>

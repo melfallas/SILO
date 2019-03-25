@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Model;
+﻿using SILO.DesktopApplication.Core.Forms.Modules.Sale;
+using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,13 @@ namespace SILO
         public LDT_LotteryDrawType drawType { get; set; }
         public DateTime drawDate { get; set; }
         public DateTime printDate { get; set; }
-        public LTL_LotteryList list { get; set; }
         public MainOptionMenu mainOptionMenu { get; set; }
         public string customerName { get; set; }
+
+        public LTL_LotteryList list { get; set; }
+        public List<LND_ListNumberDetail> numberDetail { get; set; }
+
+        public NumberBoxForm parentForm { get; set; }
 
         /*  
         public ListInstanceForm()
@@ -29,8 +34,9 @@ namespace SILO
             initializeComponent();
         }
         */
-        public ListInstanceForm(LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
+        public ListInstanceForm(NumberBoxForm pParent, LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
         {
+            this.parentForm = pParent;
             this.pointSale = pPointSale;
             this.drawType = pDrawType;
             this.drawDate = pDrawDate;
@@ -92,6 +98,8 @@ namespace SILO
             LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
             this.saveList(listControl);
             UtilityService.printList(this.list);
+            this.parentForm.updateNumberBox(this.drawType.LDT_Id);
+            this.sendListNumberToServer();
             this.Dispose();
         }
 
@@ -127,8 +135,19 @@ namespace SILO
                 lotteryDrawRepository.saveListDetail(ref newListNumberDetail);
                 numberDetailCollection.Add(newListNumberDetail);
             }
+            // Almacenar la colección de números generada
+            this.numberDetail = numberDetailCollection;
+            /*
             ServerConnectionService service = new ServerConnectionService();
             ServiceResponseResult response = service.generateList(listToSave, numberDetailCollection);
+            Console.WriteLine("Respuesta Venta: " + response.result);
+            */
+        }
+
+        private void sendListNumberToServer()
+        {
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult response = service.generateList(this.list, this.numberDetail);
             Console.WriteLine("Respuesta Venta: " + response.result);
         }
 

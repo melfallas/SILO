@@ -119,7 +119,10 @@
             this.Controls.Add(this.listInstanceMainPanel);
             this.Controls.Add(this.listInstanceBottomPanel);
             this.Controls.Add(this.listInstanceTopPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ListInstanceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListInstanceForm";
