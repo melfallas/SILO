@@ -160,31 +160,35 @@ namespace SILO.DesktopApplication.Core.Services
             bool successProcess = true;
             LotteryNumberRepository numberRepository = new LotteryNumberRepository();
             List<LNR_LotteryNumber> unsynNumberList = numberRepository.findUnsynUsers();
-            // Crear JsonArray
-            var jsonObjectArray = new dynamic[unsynNumberList.Count()];
-            for (int i = 0; i < unsynNumberList.Count(); i++)
+            // Sincronizar a servidor si existen elementos pendientes en cliente
+            if (unsynNumberList.Count > 0)
             {
-                // Crear objeto json
-                var jsonObject = new
+                // Crear JsonArray
+                var jsonObjectArray = new dynamic[unsynNumberList.Count()];
+                for (int i = 0; i < unsynNumberList.Count(); i++)
                 {
-                    id = unsynNumberList[i].LNR_Id,
-                    number = unsynNumberList[i].LNR_Number,
-                    //isProhibited = unsynNumberList[i].LNR_IsProhibited
-                    isProhibited = unsynNumberList[i].LNR_IsProhibited == 1 ? true : false
-                };
-                // Agregar el objeto al array
-                jsonObjectArray[i] = jsonObject;
-            }
-            var jsonNumberArray = new { items = jsonObjectArray };
-            ServerConnectionService connection = new ServerConnectionService();
-            ServiceResponseResult responseResult = connection.sendNumberDataToService(jsonNumberArray);
-            string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
-            successProcess = this.isValidResponse(responseResult, codeSectionDetail);
-            // Validar resultado de la sincronización
-            if (successProcess)
-            {
-                // Si el resultado del proceso es exitoso, cambiar estado a sincronizado
-                numberRepository.changeStates(unsynNumberList, SystemConstants.SYNC_STATUS_COMPLETED);
+                    // Crear objeto json
+                    var jsonObject = new
+                    {
+                        id = unsynNumberList[i].LNR_Id,
+                        number = unsynNumberList[i].LNR_Number,
+                        //isProhibited = unsynNumberList[i].LNR_IsProhibited
+                        isProhibited = unsynNumberList[i].LNR_IsProhibited == 1 ? true : false
+                    };
+                    // Agregar el objeto al array
+                    jsonObjectArray[i] = jsonObject;
+                }
+                var jsonNumberArray = new { items = jsonObjectArray };
+                ServerConnectionService connection = new ServerConnectionService();
+                ServiceResponseResult responseResult = connection.sendNumberDataToService(jsonNumberArray);
+                string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
+                successProcess = this.isValidResponse(responseResult, codeSectionDetail);
+                // Validar resultado de la sincronización
+                if (successProcess)
+                {
+                    // Si el resultado del proceso es exitoso, cambiar estado a sincronizado
+                    numberRepository.changeStates(unsynNumberList, SystemConstants.SYNC_STATUS_COMPLETED);
+                }
             }
             return successProcess;
         }
@@ -197,32 +201,36 @@ namespace SILO.DesktopApplication.Core.Services
             bool successProcess = true;
             LotteryDrawTypeRepository drawTypeRepository = new LotteryDrawTypeRepository();
             List<LDT_LotteryDrawType> unsynDrawTypeList = drawTypeRepository.findUnsynTypes();
-            // Crear JsonArray
-            var jsonObjectArray = new dynamic[unsynDrawTypeList.Count()];
-            for (int i = 0; i < unsynDrawTypeList.Count(); i++)
+            // Sincronizar a servidor si existen elementos pendientes en cliente
+            if (unsynDrawTypeList.Count > 0)
             {
-                // Crear objeto json
-                var jsonObject = new
+                // Crear JsonArray
+                var jsonObjectArray = new dynamic[unsynDrawTypeList.Count()];
+                for (int i = 0; i < unsynDrawTypeList.Count(); i++)
                 {
-                    id = unsynDrawTypeList[i].LDT_Id,
-                    code = unsynDrawTypeList[i].LDT_Code,
-                    displayName = unsynDrawTypeList[i].LDT_DisplayName,
-                    description = unsynDrawTypeList[i].LDT_Description
-                };
-                // Agregar el objeto al array
-                jsonObjectArray[i] = jsonObject;
-            }
-            var jsonNumberArray = new { items = jsonObjectArray };
-            //Console.WriteLine(JsonConvert.SerializeObject(jsonNumberArray));
-            ServerConnectionService connection = new ServerConnectionService();
-            ServiceResponseResult responseResult = connection.sendDrawTypeToService(jsonNumberArray);
-            string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
-            successProcess = this.isValidResponse(responseResult, codeSectionDetail);
-            // Validar resultado de la sincronización
-            if (successProcess)
-            {
-                // Si el resultado del proceso es exitoso, cambiar estado a sincronizado
-                drawTypeRepository.changeStates(unsynDrawTypeList, SystemConstants.SYNC_STATUS_COMPLETED);
+                    // Crear objeto json
+                    var jsonObject = new
+                    {
+                        id = unsynDrawTypeList[i].LDT_Id,
+                        code = unsynDrawTypeList[i].LDT_Code,
+                        displayName = unsynDrawTypeList[i].LDT_DisplayName,
+                        description = unsynDrawTypeList[i].LDT_Description
+                    };
+                    // Agregar el objeto al array
+                    jsonObjectArray[i] = jsonObject;
+                }
+                var jsonNumberArray = new { items = jsonObjectArray };
+                //Console.WriteLine(JsonConvert.SerializeObject(jsonNumberArray));
+                ServerConnectionService connection = new ServerConnectionService();
+                ServiceResponseResult responseResult = connection.sendDrawTypeToService(jsonNumberArray);
+                string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
+                successProcess = this.isValidResponse(responseResult, codeSectionDetail);
+                // Validar resultado de la sincronización
+                if (successProcess)
+                {
+                    // Si el resultado del proceso es exitoso, cambiar estado a sincronizado
+                    drawTypeRepository.changeStates(unsynDrawTypeList, SystemConstants.SYNC_STATUS_COMPLETED);
+                }
             }
             return successProcess;
         }

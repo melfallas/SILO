@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,9 +23,12 @@ namespace SILO
         public NumberBoxForm()
         {
             InitializeComponent();
+            this.contentPanel.Visible = false;
             this.erasePanels();
             this.loadControls();
             this.createBoxNumber();
+            //Thread.Sleep(5000);
+            //this.contentPanel.Visible = true;
         }
 
         private void erasePanels() {
@@ -42,8 +46,15 @@ namespace SILO
         {
             // Generar el array de controles
             boxArray = new BoxNumberUnit[100];
-            // Obtener parámetros
+            // Obtener detalle de los números prohibidos
             bool[] prohibitedNumbers = UtilityService.getProhibitedArray();
+            this.buildBoxNumber(prohibitedNumbers);
+            //MessageBox.Show("Mostrando");
+            this.contentPanel.Visible = true;
+        }
+
+        public void buildBoxNumber(bool[] prohibitedNumbers)
+        {
             // Establecer coordenadas para la caja
             int INI_X = 40;
             int INI_Y = 10;
@@ -87,39 +98,16 @@ namespace SILO
             }
         }
 
+
+        //--------------------------------------- Métodos de Actualización --------------------------------------//
+
         private void updateBoxArray(int[] importArray)
         {
             for (int i = 0; i < importArray.Length; i++)
             {
                 this.boxArray[i].textbox.Text = importArray[i].ToString();
             }
-        }
-
-        private void drawTypeBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter)) {
-                //this.drawTypeBox
-                //MessageBox.Show("dfddf");
-            }
-        }
-
-        private void datePickerList_ValueChanged(object sender, EventArgs e)
-        {
-            this.drawTypeBox.SelectedIndex = 0;
-            //MessageBox.Show(this.datePickerList.Value.Date);
-        }
-
-        private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
-            if (groupId != 0)
-            {
-                this.displayNewListInstance();
-                LotteryListRepository lotteryListRepository = new LotteryListRepository();
-                this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, groupId));
-                //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
-            }
-        }
+        }        
         
         private void displayNewListInstance() {
             LotteryDrawTypeRepository typeRepository = new LotteryDrawTypeRepository();
@@ -142,7 +130,37 @@ namespace SILO
             //listInstance.ShowDialog();
             listInstance.Show(this);
         }
-
         
+
+        //--------------------------------------- Eventos de Controles --------------------------------------//
+
+        private void drawTypeBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                //this.drawTypeBox
+                //MessageBox.Show("dfddf");
+            }
+        }
+
+        private void datePickerList_ValueChanged(object sender, EventArgs e)
+        {
+            this.drawTypeBox.SelectedIndex = 0;
+            //MessageBox.Show(this.datePickerList.Value.Date);
+        }
+
+        private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+            if (groupId != 0)
+            {
+                this.displayNewListInstance();
+                LotteryListRepository lotteryListRepository = new LotteryListRepository();
+                this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, groupId));
+                //MessageBox.Show("Valor: " + this.drawTypeBox.SelectedValue + " - " + this.drawTypeBox.Text);
+            }
+        }
+
+
     }
 }

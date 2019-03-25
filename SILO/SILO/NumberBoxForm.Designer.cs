@@ -30,15 +30,15 @@
         {
             this.numberBoxMainPanel = new System.Windows.Forms.Panel();
             this.contentPanel = new System.Windows.Forms.Panel();
-            this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.footerPanel = new System.Windows.Forms.Panel();
             this.headerPanel = new System.Windows.Forms.Panel();
             this.drawTypeBox = new System.Windows.Forms.ComboBox();
             this.datePickerList = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.titlePanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.titlePanel = new System.Windows.Forms.Panel();
+            this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.numberBoxMainPanel.SuspendLayout();
             this.contentPanel.SuspendLayout();
             this.headerPanel.SuspendLayout();
@@ -66,15 +66,6 @@
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(567, 319);
             this.contentPanel.TabIndex = 1;
-            // 
-            // numberBoxPanel
-            // 
-            this.numberBoxPanel.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.numberBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numberBoxPanel.Location = new System.Drawing.Point(0, 63);
-            this.numberBoxPanel.Name = "numberBoxPanel";
-            this.numberBoxPanel.Size = new System.Drawing.Size(567, 209);
-            this.numberBoxPanel.TabIndex = 2;
             // 
             // footerPanel
             // 
@@ -145,6 +136,16 @@
             this.label2.Text = "Fecha:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Listado de Números";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // titlePanel
             // 
             this.titlePanel.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -155,15 +156,14 @@
             this.titlePanel.Size = new System.Drawing.Size(567, 37);
             this.titlePanel.TabIndex = 0;
             // 
-            // label1
+            // numberBoxPanel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Listado de Números";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.numberBoxPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.numberBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numberBoxPanel.Location = new System.Drawing.Point(0, 63);
+            this.numberBoxPanel.Name = "numberBoxPanel";
+            this.numberBoxPanel.Size = new System.Drawing.Size(567, 209);
+            this.numberBoxPanel.TabIndex = 2;
             // 
             // NumberBoxForm
             // 
@@ -187,13 +187,13 @@
         #endregion
         private System.Windows.Forms.Panel numberBoxMainPanel;
         private System.Windows.Forms.Panel contentPanel;
-        private System.Windows.Forms.Panel numberBoxPanel;
         private System.Windows.Forms.Panel footerPanel;
         private System.Windows.Forms.Panel headerPanel;
         private System.Windows.Forms.ComboBox drawTypeBox;
         private System.Windows.Forms.DateTimePicker datePickerList;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel numberBoxPanel;
         private System.Windows.Forms.Panel titlePanel;
         private System.Windows.Forms.Label label1;
     }
