@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Util;
@@ -179,6 +180,12 @@ namespace SILO.DesktopApplication.Core.Services
             ServiceResponseResult responseResult = connection.sendNumberDataToService(jsonNumberArray);
             string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
             successProcess = this.isValidResponse(responseResult, codeSectionDetail);
+            // Validar resultado de la sincronización
+            if (successProcess)
+            {
+                // Si el resultado del proceso es exitoso, cambiar estado a sincronizado
+                numberRepository.changeStates(unsynNumberList, SystemConstants.SYNC_STATUS_COMPLETED);
+            }
             return successProcess;
         }
 
@@ -211,6 +218,12 @@ namespace SILO.DesktopApplication.Core.Services
             ServiceResponseResult responseResult = connection.sendDrawTypeToService(jsonNumberArray);
             string codeSectionDetail = MethodBase.GetCurrentMethod().DeclaringType.Name + ": " + MethodBase.GetCurrentMethod().Name;
             successProcess = this.isValidResponse(responseResult, codeSectionDetail);
+            // Validar resultado de la sincronización
+            if (successProcess)
+            {
+                // Si el resultado del proceso es exitoso, cambiar estado a sincronizado
+                drawTypeRepository.changeStates(unsynDrawTypeList, SystemConstants.SYNC_STATUS_COMPLETED);
+            }
             return successProcess;
         }
         

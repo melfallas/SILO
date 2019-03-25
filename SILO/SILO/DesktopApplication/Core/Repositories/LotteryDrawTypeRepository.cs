@@ -15,7 +15,16 @@ namespace SILO.DesktopApplication.Core.Repositories
         {
             return this.getAll().Where(user => user.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER).ToList();
         }
-        
+
+        public void changeStates(List<LDT_LotteryDrawType> pNumberList, long pNewStatus = SystemConstants.SYNC_STATUS_COMPLETED)
+        {
+            foreach (LDT_LotteryDrawType drawType in pNumberList)
+            {
+                drawType.SYS_SynchronyStatus = pNewStatus;
+                this.save(drawType, drawType.LDT_Id, (e1, e2) => e1.copy(e2));
+            }
+        }
+
 
         /*
         public List<LDT_LotteryDrawType> getAll()

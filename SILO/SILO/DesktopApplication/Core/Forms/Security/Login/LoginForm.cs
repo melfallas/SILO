@@ -168,16 +168,16 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void initDataSync()
         {
-            bool[] synStatusArray = new bool[1];
+            bool[] synStatusArray = new bool[2];
             this.notifySyncProcessStep("Iniciando sincronización del sistema...");
             SynchronizeService syncService = new SynchronizeService();
             // Sincronizar usuarios al servidor
             //synStatusArray[0] = syncService.syncAppUsers_LocalToServer();
             // Enviar sincronización de números al servidor
             this.notifySyncProcessStep("Sincronizando datos numéricos...");
-            //synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            synStatusArray[0] = syncService.syncNumbers_LocalToServer();
             this.notifySyncProcessStep("Sincronizando tipos de sorteo...");
-            synStatusArray[0] = syncService.syncDrawType_LocalToServer();
+            synStatusArray[1] = syncService.syncDrawType_LocalToServer();
 
             // Verificar si falló algún proceso de sincronización
             this.verifySynStatus(synStatusArray);

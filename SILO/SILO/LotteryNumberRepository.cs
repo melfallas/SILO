@@ -15,6 +15,15 @@ namespace SILO
             return this.getAll().Where(user => user.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER).ToList();
         }
 
+        public void changeStates(List<LNR_LotteryNumber> pNumberList, long pNewStatus = SystemConstants.SYNC_STATUS_COMPLETED)
+        {
+            foreach (LNR_LotteryNumber number in pNumberList)
+            {
+                number.SYS_SynchronyStatus = pNewStatus;
+                this.save(number, number.LNR_Id, (e1, e2) => e1.copy(e2));
+            }
+        }
+
         public LNR_LotteryNumber getByNumberCode(string pNumberCode)
         {
             LNR_LotteryNumber findedNumber = null;
