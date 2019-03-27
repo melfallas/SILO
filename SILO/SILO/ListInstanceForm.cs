@@ -24,9 +24,11 @@ namespace SILO
         public string customerName { get; set; }
 
         public LTL_LotteryList list { get; set; }
+        private LotteryListControl lotteryListControl { get; set; }
         public List<LND_ListNumberDetail> numberDetail { get; set; }
 
-        public NumberBoxForm parentForm { get; set; }
+        public NumberBoxForm numberBoxFormParent { get; set; }
+        public ListSelectorForm listSelectorFormParent { get; set; }
 
         /*  
         public ListInstanceForm()
@@ -36,11 +38,27 @@ namespace SILO
         */
         public ListInstanceForm(NumberBoxForm pParent, LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
         {
-            this.parentForm = pParent;
+            this.numberBoxFormParent = pParent;
+            this.listSelectorFormParent = null;
             this.pointSale = pPointSale;
             this.drawType = pDrawType;
             this.drawDate = pDrawDate;
             initializeComponent();
+        }
+
+        public ListInstanceForm(ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
+            LDT_LotteryDrawType pDrawType, DateTime pDrawDate, List<LotteryTuple> pNumberList = null)
+        {
+            this.numberBoxFormParent = null;
+            this.listSelectorFormParent = pSelectorForm;
+            this.pointSale = pPointSale;
+            this.drawType = pDrawType;
+            this.drawDate = pDrawDate;
+            this.initializeComponent();
+            if (pNumberList != null)
+            {
+                this.initializeListControl(pNumberList);
+            }
         }
 
         public void initializeComponent() {
@@ -49,7 +67,6 @@ namespace SILO
             this.addControls();
             this.listInstanceBottomPanel.Hide();
         }
-
 
         public void formatLabels()
         {
@@ -60,17 +77,17 @@ namespace SILO
 
         public void addControls()
         {
-            LotteryListControl lotteryListControl = new LotteryListControl();
+            //LotteryListControl lotteryListControl = new LotteryListControl();
+            lotteryListControl = new LotteryListControl();
             lotteryListControl.TabIndex = 0;
             lotteryListControl.Focus();
             this.listInstanceMainPanel.Controls.Add(lotteryListControl);
             this.listInstanceMainPanel.Focus();
         }
 
-
-        private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
+        public void initializeListControl(List<LotteryTuple> pNumberList)
         {
-            
+            this.lotteryListControl.fillList(pNumberList);
         }
 
         private LotteryListControl getCurrentListControl() {
@@ -97,9 +114,26 @@ namespace SILO
         {
             LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
             this.saveList(listControl);
-            UtilityService.printList(this.list);
-            this.parentForm.updateNumberBox(this.drawType.LDT_Id);
-            this.sendListNumberToServer();
+            // Imprimir solamente si la impresora está habilitada
+            if (UtilityService.printerEnabled())
+            {
+                UtilityService.printList(this.list);
+            }
+            // Actualizar NumberBox si no es nula
+            if (this.numberBoxFormParent != null)
+            {
+                this.numberBoxFormParent.updateNumberBox(this.drawType.LDT_Id);
+            }
+            // Sincronizar con servicios solamente si están habilitados
+            if (UtilityService.realTimeSyncEnabled())
+            {
+                this.sendListNumberToServer();
+            }
+            // Actualizar NumberBox si no es nula
+            if (this.listSelectorFormParent != null)
+            {
+                this.listSelectorFormParent.Dispose();
+            }
             this.Dispose();
         }
 
@@ -182,5 +216,16 @@ namespace SILO
                 pEvent.SuppressKeyPress = true;
             }
         }
+
+        private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.listSelectorFormParent != null)
+            {
+                this.listSelectorFormParent.Dispose();
+            }
+            //MessageBox.Show("Cerrando");
+        }
+
+
     }
 }

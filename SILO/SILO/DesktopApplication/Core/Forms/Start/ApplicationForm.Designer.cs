@@ -48,6 +48,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.posContentLabel = new System.Windows.Forms.Label();
+            this.posLabel = new System.Windows.Forms.Label();
             this.companyContentLabel = new System.Windows.Forms.Label();
             this.companyLabel = new System.Windows.Forms.Label();
             this.userContentLabel = new System.Windows.Forms.Label();
@@ -59,8 +61,6 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.posLabel = new System.Windows.Forms.Label();
-            this.posContentLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -233,6 +233,25 @@
             this.panel1.Size = new System.Drawing.Size(747, 30);
             this.panel1.TabIndex = 0;
             // 
+            // posContentLabel
+            // 
+            this.posContentLabel.AutoSize = true;
+            this.posContentLabel.Location = new System.Drawing.Point(328, 11);
+            this.posContentLabel.Name = "posContentLabel";
+            this.posContentLabel.Size = new System.Drawing.Size(26, 13);
+            this.posContentLabel.TabIndex = 5;
+            this.posContentLabel.Text = "Suc";
+            this.posContentLabel.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // posLabel
+            // 
+            this.posLabel.AutoSize = true;
+            this.posLabel.Location = new System.Drawing.Point(271, 11);
+            this.posLabel.Name = "posLabel";
+            this.posLabel.Size = new System.Drawing.Size(51, 13);
+            this.posLabel.TabIndex = 4;
+            this.posLabel.Text = "Sucursal:";
+            // 
             // companyContentLabel
             // 
             this.companyContentLabel.AutoSize = true;
@@ -377,25 +396,6 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
-            // posLabel
-            // 
-            this.posLabel.AutoSize = true;
-            this.posLabel.Location = new System.Drawing.Point(271, 11);
-            this.posLabel.Name = "posLabel";
-            this.posLabel.Size = new System.Drawing.Size(51, 13);
-            this.posLabel.TabIndex = 4;
-            this.posLabel.Text = "Sucursal:";
-            // 
-            // posContentLabel
-            // 
-            this.posContentLabel.AutoSize = true;
-            this.posContentLabel.Location = new System.Drawing.Point(328, 11);
-            this.posContentLabel.Name = "posContentLabel";
-            this.posContentLabel.Size = new System.Drawing.Size(26, 13);
-            this.posContentLabel.TabIndex = 5;
-            this.posContentLabel.Text = "Suc";
-            this.posContentLabel.Click += new System.EventHandler(this.label1_Click);
-            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -406,6 +406,8 @@
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.mainMenu;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ApplicationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema Informático para Control de Lotería";

@@ -20,6 +20,7 @@ namespace SILO.DesktopApplication.Core.Constants
         public const long SYNC_STATUS_COMPLETED = 3;
         // Constantes de estados de lista
         public const long LIST_STATUS_CREATED = 1;
+        public const long LIST_STATUS_CANCELED = 2;
         // Constantes de operaciones de lista
         public const int PRINTER_LIST_CODE = 1;
         public const int ERASER_LIST_CODE = 2;

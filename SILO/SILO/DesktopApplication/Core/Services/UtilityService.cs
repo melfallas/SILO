@@ -20,7 +20,9 @@ namespace SILO.DesktopApplication.Core.Services
         public const string COMPANY_ID_PARAM = "Empresa";
         public const string COMPANY_NAME_PARAM = "Nombre_Empresa";
         public const string PRINTER_NAME_PARAM = "Nombre_Impresora";
-        
+        public const string PRINTER_ENABLED_PARAM = "Habilitar_Impresora";
+        public const string REAL_TIME_SERVICES_ENABLED_PARAM = "Habilitar_Servicios_Tiempo_Real";
+
         public static LPR_LocalParameter getLocalParameter(string pParamName) {
             LocalParameterRepository posParam = new LocalParameterRepository();
             return posParam.getByName(pParamName);
@@ -59,6 +61,16 @@ namespace SILO.DesktopApplication.Core.Services
             LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
             long posId = Convert.ToInt64(getLocalParameterValue(POS_NAME_PARAM));
             return posRepository.getById(posId).LPS_Id;
+        }
+
+        public static bool printerEnabled()
+        {
+            return getLocalParameterValue(PRINTER_ENABLED_PARAM) == "0" ? false : true;
+        }
+
+        public static bool realTimeSyncEnabled()
+        {
+            return getLocalParameterValue(REAL_TIME_SERVICES_ENABLED_PARAM) == "0" ? false : true;
         }
 
         public static string getTicketPrinterName() {

@@ -1,4 +1,6 @@
-﻿using SILO.DesktopApplication.Core.Constants;
+﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -53,8 +55,21 @@ namespace SILO
         {
             LotteryListRepository listRepository = new LotteryListRepository();
             LTL_LotteryList list = listRepository.getById(pListId);
-            list.LLS_LotteryListStatus = 2;
+            list.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CANCELED;
             listRepository.updateList(list);
+            this.Hide();
+            MessageService.displayInfoMessage(GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE, GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE);
+            LotteryDrawRepository drawRepository = new LotteryDrawRepository();
+            LotteryDrawTypeRepository drawTypeRepository = new LotteryDrawTypeRepository();
+            ListInstanceForm listInstance = new ListInstanceForm(
+                this,
+                UtilityService.getPointSale(),
+                drawTypeRepository.getById(drawRepository.getById(list.LTD_LotteryDraw).LDT_LotteryDrawType),
+                DateTime.Today,
+                listRepository.getListDetail(pListId)
+                );
+            listInstance.StartPosition = FormStartPosition.CenterParent;
+            listInstance.ShowDialog();
         }
 
         public void printList(long pListId)

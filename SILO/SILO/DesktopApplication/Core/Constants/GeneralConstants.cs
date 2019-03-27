@@ -44,6 +44,11 @@ namespace SILO.Core.Constants
         public const string GET_SESSION_USER_ERROR2 = "Error";
 
 
+        //--- Anulación exitosa
+        public const string SUCCESS_TRANSACTION_CANCELATION_TITLE = "Resultado de la anulación";
+        public const string SUCCESS_TRANSACTION_CANCELATION_MESSAGE = "La transacción fue anulada exitosamente.";
+
+
         public static string getPosConfirmMessage(AUS_ApplicationUser pAppUser, LPS_LotteryPointSale pSalePoint) {
             string message = "";
             message += POS_CONFIRM_MESSAGE1 + pAppUser.AUS_Username.ToUpper() + "\n";

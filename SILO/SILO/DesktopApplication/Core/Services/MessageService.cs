@@ -9,6 +9,16 @@ namespace SILO.DesktopApplication.Core.Services
 {
     public static class MessageService
     {
+        public static DialogResult displayInfoMessage(string pMessage, string pTitle = "")
+        {
+            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static DialogResult displayWarningMessage(string pMessage, string pTitle = "")
+        {
+            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
         public static DialogResult displayErrorMessage(string pMessage, string pTitle = "")
         {
             return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
