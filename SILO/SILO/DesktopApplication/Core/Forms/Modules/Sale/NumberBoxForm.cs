@@ -107,29 +107,36 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             {
                 this.boxArray[i].textbox.Text = importArray[i].ToString();
             }
-        }        
-        
+        }
+
+        private void cleanBoxNumber()
+        {
+            for (int i = 0; i < boxArray.Length; i++)
+            {
+                this.boxArray[i].textbox.Text = "0";
+            }
+        }
+
         private void displayNewListInstance() {
-            LotteryDrawTypeRepository typeRepository = new LotteryDrawTypeRepository();
-            ListInstanceForm listInstance = new ListInstanceForm(
-                this,
-                UtilityService.getPointSale(),
-                typeRepository.getById(this.drawTypeBox.SelectedIndex),
-                this.datePickerList.Value.Date
-                );
-            /*
-            listInstance.pointSale = UtilityService.getPointSale();
-            listInstance.drawType = typeRepository.getById(this.drawTypeBox.SelectedIndex);
-            listInstance.drawDate = this.datePickerList.Value.Date;
-            */
-            
-            //formToAdd.TopLevel = false;
-            //formToAdd.Dock = DockStyle.Fill;
-            //this.centerBoxPanel.Controls.Add(formToAdd);
-            //this.centerBoxPanel.Tag = formToAdd;
-            listInstance.StartPosition = FormStartPosition.CenterParent;
-            //listInstance.ShowDialog();
-            listInstance.Show(this);
+            bool displayInstance = ValidationService.isNotPreviousDate(this.datePickerList.Value.Date);
+            // Desplegar control de instancia si cumple las validaciones
+            if (displayInstance)
+            {
+                LotteryDrawTypeRepository typeRepository = new LotteryDrawTypeRepository();
+                ListInstanceForm listInstance = new ListInstanceForm(
+                    this,
+                    UtilityService.getPointSale(),
+                    typeRepository.getById(this.drawTypeBox.SelectedIndex),
+                    this.datePickerList.Value.Date
+                    );
+                listInstance.StartPosition = FormStartPosition.CenterParent;
+                //listInstance.ShowDialog();
+                listInstance.Show(this);
+            }
+            else
+            {
+                MessageService.displayErrorMessage(GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_MESSAGE, GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_TITLE);
+            }
         }
         
 
@@ -147,6 +154,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         private void datePickerList_ValueChanged(object sender, EventArgs e)
         {
             this.drawTypeBox.SelectedIndex = 0;
+            this.cleanBoxNumber();
             //MessageBox.Show(this.datePickerList.Value.Date);
         }
 

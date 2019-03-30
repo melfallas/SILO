@@ -23,6 +23,11 @@ namespace SILO.Core.Constants
         public const string BAD_USER_OR_PASS_ERROR = "Usuario o contraseña incorrectos.\nPor favor, ingrese sus credenciales nuevamente.";
         public const string USER_AND_PASS_REQUIRED_VALIDATION = "Por favor, ingrese usuario y contraseña";
 
+        public const string INACTIVE_USER_ERROR_TITLE = "USUARIO INACTIVO";
+        public const string INACTIVE_USER_ERROR_MESSAGE = "El usuario está inactivo y no puede ingresar.\nPor favor, contacte al administrador.";
+        public const string INCORRRECT_POS_ERROR_TITLE = "INCONSISTENCIA EN SUCURSAL";
+        public const string INCORRRECT_POS_ERROR_MESSAGE = "El usuario está asignado a otra sucursal y no puede ingresar.\nPor favor, contacte al administrador.";
+
         // Inicialization Constants
         public const string GET_SESSION_USER_ERROR = "Error al obtener la sesión del usuario";
         public const string INITIAL_SYNCHRONIZATION_TITLE = "ERROR DE SINCRONIZACIÓN";
@@ -44,8 +49,12 @@ namespace SILO.Core.Constants
         public const string GET_SESSION_USER_ERROR2 = "Error";
 
 
-        //--- Anulación exitosa
-        public const string SUCCESS_TRANSACTION_CANCELATION_TITLE = "Resultado de la anulación";
+        //--- Venta no permitida
+        public const string NOT_ALLOWED_PREVIOUS_DATE_SALE_TITLE = "VENTA NO PERMITIDA";
+        public const string NOT_ALLOWED_PREVIOUS_DATE_SALE_MESSAGE = "No es posible realizar ventas de días anteriores.\nSolamente podrá visualizar el resumen de los importes.";
+
+        //--- Reversión exitosa
+        public const string SUCCESS_TRANSACTION_CANCELATION_TITLE = "RESULTADO DE LA REVERSIÓN";
         public const string SUCCESS_TRANSACTION_CANCELATION_MESSAGE = "La transacción fue anulada exitosamente.";
 
 

@@ -129,7 +129,7 @@ namespace SILO
             {
                 this.sendListNumberToServer();
             }
-            // Actualizar NumberBox si no es nula
+            // Cerrar y liberar memoria de formulario de selección si no es nulo
             if (this.listSelectorFormParent != null)
             {
                 this.listSelectorFormParent.Dispose();

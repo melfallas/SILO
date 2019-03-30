@@ -1,4 +1,5 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Start;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Repositories;
@@ -135,15 +136,10 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             return validFields;
         }
 
-        private bool requestUserAuthetication(string pUser, string pPassword)
+        private int requestUserAuthetication(string pUser, string pPassword)
         {
-            bool validCredentials = false;
             LoginService loginService = new LoginService();
-            if (loginService.doLogin(pUser.Trim(), pPassword.Trim()))
-            {
-                validCredentials = true;
-            }
-            return validCredentials;
+            return loginService.doLogin(pUser.Trim(), pPassword.Trim());
         }
 
         private void cleanFields()
@@ -199,11 +195,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             }
         }
 
-
-        //--------------------------------------- Eventos de controles principales --------------------------------------//
-
-        // Acción que controla el evento de Login al Ingresar
-        private void loginButton_Click(object sender, EventArgs e)
+        private void validateLogin()
         {
             if (!this.isValidLoginForm(this.txbUser.Text, this.txbPass.Text))
             {
@@ -212,21 +204,8 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             else
             {
                 // Realizar autenticación del usuario
-                if (this.requestUserAuthetication(this.txbUser.Text, this.txbPass.Text))
-                {
-                    // Si la autenticación es exitosa, probar la inicialización de la instancia
-                    ProgramInitializationService programInicializer = new ProgramInitializationService();
-                    if (programInicializer.setInstancePointSale())
-                    {
-                        // Iniciar sincronización de datos
-                        this.initDataSync();
-                    }
-                    else {
-                        // Si la instancia no está inicializada, cerrar el programa
-                        this.cleanFields();
-                    }
-                }
-                else
+                int authResult = this.requestUserAuthetication(this.txbUser.Text, this.txbPass.Text);
+                if (authResult == SystemConstants.LOGIN_FAIL)
                 {
                     // Mensaje de error para credenciales inválidas
                     MessageService.displayErrorMessage(
@@ -235,6 +214,50 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                             );
                     this.cleanFields();
                 }
+                else
+                {
+                    // Validar si la autenticación fue exitosa
+                    if (authResult == SystemConstants.LOGIN_SUCCESS)
+                    {
+                        // Si la autenticación es exitosa, probar la inicialización de la instancia
+                        ProgramInitializationService programInicializer = new ProgramInitializationService();
+                        if (programInicializer.setInstancePointSale())
+                        {
+                            // Iniciar sincronización de datos
+                            this.initDataSync();
+                        }
+                        else
+                        {
+                            // Si la instancia no está inicializada, volver al inicio
+                            this.cleanFields();
+                        }
+                    }
+                    else
+                    {
+                        this.cleanFields();
+                    }
+                }
+            }
+        }
+
+
+        //--------------------------------------- Eventos de controles principales --------------------------------------//
+
+        // Acción que controla el evento de Login al Ingresar
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            this.validateLogin();
+        }
+        // Acción que controla el evento de Login al Ingresar
+        private void txbPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    this.validateLogin();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -248,6 +271,18 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             if (!this.displayLogin)
             {
                 this.Dispose();
+            }
+        }
+
+        private void txbUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    txbPass.Focus();
+                    break;
+                default:
+                    break;
             }
         }
     }

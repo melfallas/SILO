@@ -66,6 +66,7 @@
             this.txbUser.Name = "txbUser";
             this.txbUser.Size = new System.Drawing.Size(174, 30);
             this.txbUser.TabIndex = 2;
+            this.txbUser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbUser_KeyDown);
             // 
             // txbPass
             // 
@@ -75,6 +76,7 @@
             this.txbPass.PasswordChar = '*';
             this.txbPass.Size = new System.Drawing.Size(174, 30);
             this.txbPass.TabIndex = 3;
+            this.txbPass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbPass_KeyDown);
             // 
             // loginButton
             // 
@@ -122,6 +124,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.userLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ingreso al Sistema";

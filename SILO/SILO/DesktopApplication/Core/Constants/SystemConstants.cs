@@ -9,6 +9,11 @@ namespace SILO.DesktopApplication.Core.Constants
     static class SystemConstants
     {
 
+        // Constantes de Login
+        public const int LOGIN_SUCCESS = 1;
+        public const int LOGIN_SUCCESS_WITH_ERRORS = 2;
+        public const int LOGIN_FAIL = 3;
+
         // Constantes de roles de usuario
         public const long ROLE_SA_ID = 1;
         public const long ROLE_ADMIN_ID = 2;

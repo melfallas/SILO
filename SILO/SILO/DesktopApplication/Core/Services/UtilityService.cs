@@ -20,7 +20,8 @@ namespace SILO.DesktopApplication.Core.Services
         public const string COMPANY_ID_PARAM = "Empresa";
         public const string COMPANY_NAME_PARAM = "Nombre_Empresa";
         public const string PRINTER_NAME_PARAM = "Nombre_Impresora";
-        public const string PRINTER_ENABLED_PARAM = "Habilitar_Impresora";
+        public const string PRINTER_ENABLED_PARAM = "Habilitar_Impresion";
+        public const string PREVIOWS_DATE_ENABLED_PARAM = "Habilitar_Fechas_Anteriores";
         public const string REAL_TIME_SERVICES_ENABLED_PARAM = "Habilitar_Servicios_Tiempo_Real";
 
         public static LPR_LocalParameter getLocalParameter(string pParamName) {
@@ -66,6 +67,11 @@ namespace SILO.DesktopApplication.Core.Services
         public static bool printerEnabled()
         {
             return getLocalParameterValue(PRINTER_ENABLED_PARAM) == "0" ? false : true;
+        }
+
+        public static bool previousDateEnabled()
+        {
+            return getLocalParameterValue(PREVIOWS_DATE_ENABLED_PARAM) == "0" ? false : true;
         }
 
         public static bool realTimeSyncEnabled()
