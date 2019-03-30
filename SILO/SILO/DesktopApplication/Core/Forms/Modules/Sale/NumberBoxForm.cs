@@ -101,12 +101,22 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         //--------------------------------------- Métodos de Actualización --------------------------------------//
 
+        
+
         private void updateBoxArray(int[] importArray)
         {
+            int totalImport = 0;
             for (int i = 0; i < importArray.Length; i++)
             {
-                this.boxArray[i].textbox.Text = importArray[i].ToString();
+                totalImport += importArray[i];
+                this.boxArray[i].textbox.Text = FormatService.formatInt(importArray[i]);
             }
+            this.txbTotalImport.Text = FormatService.formatInt(totalImport);
+            this.txbSyncImport.Text = FormatService.formatInt(totalImport);
+            //var maxToReceive = Math.Round(totalImport * 0.00011);
+            int maxToReceive = (int) (totalImport * 0.03);
+            //this.txbMaxToReceive.Text = FormatService.formatInt(maxToReceive);
+            this.txbMaxToReceive.Text = maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive);
         }
 
         private void cleanBoxNumber()
@@ -115,6 +125,9 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             {
                 this.boxArray[i].textbox.Text = "0";
             }
+            this.txbTotalImport.Text = "0";
+            this.txbSyncImport.Text = "0";
+            this.txbMaxToReceive.Text = "";
         }
 
         private void displayNewListInstance() {
