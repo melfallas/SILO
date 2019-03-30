@@ -184,8 +184,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         public void updateNumberBox(long pGroupId)
         {
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
-            LotteryListRepository lotteryListRepository = new LotteryListRepository();
-            this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, groupId));
+            ListService listService = new ListService();
+            this.updateBoxArray(listService.getDrawTotals(this.datePickerList.Value.Date, groupId));
             //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
         }
 

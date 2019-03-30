@@ -135,6 +135,7 @@
     <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\FormatService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ListService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LogService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
@@ -225,7 +226,7 @@
     <Compile Include="LotteryListControl.Designer.cs">
       <DependentUpon>LotteryListControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="LotteryListRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LotteryListRepository.cs" />
     <Compile Include="LotteryNumberRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\LotteryPointSaleRepository.cs" />
     <Compile Include="ListTotalRecord.cs" />

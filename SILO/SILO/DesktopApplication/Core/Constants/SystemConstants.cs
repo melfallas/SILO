@@ -14,19 +14,24 @@ namespace SILO.DesktopApplication.Core.Constants
         public const int LOGIN_SUCCESS_WITH_ERRORS = 2;
         public const int LOGIN_FAIL = 3;
 
-        // Constantes de roles de usuario
+        // Constantes para roles de usuario
         public const long ROLE_SA_ID = 1;
         public const long ROLE_ADMIN_ID = 2;
         public const long ROLE_SALLER_ID = 3;
-        // Constantes de estados de sincronización
+        // Constantes para estados de sincronización
         public const long SYNC_STATUS_NONE = 0;
         public const long SYNC_STATUS_PENDING_TO_SERVER = 1;
         public const long SYNC_STATUS_PENDING_TO_CLIENT = 2;
         public const long SYNC_STATUS_COMPLETED = 3;
-        // Constantes de estados de lista
+        // Constantes para estados de lista
+        public const long DRAW_STATUS_OPENED = 1;
+        public const long DRAW_STATUS_CLOSED = 2;
+        public const long DRAW_STATUS_REOPENED = 3;
+        public const long DRAW_STATUS_QRUPDATED = 4;
+        // Constantes para estados de lista
         public const long LIST_STATUS_CREATED = 1;
         public const long LIST_STATUS_CANCELED = 2;
-        // Constantes de operaciones de lista
+        // Constantes para operaciones de lista
         public const int PRINTER_LIST_CODE = 1;
         public const int ERASER_LIST_CODE = 2;
         public const int DISPLAY_QR_CODE = 3;

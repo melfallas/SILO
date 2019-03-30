@@ -32,24 +32,24 @@
             this.contentPanel = new System.Windows.Forms.Panel();
             this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.footerPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.titlePanel = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.datePickerList = new System.Windows.Forms.DateTimePicker();
-            this.drawTypeBox = new System.Windows.Forms.ComboBox();
-            this.headerPanel = new System.Windows.Forms.Panel();
-            this.txbTotalImport = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txbSyncImport = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txbMaxToReceive = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txbSyncImport = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txbTotalImport = new System.Windows.Forms.TextBox();
+            this.headerPanel = new System.Windows.Forms.Panel();
+            this.drawTypeBox = new System.Windows.Forms.ComboBox();
+            this.datePickerList = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.titlePanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.numberBoxMainPanel.SuspendLayout();
             this.contentPanel.SuspendLayout();
             this.footerPanel.SuspendLayout();
-            this.titlePanel.SuspendLayout();
             this.headerPanel.SuspendLayout();
+            this.titlePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // numberBoxMainPanel
@@ -98,126 +98,6 @@
             this.footerPanel.Size = new System.Drawing.Size(567, 61);
             this.footerPanel.TabIndex = 1;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Listado de Números";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // titlePanel
-            // 
-            this.titlePanel.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.titlePanel.Controls.Add(this.label1);
-            this.titlePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.titlePanel.Location = new System.Drawing.Point(0, 0);
-            this.titlePanel.Name = "titlePanel";
-            this.titlePanel.Size = new System.Drawing.Size(567, 37);
-            this.titlePanel.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(48, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 19);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Fecha:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Navy;
-            this.label3.Location = new System.Drawing.Point(238, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 19);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Grupo:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // datePickerList
-            // 
-            this.datePickerList.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datePickerList.CustomFormat = "dd/MM/yyyy";
-            this.datePickerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datePickerList.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datePickerList.Location = new System.Drawing.Point(116, 19);
-            this.datePickerList.Name = "datePickerList";
-            this.datePickerList.Size = new System.Drawing.Size(88, 23);
-            this.datePickerList.TabIndex = 2;
-            this.datePickerList.ValueChanged += new System.EventHandler(this.datePickerList_ValueChanged);
-            // 
-            // drawTypeBox
-            // 
-            this.drawTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.drawTypeBox.FormattingEnabled = true;
-            this.drawTypeBox.Location = new System.Drawing.Point(307, 21);
-            this.drawTypeBox.Name = "drawTypeBox";
-            this.drawTypeBox.Size = new System.Drawing.Size(218, 21);
-            this.drawTypeBox.TabIndex = 4;
-            this.drawTypeBox.SelectedIndexChanged += new System.EventHandler(this.drawTypeBox_SelectedIndexChanged);
-            this.drawTypeBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.drawTypeBox_KeyPress);
-            // 
-            // headerPanel
-            // 
-            this.headerPanel.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.headerPanel.Controls.Add(this.drawTypeBox);
-            this.headerPanel.Controls.Add(this.datePickerList);
-            this.headerPanel.Controls.Add(this.label3);
-            this.headerPanel.Controls.Add(this.label2);
-            this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.headerPanel.Location = new System.Drawing.Point(0, 0);
-            this.headerPanel.Name = "headerPanel";
-            this.headerPanel.Size = new System.Drawing.Size(567, 63);
-            this.headerPanel.TabIndex = 0;
-            // 
-            // txbTotalImport
-            // 
-            this.txbTotalImport.Location = new System.Drawing.Point(421, 7);
-            this.txbTotalImport.Name = "txbTotalImport";
-            this.txbTotalImport.ReadOnly = true;
-            this.txbTotalImport.Size = new System.Drawing.Size(100, 20);
-            this.txbTotalImport.TabIndex = 0;
-            this.txbTotalImport.Text = "0";
-            this.txbTotalImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(353, 10);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Total Venta";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(353, 36);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Sincronizado";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txbSyncImport
-            // 
-            this.txbSyncImport.Location = new System.Drawing.Point(421, 33);
-            this.txbSyncImport.Name = "txbSyncImport";
-            this.txbSyncImport.ReadOnly = true;
-            this.txbSyncImport.Size = new System.Drawing.Size(100, 20);
-            this.txbSyncImport.TabIndex = 2;
-            this.txbSyncImport.Text = "0";
-            this.txbSyncImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -238,6 +118,126 @@
             this.txbMaxToReceive.TabIndex = 4;
             this.txbMaxToReceive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(387, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Sincronizado";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txbSyncImport
+            // 
+            this.txbSyncImport.Location = new System.Drawing.Point(455, 33);
+            this.txbSyncImport.Name = "txbSyncImport";
+            this.txbSyncImport.ReadOnly = true;
+            this.txbSyncImport.Size = new System.Drawing.Size(100, 20);
+            this.txbSyncImport.TabIndex = 2;
+            this.txbSyncImport.Text = "0";
+            this.txbSyncImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(387, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Total Venta";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txbTotalImport
+            // 
+            this.txbTotalImport.Location = new System.Drawing.Point(455, 7);
+            this.txbTotalImport.Name = "txbTotalImport";
+            this.txbTotalImport.ReadOnly = true;
+            this.txbTotalImport.Size = new System.Drawing.Size(100, 20);
+            this.txbTotalImport.TabIndex = 0;
+            this.txbTotalImport.Text = "0";
+            this.txbTotalImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // headerPanel
+            // 
+            this.headerPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.headerPanel.Controls.Add(this.drawTypeBox);
+            this.headerPanel.Controls.Add(this.datePickerList);
+            this.headerPanel.Controls.Add(this.label3);
+            this.headerPanel.Controls.Add(this.label2);
+            this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.headerPanel.Location = new System.Drawing.Point(0, 0);
+            this.headerPanel.Name = "headerPanel";
+            this.headerPanel.Size = new System.Drawing.Size(567, 63);
+            this.headerPanel.TabIndex = 0;
+            // 
+            // drawTypeBox
+            // 
+            this.drawTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.drawTypeBox.FormattingEnabled = true;
+            this.drawTypeBox.Location = new System.Drawing.Point(307, 21);
+            this.drawTypeBox.Name = "drawTypeBox";
+            this.drawTypeBox.Size = new System.Drawing.Size(218, 21);
+            this.drawTypeBox.TabIndex = 4;
+            this.drawTypeBox.SelectedIndexChanged += new System.EventHandler(this.drawTypeBox_SelectedIndexChanged);
+            this.drawTypeBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.drawTypeBox_KeyPress);
+            // 
+            // datePickerList
+            // 
+            this.datePickerList.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datePickerList.CustomFormat = "dd/MM/yyyy";
+            this.datePickerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.datePickerList.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datePickerList.Location = new System.Drawing.Point(116, 19);
+            this.datePickerList.Name = "datePickerList";
+            this.datePickerList.Size = new System.Drawing.Size(88, 23);
+            this.datePickerList.TabIndex = 2;
+            this.datePickerList.ValueChanged += new System.EventHandler(this.datePickerList_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Navy;
+            this.label3.Location = new System.Drawing.Point(238, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 19);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Grupo:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Navy;
+            this.label2.Location = new System.Drawing.Point(48, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 19);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Fecha:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // titlePanel
+            // 
+            this.titlePanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.titlePanel.Controls.Add(this.label1);
+            this.titlePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.titlePanel.Location = new System.Drawing.Point(0, 0);
+            this.titlePanel.Name = "titlePanel";
+            this.titlePanel.Size = new System.Drawing.Size(567, 37);
+            this.titlePanel.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Listado de Números";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // NumberBoxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,10 +251,10 @@
             this.contentPanel.ResumeLayout(false);
             this.footerPanel.ResumeLayout(false);
             this.footerPanel.PerformLayout();
-            this.titlePanel.ResumeLayout(false);
-            this.titlePanel.PerformLayout();
             this.headerPanel.ResumeLayout(false);
             this.headerPanel.PerformLayout();
+            this.titlePanel.ResumeLayout(false);
+            this.titlePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }

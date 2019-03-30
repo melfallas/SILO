@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Forms.Modules.Sale;
+﻿using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Forms.Modules.Sale;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Services;
 using System;
@@ -146,6 +147,7 @@ namespace SILO
             drawToSave.LTD_CreateDate = this.drawDate;
             drawToSave.LDT_LotteryDrawType = this.drawType.LDT_Id;
             drawToSave.LDS_LotteryDrawStatus = 2;
+            drawToSave.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_OPENED;
             lotteryDrawRepository.save(ref drawToSave);
             // Crear y guardar nueva lista
             LTL_LotteryList listToSave = new LTL_LotteryList();
@@ -154,6 +156,7 @@ namespace SILO
             listToSave.LTL_CustomerName = this.customerName;
             this.printDate = DateTime.Now;
             listToSave.LTL_CreateDate = this.printDate;
+            listToSave.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CREATED;
             lotteryDrawRepository.saveList(ref listToSave);
             this.list = listToSave;
             // Crear colección y guardar a nivel local detalle de números de la lista
