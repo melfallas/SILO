@@ -1,4 +1,6 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
 using System;
@@ -14,15 +16,15 @@ using System.Windows.Forms;
 
 namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 {
-    public partial class NumberBoxForm : Form
+    public partial class NumberBoxForm : MainModuleForm
     {
 
         private BoxNumberUnit[] boxArray;
 
-
         public NumberBoxForm()
         {
             InitializeComponent();
+            this.type = SystemConstants.NUMBER_BOX_CODE;
             this.contentPanel.Visible = false;
             this.erasePanels();
             this.loadControls();

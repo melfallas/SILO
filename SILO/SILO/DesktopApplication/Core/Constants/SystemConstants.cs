@@ -31,10 +31,11 @@ namespace SILO.DesktopApplication.Core.Constants
         // Constantes para estados de lista
         public const long LIST_STATUS_CREATED = 1;
         public const long LIST_STATUS_CANCELED = 2;
-        // Constantes para operaciones de lista
-        public const int PRINTER_LIST_CODE = 1;
-        public const int ERASER_LIST_CODE = 2;
-        public const int DISPLAY_QR_CODE = 3;
+        // Constantes para tipos de formulario operaciones de lista
+        public const int NUMBER_BOX_CODE = 1;
+        public const int PRINTER_LIST_CODE = 2;
+        public const int ERASER_LIST_CODE = 3;
+        public const int DISPLAY_QR_CODE = 4;
 
     }
 }

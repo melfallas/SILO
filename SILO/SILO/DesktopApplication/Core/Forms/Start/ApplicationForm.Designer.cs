@@ -179,7 +179,7 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.mainPanel.Controls.Add(this.centerBoxPanel);
             this.mainPanel.Controls.Add(this.panel3);
             this.mainPanel.Controls.Add(this.panel2);

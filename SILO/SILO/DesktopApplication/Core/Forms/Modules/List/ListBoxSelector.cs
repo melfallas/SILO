@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SILO.DesktopApplication.Core.Repositories;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Forms.Modules.List
 {
     public partial class ListBoxSelector : UserControl
     {

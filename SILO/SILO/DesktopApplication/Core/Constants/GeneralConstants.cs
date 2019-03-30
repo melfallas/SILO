@@ -11,6 +11,9 @@ namespace SILO.Core.Constants
         // Constantes Generales
         public const string EMPTY_STRING = "";
 
+        public const string DEFAULT_POS_INSTANCE = "";
+
+
         public const string DISPLAY_DRAWTYPE_KEY_LABEL = "id";
         public const string DISPLAY_DRAWTYPE_VALUE_LABEL = "display";
 
@@ -42,7 +45,7 @@ namespace SILO.Core.Constants
         public const string POS_CONFIRM_TITLE = "CONFIRMACIÓN DE SUCURSAL";
         public const string POS_CONFIRM_MESSAGE1 = "Inicializando sucursal con usuario ";
         public const string POS_CONFIRM_MESSAGE2 = "El usuario está configurado para iniciar con:\n\n";
-        public const string POS_CONFIRM_MESSAGE3 = "¿Desea inicialiar el sistema con este punto de venta?\n";
+        public const string POS_CONFIRM_MESSAGE3 = "¿Desea inicializar el sistema con este punto de venta?\n";
         //--- Sucursal no especificada
         public const string POS_INITIALIZATION_TITLE = "SUCURSAL NO ESPECIFICADA";
         public const string POS_INITIALIZATION_ERROR = "No fue posible inicializar la sucursal.\nPor favor, vuelva a ingresar sus credenciales.\nPosteriormente confirme el punto de venta.";

@@ -35,7 +35,7 @@ namespace SILO.DesktopApplication.Core.Services
                         PointSaleService posService = new PointSaleService();
                         string posInstance = posService.getPointSaleInstance();
                         // Validar si sucursal del usuario coincide con la del sistema
-                        if (authenticatedUser.LPS_LotteryPointSale.ToString() == posInstance)
+                        if (posInstance == null || authenticatedUser.LPS_LotteryPointSale.ToString() == posInstance)
                         {
                             // Si la sucursal coincide, indicar autenticación exitosa
                             this.checkSuccessAutentication(ref successAuthentication, authenticatedUser);

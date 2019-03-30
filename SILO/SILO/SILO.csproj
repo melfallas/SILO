@@ -89,6 +89,9 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\ModuleForm\MainModuleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Start\ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,16 +150,16 @@
     <Compile Include="DesktopApplication\Core\SystemConfig\SystemSession.cs" />
     <Compile Include="DesktopApplication\Core\Util\EntityType.cs" />
     <Compile Include="DesktopApplication\Core\Util\JsonObjectParser.cs" />
-    <Compile Include="DisplayListForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisplayListForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayListForm.Designer.cs">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DisplayQRForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisplayQRForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.Designer.cs">
       <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DNW_DrawNumberWinning.cs">
@@ -182,10 +185,10 @@
     <Compile Include="LDT_LotteryDrawType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ListBoxSelector.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\ListBoxSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ListBoxSelector.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\ListBoxSelector.Designer.cs">
       <DependentUpon>ListBoxSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="ListData.cs" />
@@ -298,10 +301,10 @@
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Start\SplashScreenForm.resx">
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisplayListForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\DisplayListForm.resx">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisplayQRForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.resx">
       <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DrawNumberWinningForm.resx">
@@ -310,7 +313,7 @@
     <EmbeddedResource Include="GeneralConfigurationForm.resx">
       <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListBoxSelector.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\ListBoxSelector.resx">
       <DependentUpon>ListBoxSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListInstanceForm.resx">
