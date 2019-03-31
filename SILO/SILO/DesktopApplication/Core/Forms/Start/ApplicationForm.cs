@@ -80,10 +80,16 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
 
         //--------------------------------------- Botones de Menú Lateral --------------------------------------//
-
+        #region Botones de Menú Lateral
         private void saleMenuButton_Click(object sender, EventArgs e)
         {
             this.showFormInMainPanel(new NumberBoxForm());
+        }
+
+        private void copyListButton_Click(object sender, EventArgs e)
+        {
+            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.COPY_LIST_CODE);
+            this.showFormInMainPanel(displayListForm);
         }
 
         private void printMenuButton_Click(object sender, EventArgs e)
@@ -130,10 +136,10 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
             
         }
-
+        #endregion
 
         //--------------------------------------- Acciones de Menú --------------------------------------//
-
+        #region Acciones de Menú
         private void ventaDePapelesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.showFormInMainPanel(new NumberBoxForm());
@@ -155,9 +161,9 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
             this.Close();
         }
-
+        #endregion
         //--------------------------------------- Otros Eventos --------------------------------------//
-
+        #region Otros Eventos
         private void ApplicationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.parentForm.Dispose();
@@ -167,5 +173,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
 
         }
+        #endregion
+
     }
 }

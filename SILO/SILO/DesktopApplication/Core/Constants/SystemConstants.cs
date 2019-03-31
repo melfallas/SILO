@@ -35,7 +35,8 @@ namespace SILO.DesktopApplication.Core.Constants
         public const int NUMBER_BOX_CODE = 1;
         public const int PRINTER_LIST_CODE = 2;
         public const int ERASER_LIST_CODE = 3;
-        public const int DISPLAY_QR_CODE = 4;
+        public const int COPY_LIST_CODE = 4;
+        public const int DISPLAY_QR_CODE = 5;
 
     }
 }

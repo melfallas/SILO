@@ -61,6 +61,9 @@ namespace SILO.Core.Constants
         public const string SUCCESS_TRANSACTION_CANCELATION_MESSAGE = "La transacción fue anulada exitosamente.";
 
 
+        public const string CHECKBOX_NAME_ID_LABEL = "Id";
+
+
         public static string getPosConfirmMessage(AUS_ApplicationUser pAppUser, LPS_LotteryPointSale pSalePoint) {
             string message = "";
             message += POS_CONFIRM_MESSAGE1 + pAppUser.AUS_Username.ToUpper() + "\n";

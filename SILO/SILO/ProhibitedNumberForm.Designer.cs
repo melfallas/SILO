@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.prohibitedTopPanel = new System.Windows.Forms.Panel();
-            this.prohibitedBottomPanel = new System.Windows.Forms.Panel();
-            this.prohibitedMainPanel = new System.Windows.Forms.Panel();
-            this.entryProhibitedButtom = new System.Windows.Forms.Button();
             this.prohibedNumberLabel = new System.Windows.Forms.Label();
+            this.prohibitedBottomPanel = new System.Windows.Forms.Panel();
+            this.entryProhibitedButtom = new System.Windows.Forms.Button();
+            this.prohibitedMainPanel = new System.Windows.Forms.Panel();
             this.prohibitedTopPanel.SuspendLayout();
             this.prohibitedBottomPanel.SuspendLayout();
             this.SuspendLayout();
@@ -46,6 +46,16 @@
             this.prohibitedTopPanel.Size = new System.Drawing.Size(587, 64);
             this.prohibitedTopPanel.TabIndex = 0;
             // 
+            // prohibedNumberLabel
+            // 
+            this.prohibedNumberLabel.AutoSize = true;
+            this.prohibedNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.prohibedNumberLabel.Location = new System.Drawing.Point(40, 19);
+            this.prohibedNumberLabel.Name = "prohibedNumberLabel";
+            this.prohibedNumberLabel.Size = new System.Drawing.Size(279, 24);
+            this.prohibedNumberLabel.TabIndex = 0;
+            this.prohibedNumberLabel.Text = "Ingrese los Numeros prohibidos";
+            // 
             // prohibitedBottomPanel
             // 
             this.prohibitedBottomPanel.Controls.Add(this.entryProhibitedButtom);
@@ -54,15 +64,6 @@
             this.prohibitedBottomPanel.Name = "prohibitedBottomPanel";
             this.prohibitedBottomPanel.Size = new System.Drawing.Size(587, 60);
             this.prohibitedBottomPanel.TabIndex = 1;
-            // 
-            // prohibitedMainPanel
-            // 
-            this.prohibitedMainPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.prohibitedMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.prohibitedMainPanel.Location = new System.Drawing.Point(0, 64);
-            this.prohibitedMainPanel.Name = "prohibitedMainPanel";
-            this.prohibitedMainPanel.Size = new System.Drawing.Size(587, 289);
-            this.prohibitedMainPanel.TabIndex = 2;
             // 
             // entryProhibitedButtom
             // 
@@ -75,15 +76,14 @@
             this.entryProhibitedButtom.UseVisualStyleBackColor = false;
             this.entryProhibitedButtom.Click += new System.EventHandler(this.entryProhibitedButtom_Click);
             // 
-            // prohibedNumberLabel
+            // prohibitedMainPanel
             // 
-            this.prohibedNumberLabel.AutoSize = true;
-            this.prohibedNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prohibedNumberLabel.Location = new System.Drawing.Point(40, 19);
-            this.prohibedNumberLabel.Name = "prohibedNumberLabel";
-            this.prohibedNumberLabel.Size = new System.Drawing.Size(279, 24);
-            this.prohibedNumberLabel.TabIndex = 0;
-            this.prohibedNumberLabel.Text = "Ingrese los Numeros prohibidos";
+            this.prohibitedMainPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.prohibitedMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.prohibitedMainPanel.Location = new System.Drawing.Point(0, 64);
+            this.prohibitedMainPanel.Name = "prohibitedMainPanel";
+            this.prohibitedMainPanel.Size = new System.Drawing.Size(587, 289);
+            this.prohibitedMainPanel.TabIndex = 2;
             // 
             // ProhibitedNumberForm
             // 
@@ -95,6 +95,7 @@
             this.Controls.Add(this.prohibitedTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ProhibitedNumberForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -13,7 +13,13 @@ namespace SILO.DesktopApplication.Core.Repositories
         
         public List<LDT_LotteryDrawType> findUnsynTypes()
         {
-            return this.getAll().Where(user => user.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER).ToList();
+            return this.getAll().Where(drawType => drawType.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER).ToList();
+        }
+
+        public List<LDT_LotteryDrawType> findActiveGroups()
+        {
+            //return this.getAll().Where(drawType => drawType.active == 1).ToList();
+            return this.getAll();
         }
 
         public void changeStates(List<LDT_LotteryDrawType> pNumberList, long pNewStatus = SystemConstants.SYNC_STATUS_COMPLETED)

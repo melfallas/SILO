@@ -277,10 +277,8 @@ namespace SILO
             switch (msgResult)
             {
                 case DialogResult.Yes:
-                    // Procesar la impresión
+                    // Procesar el limpiado
                     this.clearList();
-                    //this.setActiveButton(this.eraseListButton, false);
-                    //this.processList();
                     break;
                 case DialogResult.No:
                     break;

@@ -61,6 +61,7 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
+            this.copyListButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -301,6 +302,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.copyListButton);
             this.menuPanel.Controls.Add(this.displayQRMenuButton);
             this.menuPanel.Controls.Add(this.eraseButton);
             this.menuPanel.Controls.Add(this.aboutButton);
@@ -320,7 +322,7 @@
             this.displayQRMenuButton.ForeColor = System.Drawing.Color.White;
             this.displayQRMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("displayQRMenuButton.Image")));
             this.displayQRMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.displayQRMenuButton.Location = new System.Drawing.Point(2, 242);
+            this.displayQRMenuButton.Location = new System.Drawing.Point(2, 293);
             this.displayQRMenuButton.Name = "displayQRMenuButton";
             this.displayQRMenuButton.Size = new System.Drawing.Size(217, 54);
             this.displayQRMenuButton.TabIndex = 4;
@@ -337,7 +339,7 @@
             this.eraseButton.ForeColor = System.Drawing.Color.White;
             this.eraseButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseButton.Image")));
             this.eraseButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.eraseButton.Location = new System.Drawing.Point(3, 185);
+            this.eraseButton.Location = new System.Drawing.Point(3, 236);
             this.eraseButton.Name = "eraseButton";
             this.eraseButton.Size = new System.Drawing.Size(217, 54);
             this.eraseButton.TabIndex = 3;
@@ -354,10 +356,10 @@
             this.aboutButton.ForeColor = System.Drawing.Color.White;
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(0, 302);
+            this.aboutButton.Location = new System.Drawing.Point(0, 353);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(217, 54);
-            this.aboutButton.TabIndex = 2;
+            this.aboutButton.TabIndex = 5;
             this.aboutButton.Text = "Acerca de";
             this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.aboutButton.UseVisualStyleBackColor = true;
@@ -371,10 +373,10 @@
             this.printMenuButton.ForeColor = System.Drawing.Color.White;
             this.printMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("printMenuButton.Image")));
             this.printMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.printMenuButton.Location = new System.Drawing.Point(3, 125);
+            this.printMenuButton.Location = new System.Drawing.Point(3, 176);
             this.printMenuButton.Name = "printMenuButton";
             this.printMenuButton.Size = new System.Drawing.Size(217, 54);
-            this.printMenuButton.TabIndex = 1;
+            this.printMenuButton.TabIndex = 2;
             this.printMenuButton.Text = "Reimpresión de Tickets";
             this.printMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.printMenuButton.UseVisualStyleBackColor = true;
@@ -388,13 +390,30 @@
             this.saleMenuButton.ForeColor = System.Drawing.Color.White;
             this.saleMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("saleMenuButton.Image")));
             this.saleMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.saleMenuButton.Location = new System.Drawing.Point(3, 65);
+            this.saleMenuButton.Location = new System.Drawing.Point(3, 56);
             this.saleMenuButton.Name = "saleMenuButton";
             this.saleMenuButton.Size = new System.Drawing.Size(217, 54);
             this.saleMenuButton.TabIndex = 0;
             this.saleMenuButton.Text = "          Venta de Papeles";
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
+            // 
+            // copyListButton
+            // 
+            this.copyListButton.FlatAppearance.BorderSize = 0;
+            this.copyListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyListButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.copyListButton.ForeColor = System.Drawing.Color.White;
+            this.copyListButton.Image = ((System.Drawing.Image)(resources.GetObject("copyListButton.Image")));
+            this.copyListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.copyListButton.Location = new System.Drawing.Point(2, 116);
+            this.copyListButton.Name = "copyListButton";
+            this.copyListButton.Size = new System.Drawing.Size(217, 54);
+            this.copyListButton.TabIndex = 1;
+            this.copyListButton.Text = "   Copiar Lista";
+            this.copyListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.copyListButton.UseVisualStyleBackColor = true;
+            this.copyListButton.Click += new System.EventHandler(this.copyListButton_Click);
             // 
             // ApplicationForm
             // 
@@ -458,6 +477,7 @@
         private System.Windows.Forms.Label companyLabel;
         private System.Windows.Forms.Label posContentLabel;
         private System.Windows.Forms.Label posLabel;
+        private System.Windows.Forms.Button copyListButton;
     }
 }
 

@@ -54,9 +54,9 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
         public void displayListForm() {
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
-                // Validar el tipo de pantalla de despliegue
+                // Validar el tipo de pantalla de despliegue DisplayScreenForm
                 // DisplayScreenForm
-                if(this.type == SystemConstants.DISPLAY_QR_CODE)
+                if (this.type == SystemConstants.DISPLAY_QR_CODE)
                 {
                     // Pantalla de despliegue de Código QR
                     DisplayQRForm qrForm = new DisplayQRForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex);
