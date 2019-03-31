@@ -33,6 +33,7 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.groupLabel = new System.Windows.Forms.Label();
             this.listInstanceBottomPanel = new System.Windows.Forms.Panel();
+            this.eraseListButton = new System.Windows.Forms.Button();
             this.printListButton = new System.Windows.Forms.Button();
             this.listInstanceMainPanel = new System.Windows.Forms.Panel();
             this.listInstanceTopPanel.SuspendLayout();
@@ -49,7 +50,7 @@
             this.listInstanceTopPanel.Location = new System.Drawing.Point(0, 0);
             this.listInstanceTopPanel.Name = "listInstanceTopPanel";
             this.listInstanceTopPanel.Size = new System.Drawing.Size(273, 67);
-            this.listInstanceTopPanel.TabIndex = 0;
+            this.listInstanceTopPanel.TabIndex = 2;
             // 
             // posLabel
             // 
@@ -84,19 +85,31 @@
             // listInstanceBottomPanel
             // 
             this.listInstanceBottomPanel.BackColor = System.Drawing.Color.White;
+            this.listInstanceBottomPanel.Controls.Add(this.eraseListButton);
             this.listInstanceBottomPanel.Controls.Add(this.printListButton);
             this.listInstanceBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.listInstanceBottomPanel.Location = new System.Drawing.Point(0, 440);
+            this.listInstanceBottomPanel.Location = new System.Drawing.Point(0, 472);
             this.listInstanceBottomPanel.Name = "listInstanceBottomPanel";
-            this.listInstanceBottomPanel.Size = new System.Drawing.Size(273, 57);
-            this.listInstanceBottomPanel.TabIndex = 0;
+            this.listInstanceBottomPanel.Size = new System.Drawing.Size(273, 38);
+            this.listInstanceBottomPanel.TabIndex = 1;
+            // 
+            // eraseListButton
+            // 
+            this.eraseListButton.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eraseListButton.Location = new System.Drawing.Point(28, 6);
+            this.eraseListButton.Name = "eraseListButton";
+            this.eraseListButton.Size = new System.Drawing.Size(84, 23);
+            this.eraseListButton.TabIndex = 100;
+            this.eraseListButton.Text = "Limpiar";
+            this.eraseListButton.UseVisualStyleBackColor = true;
+            this.eraseListButton.Click += new System.EventHandler(this.eraseListButton_Click);
             // 
             // printListButton
             // 
-            this.printListButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printListButton.Location = new System.Drawing.Point(95, 13);
+            this.printListButton.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printListButton.Location = new System.Drawing.Point(160, 6);
             this.printListButton.Name = "printListButton";
-            this.printListButton.Size = new System.Drawing.Size(84, 29);
+            this.printListButton.Size = new System.Drawing.Size(84, 23);
             this.printListButton.TabIndex = 99;
             this.printListButton.Text = "Imprimir";
             this.printListButton.UseVisualStyleBackColor = true;
@@ -108,14 +121,14 @@
             this.listInstanceMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listInstanceMainPanel.Location = new System.Drawing.Point(0, 67);
             this.listInstanceMainPanel.Name = "listInstanceMainPanel";
-            this.listInstanceMainPanel.Size = new System.Drawing.Size(273, 373);
-            this.listInstanceMainPanel.TabIndex = 1;
+            this.listInstanceMainPanel.Size = new System.Drawing.Size(273, 405);
+            this.listInstanceMainPanel.TabIndex = 0;
             // 
             // ListInstanceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 497);
+            this.ClientSize = new System.Drawing.Size(273, 510);
             this.Controls.Add(this.listInstanceMainPanel);
             this.Controls.Add(this.listInstanceBottomPanel);
             this.Controls.Add(this.listInstanceTopPanel);
@@ -143,5 +156,6 @@
         private System.Windows.Forms.Label dateLabel;
         private System.Windows.Forms.Label posLabel;
         private System.Windows.Forms.Panel listInstanceMainPanel;
+        private System.Windows.Forms.Button eraseListButton;
     }
 }

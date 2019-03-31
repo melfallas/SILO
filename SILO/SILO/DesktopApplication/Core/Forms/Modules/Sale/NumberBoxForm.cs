@@ -103,7 +103,12 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         //--------------------------------------- Métodos de Actualización --------------------------------------//
 
-        
+        public void BringToFront()
+        {
+            base.BringToFront();
+        }
+
+
 
         private void updateBoxArray(int[] importArray)
         {
@@ -189,6 +194,16 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             ListService listService = new ListService();
             this.updateBoxArray(listService.getDrawTotals(this.datePickerList.Value.Date, groupId));
             //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
+        }
+
+        public void updateNumberBox()
+        {
+            long groupId = this.drawTypeBox.SelectedIndex;
+            // Actualizar sólo si el grupo es distinto de cero
+            if (groupId != 0)
+            {
+                this.updateNumberBox(groupId);
+            }
         }
 
 

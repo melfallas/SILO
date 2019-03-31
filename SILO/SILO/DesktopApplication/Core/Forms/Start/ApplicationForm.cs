@@ -34,12 +34,12 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         private void showFormInMainPanel(MainModuleForm pForm)
         {
             this.centerBoxPanel.Hide();
-            Form existingForm = getExistingForm(pForm);
+            MainModuleForm existingForm = getExistingForm(pForm);
             // Validar si existe o no el formulario
             if (existingForm == null)
             {
                 // Agregar el nuevo formulario si no existe
-                Form formToAdd = pForm as Form;
+                MainModuleForm formToAdd = pForm as MainModuleForm;
                 formToAdd.TopLevel = false;
                 formToAdd.Dock = DockStyle.Fill;
                 this.centerBoxPanel.Controls.Add(formToAdd);
@@ -52,12 +52,18 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 // Destruir el formulario nuevo y mostrar el existente
                 pForm.Dispose();
                 existingForm.BringToFront();
+                // Si se trae al frente un NumberBoxForm, se debe actualizar
+                if (existingForm.type == SystemConstants.NUMBER_BOX_CODE)
+                {
+                    NumberBoxForm numberBox = (NumberBoxForm)existingForm;
+                    numberBox.updateNumberBox();
+                }
             }
             this.centerBoxPanel.Show();
         }
 
-        private Form getExistingForm(MainModuleForm pForm) {
-            Form existingForm = null;
+        private MainModuleForm getExistingForm(MainModuleForm pForm) {
+            MainModuleForm existingForm = null;
             // Iterar por los controles, obteniendo el formulario si existe
             foreach (Control control in this.centerBoxPanel.Controls)
             {

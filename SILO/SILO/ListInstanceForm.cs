@@ -26,7 +26,7 @@ namespace SILO
 
         public LTL_LotteryList list { get; set; }
         private LotteryListControl lotteryListControl { get; set; }
-        public List<LND_ListNumberDetail> numberDetail { get; set; }
+        //public List<LND_ListNumberDetail> numberDetail { get; set; }
 
         public NumberBoxForm numberBoxFormParent { get; set; }
         public ListSelectorForm listSelectorFormParent { get; set; }
@@ -44,6 +44,7 @@ namespace SILO
             this.pointSale = pPointSale;
             this.drawType = pDrawType;
             this.drawDate = pDrawDate;
+            //this.numberDetail = null;
             initializeComponent();
         }
 
@@ -66,7 +67,8 @@ namespace SILO
             InitializeComponent();
             this.formatLabels();
             this.addControls();
-            this.listInstanceBottomPanel.Hide();
+            //this.listInstanceBottomPanel.Hide();
+            this.focusList();
         }
 
         public void formatLabels()
@@ -101,6 +103,8 @@ namespace SILO
             // Validar si la lista tiene datos
             if (listControl.loteryList.tupleList.Count == 0)
             {
+                this.setActiveButton(this.printListButton, true);
+                this.setActiveButton(this.eraseListButton, true);
                 MessageBox.Show("La lista no tiene datos");
                 //this.togglePrintListButton();
             }
@@ -113,8 +117,9 @@ namespace SILO
 
         public void createList()
         {
+            // Guardar la lista de manera local
             LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
-            this.saveList(listControl);
+            List < LND_ListNumberDetail > savedNumberDetailList = this.saveList(listControl);
             // Imprimir solamente si la impresora está habilitada
             if (UtilityService.printerEnabled())
             {
@@ -125,21 +130,21 @@ namespace SILO
             {
                 this.numberBoxFormParent.updateNumberBox(this.drawType.LDT_Id);
             }
-            // Sincronizar con servicios solamente si están habilitados
+            // Sincronizar con el servidor, solamente si los servicios están habilitados
             if (UtilityService.realTimeSyncEnabled())
             {
-                this.sendListNumberToServer();
+                this.sendListNumberToServer(savedNumberDetailList);
             }
             // Cerrar y liberar memoria de formulario de selección si no es nulo
             if (this.listSelectorFormParent != null)
             {
                 this.listSelectorFormParent.Dispose();
             }
-            this.Dispose();
+            //this.Dispose();
         }
 
 
-        private void saveList(LotteryListControl pListControl)
+        private List<LND_ListNumberDetail> saveList(LotteryListControl pListControl)
         {
             LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
             // Crear y guardar nuevo sorteo
@@ -173,38 +178,21 @@ namespace SILO
                 numberDetailCollection.Add(newListNumberDetail);
             }
             // Almacenar la colección de números generada
-            this.numberDetail = numberDetailCollection;
-            /*
-            ServerConnectionService service = new ServerConnectionService();
-            ServiceResponseResult response = service.generateList(listToSave, numberDetailCollection);
-            Console.WriteLine("Respuesta Venta: " + response.result);
-            */
+            //this.numberDetail = numberDetailCollection;
+            return numberDetailCollection;
         }
 
-        private void sendListNumberToServer()
+        private void sendListNumberToServer(List<LND_ListNumberDetail> pNumberDetail)
         {
             ServerConnectionService service = new ServerConnectionService();
-            ServiceResponseResult response = service.generateList(this.list, this.numberDetail);
+            ServiceResponseResult response = service.generateList(this.list, pNumberDetail);
             Console.WriteLine("Respuesta Venta: " + response.result);
         }
 
-        private void printListButton_Click(object sender, EventArgs e)
-        {
-            this.togglePrintListButton();
-            //this.saveList();
-            this.processList();
+        private void setActiveButton(Button pButton, bool pEnabled) {
+            pButton.Enabled = pEnabled;
         }
-
-        private void togglePrintListButton() {
-            Button printButton = this.listInstanceBottomPanel.Controls.OfType<Button>().First();
-            printButton.Enabled = !printButton.Enabled;
-        }
-
-        private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            processMenuRequest(e);
-        }
-
+        
         private void processMenuRequest(KeyEventArgs pEvent)
         {
             if (pEvent.KeyCode == Keys.Multiply)
@@ -220,15 +208,91 @@ namespace SILO
             }
         }
 
+        private void clearList()
+        {
+            this.lotteryListControl.clearList();
+        }
+
+        private void focusList()
+        {
+            this.listInstanceMainPanel.Focus();
+            this.getCurrentListControl().Focus();
+        }
+
+        private void resetFormList()
+        {
+            //this.numberDetail = null;
+            this.setActiveButton(this.printListButton, true);
+            this.setActiveButton(this.eraseListButton, true);
+            this.clearList();
+            this.focusList();
+        }
+
+        //--------------------------------------- Eventos de Controles --------------------------------------//
+        #region Eventos de Controles
+
+        private void printListButton_Click(object sender, EventArgs e)
+        {
+            DialogResult msgResult =
+                    MessageService.displayConfirmWarningMessage(
+                            "¿Está seguro que quiere imprimir la lista?",
+                            "IMPRIMIENDO..."
+                            );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la impresión
+                    this.setActiveButton(this.printListButton, false);
+                    this.setActiveButton(this.eraseListButton, false);
+                    this.processList();
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+            this.resetFormList();
+            this.focusList();
+        }
+
+        private void eraseListButton_Click(object sender, EventArgs e)
+        {
+            DialogResult msgResult =
+                    MessageService.displayConfirmWarningMessage(
+                            "¿Está seguro que quiere limpiar la lista?",
+                            "LIMPIANDO LISTA..."
+                            );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la impresión
+                    this.clearList();
+                    //this.setActiveButton(this.eraseListButton, false);
+                    //this.processList();
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+            this.focusList();
+        }
+
+        private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            processMenuRequest(e);
+        }
+
         private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.listSelectorFormParent != null)
             {
                 this.listSelectorFormParent.Dispose();
             }
-            //MessageBox.Show("Cerrando");
         }
-
-
+        #endregion
+        
     }
 }

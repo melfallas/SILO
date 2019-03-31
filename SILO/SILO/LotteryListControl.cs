@@ -47,6 +47,12 @@ namespace SILO
             }
         }
 
+        public void clearList()
+        {
+            this.listView.Rows.Clear();
+            this.listView.Refresh();
+        }
+
 
         // Método para agregar números de línea a las filas
         private void fillRowListNumber()

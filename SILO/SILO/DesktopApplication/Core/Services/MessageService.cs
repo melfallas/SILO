@@ -28,5 +28,10 @@ namespace SILO.DesktopApplication.Core.Services
         {
             return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
         }
+
+        public static DialogResult displayConfirmWarningMessage(string pMessage, string pTitle = "")
+        {
+            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        }
     }
 }
