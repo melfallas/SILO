@@ -9,9 +9,10 @@
 
 namespace SILO
 {
+    using DesktopApplication.Core.Constants;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class USR_UserRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +20,20 @@ namespace SILO
         {
             this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
         }
-    
+
+        public long copy(USR_UserRole pUserRole)
+        {
+            long actualStatus = SystemConstants.SYNC_STATUS_COMPLETED;
+            this.USR_DisplayName = pUserRole.USR_DisplayName;
+            this.USR_Description = pUserRole.USR_Description;
+            this.USR_CreateDate = pUserRole.USR_CreateDate;
+            return actualStatus;
+        }
+
         public long USR_Id { get; set; }
-        public string CPN_DisplayName { get; set; }
-        public string CPN_Description { get; set; }
-        public System.DateTime CPN_CreateDate { get; set; }
+        public string USR_DisplayName { get; set; }
+        public string USR_Description { get; set; }
+        public System.DateTime USR_CreateDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }

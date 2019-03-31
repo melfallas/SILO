@@ -15,6 +15,8 @@ namespace SILO.DesktopApplication.Core.Services
     public class ServerConnectionService
     {
 
+        //----------------- Métodos para obtener datos del Servidor -----------------//
+
         public ServiceResponseResult getCompaniesFromServer()
         {
             return this.processGetRequest(ServiceConectionConstants.GET_ALL_COMPANIES_RESOURCE_URL);
@@ -25,6 +27,39 @@ namespace SILO.DesktopApplication.Core.Services
             return this.processGetRequest(ServiceConectionConstants.GET_ALL_POINT_SALE_RESOURCE_URL);
         }
 
+        public ServiceResponseResult getRolesFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_ROLES_RESOURCE_URL);
+        }
+
+        public ServiceResponseResult getUsersFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_USERS_RESOURCE_URL);
+        }
+
+
+        //----------------- Métodos para enviar datos al Servidor -----------------//
+
+        public ServiceResponseResult sendNumberDataToService(Object pJsonObject, string pHttpMethod = "POST")
+        {
+            return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_NUMBER_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
+        }
+
+        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = "POST")
+        {
+            return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
+        }
+
+
+
+        //----------------- Métodos utilitarios para acceder a servicios -----------------//
+
+
+        public ServiceResponseResult callHttpRequest(string pServiceURL, Object pJsonObject, string pHttpMethod)
+        {
+            RestClientService restClient = new RestClientService();
+            return restClient.processHttpRequest(pServiceURL, pJsonObject, pHttpMethod);
+        }
 
         public ServiceResponseResult processGetRequest(string pServiceURL)
         {

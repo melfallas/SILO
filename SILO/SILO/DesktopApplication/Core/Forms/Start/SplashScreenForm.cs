@@ -17,6 +17,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
     {
         delegate void CloseFormCallback();
         delegate void SetTextCallback(string text);
+        delegate void UpdateProgressBarCallback(int pValue);
 
         public SplashScreenForm()
         {
@@ -54,5 +55,19 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 this.loadStatusLabel.Text = text;
             }
         }
+
+        public void updateProgressBar(int pValue)
+        {
+            if (this.loadStatusLabel.InvokeRequired)
+            {
+                UpdateProgressBarCallback d = new UpdateProgressBarCallback(updateProgressBar);
+                this.Invoke(d, new object[] { pValue });
+            }
+            else
+            {
+                this.splashProgressBar.Value = pValue;
+            }
+        }
+
     }
 }

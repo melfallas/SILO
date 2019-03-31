@@ -25,7 +25,6 @@ namespace SILO
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
         public virtual DbSet<CPN_Company> CPN_Company { get; set; }
         public virtual DbSet<DNW_DrawNumberWinning> DNW_DrawNumberWinning { get; set; }
         public virtual DbSet<LDS_LotteryDrawStatus> LDS_LotteryDrawStatus { get; set; }
@@ -40,6 +39,7 @@ namespace SILO
         public virtual DbSet<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
         public virtual DbSet<LTL_LotteryList> LTL_LotteryList { get; set; }
         public virtual DbSet<SYS_SynchronyStatus> SYS_SynchronyStatus { get; set; }
+        public virtual DbSet<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
         public virtual DbSet<USR_UserRole> USR_UserRole { get; set; }
     }
 }

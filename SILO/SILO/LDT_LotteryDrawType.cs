@@ -20,15 +20,27 @@ namespace SILO
             this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
             this.LTD_LotteryDraw = new HashSet<LTD_LotteryDraw>();
         }
-    
+
+        public long copy(LDT_LotteryDrawType pDrawType)
+        {
+            long actualStatus = pDrawType.SYS_SynchronyStatus;
+            this.LDT_Code = pDrawType.LDT_Code;
+            this.LDT_DisplayName = pDrawType.LDT_DisplayName;
+            this.LDT_Description = pDrawType.LDT_Description;
+            this.SYS_SynchronyStatus = pDrawType.SYS_SynchronyStatus;
+            return actualStatus;
+        }
+
         public long LDT_Id { get; set; }
         public string LDT_Code { get; set; }
         public string LDT_DisplayName { get; set; }
         public string LDT_Description { get; set; }
+        public long SYS_SynchronyStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
+        public virtual SYS_SynchronyStatus SYS_SynchronyStatus1 { get; set; }
     }
 }

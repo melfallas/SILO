@@ -126,7 +126,7 @@ namespace SILO
                         drawNumberWinning.DNW_SecondNumber = this.txbSecond.Text;
                         drawNumberWinning.DNW_ThirdNumber = this.txbThird.Text;
                         drawNumberWinning.DNW_CreateDate = DateTime.Now;
-                        drawNumberWinning.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_PENDING_SEND;
+                        drawNumberWinning.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_PENDING_TO_SERVER;
                         DrawNumberWinningRepository drawNumberWinningRepository = new DrawNumberWinningRepository();
                         drawNumberWinningRepository.save(ref drawNumberWinning);
                         // Imprimir tiquete de premios / ganadores

@@ -39,6 +39,20 @@ namespace SILO
             this.loteryList = new LotteryList(this.listView);
         }
 
+        public void fillList(List<LotteryTuple> pNumberList)
+        {
+            foreach (var tuple in pNumberList)
+            {
+                this.listView.Rows.Add(tuple.number, tuple.import);
+            }
+        }
+
+        public void clearList()
+        {
+            this.listView.Rows.Clear();
+            this.listView.Refresh();
+        }
+
 
         // Método para agregar números de línea a las filas
         private void fillRowListNumber()
@@ -50,6 +64,9 @@ namespace SILO
             }
         }
 
+
+        //--------------------------------------- Eventos de controles --------------------------------------//
+        #region Eventos de controles
         // Evento que desencadena el agregado de números de línea en las filas
         private void listView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
@@ -107,5 +124,8 @@ namespace SILO
             //MessageBox.Show("F: " + e.RowIndex + "C: " + e.ColumnIndex);
             //this.listView.CurrentCell = this.listView[e.RowIndex, e.ColumnIndex];
         }
+
+        #endregion
+
     }
 }

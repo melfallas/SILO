@@ -37,6 +37,22 @@ namespace SILO.DesktopApplication.Core.Util
                     this.fieldCollection.Add("synchronyStatus", "SYS_SynchronyStatus");
                     this.fieldCollection.Add("createDate", "LPS_CreateDate");
                     break;
+                case (int)EntityType.UserRole:
+                    this.fieldCollection.Add("id", "USR_Id");
+                    this.fieldCollection.Add("code", "USR_Code");
+                    this.fieldCollection.Add("displayName", "USR_DisplayName");
+                    this.fieldCollection.Add("description", "USR_Description");
+                    this.fieldCollection.Add("createDate", "USR_CreateDate");
+                    break;
+                case (int)EntityType.ApplicationUser:
+                    this.fieldCollection.Add("id", "AUS_Id");
+                    this.fieldCollection.Add("username", "AUS_Username");
+                    this.fieldCollection.Add("password", "AUS_Password");
+                    this.fieldCollection.Add("userRole", "USR_UserRole");
+                    this.fieldCollection.Add("lotteryPointSale", "LPS_LotteryPointSale");
+                    this.fieldCollection.Add("isActive", "AUS_IsActive");
+                    this.fieldCollection.Add("createDate", "AUS_CreateDate");
+                    break;
                 case (int)EntityType.Other:
 
                     break;

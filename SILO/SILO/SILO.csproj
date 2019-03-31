@@ -89,6 +89,15 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\CopyListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\CopyListForm.Designer.cs">
+      <DependentUpon>CopyListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\ModuleForm\MainModuleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Start\ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,7 +141,13 @@
     </Compile>
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\CompanyRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Services\DrawTypeService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\FormatService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ListService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\LogService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ProgramInitializationService.cs" />
@@ -142,16 +157,16 @@
     <Compile Include="DesktopApplication\Core\SystemConfig\SystemSession.cs" />
     <Compile Include="DesktopApplication\Core\Util\EntityType.cs" />
     <Compile Include="DesktopApplication\Core\Util\JsonObjectParser.cs" />
-    <Compile Include="DisplayListForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisplayListForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayListForm.Designer.cs">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DisplayQRForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisplayQRForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.Designer.cs">
       <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DNW_DrawNumberWinning.cs">
@@ -177,10 +192,10 @@
     <Compile Include="LDT_LotteryDrawType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ListBoxSelector.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\ListBoxSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ListBoxSelector.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\List\ListBoxSelector.Designer.cs">
       <DependentUpon>ListBoxSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="ListData.cs" />
@@ -213,7 +228,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LotteryDrawRepository.cs" />
-    <Compile Include="LotteryDrawTypeRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LotteryDrawTypeRepository.cs" />
     <Compile Include="LotteryList.cs" />
     <Compile Include="LotteryListControl.cs">
       <SubType>UserControl</SubType>
@@ -221,7 +236,7 @@
     <Compile Include="LotteryListControl.Designer.cs">
       <DependentUpon>LotteryListControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="LotteryListRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LotteryListRepository.cs" />
     <Compile Include="LotteryNumberRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\LotteryPointSaleRepository.cs" />
     <Compile Include="ListTotalRecord.cs" />
@@ -250,13 +265,13 @@
     <Compile Include="MainOptionMenu.Designer.cs">
       <DependentUpon>MainOptionMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="NumberBoxForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Sale\NumberBoxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NumberBoxForm.Designer.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Sale\NumberBoxForm.Designer.cs">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LocalParameterRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LocalParameterRepository.cs" />
     <Compile Include="PrizeTicket.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProhibitedNumberForm.cs">
@@ -284,6 +299,9 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\CopyListForm.resx">
+      <DependentUpon>CopyListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Start\ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,10 +311,10 @@
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Start\SplashScreenForm.resx">
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisplayListForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\DisplayListForm.resx">
       <DependentUpon>DisplayListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DisplayQRForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.resx">
       <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DrawNumberWinningForm.resx">
@@ -305,7 +323,7 @@
     <EmbeddedResource Include="GeneralConfigurationForm.resx">
       <DependentUpon>GeneralConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListBoxSelector.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\ListBoxSelector.resx">
       <DependentUpon>ListBoxSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListInstanceForm.resx">
@@ -323,7 +341,7 @@
     <EmbeddedResource Include="MainOptionMenu.resx">
       <DependentUpon>MainOptionMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NumberBoxForm.resx">
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Sale\NumberBoxForm.resx">
       <DependentUpon>NumberBoxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProhibitedNumberForm.resx">
@@ -378,6 +396,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DesktopApplication\Core\Controls\" />
     <Folder Include="DesktopApplication\Data\" />
     <Folder Include="DesktopApplication\View\" />
   </ItemGroup>

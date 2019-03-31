@@ -1,11 +1,12 @@
-﻿using SILO.DesktopApplication.Core.Services;
+﻿using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Repositories
 {
     class LotteryListRepository
     {
@@ -120,10 +121,11 @@ namespace SILO
         }
         */
 
-        public int[] getDrawListTotals(DateTime pDate, long pGroup)
+        public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup)
         {
             int[] importArray = new int[100];
             string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+
             Dictionary<int, int> importCollection = new Dictionary<int, int>();
             using (var context = new SILOEntities())
             {
@@ -133,8 +135,8 @@ namespace SILO
                     + "INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id "
                     + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw "
                     + "INNER JOIN LDT_LotteryDrawType AS T ON T.LDT_Id = D.LDT_LotteryDrawType "
-                    + "WHERE L.LPS_LotteryPointSale = 1 "
-                    + "AND L.LLS_LotteryListStatus <> 2 "
+                    + "WHERE L.LPS_LotteryPointSale = " + posId + " "
+                    + "AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
                     + "AND D.LTD_CreateDate = '" + drawDate + "' "
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
                     + "GROUP BY N.LNR_LotteryNumber "

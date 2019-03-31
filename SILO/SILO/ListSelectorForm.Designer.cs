@@ -47,9 +47,12 @@
             this.Controls.Add(this.listSelectorPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ListSelectorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Seleccione una Lista";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListSelectorForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListSelectorForm_KeyDown);
             this.ResumeLayout(false);
 

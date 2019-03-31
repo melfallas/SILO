@@ -17,13 +17,14 @@ namespace SILO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LPS_LotteryPointSale()
         {
-            this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
             this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
+            this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
         }
 
-        public void copy(LPS_LotteryPointSale pSalePoint)
+        public long copy(LPS_LotteryPointSale pSalePoint)
         {
+            long actualStatus = this.SYS_SynchronyStatus;
             this.LPS_Code = pSalePoint.LPS_Code;
             this.LPS_DisplayName = pSalePoint.LPS_DisplayName;
             this.LPS_Description = pSalePoint.LPS_Description;
@@ -32,6 +33,7 @@ namespace SILO
             this.LPS_IsActive = pSalePoint.LPS_IsActive;
             this.SYS_SynchronyStatus = pSalePoint.SYS_SynchronyStatus;
             this.LPS_CreateDate = pSalePoint.LPS_CreateDate;
+            return actualStatus;
         }
 
         public long LPS_Id { get; set; }
@@ -44,13 +46,13 @@ namespace SILO
         public long LPS_IsActive { get; set; }
         public long SYS_SynchronyStatus { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
         public virtual CPN_Company CPN_Company1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LPF_LotteryPrizeFactor> LPF_LotteryPrizeFactor { get; set; }
         public virtual SYS_SynchronyStatus SYS_SynchronyStatus1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
     }
 }
