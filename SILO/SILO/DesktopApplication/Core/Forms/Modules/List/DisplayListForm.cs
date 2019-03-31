@@ -1,5 +1,6 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Forms.Modules.List
 {
-    public partial class DisplayListForm : Form
+    public partial class DisplayListForm : MainModuleForm
     {
-        public int type { get; set; }
 
         public DisplayListForm()
         {
@@ -31,6 +31,16 @@ namespace SILO
 
         public void initializeAttributes(int pType) {
             this.type = pType;
+            string title = "";
+            if (this.type == SystemConstants.DISPLAY_QR_CODE)
+            {
+                title = "Pantalla de QR" + this.type.ToString();
+            }
+            else
+            {
+                title = "Pantalla de " + this.type.ToString();
+            }
+            this.label1.Text = title;
         }
 
         public void loadControls()
@@ -44,9 +54,9 @@ namespace SILO
         public void displayListForm() {
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
-                // Validar el tipo de pantalla de despliegue
+                // Validar el tipo de pantalla de despliegue DisplayScreenForm
                 // DisplayScreenForm
-                if(this.type == SystemConstants.DISPLAY_QR_CODE)
+                if (this.type == SystemConstants.DISPLAY_QR_CODE)
                 {
                     // Pantalla de despliegue de Código QR
                     DisplayQRForm qrForm = new DisplayQRForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex);

@@ -48,7 +48,11 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.userNameLabel = new System.Windows.Forms.Label();
+            this.posContentLabel = new System.Windows.Forms.Label();
+            this.posLabel = new System.Windows.Forms.Label();
+            this.companyContentLabel = new System.Windows.Forms.Label();
+            this.companyLabel = new System.Windows.Forms.Label();
+            this.userContentLabel = new System.Windows.Forms.Label();
             this.userLabel = new System.Windows.Forms.Label();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
@@ -57,6 +61,7 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
+            this.copyListButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -175,7 +180,7 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.mainPanel.Controls.Add(this.centerBoxPanel);
             this.mainPanel.Controls.Add(this.panel3);
             this.mainPanel.Controls.Add(this.panel2);
@@ -217,7 +222,11 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel1.Controls.Add(this.userNameLabel);
+            this.panel1.Controls.Add(this.posContentLabel);
+            this.panel1.Controls.Add(this.posLabel);
+            this.panel1.Controls.Add(this.companyContentLabel);
+            this.panel1.Controls.Add(this.companyLabel);
+            this.panel1.Controls.Add(this.userContentLabel);
             this.panel1.Controls.Add(this.userLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(220, 0);
@@ -225,13 +234,51 @@
             this.panel1.Size = new System.Drawing.Size(747, 30);
             this.panel1.TabIndex = 0;
             // 
-            // userNameLabel
+            // posContentLabel
             // 
-            this.userNameLabel.AutoSize = true;
-            this.userNameLabel.Location = new System.Drawing.Point(659, 11);
-            this.userNameLabel.Name = "userNameLabel";
-            this.userNameLabel.Size = new System.Drawing.Size(0, 13);
-            this.userNameLabel.TabIndex = 1;
+            this.posContentLabel.AutoSize = true;
+            this.posContentLabel.Location = new System.Drawing.Point(328, 11);
+            this.posContentLabel.Name = "posContentLabel";
+            this.posContentLabel.Size = new System.Drawing.Size(26, 13);
+            this.posContentLabel.TabIndex = 5;
+            this.posContentLabel.Text = "Suc";
+            this.posContentLabel.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // posLabel
+            // 
+            this.posLabel.AutoSize = true;
+            this.posLabel.Location = new System.Drawing.Point(271, 11);
+            this.posLabel.Name = "posLabel";
+            this.posLabel.Size = new System.Drawing.Size(51, 13);
+            this.posLabel.TabIndex = 4;
+            this.posLabel.Text = "Sucursal:";
+            // 
+            // companyContentLabel
+            // 
+            this.companyContentLabel.AutoSize = true;
+            this.companyContentLabel.Location = new System.Drawing.Point(71, 11);
+            this.companyContentLabel.Name = "companyContentLabel";
+            this.companyContentLabel.Size = new System.Drawing.Size(28, 13);
+            this.companyContentLabel.TabIndex = 3;
+            this.companyContentLabel.Text = "Cmp";
+            // 
+            // companyLabel
+            // 
+            this.companyLabel.AutoSize = true;
+            this.companyLabel.Location = new System.Drawing.Point(6, 11);
+            this.companyLabel.Name = "companyLabel";
+            this.companyLabel.Size = new System.Drawing.Size(59, 13);
+            this.companyLabel.TabIndex = 2;
+            this.companyLabel.Text = "Compañía:";
+            // 
+            // userContentLabel
+            // 
+            this.userContentLabel.AutoSize = true;
+            this.userContentLabel.Location = new System.Drawing.Point(659, 11);
+            this.userContentLabel.Name = "userContentLabel";
+            this.userContentLabel.Size = new System.Drawing.Size(29, 13);
+            this.userContentLabel.TabIndex = 1;
+            this.userContentLabel.Text = "User";
             // 
             // userLabel
             // 
@@ -255,6 +302,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.copyListButton);
             this.menuPanel.Controls.Add(this.displayQRMenuButton);
             this.menuPanel.Controls.Add(this.eraseButton);
             this.menuPanel.Controls.Add(this.aboutButton);
@@ -274,7 +322,7 @@
             this.displayQRMenuButton.ForeColor = System.Drawing.Color.White;
             this.displayQRMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("displayQRMenuButton.Image")));
             this.displayQRMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.displayQRMenuButton.Location = new System.Drawing.Point(2, 242);
+            this.displayQRMenuButton.Location = new System.Drawing.Point(2, 293);
             this.displayQRMenuButton.Name = "displayQRMenuButton";
             this.displayQRMenuButton.Size = new System.Drawing.Size(217, 54);
             this.displayQRMenuButton.TabIndex = 4;
@@ -291,7 +339,7 @@
             this.eraseButton.ForeColor = System.Drawing.Color.White;
             this.eraseButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseButton.Image")));
             this.eraseButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.eraseButton.Location = new System.Drawing.Point(3, 185);
+            this.eraseButton.Location = new System.Drawing.Point(3, 236);
             this.eraseButton.Name = "eraseButton";
             this.eraseButton.Size = new System.Drawing.Size(217, 54);
             this.eraseButton.TabIndex = 3;
@@ -308,10 +356,10 @@
             this.aboutButton.ForeColor = System.Drawing.Color.White;
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(0, 302);
+            this.aboutButton.Location = new System.Drawing.Point(0, 353);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(217, 54);
-            this.aboutButton.TabIndex = 2;
+            this.aboutButton.TabIndex = 5;
             this.aboutButton.Text = "Acerca de";
             this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.aboutButton.UseVisualStyleBackColor = true;
@@ -325,10 +373,10 @@
             this.printMenuButton.ForeColor = System.Drawing.Color.White;
             this.printMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("printMenuButton.Image")));
             this.printMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.printMenuButton.Location = new System.Drawing.Point(3, 125);
+            this.printMenuButton.Location = new System.Drawing.Point(3, 176);
             this.printMenuButton.Name = "printMenuButton";
             this.printMenuButton.Size = new System.Drawing.Size(217, 54);
-            this.printMenuButton.TabIndex = 1;
+            this.printMenuButton.TabIndex = 2;
             this.printMenuButton.Text = "Reimpresión de Tickets";
             this.printMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.printMenuButton.UseVisualStyleBackColor = true;
@@ -342,13 +390,30 @@
             this.saleMenuButton.ForeColor = System.Drawing.Color.White;
             this.saleMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("saleMenuButton.Image")));
             this.saleMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.saleMenuButton.Location = new System.Drawing.Point(3, 65);
+            this.saleMenuButton.Location = new System.Drawing.Point(3, 56);
             this.saleMenuButton.Name = "saleMenuButton";
             this.saleMenuButton.Size = new System.Drawing.Size(217, 54);
             this.saleMenuButton.TabIndex = 0;
             this.saleMenuButton.Text = "          Venta de Papeles";
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
+            // 
+            // copyListButton
+            // 
+            this.copyListButton.FlatAppearance.BorderSize = 0;
+            this.copyListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyListButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.copyListButton.ForeColor = System.Drawing.Color.White;
+            this.copyListButton.Image = ((System.Drawing.Image)(resources.GetObject("copyListButton.Image")));
+            this.copyListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.copyListButton.Location = new System.Drawing.Point(2, 116);
+            this.copyListButton.Name = "copyListButton";
+            this.copyListButton.Size = new System.Drawing.Size(217, 54);
+            this.copyListButton.TabIndex = 1;
+            this.copyListButton.Text = "   Copiar Lista";
+            this.copyListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.copyListButton.UseVisualStyleBackColor = true;
+            this.copyListButton.Click += new System.EventHandler(this.copyListButton_Click);
             // 
             // ApplicationForm
             // 
@@ -360,6 +425,8 @@
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.mainMenu;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ApplicationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema Informático para Control de Lotería";
@@ -404,8 +471,13 @@
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirDelSistemaToolStripMenuItem;
         private System.Windows.Forms.Button displayQRMenuButton;
-        private System.Windows.Forms.Label userNameLabel;
+        private System.Windows.Forms.Label userContentLabel;
         private System.Windows.Forms.Label userLabel;
+        private System.Windows.Forms.Label companyContentLabel;
+        private System.Windows.Forms.Label companyLabel;
+        private System.Windows.Forms.Label posContentLabel;
+        private System.Windows.Forms.Label posLabel;
+        private System.Windows.Forms.Button copyListButton;
     }
 }
 

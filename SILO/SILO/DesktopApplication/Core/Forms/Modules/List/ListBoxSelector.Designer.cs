@@ -1,4 +1,4 @@
-﻿namespace SILO
+﻿namespace SILO.DesktopApplication.Core.Forms.Modules.List
 {
     partial class ListBoxSelector
     {

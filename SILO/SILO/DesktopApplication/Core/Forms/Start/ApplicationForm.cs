@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Forms.Modules.List;
+using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
+using SILO.DesktopApplication.Core.Forms.Modules.Sale;
 using SILO.DesktopApplication.Core.Services;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
@@ -22,35 +25,78 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
             InitializeComponent();
             this.parentForm = pParentForm;
-            this.userNameLabel.Text = SystemSession.username;
+            this.userContentLabel.Text = SystemSession.username;
+            this.posContentLabel.Text = SystemSession.salePoint;
+            this.companyContentLabel.Text = SystemSession.company;
+            //this.printMenuButton.BackColor = Color.FromArgb(12, 61, 92);
         }
 
-        private void ShowFormInMainPanel(object pForm) {
+        private void showFormInMainPanel(MainModuleForm pForm)
+        {
             this.centerBoxPanel.Hide();
-            if (this.centerBoxPanel.Controls.Count > 0) {
-                this.centerBoxPanel.Controls.RemoveAt(0);
+            MainModuleForm existingForm = getExistingForm(pForm);
+            // Validar si existe o no el formulario
+            if (existingForm == null)
+            {
+                // Agregar el nuevo formulario si no existe
+                MainModuleForm formToAdd = pForm as MainModuleForm;
+                formToAdd.TopLevel = false;
+                formToAdd.Dock = DockStyle.Fill;
+                this.centerBoxPanel.Controls.Add(formToAdd);
+                this.centerBoxPanel.Tag = formToAdd;
+                formToAdd.Show();
+                formToAdd.BringToFront();
             }
-            Form formToAdd = pForm as Form;
-            formToAdd.TopLevel = false;
-            formToAdd.Dock = DockStyle.Fill;
-            this.centerBoxPanel.Controls.Add(formToAdd);
-            this.centerBoxPanel.Tag = formToAdd;
-            formToAdd.Show();
+            else
+            {
+                // Destruir el formulario nuevo y mostrar el existente
+                pForm.Dispose();
+                existingForm.BringToFront();
+                // Si se trae al frente un NumberBoxForm, se debe actualizar
+                if (existingForm.type == SystemConstants.NUMBER_BOX_CODE)
+                {
+                    NumberBoxForm numberBox = (NumberBoxForm)existingForm;
+                    numberBox.updateNumberBox();
+                }
+            }
             this.centerBoxPanel.Show();
         }
 
-        //--------------------------------------- Botones de Menú Lateral --------------------------------------//
+        private MainModuleForm getExistingForm(MainModuleForm pForm) {
+            MainModuleForm existingForm = null;
+            // Iterar por los controles, obteniendo el formulario si existe
+            foreach (Control control in this.centerBoxPanel.Controls)
+            {
+                MainModuleForm currentForm = control as MainModuleForm;
+                int formType = currentForm.type;
 
+                Console.WriteLine(formType.ToString());
+                if (formType == pForm.type)
+                {
+                    existingForm = currentForm;
+                }
+            }
+            return existingForm;
+        }
+
+        //--------------------------------------- Botones de Menú Lateral --------------------------------------//
+        #region Botones de Menú Lateral
         private void saleMenuButton_Click(object sender, EventArgs e)
         {
-            ShowFormInMainPanel(new NumberBoxForm());
+            this.showFormInMainPanel(new NumberBoxForm());
+        }
+
+        private void copyListButton_Click(object sender, EventArgs e)
+        {
+            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.COPY_LIST_CODE);
+            this.showFormInMainPanel(displayListForm);
         }
 
         private void printMenuButton_Click(object sender, EventArgs e)
         {
             //ShowFormInMainPanel(new GeneralConfigurationForm());
             DisplayListForm displayListForm = new DisplayListForm(SystemConstants.PRINTER_LIST_CODE);
-            ShowFormInMainPanel(displayListForm);
+            this.showFormInMainPanel(displayListForm);
             //ListSelectorForm listSelectorForm = new ListSelectorForm();
             //listSelectorForm.ShowDialog();
         }
@@ -58,13 +104,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         private void eraseButton_Click(object sender, EventArgs e)
         {
             DisplayListForm displayListForm = new DisplayListForm(SystemConstants.ERASER_LIST_CODE);
-            ShowFormInMainPanel(displayListForm);
+            this.showFormInMainPanel(displayListForm);
         }
 
         private void displayQRMenuButton_Click(object sender, EventArgs e)
         {
             DisplayListForm displayListForm = new DisplayListForm(SystemConstants.DISPLAY_QR_CODE);
-            ShowFormInMainPanel(displayListForm);
+            this.showFormInMainPanel(displayListForm);
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
@@ -90,13 +136,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
             
         }
-
+        #endregion
 
         //--------------------------------------- Acciones de Menú --------------------------------------//
-
+        #region Acciones de Menú
         private void ventaDePapelesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowFormInMainPanel(new NumberBoxForm());
+            this.showFormInMainPanel(new NumberBoxForm());
         }
 
         private void prohibidosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -115,12 +161,19 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
             this.Close();
         }
-
+        #endregion
         //--------------------------------------- Otros Eventos --------------------------------------//
-
+        #region Otros Eventos
         private void ApplicationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.parentForm.Dispose();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
     }
 }

@@ -21,6 +21,9 @@ namespace SILO
             this.LPF_LotteryPrizeFactor = new HashSet<LPF_LotteryPrizeFactor>();
             this.LPS_LotteryPointSale = new HashSet<LPS_LotteryPointSale>();
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
+            this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
+            this.LNR_LotteryNumber = new HashSet<LNR_LotteryNumber>();
+            this.LDT_LotteryDrawType = new HashSet<LDT_LotteryDrawType>();
         }
     
         public long SYS_Id { get; set; }
@@ -36,5 +39,11 @@ namespace SILO
         public virtual ICollection<LPS_LotteryPointSale> LPS_LotteryPointSale { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LTL_LotteryList> LTL_LotteryList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LNR_LotteryNumber> LNR_LotteryNumber { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LDT_LotteryDrawType> LDT_LotteryDrawType { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SILO
+﻿namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 {
     partial class NumberBoxForm
     {
@@ -32,6 +32,12 @@
             this.contentPanel = new System.Windows.Forms.Panel();
             this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.footerPanel = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txbMaxToReceive = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txbSyncImport = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txbTotalImport = new System.Windows.Forms.TextBox();
             this.headerPanel = new System.Windows.Forms.Panel();
             this.drawTypeBox = new System.Windows.Forms.ComboBox();
             this.datePickerList = new System.Windows.Forms.DateTimePicker();
@@ -41,6 +47,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numberBoxMainPanel.SuspendLayout();
             this.contentPanel.SuspendLayout();
+            this.footerPanel.SuspendLayout();
             this.headerPanel.SuspendLayout();
             this.titlePanel.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +59,7 @@
             this.numberBoxMainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numberBoxMainPanel.Location = new System.Drawing.Point(0, 0);
             this.numberBoxMainPanel.Name = "numberBoxMainPanel";
-            this.numberBoxMainPanel.Size = new System.Drawing.Size(567, 356);
+            this.numberBoxMainPanel.Size = new System.Drawing.Size(567, 420);
             this.numberBoxMainPanel.TabIndex = 5;
             // 
             // contentPanel
@@ -64,7 +71,7 @@
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contentPanel.Location = new System.Drawing.Point(0, 37);
             this.contentPanel.Name = "contentPanel";
-            this.contentPanel.Size = new System.Drawing.Size(567, 319);
+            this.contentPanel.Size = new System.Drawing.Size(567, 383);
             this.contentPanel.TabIndex = 1;
             // 
             // numberBoxPanel
@@ -73,17 +80,83 @@
             this.numberBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numberBoxPanel.Location = new System.Drawing.Point(0, 63);
             this.numberBoxPanel.Name = "numberBoxPanel";
-            this.numberBoxPanel.Size = new System.Drawing.Size(567, 209);
+            this.numberBoxPanel.Size = new System.Drawing.Size(567, 259);
             this.numberBoxPanel.TabIndex = 2;
             // 
             // footerPanel
             // 
             this.footerPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.footerPanel.Controls.Add(this.label6);
+            this.footerPanel.Controls.Add(this.txbMaxToReceive);
+            this.footerPanel.Controls.Add(this.label5);
+            this.footerPanel.Controls.Add(this.txbSyncImport);
+            this.footerPanel.Controls.Add(this.label4);
+            this.footerPanel.Controls.Add(this.txbTotalImport);
             this.footerPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.footerPanel.Location = new System.Drawing.Point(0, 272);
+            this.footerPanel.Location = new System.Drawing.Point(0, 322);
             this.footerPanel.Name = "footerPanel";
-            this.footerPanel.Size = new System.Drawing.Size(567, 47);
+            this.footerPanel.Size = new System.Drawing.Size(567, 61);
             this.footerPanel.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(36, 10);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Max. Recibir";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txbMaxToReceive
+            // 
+            this.txbMaxToReceive.Location = new System.Drawing.Point(104, 7);
+            this.txbMaxToReceive.Name = "txbMaxToReceive";
+            this.txbMaxToReceive.ReadOnly = true;
+            this.txbMaxToReceive.Size = new System.Drawing.Size(100, 20);
+            this.txbMaxToReceive.TabIndex = 4;
+            this.txbMaxToReceive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(387, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Sincronizado";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txbSyncImport
+            // 
+            this.txbSyncImport.Location = new System.Drawing.Point(455, 33);
+            this.txbSyncImport.Name = "txbSyncImport";
+            this.txbSyncImport.ReadOnly = true;
+            this.txbSyncImport.Size = new System.Drawing.Size(100, 20);
+            this.txbSyncImport.TabIndex = 2;
+            this.txbSyncImport.Text = "0";
+            this.txbSyncImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(387, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Total Venta";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txbTotalImport
+            // 
+            this.txbTotalImport.Location = new System.Drawing.Point(455, 7);
+            this.txbTotalImport.Name = "txbTotalImport";
+            this.txbTotalImport.ReadOnly = true;
+            this.txbTotalImport.Size = new System.Drawing.Size(100, 20);
+            this.txbTotalImport.TabIndex = 0;
+            this.txbTotalImport.Text = "0";
+            this.txbTotalImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // headerPanel
             // 
@@ -169,13 +242,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 356);
+            this.ClientSize = new System.Drawing.Size(567, 420);
             this.Controls.Add(this.numberBoxMainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "NumberBoxForm";
             this.Text = "NumberBoxForm";
             this.numberBoxMainPanel.ResumeLayout(false);
             this.contentPanel.ResumeLayout(false);
+            this.footerPanel.ResumeLayout(false);
+            this.footerPanel.PerformLayout();
             this.headerPanel.ResumeLayout(false);
             this.headerPanel.PerformLayout();
             this.titlePanel.ResumeLayout(false);
@@ -187,8 +262,8 @@
         #endregion
         private System.Windows.Forms.Panel numberBoxMainPanel;
         private System.Windows.Forms.Panel contentPanel;
-        private System.Windows.Forms.Panel numberBoxPanel;
         private System.Windows.Forms.Panel footerPanel;
+        private System.Windows.Forms.Panel numberBoxPanel;
         private System.Windows.Forms.Panel headerPanel;
         private System.Windows.Forms.ComboBox drawTypeBox;
         private System.Windows.Forms.DateTimePicker datePickerList;
@@ -196,5 +271,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel titlePanel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txbTotalImport;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txbSyncImport;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txbMaxToReceive;
     }
 }

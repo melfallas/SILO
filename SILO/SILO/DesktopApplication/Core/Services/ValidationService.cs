@@ -18,5 +18,17 @@ namespace SILO.DesktopApplication.Core.Services
             }
             return valid;
         }
+
+        public static bool isNotPreviousDate(DateTime pDateToValidate)
+        {
+            bool validDate = true;
+            if (!UtilityService.previousDateEnabled())
+            {
+                DateTime today = DateTime.Today.Date;
+                validDate = DateTime.Compare(pDateToValidate, today) < 0 ? false : true;
+            }
+            return validDate;
+        }
+
     }
 }

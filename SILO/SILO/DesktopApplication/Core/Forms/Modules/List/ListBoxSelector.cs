@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SILO.DesktopApplication.Core.Repositories;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Forms.Modules.List
 {
     public partial class ListBoxSelector : UserControl
     {
@@ -49,9 +50,9 @@ namespace SILO
 
         private void selectListButton_Click(object sender, EventArgs e)
         {
-            var cell = this.listSelectorGrid.CurrentRow.Cells[0];
-            long listId = Convert.ToInt64(cell.Value.ToString());
-            MessageBox.Show(listId.ToString());
+            DataGridViewCell cell = this.listSelectorGrid.CurrentRow.Cells[0];
+            long listId = long.Parse(cell.Value.ToString());
+            //MessageBox.Show(listId.ToString());
             this.selector.processOperation(listId);
         }
 

@@ -30,7 +30,7 @@
         {
             this.versionAppLabel = new System.Windows.Forms.Label();
             this.userLabel = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.splashProgressBar = new System.Windows.Forms.ProgressBar();
             this.loadStatusLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -57,16 +57,16 @@
             this.userLabel.Text = "Iniciando...";
             this.userLabel.UseWaitCursor = true;
             // 
-            // progressBar1
+            // splashProgressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(115, 139);
-            this.progressBar1.MarqueeAnimationSpeed = 50;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(104, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 2;
-            this.progressBar1.UseWaitCursor = true;
-            this.progressBar1.Value = 70;
+            this.splashProgressBar.Location = new System.Drawing.Point(115, 139);
+            this.splashProgressBar.MarqueeAnimationSpeed = 50;
+            this.splashProgressBar.Name = "splashProgressBar";
+            this.splashProgressBar.Size = new System.Drawing.Size(104, 23);
+            this.splashProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.splashProgressBar.TabIndex = 2;
+            this.splashProgressBar.UseWaitCursor = true;
+            this.splashProgressBar.Value = 10;
             // 
             // loadStatusLabel
             // 
@@ -77,6 +77,7 @@
             this.loadStatusLabel.Size = new System.Drawing.Size(131, 13);
             this.loadStatusLabel.TabIndex = 3;
             this.loadStatusLabel.Text = "Cargando datos iniciales...";
+            this.loadStatusLabel.UseWaitCursor = true;
             // 
             // SplashScreenForm
             // 
@@ -85,7 +86,7 @@
             this.BackColor = System.Drawing.Color.SlateGray;
             this.ClientSize = new System.Drawing.Size(336, 216);
             this.Controls.Add(this.loadStatusLabel);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.splashProgressBar);
             this.Controls.Add(this.userLabel);
             this.Controls.Add(this.versionAppLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -102,7 +103,7 @@
 
         private System.Windows.Forms.Label versionAppLabel;
         private System.Windows.Forms.Label userLabel;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar splashProgressBar;
         public System.Windows.Forms.Label loadStatusLabel;
     }
 }

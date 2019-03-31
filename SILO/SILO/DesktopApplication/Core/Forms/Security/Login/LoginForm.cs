@@ -1,7 +1,10 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Start;
 using SILO.DesktopApplication.Core.Model;
+using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.SystemConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,6 +43,9 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             // Verificar si la compañía está especificada y es válida
             if(ValidationService.isValidId(companyId))
             {
+                // Guardar en sesión la compañía
+                CompanyRepository companyRepository = new CompanyRepository();
+                SystemSession.sessionCompany = companyRepository.getById(long.Parse(companyId));
                 // Realizar sincronización inicial
                 this.startInitialSynchronization();
                 //splashThread.Abort();
@@ -71,17 +77,40 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void startInitialSynchronization()
         {
+
+            bool[] synStatusArray = new bool[4];
             LoginForm.waitHandle.WaitOne();
+            this.updateProgressBar(25);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
-            syncService.syncCompany_ServerToLocal();
+            //synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            /*
+            synStatusArray[0] = syncService.syncCompany_ServerToLocal();
+            this.updateProgressBar(40);
             this.changeStatusLegend("Cargando sucursales...");
-            syncService.syncSalePoint_ServerToLocal();
+            synStatusArray[1] = syncService.syncSalePoint_ServerToLocal();
+            this.updateProgressBar(75);
             this.changeStatusLegend("Cargando roles...");
-            syncService.syncCompany_ServerToLocal();
+            synStatusArray[2] = syncService.syncRole_ServerToLocal();
+            this.updateProgressBar(90);
             this.changeStatusLegend("Cargando usuarios...");
-            syncService.syncCompany_ServerToLocal();
-            this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
+            synStatusArray[3] = syncService.syncAppUsers_ServerToLocal();
+            this.updateProgressBar(100);
+            this.changeStatusLegend(GeneralConstants.EMPTY_STRING);            
+            // Verificar si falló algún proceso de sincronización
+            if (!UtilityService.verifySynStatusFromArray(synStatusArray))
+            {
+                MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
+            }
+            */
+        }
+
+        private void updateProgressBar(int pProgressValue)
+        {
+            if (this.splashScreen != null)
+            {
+                this.splashScreen.updateProgressBar(pProgressValue);
+            }
         }
 
         private void changeStatusLegend(string plegendText)
@@ -91,6 +120,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                 this.splashScreen.SetText(plegendText);
             }
         }
+
 
         private bool isValidLoginForm(string pUser, string pPassword)
         {
@@ -106,15 +136,10 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             return validFields;
         }
 
-        private bool requestUserAuthetication(string pUser, string pPassword)
+        private int requestUserAuthetication(string pUser, string pPassword)
         {
-            bool validCredentials = false;
             LoginService loginService = new LoginService();
-            if (loginService.doLogin(pUser.Trim(), pPassword.Trim()))
-            {
-                validCredentials = true;
-            }
-            return validCredentials;
+            return loginService.doLogin(pUser.Trim(), pPassword.Trim());
         }
 
         private void cleanFields()
@@ -122,6 +147,38 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.txbPass.Text = GeneralConstants.EMPTY_STRING;
             this.txbUser.Text = this.txbUser.Text.Trim();
             this.txbUser.Focus();
+        }
+
+        private void notifySyncProcessStep(string pMessage)
+        {
+            Console.WriteLine(pMessage);
+        }
+
+        private void verifySynStatus(bool[] pSynStatusArray)
+        {
+            if (!UtilityService.verifySynStatusFromArray(pSynStatusArray))
+            {
+                MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
+            }
+        }
+
+        private void initDataSync()
+        {
+            bool[] synStatusArray = new bool[2];
+            this.notifySyncProcessStep("Iniciando sincronización del sistema...");
+            SynchronizeService syncService = new SynchronizeService();
+            // Sincronizar usuarios al servidor
+            //synStatusArray[0] = syncService.syncAppUsers_LocalToServer();
+            // Enviar sincronización de números al servidor
+            this.notifySyncProcessStep("Sincronizando datos numéricos...");
+            synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            this.notifySyncProcessStep("Sincronizando tipos de sorteo...");
+            synStatusArray[1] = syncService.syncDrawType_LocalToServer();
+
+            // Verificar si falló algún proceso de sincronización
+            this.verifySynStatus(synStatusArray);
+            // Lanzar aplicación tras la sincronización
+            this.launchApplication();
         }
 
         private void launchApplication() {
@@ -138,11 +195,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             }
         }
 
-
-        //--------------------------------------- Eventos de controles principales --------------------------------------//
-
-        // Acción que controla el evento de Login al Ingresar
-        private void loginButton_Click(object sender, EventArgs e)
+        private void validateLogin()
         {
             if (!this.isValidLoginForm(this.txbUser.Text, this.txbPass.Text))
             {
@@ -151,22 +204,8 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             else
             {
                 // Realizar autenticación del usuario
-                if (this.requestUserAuthetication(this.txbUser.Text, this.txbPass.Text))
-                {
-                    // Si la autenticación es exitosa, probar la inicializació de la instancia
-                    ProgramInitializationService programInicializer = new ProgramInitializationService();
-                    if (programInicializer.setInstancePointSale())
-                    {
-                        // Lanzar aplicación si la instancia está inicializada
-                        this.launchApplication();
-                    }
-                    else {
-                        // Si la instancia no está inicializada, cerrar el programa
-                        this.cleanFields();
-                    }
-
-                }
-                else
+                int authResult = this.requestUserAuthetication(this.txbUser.Text, this.txbPass.Text);
+                if (authResult == SystemConstants.LOGIN_FAIL)
                 {
                     // Mensaje de error para credenciales inválidas
                     MessageService.displayErrorMessage(
@@ -175,6 +214,50 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                             );
                     this.cleanFields();
                 }
+                else
+                {
+                    // Validar si la autenticación fue exitosa
+                    if (authResult == SystemConstants.LOGIN_SUCCESS)
+                    {
+                        // Si la autenticación es exitosa, probar la inicialización de la instancia
+                        ProgramInitializationService programInicializer = new ProgramInitializationService();
+                        if (programInicializer.setInstancePointSale())
+                        {
+                            // Iniciar sincronización de datos
+                            this.initDataSync();
+                        }
+                        else
+                        {
+                            // Si la instancia no está inicializada, volver al inicio
+                            this.cleanFields();
+                        }
+                    }
+                    else
+                    {
+                        this.cleanFields();
+                    }
+                }
+            }
+        }
+
+
+        //--------------------------------------- Eventos de controles principales --------------------------------------//
+
+        // Acción que controla el evento de Login al Ingresar
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            this.validateLogin();
+        }
+        // Acción que controla el evento de Login al Ingresar
+        private void txbPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    this.validateLogin();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -188,6 +271,18 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             if (!this.displayLogin)
             {
                 this.Dispose();
+            }
+        }
+
+        private void txbUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    txbPass.Focus();
+                    break;
+                default:
+                    break;
             }
         }
     }
