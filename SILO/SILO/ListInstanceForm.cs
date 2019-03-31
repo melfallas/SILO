@@ -140,6 +140,13 @@ namespace SILO
             {
                 this.listSelectorFormParent.Dispose();
             }
+            // Si existe un option menu abierto, cerrarlo
+            if (this.mainOptionMenu != null)
+            {
+                this.mainOptionMenu.Hide();
+            }
+            this.resetFormList();
+            //this.focusList();
             //this.Dispose();
         }
 
@@ -200,9 +207,12 @@ namespace SILO
                 // Actualizar la estructura de lista antes de desplegar menú de opciones
                 LotteryListControl listControl = this.getCurrentListControl();
                 listControl.getList().EndEdit();
+                if (this.mainOptionMenu != null)
+                {
+                    this.mainOptionMenu.Dispose();
+                }
                 // Desplegar menú de opciones
-                MainOptionMenu mainOptionMenu = new MainOptionMenu(this);
-                this.mainOptionMenu = mainOptionMenu;
+                this.mainOptionMenu = new MainOptionMenu(this);
                 mainOptionMenu.ShowDialog(this);
                 pEvent.SuppressKeyPress = true;
             }
@@ -246,13 +256,13 @@ namespace SILO
                     this.setActiveButton(this.printListButton, false);
                     this.setActiveButton(this.eraseListButton, false);
                     this.processList();
+                    this.resetFormList();
                     break;
                 case DialogResult.No:
                     break;
                 default:
                     break;
             }
-            this.resetFormList();
             this.focusList();
         }
 

@@ -103,13 +103,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         //--------------------------------------- Métodos de Actualización --------------------------------------//
 
-        public void BringToFront()
-        {
-            base.BringToFront();
-        }
-
-
-
         private void updateBoxArray(int[] importArray)
         {
             int totalImport = 0;
@@ -151,14 +144,34 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                     );
                 listInstance.StartPosition = FormStartPosition.CenterParent;
                 //listInstance.ShowDialog();
-                listInstance.Show(this);
+                listInstance.ShowDialog(this);
+                //listInstance.Show(this);
             }
             else
             {
                 MessageService.displayErrorMessage(GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_MESSAGE, GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_TITLE);
             }
         }
-        
+
+
+        public void updateNumberBox(long pGroupId)
+        {
+            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+            ListService listService = new ListService();
+            this.updateBoxArray(listService.getDrawTotals(this.datePickerList.Value.Date, groupId));
+            //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
+        }
+
+        public void updateNumberBox()
+        {
+            long groupId = this.drawTypeBox.SelectedIndex;
+            // Actualizar sólo si el grupo es distinto de cero
+            if (groupId != 0)
+            {
+                this.updateNumberBox(groupId);
+            }
+        }
+
 
         //--------------------------------------- Eventos de Controles --------------------------------------//
 
@@ -183,29 +196,10 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
             if (groupId != 0)
             {
+                this.updateNumberBox(groupId);
                 this.displayNewListInstance();
-                this.updateNumberBox(groupId);
             }
         }
-
-        public void updateNumberBox(long pGroupId)
-        {
-            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
-            ListService listService = new ListService();
-            this.updateBoxArray(listService.getDrawTotals(this.datePickerList.Value.Date, groupId));
-            //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
-        }
-
-        public void updateNumberBox()
-        {
-            long groupId = this.drawTypeBox.SelectedIndex;
-            // Actualizar sólo si el grupo es distinto de cero
-            if (groupId != 0)
-            {
-                this.updateNumberBox(groupId);
-            }
-        }
-
 
     }
 }

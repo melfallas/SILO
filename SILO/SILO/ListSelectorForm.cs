@@ -59,7 +59,7 @@ namespace SILO
             list.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CANCELED;
             listRepository.updateList(list);
             this.Hide();
-            MessageService.displayInfoMessage(GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE, GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE);
+            MessageService.displayInfoMessage(GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_MESSAGE, GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE);
             LotteryDrawRepository drawRepository = new LotteryDrawRepository();
             LotteryDrawTypeRepository drawTypeRepository = new LotteryDrawTypeRepository();
             ListInstanceForm listInstance = new ListInstanceForm(
@@ -71,6 +71,7 @@ namespace SILO
                 );
             listInstance.StartPosition = FormStartPosition.CenterParent;
             listInstance.ShowDialog();
+            //listInstance.ShowDialog(this);
         }
 
         public void printList(long pListId)
