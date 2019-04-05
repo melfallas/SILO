@@ -164,7 +164,10 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static string getEncodeQRString(String pNumberListString, DateTime pDate, long pGroup)
         {
-            return fillNumberString(pGroup.ToString(), 2) + pDate.ToString("yyyyMMdd") + "N" + pNumberListString;
+            string pointSaleId = fillNumberString(UtilityService.getPointSaleId().ToString(), 2);
+            string draDate = pDate.ToString("yyyyMMdd");
+            string groupId = fillNumberString(pGroup.ToString(), 2);
+            return groupId + draDate + pointSaleId + "N" + pNumberListString;
         }
 
 
@@ -188,7 +191,8 @@ namespace SILO.DesktopApplication.Core.Services
         public static string getPendingTransactions(DateTime pDate, long pGroup)
         {
             LotteryListRepository lotteryListRepository = new LotteryListRepository();
-            return lotteryListRepository.getPosTotalListString(pDate, pGroup);
+            //return lotteryListRepository.getPosTotalListString(pDate, pGroup);
+            return lotteryListRepository.getPosPendingTransactionsListString(pDate, pGroup);
         }
 
         public static string compressNumberString(string pNumberString)
