@@ -2,6 +2,7 @@
 using SILO.DesktopApplication.Core.Forms.Modules.Sale;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -158,7 +159,6 @@ namespace SILO
             LTD_LotteryDraw drawToSave = new LTD_LotteryDraw();
             drawToSave.LTD_CreateDate = this.drawDate;
             drawToSave.LDT_LotteryDrawType = this.drawType.LDT_Id;
-            drawToSave.LDS_LotteryDrawStatus = 2;
             drawToSave.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_OPENED;
             lotteryDrawRepository.save(ref drawToSave);
             // Crear y guardar nueva lista
@@ -169,6 +169,7 @@ namespace SILO
             this.printDate = DateTime.Now;
             listToSave.LTL_CreateDate = this.printDate;
             listToSave.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CREATED;
+            listToSave.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_PENDING_TO_SERVER;
             lotteryDrawRepository.saveList(ref listToSave);
             this.list = listToSave;
             // Crear colección y guardar a nivel local detalle de números de la lista
@@ -191,9 +192,8 @@ namespace SILO
 
         private void sendListNumberToServer(List<LND_ListNumberDetail> pNumberDetail)
         {
-            ServerConnectionService service = new ServerConnectionService();
-            ServiceResponseResult response = service.generateList(this.list, pNumberDetail);
-            Console.WriteLine("Respuesta Venta: " + response.result);
+            SynchronizeService syncService = new SynchronizeService();
+            syncService.sendListNumberToServer(this.list, pNumberDetail);
         }
 
         private void setActiveButton(Button pButton, bool pEnabled) {

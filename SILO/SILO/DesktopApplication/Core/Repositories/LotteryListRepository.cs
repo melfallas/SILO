@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Constants;
+﻿using SILO.DesktopApplication.Core.Abstract.Generic;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Repositories
 {
-    class LotteryListRepository
+    class LotteryListRepository : GenericRepository<LTL_LotteryList, Object>
     {
+        /*
         public LTL_LotteryList getById(long pId) {
             LTL_LotteryList list = null;
             using (var context = new SILOEntities())
@@ -18,7 +20,7 @@ namespace SILO.DesktopApplication.Core.Repositories
             }
             return list;
         }
-
+        */
 
         public List<LotteryTuple> getListDetail(long pId) {
             List<LotteryTuple> tupleList = new List<LotteryTuple>();

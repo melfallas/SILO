@@ -146,7 +146,7 @@ namespace SILO.DesktopApplication.Core.Services
         {
             bool successProcess = true;
             ApplicationUserRepository userRepo = new ApplicationUserRepository();
-            List <AUS_ApplicationUser> unsynUserList = userRepo.findUnsynUsers();
+            List<AUS_ApplicationUser> unsynUserList = userRepo.findUnsynUsers();
             foreach (var userItem in unsynUserList)
             {
                 Console.WriteLine(userItem.AUS_Username);
@@ -194,7 +194,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
 
-        
+
         // Enviar sincronización de números al servidor
         public bool syncDrawType_LocalToServer()
         {
@@ -234,6 +234,35 @@ namespace SILO.DesktopApplication.Core.Services
             }
             return successProcess;
         }
-        
+
+
+        //----------------- Servicios de Sincronización de Pago y Reversión -----------------//
+        #region Servicios de Sincronización de Pago y Reversión
+
+        public void sendListNumberToServer(LTL_LotteryList pList, List<LND_ListNumberDetail> pNumberDetail)
+        {
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult response = service.generateList(pList, pNumberDetail);
+            if (ServiceValidator.isValidServiceResponse(response))
+            {
+                //string id = response.result.ToString();
+                LotteryListRepository listRepository = new LotteryListRepository();
+                LTL_LotteryList syncList = listRepository.getById(pList.LTL_Id);
+                syncList.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_COMPLETED;
+                listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
+                Console.WriteLine("Respuesta Venta: " + response.result);
+            }
+            else
+            {
+                string responseType = response == null ? "N/A" : response.type;
+                LogService.logErrorServiceResponse("No se pudo sincronizar la venta", responseType, "Pendiente");
+            }
+        }
+
+
+
+        #endregion
+
+
     }
 }

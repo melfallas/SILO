@@ -169,6 +169,7 @@
     <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.Designer.cs">
       <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Util\ServiceValidator.cs" />
     <Compile Include="DNW_DrawNumberWinning.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

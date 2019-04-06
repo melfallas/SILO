@@ -40,12 +40,12 @@ namespace SILO.DesktopApplication.Core.Services
 
         //----------------- Métodos para enviar datos al Servidor -----------------//
 
-        public ServiceResponseResult sendNumberDataToService(Object pJsonObject, string pHttpMethod = "POST")
+        public ServiceResponseResult sendNumberDataToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POS_METHOD)
         {
             return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_NUMBER_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
         }
 
-        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = "POST")
+        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POS_METHOD)
         {
             return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
         }
@@ -134,7 +134,9 @@ namespace SILO.DesktopApplication.Core.Services
             ;
             Console.WriteLine("Request Venta: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
-            return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
+            RestClientService restClient = new RestClientService();
+            return restClient.processHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD);
+            //return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
 
         public ServiceResponseResult synchronizeDrawAssociation()
