@@ -280,7 +280,7 @@ namespace SILO.DesktopApplication.Core.Services
             saleTicket.customerName = pNumberList.LTL_CustomerName;
             // Obtener detalle de la lista procesada
             LotteryListRepository listRepo = new LotteryListRepository();
-            saleTicket.listNumberDetail = listRepo.getListDetail(pNumberList.LTL_Id);
+            saleTicket.listNumberDetail = listRepo.getTupleListDetail(pNumberList.LTL_Id);
             ticketPrinter.saleTicket = saleTicket;
             // Obtener nombre de impresora y enviar impresión
             string printerName = UtilityService.getTicketPrinterName();

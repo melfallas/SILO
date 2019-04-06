@@ -241,25 +241,38 @@ namespace SILO.DesktopApplication.Core.Services
 
         public void sendListNumberToServer(LTL_LotteryList pList, List<LND_ListNumberDetail> pNumberDetail)
         {
+            // Llamar al servicio de sincronización con el servidor
             ServerConnectionService service = new ServerConnectionService();
-            ServiceResponseResult response = service.generateList(pList, pNumberDetail);
+            ServiceResponseResult response = service.syncListToServer(pList, pNumberDetail);
             if (ServiceValidator.isValidServiceResponse(response))
             {
-                //string id = response.result.ToString();
+                // Cambiar el estado de la lista local a Sincronizado
                 LotteryListRepository listRepository = new LotteryListRepository();
                 LTL_LotteryList syncList = listRepository.getById(pList.LTL_Id);
                 syncList.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_COMPLETED;
                 listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
-                Console.WriteLine("Respuesta Venta: " + response.result);
+                //Console.WriteLine("Respuesta Venta: " + response.result);
+                Console.WriteLine("Respuesta Venta");
             }
             else
             {
+                // Error de sincronización
                 string responseType = response == null ? "N/A" : response.type;
                 LogService.logErrorServiceResponse("No se pudo sincronizar la venta", responseType, "Pendiente");
             }
         }
 
-
+        public void syncPendingListNumberToServer()
+        {
+            LotteryListRepository listRepo = new LotteryListRepository();
+            List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
+            foreach (var item in pendingTransactions)
+            {
+                Console.WriteLine(item.LTL_Id);
+                List<LND_ListNumberDetail> listNumber = listRepo.getListDetail(item.LTL_Id);
+                this.sendListNumberToServer(item, listNumber);
+            }
+        }
 
         #endregion
 

@@ -3,6 +3,7 @@ using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Forms.Modules.Sale;
+using SILO.DesktopApplication.Core.Forms.UX;
 using SILO.DesktopApplication.Core.Services;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
@@ -126,12 +127,15 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             JObject draw = (JObject) jsonObject["lotteryDraw"];
             Console.WriteLine(draw);
             */
-            
+
             /*
             DisplayQRForm qrForm = new DisplayQRForm();
             qrForm.Show();
             */
-            
+
+            //SynchronizeService service = new SynchronizeService();
+            //service.syncPendingListNumberToServer();
+
             String version = UtilityService.getApplicationVersion();
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
             
@@ -175,5 +179,30 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
         #endregion
 
+        private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult msgResult =
+                    MessageService.displayConfirmWarningMessage(
+                            "¿Está seguro desea realizar sincronización con el servidor?",
+                            "SINCRONIZANDO TRANSACCIONES AL SERVIDOR..."
+                            );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la sincronización
+                    LoadingForm loading = new LoadingForm();
+                    loading.Show(this);
+                    SynchronizeService service = new SynchronizeService();
+                    service.syncPendingListNumberToServer();
+                    loading.Dispose();
+                    MessageService.displayInfoMessage("La sincronización ha finalizado");
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

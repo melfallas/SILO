@@ -56,12 +56,15 @@
             this.userLabel = new System.Windows.Forms.Label();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.copyListButton = new System.Windows.Forms.Button();
             this.displayQRMenuButton = new System.Windows.Forms.Button();
             this.eraseButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.copyListButton = new System.Windows.Forms.Button();
+            this.sincronizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transaccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enviarAlServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -76,6 +79,7 @@
             this.ventasToolStripMenuItem,
             this.catálogosToolStripMenuItem,
             this.configuraciónToolStripMenuItem,
+            this.sincronizaciónToolStripMenuItem,
             this.salirToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -314,6 +318,23 @@
             this.menuPanel.Size = new System.Drawing.Size(220, 562);
             this.menuPanel.TabIndex = 0;
             // 
+            // copyListButton
+            // 
+            this.copyListButton.FlatAppearance.BorderSize = 0;
+            this.copyListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyListButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.copyListButton.ForeColor = System.Drawing.Color.White;
+            this.copyListButton.Image = ((System.Drawing.Image)(resources.GetObject("copyListButton.Image")));
+            this.copyListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.copyListButton.Location = new System.Drawing.Point(2, 116);
+            this.copyListButton.Name = "copyListButton";
+            this.copyListButton.Size = new System.Drawing.Size(217, 54);
+            this.copyListButton.TabIndex = 1;
+            this.copyListButton.Text = "   Copiar Lista";
+            this.copyListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.copyListButton.UseVisualStyleBackColor = true;
+            this.copyListButton.Click += new System.EventHandler(this.copyListButton_Click);
+            // 
             // displayQRMenuButton
             // 
             this.displayQRMenuButton.FlatAppearance.BorderSize = 0;
@@ -398,22 +419,28 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
-            // copyListButton
+            // sincronizaciónToolStripMenuItem
             // 
-            this.copyListButton.FlatAppearance.BorderSize = 0;
-            this.copyListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.copyListButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.copyListButton.ForeColor = System.Drawing.Color.White;
-            this.copyListButton.Image = ((System.Drawing.Image)(resources.GetObject("copyListButton.Image")));
-            this.copyListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.copyListButton.Location = new System.Drawing.Point(2, 116);
-            this.copyListButton.Name = "copyListButton";
-            this.copyListButton.Size = new System.Drawing.Size(217, 54);
-            this.copyListButton.TabIndex = 1;
-            this.copyListButton.Text = "   Copiar Lista";
-            this.copyListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.copyListButton.UseVisualStyleBackColor = true;
-            this.copyListButton.Click += new System.EventHandler(this.copyListButton_Click);
+            this.sincronizaciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.transaccionesToolStripMenuItem});
+            this.sincronizaciónToolStripMenuItem.Name = "sincronizaciónToolStripMenuItem";
+            this.sincronizaciónToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.sincronizaciónToolStripMenuItem.Text = "Sincronización";
+            // 
+            // transaccionesToolStripMenuItem
+            // 
+            this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enviarAlServidorToolStripMenuItem});
+            this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.transaccionesToolStripMenuItem.Text = "Transacciones";
+            // 
+            // enviarAlServidorToolStripMenuItem
+            // 
+            this.enviarAlServidorToolStripMenuItem.Name = "enviarAlServidorToolStripMenuItem";
+            this.enviarAlServidorToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.enviarAlServidorToolStripMenuItem.Text = "Enviar al Servidor";
+            this.enviarAlServidorToolStripMenuItem.Click += new System.EventHandler(this.enviarAlServidorToolStripMenuItem_Click);
             // 
             // ApplicationForm
             // 
@@ -478,6 +505,9 @@
         private System.Windows.Forms.Label posContentLabel;
         private System.Windows.Forms.Label posLabel;
         private System.Windows.Forms.Button copyListButton;
+        private System.Windows.Forms.ToolStripMenuItem sincronizaciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem transaccionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enviarAlServidorToolStripMenuItem;
     }
 }
 

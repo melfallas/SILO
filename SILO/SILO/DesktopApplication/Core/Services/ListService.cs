@@ -29,7 +29,7 @@ namespace SILO.DesktopApplication.Core.Services
 
         public List<LotteryTuple> getListDetail(long pListId)
         {
-            return this.listRepository.getListDetail(pListId);
+            return this.listRepository.getTupleListDetail(pListId);
         }
 
         public void updateList(LTL_LotteryList pList)

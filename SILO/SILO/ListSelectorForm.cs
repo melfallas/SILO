@@ -105,6 +105,7 @@ namespace SILO
             list.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CANCELED;
             listService.updateList(list);
             // TODO: Reversar la lista en el servidor
+
             this.Hide();
             MessageService.displayInfoMessage(GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_MESSAGE, GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE);
             LotteryDrawRepository drawRepository = new LotteryDrawRepository();

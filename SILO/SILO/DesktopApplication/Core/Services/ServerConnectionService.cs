@@ -105,13 +105,39 @@ namespace SILO.DesktopApplication.Core.Services
             readStream.Close();
         }
 
-
-        public ServiceResponseResult generateList(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumberDetail)
+        public object generateListObject(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumberDetail = null)
         {
-            // Trasnformar LND_ListNumberDetail en una lista de elementos para el json
-            List<ListNumberDetail> numberDetail = pListNumberDetail.Select(
-                x => new ListNumberDetail(x.LND_Id, x.LTL_LotteryList, x.LNR_LotteryNumber, x.LND_SaleImport)
-            ).ToList();
+            LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
+            LTD_LotteryDraw draw = lotteryDrawRepository.getById(pListObject.LTD_LotteryDraw);
+            // Crear el objeto JSON
+            var jsonObject = new
+            {
+                listNumber = pListObject.LTL_Id,
+                lotteryPointSale = pListObject.LPS_LotteryPointSale,
+                lotteryDraw = new
+                {
+                    id = pListObject.LTD_LotteryDraw,
+                    lotteryDrawType = draw.LDT_LotteryDrawType,
+                    lotteryDrawStatus = draw.LDS_LotteryDrawStatus,
+                    createDate = draw.LTD_CreateDate
+                },
+                customerName = pListObject.LTL_CustomerName,
+                createDate = pListObject.LTL_CreateDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                lotteryListStatus = SystemConstants.LIST_STATUS_CREATED
+            }
+            ;
+            return jsonObject;
+        }
+
+        public object generateNewListToSync(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumberDetail = null) {
+            List<ListNumberDetail> numberDetail = null;
+            if (pListNumberDetail != null)
+            {
+                // Trasnformar LND_ListNumberDetail en una lista de elementos para el json
+                numberDetail = pListNumberDetail.Select(
+                    x => new ListNumberDetail(x.LND_Id, x.LTL_LotteryList, x.LNR_LotteryNumber, x.LND_SaleImport)
+                ).ToList();
+            }
             LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
             LTD_LotteryDraw draw = lotteryDrawRepository.getById(pListObject.LTD_LotteryDraw);
             // Crear el objeto JSON
@@ -132,6 +158,13 @@ namespace SILO.DesktopApplication.Core.Services
                 listNumberDetail = numberDetail
             }
             ;
+            return jsonObject;
+        }
+
+
+        public ServiceResponseResult syncListToServer(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumberDetail)
+        {
+            var jsonObject = this.generateNewListToSync(pListObject, pListNumberDetail);
             Console.WriteLine("Request Venta: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
             RestClientService restClient = new RestClientService();

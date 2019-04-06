@@ -22,7 +22,29 @@ namespace SILO.DesktopApplication.Core.Repositories
         }
         */
 
-        public List<LotteryTuple> getListDetail(long pId) {
+        public List<LTL_LotteryList> getPosPendingTransactions() {
+            return this.getAll().Where(
+                item =>
+                    item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
+                &&  item.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER
+                ).ToList(); ;
+        }
+
+        public List<LND_ListNumberDetail> getListDetail(long pId)
+        {
+            List<LND_ListNumberDetail> numberList = null;
+            using (var context = new SILOEntities())
+            {
+                if (pId != 0)
+                {
+                    // Obtener detalle de números pertenecientes a la lista
+                    numberList = context.LND_ListNumberDetail.Where(item => item.LTL_LotteryList == pId).ToList();
+                }
+            }
+            return numberList;
+        }
+
+        public List<LotteryTuple> getTupleListDetail(long pId) {
             List<LotteryTuple> tupleList = new List<LotteryTuple>();
             using (var context = new SILOEntities())
             {
