@@ -72,6 +72,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                 list.LTL_CreateDate = pList.LTL_CreateDate;
                 list.LTL_CustomerName = pList.LTL_CustomerName;
                 list.LLS_LotteryListStatus = pList.LLS_LotteryListStatus;
+                list.SYS_SynchronyStatus = pList.SYS_SynchronyStatus;
                 context.SaveChanges();
             }
         }

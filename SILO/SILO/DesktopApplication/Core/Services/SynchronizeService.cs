@@ -235,6 +235,22 @@ namespace SILO.DesktopApplication.Core.Services
             return successProcess;
         }
 
+        public void setListCompleteSync(LTL_LotteryList pList)
+        {
+            this.changeListSyncStatus(pList);
+        }
+
+        public void changeListSyncStatus(LTL_LotteryList pList, long pSyncStatus = SystemConstants.SYNC_STATUS_COMPLETED)
+        {
+            // Cambiar el estado de la lista local a Sincronizado
+            LotteryListRepository listRepository = new LotteryListRepository();
+            LTL_LotteryList syncList = listRepository.getById(pList.LTL_Id);
+            syncList.SYS_SynchronyStatus = pSyncStatus;
+            listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
+            //Console.WriteLine("Respuesta Venta: " + response.result);
+            Console.WriteLine("Respuesta Venta");
+        }
+
 
         //----------------- Servicios de Sincronización de Pago y Reversión -----------------//
         #region Servicios de Sincronización de Pago y Reversión
@@ -244,15 +260,10 @@ namespace SILO.DesktopApplication.Core.Services
             // Llamar al servicio de sincronización con el servidor
             ServerConnectionService service = new ServerConnectionService();
             ServiceResponseResult response = service.syncListToServer(pList, pNumberDetail);
-            if (ServiceValidator.isValidServiceResponse(response))
+            if (ServiceValidator.isValidAndNotEmptyServiceResponse(response))
             {
                 // Cambiar el estado de la lista local a Sincronizado
-                LotteryListRepository listRepository = new LotteryListRepository();
-                LTL_LotteryList syncList = listRepository.getById(pList.LTL_Id);
-                syncList.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_COMPLETED;
-                listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
-                //Console.WriteLine("Respuesta Venta: " + response.result);
-                Console.WriteLine("Respuesta Venta");
+                this.setListCompleteSync(pList);
             }
             else
             {
@@ -262,15 +273,48 @@ namespace SILO.DesktopApplication.Core.Services
             }
         }
 
+        public void reverseListNumberFromServer(LTL_LotteryList pList)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService serverConection = new ServerConnectionService();
+            ServiceResponseResult response = serverConection.reverseListToServer(pList);
+            if (ServiceValidator.isValidServiceResponse(response))
+            {
+                // Cambiar el estado de la lista local a Sincronizado
+                this.setListCompleteSync(pList);
+            }
+            else
+            {
+                // Error de sincronización
+                string responseType = response == null ? "N/A" : response.type;
+                LogService.logErrorServiceResponse("No se pudo sincronizar la venta", responseType, "Pendiente");
+            }
+        }
+        
+
         public void syncPendingListNumberToServer()
         {
             LotteryListRepository listRepo = new LotteryListRepository();
             List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
-            foreach (var item in pendingTransactions)
+            foreach (LTL_LotteryList item in pendingTransactions)
             {
-                Console.WriteLine(item.LTL_Id);
-                List<LND_ListNumberDetail> listNumber = listRepo.getListDetail(item.LTL_Id);
-                this.sendListNumberToServer(item, listNumber);
+                Console.Write(item.LTL_Id);
+                switch (item.LLS_LotteryListStatus)
+                {
+                    case SystemConstants.LIST_STATUS_CREATED:
+                        // Procesar creación de la lista en el servidor
+                        Console.WriteLine(" - Creada ");
+                        List<LND_ListNumberDetail> listNumber = listRepo.getListDetail(item.LTL_Id);
+                        this.sendListNumberToServer(item, listNumber);
+                        break;
+                    case SystemConstants.LIST_STATUS_CANCELED:
+                        // Procesar reversión de la lista en el servidor
+                        Console.WriteLine(" - Anulada ");
+                        this.reverseListNumberFromServer(item);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

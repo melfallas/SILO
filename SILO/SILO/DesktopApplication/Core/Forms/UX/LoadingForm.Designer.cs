@@ -28,15 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadingForm));
             this.loadingPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.loadingPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // loadingPictureBox
             // 
+            this.loadingPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("loadingPictureBox.Image")));
             this.loadingPictureBox.Location = new System.Drawing.Point(-1, -2);
             this.loadingPictureBox.Name = "loadingPictureBox";
             this.loadingPictureBox.Size = new System.Drawing.Size(221, 156);
+            this.loadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.loadingPictureBox.TabIndex = 0;
             this.loadingPictureBox.TabStop = false;
             // 

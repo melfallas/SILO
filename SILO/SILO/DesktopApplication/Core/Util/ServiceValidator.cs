@@ -10,7 +10,7 @@ namespace SILO.DesktopApplication.Core.Util
     class ServiceValidator
     {
 
-        public static bool isValidServiceResponse(ServiceResponseResult pResponseResult)
+        public static bool isValidAndNotEmptyServiceResponse(ServiceResponseResult pResponseResult)
         {
             bool validResponse = true;
             if (pResponseResult == null)
@@ -20,6 +20,23 @@ namespace SILO.DesktopApplication.Core.Util
             else
             {
                 if (pResponseResult.type != "success" || pResponseResult.result == null)
+                {
+                    validResponse = false;
+                }
+            }
+            return validResponse;
+        }
+
+        public static bool isValidServiceResponse(ServiceResponseResult pResponseResult)
+        {
+            bool validResponse = true;
+            if (pResponseResult == null)
+            {
+                validResponse = false;
+            }
+            else
+            {
+                if (pResponseResult.type != "success")
                 {
                     validResponse = false;
                 }

@@ -1,6 +1,7 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
+using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
 using System;
@@ -100,12 +101,17 @@ namespace SILO
 
         private void eraseList(long pListId)
         {
+            // Obtener la lista por el id
             ListService listService = new ListService();
             LTL_LotteryList list = listService.getById(pListId);
+            // Modificar el estado y guardar localmente
             list.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CANCELED;
+            list.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_PENDING_TO_SERVER;
             listService.updateList(list);
-            // TODO: Reversar la lista en el servidor
-
+            // Reversar la lista en el servidor
+            SynchronizeService syncService = new SynchronizeService();
+            syncService.reverseListNumberFromServer(list);
+            // Acciones posteriores a la reversión
             this.Hide();
             MessageService.displayInfoMessage(GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_MESSAGE, GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE);
             LotteryDrawRepository drawRepository = new LotteryDrawRepository();

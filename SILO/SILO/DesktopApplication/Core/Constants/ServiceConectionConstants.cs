@@ -26,10 +26,10 @@ namespace SILO.DesktopApplication.Core.Constants
 
         public const string POST_SAVE_NUMBER_LIST_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotterynumber/saveList/";
         public const string POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotterydrawtype/saveList/";
-
-
+        
         public const string DRAW_TYPE_RESOURCE_URL              = ROOT_SERVICE_API_END_POINT + "lotterydrawtype/";
         public const string DRAW_ASSOCIATION_RESOURCE_URL       = ROOT_SERVICE_API_END_POINT + "lotterydrawassociation/synchronize/";
+        public const string ROOT_LIST_RESOURCE_URL               = ROOT_SERVICE_API_END_POINT + "lotterylist/";
         public const string LIST_RESOURCE_URL                   = ROOT_SERVICE_API_END_POINT + "lotterylist/generate/";
         //"listnumberdetail/summary/";
 

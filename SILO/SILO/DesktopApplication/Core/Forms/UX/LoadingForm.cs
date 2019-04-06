@@ -19,8 +19,8 @@ namespace SILO.DesktopApplication.Core.Forms.UX
 
         private void LoadingForm_Load(object sender, EventArgs e)
         {
-            this.loadingPictureBox.Image = Image.FromFile("C:\\Users\\Melvin\\Documents\\Projects\\Tiempos\\img\\program\\gif\\cargando.gif");
-            this.loadingPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            //this.loadingPictureBox.Image = Image.FromFile("C:\\Users\\Melvin\\Documents\\Projects\\Tiempos\\img\\program\\gif\\cargando.gif");
+            //this.loadingPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
         }
     }
 }
