@@ -41,6 +41,9 @@
             this.parámetrosGeneralesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sincronizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transaccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enviarAlServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
@@ -62,9 +65,8 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.sincronizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.transaccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enviarAlServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parámetrosGeneralesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.parámetrosDeImpresiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -151,9 +153,12 @@
             // 
             // parámetrosGeneralesToolStripMenuItem
             // 
+            this.parámetrosGeneralesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parámetrosGeneralesToolStripMenuItem1,
+            this.parámetrosDeImpresiónToolStripMenuItem});
             this.parámetrosGeneralesToolStripMenuItem.Name = "parámetrosGeneralesToolStripMenuItem";
             this.parámetrosGeneralesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.parámetrosGeneralesToolStripMenuItem.Text = "Parámetros Generales";
+            this.parámetrosGeneralesToolStripMenuItem.Text = "Parámetros";
             // 
             // parámetrosDeSucursalToolStripMenuItem
             // 
@@ -166,6 +171,29 @@
             this.parámetrosDeSistemaToolStripMenuItem.Name = "parámetrosDeSistemaToolStripMenuItem";
             this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.parámetrosDeSistemaToolStripMenuItem.Text = "Parámetros de Sistema";
+            // 
+            // sincronizaciónToolStripMenuItem
+            // 
+            this.sincronizaciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.transaccionesToolStripMenuItem});
+            this.sincronizaciónToolStripMenuItem.Name = "sincronizaciónToolStripMenuItem";
+            this.sincronizaciónToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.sincronizaciónToolStripMenuItem.Text = "Sincronización";
+            // 
+            // transaccionesToolStripMenuItem
+            // 
+            this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enviarAlServidorToolStripMenuItem});
+            this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.transaccionesToolStripMenuItem.Text = "Transacciones";
+            // 
+            // enviarAlServidorToolStripMenuItem
+            // 
+            this.enviarAlServidorToolStripMenuItem.Name = "enviarAlServidorToolStripMenuItem";
+            this.enviarAlServidorToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.enviarAlServidorToolStripMenuItem.Text = "Enviar al Servidor";
+            this.enviarAlServidorToolStripMenuItem.Click += new System.EventHandler(this.enviarAlServidorToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -419,28 +447,18 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
-            // sincronizaciónToolStripMenuItem
+            // parámetrosGeneralesToolStripMenuItem1
             // 
-            this.sincronizaciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.transaccionesToolStripMenuItem});
-            this.sincronizaciónToolStripMenuItem.Name = "sincronizaciónToolStripMenuItem";
-            this.sincronizaciónToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.sincronizaciónToolStripMenuItem.Text = "Sincronización";
+            this.parámetrosGeneralesToolStripMenuItem1.Name = "parámetrosGeneralesToolStripMenuItem1";
+            this.parámetrosGeneralesToolStripMenuItem1.Size = new System.Drawing.Size(206, 22);
+            this.parámetrosGeneralesToolStripMenuItem1.Text = "Parámetros Generales";
             // 
-            // transaccionesToolStripMenuItem
+            // parámetrosDeImpresiónToolStripMenuItem
             // 
-            this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.enviarAlServidorToolStripMenuItem});
-            this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.transaccionesToolStripMenuItem.Text = "Transacciones";
-            // 
-            // enviarAlServidorToolStripMenuItem
-            // 
-            this.enviarAlServidorToolStripMenuItem.Name = "enviarAlServidorToolStripMenuItem";
-            this.enviarAlServidorToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.enviarAlServidorToolStripMenuItem.Text = "Enviar al Servidor";
-            this.enviarAlServidorToolStripMenuItem.Click += new System.EventHandler(this.enviarAlServidorToolStripMenuItem_Click);
+            this.parámetrosDeImpresiónToolStripMenuItem.Name = "parámetrosDeImpresiónToolStripMenuItem";
+            this.parámetrosDeImpresiónToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.parámetrosDeImpresiónToolStripMenuItem.Text = "Parámetros de Impresión";
+            this.parámetrosDeImpresiónToolStripMenuItem.Click += new System.EventHandler(this.parámetrosDeImpresiónToolStripMenuItem_Click);
             // 
             // ApplicationForm
             // 
@@ -508,6 +526,8 @@
         private System.Windows.Forms.ToolStripMenuItem sincronizaciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem transaccionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enviarAlServidorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parámetrosGeneralesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem parámetrosDeImpresiónToolStripMenuItem;
     }
 }
 

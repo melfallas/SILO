@@ -2,6 +2,7 @@
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
+using SILO.DesktopApplication.Core.Forms.Modules.Parameters;
 using SILO.DesktopApplication.Core.Forms.Modules.Sale;
 using SILO.DesktopApplication.Core.Forms.UX;
 using SILO.DesktopApplication.Core.Services;
@@ -133,9 +134,6 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             qrForm.Show();
             */
 
-            //SynchronizeService service = new SynchronizeService();
-            //service.syncPendingListNumberToServer();
-
             String version = UtilityService.getApplicationVersion();
             MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
             
@@ -203,6 +201,12 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 default:
                     break;
             }
+        }
+
+        private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrinterParamsForm printerParamsForm = new PrinterParamsForm();
+            printerParamsForm.Show();
         }
     }
 }
