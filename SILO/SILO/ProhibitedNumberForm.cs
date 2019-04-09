@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Services;
+﻿using SILO.DesktopApplication.Core.Integration;
+using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,13 @@ namespace SILO
 {
     public partial class ProhibitedNumberForm : Form
     {
+        public ApplicationMediator appMediator { get; set; }
         public CheckBox[]  arrayCheckBox { get; set; }
 
-        public ProhibitedNumberForm()
+        public ProhibitedNumberForm(ApplicationMediator pMediator)
         {
             InitializeComponent();
+            this.appMediator = pMediator;
             this.initializeControls();
         }
 
@@ -83,8 +86,7 @@ namespace SILO
         }
 
         private void entryProhibitedButtom_Click(object sender, EventArgs e)
-        {    
-
+        {
             int[] array = new int[100];
             for (int i = 0; i < 100; i++) {
                 if (arrayCheckBox[i].Checked){
@@ -94,8 +96,9 @@ namespace SILO
                     array[i] = 0;
                 }
             }
-                UtilityService.saveProhibitedNumbers(array);
-            Close();
+            UtilityService.saveProhibitedNumbers(array);
+            this.appMediator.updateBoxNumber();
+            this.Dispose();
         }
     }
 }

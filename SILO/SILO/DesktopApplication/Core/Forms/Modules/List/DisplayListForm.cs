@@ -1,6 +1,7 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -17,16 +18,24 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
     public partial class DisplayListForm : MainModuleForm
     {
 
-        public DisplayListForm()
+        public ApplicationMediator appMediator { get; set; }
+
+        /*
+        public DisplayListForm(ApplicationMediator pMediator)
         {
             InitializeComponent();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
         }
+        */
 
-        public DisplayListForm(int pType)
+        public DisplayListForm(ApplicationMediator pMediator, int pType)
         {
             InitializeComponent();
             this.initializeAttributes(pType);
             this.loadControls();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
         }
 
         public void initializeAttributes(int pType) {
@@ -68,7 +77,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
                 else
                 {
                     // Pantalla de despliegue de Selección de Lista
-                    ListSelectorForm listBoxSelector = new ListSelectorForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex, this.type);
+                    ListSelectorForm listBoxSelector = new ListSelectorForm(this.appMediator, this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex, this.type);
                     listBoxSelector.ShowDialog();
                 }
             }

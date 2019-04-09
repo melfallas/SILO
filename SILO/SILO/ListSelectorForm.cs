@@ -1,6 +1,7 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
@@ -22,16 +23,21 @@ namespace SILO
         public long drawType { get; set; }
         public int operationType { get; set; }
 
+        public ApplicationMediator appMediator { get; set; }
+
+
         //--------------------------------------- Métodos de Inicialización --------------------------------------//
         #region Métodos de Inicialización
 
-        public ListSelectorForm(DateTime pDate, long pGroup, int pOperation)
+        public ListSelectorForm(ApplicationMediator pMediator, DateTime pDate, long pGroup, int pOperation)
         {
             InitializeComponent();
             this.drawDate = pDate;
             this.drawType = pGroup;
             this.operationType = pOperation;
             this.addControls();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
         }
 
         private void addControls()
@@ -65,7 +71,7 @@ namespace SILO
 
         private void copyList(long pListId)
         {
-            CopyListForm copyListForm = new CopyListForm(this, pListId);
+            CopyListForm copyListForm = new CopyListForm(this.appMediator, this, pListId);
             this.Hide();
             copyListForm.ShowDialog();
             LotteryListRepository listRepository = new LotteryListRepository();
@@ -117,6 +123,7 @@ namespace SILO
             LotteryDrawRepository drawRepository = new LotteryDrawRepository();
             LotteryDrawTypeRepository drawTypeRepository = new LotteryDrawTypeRepository();
             ListInstanceForm listInstance = new ListInstanceForm(
+                this.appMediator,
                 this,
                 UtilityService.getPointSale(),
                 drawTypeRepository.getById(drawRepository.getById(list.LTD_LotteryDraw).LDT_LotteryDrawType),

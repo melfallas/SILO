@@ -151,6 +151,8 @@
     <Compile Include="DesktopApplication\Core\Forms\UX\LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Integration\ApplicationMediator.cs" />
+    <Compile Include="DesktopApplication\Core\Pattern\MediatorObject.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\CompanyRepository.cs" />
     <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />

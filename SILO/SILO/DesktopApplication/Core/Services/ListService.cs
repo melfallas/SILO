@@ -21,6 +21,11 @@ namespace SILO.DesktopApplication.Core.Services
             return this.listRepository.getDrawListTotals(UtilityService.getPointSaleId(), pDate, pGroup);
         }
 
+        public int[] getDrawPendingSyncTotals(DateTime pDate, long pGroup)
+        {
+            return this.listRepository.getDrawListTotals(UtilityService.getPointSaleId(), pDate, pGroup, true);
+        }
+
 
         public LTL_LotteryList getById(long pListId)
         {

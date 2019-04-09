@@ -5,6 +5,7 @@ using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Forms.Modules.Parameters;
 using SILO.DesktopApplication.Core.Forms.Modules.Sale;
 using SILO.DesktopApplication.Core.Forms.UX;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
@@ -21,6 +22,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 {
     public partial class ApplicationForm : Form
     {
+        private ApplicationMediator mediator;
         public Form parentForm { get; set; }
 
         public ApplicationForm(Form pParentForm)
@@ -30,17 +32,25 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.userContentLabel.Text = SystemSession.username;
             this.posContentLabel.Text = SystemSession.salePoint;
             this.companyContentLabel.Text = SystemSession.company;
+            // Crear el objeto mediador para los distintos componentes
+            mediator = new ApplicationMediator();
+            mediator.appForm = this;
             //this.printMenuButton.BackColor = Color.FromArgb(12, 61, 92);
         }
 
-        private void showFormInMainPanel(MainModuleForm pForm)
+        public void showFormInMainPanel(MainModuleForm pForm, DateTime? pDrawDate = null, long pGroupId = 0)
         {
             this.centerBoxPanel.Hide();
             MainModuleForm existingForm = getExistingForm(pForm);
             // Validar si existe o no el formulario
             if (existingForm == null)
             {
-                // Agregar el nuevo formulario si no existe
+                // Agregar BoxNumber al AppMediator
+                if (pForm.type == SystemConstants.NUMBER_BOX_CODE)
+                {
+                    this.mediator.appNumberBox = (NumberBoxForm) pForm;
+                }
+                // Agregar a la aplicación el nuevo formulario si no existe
                 MainModuleForm formToAdd = pForm as MainModuleForm;
                 formToAdd.TopLevel = false;
                 formToAdd.Dock = DockStyle.Fill;
@@ -57,8 +67,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 // Si se trae al frente un NumberBoxForm, se debe actualizar
                 if (existingForm.type == SystemConstants.NUMBER_BOX_CODE)
                 {
-                    NumberBoxForm numberBox = (NumberBoxForm)existingForm;
-                    numberBox.updateNumberBox();
+                    NumberBoxForm numberBox = (NumberBoxForm) existingForm;
+                    numberBox.updateNumberBox(pDrawDate, pGroupId);
                 }
             }
             this.centerBoxPanel.Show();
@@ -71,8 +81,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             {
                 MainModuleForm currentForm = control as MainModuleForm;
                 int formType = currentForm.type;
-
-                Console.WriteLine(formType.ToString());
+                // Hacer match de los tipos de formulario
                 if (formType == pForm.type)
                 {
                     existingForm = currentForm;
@@ -81,38 +90,36 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             return existingForm;
         }
 
+        private void showDisplayListForm(int pCode) {
+            DisplayListForm displayListForm = new DisplayListForm(this.mediator, pCode);
+            this.showFormInMainPanel(displayListForm);
+        }
+
         //--------------------------------------- Botones de Menú Lateral --------------------------------------//
         #region Botones de Menú Lateral
         private void saleMenuButton_Click(object sender, EventArgs e)
         {
-            this.showFormInMainPanel(new NumberBoxForm());
+            this.showFormInMainPanel(new NumberBoxForm(this.mediator));
         }
 
         private void copyListButton_Click(object sender, EventArgs e)
         {
-            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.COPY_LIST_CODE);
-            this.showFormInMainPanel(displayListForm);
+            this.showDisplayListForm(SystemConstants.COPY_LIST_CODE);
         }
 
         private void printMenuButton_Click(object sender, EventArgs e)
         {
-            //ShowFormInMainPanel(new GeneralConfigurationForm());
-            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.PRINTER_LIST_CODE);
-            this.showFormInMainPanel(displayListForm);
-            //ListSelectorForm listSelectorForm = new ListSelectorForm();
-            //listSelectorForm.ShowDialog();
+            this.showDisplayListForm(SystemConstants.PRINTER_LIST_CODE);
         }
 
         private void eraseButton_Click(object sender, EventArgs e)
         {
-            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.ERASER_LIST_CODE);
-            this.showFormInMainPanel(displayListForm);
+            this.showDisplayListForm(SystemConstants.ERASER_LIST_CODE);
         }
 
         private void displayQRMenuButton_Click(object sender, EventArgs e)
         {
-            DisplayListForm displayListForm = new DisplayListForm(SystemConstants.DISPLAY_QR_CODE);
-            this.showFormInMainPanel(displayListForm);
+            this.showDisplayListForm(SystemConstants.DISPLAY_QR_CODE);
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
@@ -144,12 +151,12 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         #region Acciones de Menú
         private void ventaDePapelesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.showFormInMainPanel(new NumberBoxForm());
+            this.showFormInMainPanel(new NumberBoxForm(this.mediator));
         }
 
         private void prohibidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProhibitedNumberForm prohibitedForm = new ProhibitedNumberForm();
+            ProhibitedNumberForm prohibitedForm = new ProhibitedNumberForm(this.mediator);
             prohibitedForm.ShowDialog();
         }
 

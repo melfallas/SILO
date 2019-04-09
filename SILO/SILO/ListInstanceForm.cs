@@ -1,5 +1,6 @@
 ﻿using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.Sale;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Services;
 using SILO.DesktopApplication.Core.Util;
@@ -32,13 +33,17 @@ namespace SILO
         public NumberBoxForm numberBoxFormParent { get; set; }
         public ListSelectorForm listSelectorFormParent { get; set; }
 
+        public ApplicationMediator appMediator { get; set; }
+
+
         /*  
         public ListInstanceForm()
         {
             initializeComponent();
         }
         */
-        public ListInstanceForm(NumberBoxForm pParent, LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
+        public ListInstanceForm(ApplicationMediator pMediator,
+        NumberBoxForm pParent, LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
         {
             this.numberBoxFormParent = pParent;
             this.listSelectorFormParent = null;
@@ -47,9 +52,11 @@ namespace SILO
             this.drawDate = pDrawDate;
             //this.numberDetail = null;
             initializeComponent();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
         }
 
-        public ListInstanceForm(ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
+        public ListInstanceForm(ApplicationMediator pMediator, ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
             LDT_LotteryDrawType pDrawType, DateTime pDrawDate, List<LotteryTuple> pNumberList = null)
         {
             this.numberBoxFormParent = null;
@@ -58,10 +65,13 @@ namespace SILO
             this.drawType = pDrawType;
             this.drawDate = pDrawDate;
             this.initializeComponent();
+            // Inicializar el list control si hay una lista asociada
             if (pNumberList != null)
             {
                 this.initializeListControl(pNumberList);
             }
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
         }
 
         public void initializeComponent() {
@@ -95,7 +105,16 @@ namespace SILO
         }
 
         private LotteryListControl getCurrentListControl() {
-            return this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            LotteryListControl list = null;
+            if (this.listInstanceMainPanel.Controls.Count > 0)
+            {
+                list = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            }
+            else
+            {
+                MessageBox.Show("ERROR: Desplegando la instancia");
+            }
+            return list;
         }
 
         public void processList()
@@ -125,11 +144,11 @@ namespace SILO
             if (UtilityService.printerEnabled())
             {
                 UtilityService.printList(this.list);
-            }
-            // Actualizar NumberBox si no es nula
+            }            
+            // ***Actualizar NumberBox si no es nula
             if (this.numberBoxFormParent != null)
             {
-                this.numberBoxFormParent.updateNumberBox(this.drawType.LDT_Id);
+                //this.numberBoxFormParent.updateNumberBox(this.drawType.LDT_Id);
             }
             // Sincronizar con el servidor, solamente si los servicios están habilitados
             if (UtilityService.realTimeSyncEnabled())
@@ -146,9 +165,14 @@ namespace SILO
             {
                 this.mainOptionMenu.Hide();
             }
-            this.resetFormList();
+            this.Dispose();
+            // Actualizar BoxNumber y mostrar en pantalla resultado de la venta
+            //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);
+            this.appMediator.displayNumberBox(this.drawDate, this.drawType.LDT_Id);
+            // Limpiar y reestablecer el ListControl
+            //this.resetFormList();
+
             //this.focusList();
-            //this.Dispose();
         }
 
 
@@ -206,15 +230,18 @@ namespace SILO
             {
                 // Actualizar la estructura de lista antes de desplegar menú de opciones
                 LotteryListControl listControl = this.getCurrentListControl();
-                listControl.getList().EndEdit();
-                if (this.mainOptionMenu != null)
+                if (listControl != null)
                 {
-                    this.mainOptionMenu.Dispose();
+                    listControl.getList().EndEdit();
+                    if (this.mainOptionMenu != null)
+                    {
+                        this.mainOptionMenu.Dispose();
+                    }
+                    // Desplegar menú de opciones
+                    this.mainOptionMenu = new MainOptionMenu(this);
+                    mainOptionMenu.ShowDialog(this);
+                    pEvent.SuppressKeyPress = true;
                 }
-                // Desplegar menú de opciones
-                this.mainOptionMenu = new MainOptionMenu(this);
-                mainOptionMenu.ShowDialog(this);
-                pEvent.SuppressKeyPress = true;
             }
         }
 
@@ -226,7 +253,11 @@ namespace SILO
         private void focusList()
         {
             this.listInstanceMainPanel.Focus();
-            this.getCurrentListControl().Focus();
+            LotteryListControl listControl = this.getCurrentListControl();
+            if (listControl != null)
+            {
+                listControl.Focus();
+            }
         }
 
         private void resetFormList()
@@ -290,7 +321,7 @@ namespace SILO
 
         private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
         {
-            processMenuRequest(e);
+            this.processMenuRequest(e);
         }
 
         private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
