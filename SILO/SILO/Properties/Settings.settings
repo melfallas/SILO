@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SILO.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="mainColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">Indigo</Value>
+    </Setting>
+    <Setting Name="primaryColor" Type="System.Drawing.Color" Scope="Application">
+      <Value Profile="(Default)">63, 75, 122</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
