@@ -224,24 +224,21 @@ namespace SILO
             pButton.Enabled = pEnabled;
         }
         
-        private void processMenuRequest(KeyEventArgs pEvent)
+        private void processMenuRequest(/*KeyEventArgs pEvent*/)
         {
-            if (pEvent.KeyCode == Keys.Multiply)
+            // Actualizar la estructura de lista antes de desplegar menú de opciones
+            LotteryListControl listControl = this.getCurrentListControl();
+            if (listControl != null)
             {
-                // Actualizar la estructura de lista antes de desplegar menú de opciones
-                LotteryListControl listControl = this.getCurrentListControl();
-                if (listControl != null)
+                listControl.getList().EndEdit();
+                if (this.mainOptionMenu != null)
                 {
-                    listControl.getList().EndEdit();
-                    if (this.mainOptionMenu != null)
-                    {
-                        this.mainOptionMenu.Dispose();
-                    }
-                    // Desplegar menú de opciones
-                    this.mainOptionMenu = new MainOptionMenu(this);
-                    mainOptionMenu.ShowDialog(this);
-                    pEvent.SuppressKeyPress = true;
+                    this.mainOptionMenu.Dispose();
                 }
+                // Desplegar menú de opciones
+                this.mainOptionMenu = new MainOptionMenu(this);
+                mainOptionMenu.ShowDialog(this);
+                //pEvent.SuppressKeyPress = true;
             }
         }
 
@@ -321,7 +318,17 @@ namespace SILO
 
         private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
         {
-            this.processMenuRequest(e);
+            switch (e.KeyCode)
+            {
+                case Keys.Multiply:
+                    this.processMenuRequest();
+                    break;
+                case Keys.Escape:
+                    this.Dispose();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
