@@ -236,15 +236,18 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         private void cleanBoxNumber()
         {
-            for (int i = 0; i < boxArray.Length; i++)
+            if (this.boxArray != null)
             {
-                //this.boxArray[i].textbox.Text = "0";
-                this.setNumberBoxText(i, "0");
+                for (int i = 0; i < this.boxArray.Length; i++)
+                {
+                    //this.boxArray[i].textbox.Text = "0";
+                    this.setNumberBoxText(i, "0");
+                }
+                this.setTotalImport("0");
+                this.setSyncImport("0");
+                this.setPendingImport("0");
+                this.setMaxToReceive("0");
             }
-            this.setTotalImport("0");
-            this.setSyncImport("0");
-            this.setPendingImport("0");
-            this.setMaxToReceive("0");
         }
 
         private void displayNewListInstance() {
@@ -358,16 +361,18 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         private void datePickerList_ValueChanged(object sender, EventArgs e)
         {
-            //this.drawTypeBox.SelectedIndex = 0;
             this.setSelectedGroup(0);
-            this.cleanBoxNumber();
-            //MessageBox.Show(this.datePickerList.Value.Date);
+            //this.cleanBoxNumber();
         }
 
         private async void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
-            if (groupId != 0)
+            if (groupId == 0)
+            {
+                this.cleanBoxNumber();
+            }
+            else
             {
                 await this.updateNumberBox(groupId);
                 this.displayNewListInstance();

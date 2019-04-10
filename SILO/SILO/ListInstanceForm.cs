@@ -324,6 +324,7 @@ namespace SILO
                     this.processMenuRequest();
                     break;
                 case Keys.Escape:
+                    this.appMediator.setBoxNumberGroup(0);
                     this.Dispose();
                     break;
                 default:

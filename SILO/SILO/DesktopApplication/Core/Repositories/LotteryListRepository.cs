@@ -262,7 +262,7 @@ namespace SILO.DesktopApplication.Core.Repositories
             // Verificar si se requieren solo transacciones pendientes
             if (pOnlyPendingTransactions)
             {
-                aditionalQueryFilters += " AND L.SYS_SynchronyStatus <> " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
+                aditionalQueryFilters += " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
             }
             // Aplicar el query para obtener los datos
             using (var context = new SILOEntities())
