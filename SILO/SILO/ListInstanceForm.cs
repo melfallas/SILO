@@ -168,10 +168,10 @@ namespace SILO
             this.Dispose();
             // Actualizar BoxNumber y mostrar en pantalla resultado de la venta
             //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);
+            this.appMediator.setBoxNumberGroup(0);
             this.appMediator.displayNumberBox(this.drawDate, this.drawType.LDT_Id);
             // Limpiar y reestablecer el ListControl
             //this.resetFormList();
-
             //this.focusList();
         }
 

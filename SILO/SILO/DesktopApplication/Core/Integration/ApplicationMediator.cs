@@ -18,14 +18,37 @@ namespace SILO.DesktopApplication.Core.Integration
         {
             this.appForm.showFormInMainPanel(new NumberBoxForm(this), pDrawDate, pGroupId);
         }
+
+        public void setBoxNumberGroup(int pGroupId)
+        {
+            if (this.appNumberBox != null)
+            {
+                this.appNumberBox.setSelectedGroup(pGroupId);
+            }
+        }
         
         public void updateBoxNumber()
         {
-            this.appNumberBox.updateNumberBox();
+            if (this.appNumberBox != null)
+            {
+                this.appNumberBox.updateNumberBox();
+            }
         }
 
         public void updateBoxNumber(long pGroupId) {
-            this.appNumberBox.updateNumberBox(pGroupId);
+            if (this.appNumberBox != null)
+            {
+                this.appNumberBox.updateNumberBox(pGroupId);
+            }
         }
+
+        public void updateBoxNumber(long pGroupId, DateTime pDrawDate)
+        {
+            if (this.appNumberBox != null)
+            {
+                this.appNumberBox.updateNumberBox(pDrawDate, pGroupId);
+            }
+        }
+
     }
 }

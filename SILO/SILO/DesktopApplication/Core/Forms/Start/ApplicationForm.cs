@@ -58,6 +58,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 this.centerBoxPanel.Tag = formToAdd;
                 formToAdd.Show();
                 formToAdd.BringToFront();
+                this.mediator.updateBoxNumber(0, DateTime.Today);
             }
             else
             {
@@ -67,8 +68,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 // Si se trae al frente un NumberBoxForm, se debe actualizar
                 if (existingForm.type == SystemConstants.NUMBER_BOX_CODE)
                 {
-                    NumberBoxForm numberBox = (NumberBoxForm) existingForm;
+                    NumberBoxForm numberBox = (NumberBoxForm)existingForm;
                     numberBox.updateNumberBox(pDrawDate, pGroupId);
+                }
+                else {
+                    this.mediator.updateBoxNumber(0, DateTime.Today);
                 }
             }
             this.centerBoxPanel.Show();
