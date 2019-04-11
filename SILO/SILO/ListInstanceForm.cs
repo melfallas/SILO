@@ -324,7 +324,7 @@ namespace SILO
                     this.processMenuRequest();
                     break;
                 case Keys.Escape:
-                    this.appMediator.setBoxNumberGroup(0);
+                    //this.appMediator.setBoxNumberGroup(0);
                     this.Dispose();
                     break;
                 default:
@@ -334,6 +334,7 @@ namespace SILO
 
         private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            this.appMediator.setBoxNumberGroup(0);
             if (this.listSelectorFormParent != null)
             {
                 this.listSelectorFormParent.Dispose();

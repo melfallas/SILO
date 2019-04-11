@@ -73,7 +73,7 @@ namespace SILO
         {
             CopyListForm copyListForm = new CopyListForm(this.appMediator, this, pListId);
             this.Hide();
-            copyListForm.ShowDialog();
+            copyListForm.ShowDialog(this);
             LotteryListRepository listRepository = new LotteryListRepository();
            // UtilityService.printList(listRepository.getById(pListId));
         }
