@@ -38,6 +38,9 @@ namespace SILO
         private TicketPrintService ticketPrintService;
 
 
+        private bool optionMenuEnabled;
+
+
         /*  
         public ListInstanceForm()
         {
@@ -47,6 +50,7 @@ namespace SILO
         public ListInstanceForm(ApplicationMediator pMediator,
         NumberBoxForm pParent, LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
         {
+            this.optionMenuEnabled = true;
             this.numberBoxFormParent = pParent;
             this.listSelectorFormParent = null;
             this.pointSale = pPointSale;
@@ -62,6 +66,7 @@ namespace SILO
         public ListInstanceForm(ApplicationMediator pMediator, ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
             LDT_LotteryDrawType pDrawType, DateTime pDrawDate, List<LotteryTuple> pNumberList = null)
         {
+            this.optionMenuEnabled = true;
             this.numberBoxFormParent = null;
             this.listSelectorFormParent = pSelectorForm;
             this.pointSale = pPointSale;
@@ -127,8 +132,7 @@ namespace SILO
             // Validar si la lista tiene datos
             if (listControl.loteryList.tupleList.Count == 0)
             {
-                this.setActiveButton(this.printListButton, true);
-                this.setActiveButton(this.eraseListButton, true);
+                this.setEnabledButtonsAndMenu(true);
                 MessageBox.Show("La lista no tiene datos");
                 //this.togglePrintListButton();
             }
@@ -141,6 +145,17 @@ namespace SILO
 
         public void createList()
         {
+            this.setEnabledButtonsAndMenu(false);
+            // Cerrar y liberar memoria de formulario de selección si no es nulo
+            if (this.listSelectorFormParent != null)
+            {
+                this.listSelectorFormParent.Dispose();
+            }
+            // Si existe un option menu abierto, cerrarlo
+            if (this.mainOptionMenu != null)
+            {
+                this.mainOptionMenu.Hide();
+            }
             // Guardar la lista de manera local
             LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
             List < LND_ListNumberDetail > savedNumberDetailList = this.saveList(listControl);
@@ -159,6 +174,7 @@ namespace SILO
             {
                 this.sendListNumberToServer(savedNumberDetailList);
             }
+            /*
             // Cerrar y liberar memoria de formulario de selección si no es nulo
             if (this.listSelectorFormParent != null)
             {
@@ -169,6 +185,7 @@ namespace SILO
             {
                 this.mainOptionMenu.Hide();
             }
+            */
             this.Dispose();
             // Actualizar BoxNumber y mostrar en pantalla resultado de la venta
             //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);
@@ -263,10 +280,16 @@ namespace SILO
         private void resetFormList()
         {
             //this.numberDetail = null;
-            this.setActiveButton(this.printListButton, true);
-            this.setActiveButton(this.eraseListButton, true);
+            this.setEnabledButtonsAndMenu(true);
             this.clearList();
             this.focusList();
+        }
+
+        private void setEnabledButtonsAndMenu(bool pActivate)
+        {
+            this.optionMenuEnabled = pActivate;
+            this.setActiveButton(this.printListButton, pActivate);
+            this.setActiveButton(this.eraseListButton, pActivate);
         }
 
         //--------------------------------------- Eventos de Controles --------------------------------------//
@@ -284,8 +307,7 @@ namespace SILO
             {
                 case DialogResult.Yes:
                     // Procesar la impresión
-                    this.setActiveButton(this.printListButton, false);
-                    this.setActiveButton(this.eraseListButton, false);
+                    this.setEnabledButtonsAndMenu(false);
                     this.processList();
                     this.resetFormList();
                     break;
@@ -324,7 +346,10 @@ namespace SILO
             switch (e.KeyCode)
             {
                 case Keys.Multiply:
-                    this.processMenuRequest();
+                    if (this.optionMenuEnabled)
+                    {
+                        this.processMenuRequest();
+                    }
                     break;
                 case Keys.Escape:
                     //this.appMediator.setBoxNumberGroup(0);

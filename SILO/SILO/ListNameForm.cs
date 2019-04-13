@@ -32,6 +32,7 @@ namespace SILO
             {
                 case Keys.Enter:
                     this.listInstance.customerName = txtListName.Text;
+                    this.Hide();
                     this.listInstance.createList();
                     this.Dispose();
                     break;

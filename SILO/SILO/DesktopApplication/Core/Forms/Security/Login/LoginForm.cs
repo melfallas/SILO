@@ -84,7 +84,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
             //synStatusArray[0] = syncService.syncNumbers_LocalToServer();
-            
+            /*
             synStatusArray[0] = syncService.syncCompany_ServerToLocal();
             this.updateProgressBar(40);
             this.changeStatusLegend("Cargando sucursales...");
@@ -102,7 +102,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             {
                 MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
             }
-            
+            */
         }
 
         private void updateProgressBar(int pProgressValue)
