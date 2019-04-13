@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Services
 {
-    class TicketPrintService
+    public class TicketPrintService
     {
         private LotteryListRepository listRepo;
         private LotteryDrawTypeRepository drawTypeRepo;
@@ -21,6 +21,7 @@ namespace SILO.DesktopApplication.Core.Services
             LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
         }
 
+        // Método para imprimir un ticket de venta de una lista
         public void printList(LTL_LotteryList pNumberList)
         {
             // Configurar impresión para Ticket de Venta
@@ -54,5 +55,35 @@ namespace SILO.DesktopApplication.Core.Services
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printLotterySaleTicket(printerName);
         }
+
+        // Método para imprimir la lista de los números premiados y ganadores
+        public void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            // Configurar impresión para Ticket de Venta
+            TicketPrinter ticketPrinter = new TicketPrinter();
+            PrizeTicket prizeTicket = new PrizeTicket();
+            prizeTicket.companyName = UtilityService.getCompanyName();
+            prizeTicket.title = "NÚMEROS PREMIADOS";
+            // Obtener datos del punto de venta
+            LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
+            prizeTicket.pointSaleName = pointSale.LPS_DisplayName;
+            prizeTicket.drawDate = pDraw.LTD_CreateDate;
+            // Obtener datos de tipo de sorteo
+            LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
+            LDT_LotteryDrawType drawType = drawTypeRepo.getById(pDraw.LDT_LotteryDrawType);
+            prizeTicket.drawTypeCode = drawType.LDT_Code;
+            // Llenar datos del número de lista
+            prizeTicket.createDate = DateTime.Now;
+            // Obtener listado de información de ganadores
+            LotteryListRepository lotteryListRepository = new LotteryListRepository();
+            prizeTicket.listWinningInfo = lotteryListRepository.getWinningNumbersList(pDraw, pWinningNumberArray);
+            prizeTicket.winnerNumbers = pWinningNumberArray;
+            ticketPrinter.prizeTicket = prizeTicket;
+            // Obtener nombre de impresora y enviar impresión
+            string printerName = UtilityService.getTicketPrinterName();
+            ticketPrinter.printPrizeTicket(printerName);
+            Console.Write(ticketPrinter.ticketStringText);
+        }
+
     }
 }

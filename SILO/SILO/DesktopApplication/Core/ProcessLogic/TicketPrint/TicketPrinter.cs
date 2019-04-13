@@ -35,7 +35,10 @@ namespace SILO
 
         private float topPrintMargin = 0;
 
-        
+
+        public string ticketStringText { get; set; }
+
+
         private static string fontName = "Lucida Console";
         private int fontSize = 7;
 
@@ -74,6 +77,16 @@ namespace SILO
         public PrizeTicket prizeTicket { get; set; }
 
         #endregion
+
+
+        public TicketPrinter() {
+            this.ticketStringText = "";
+        }
+
+        private void addTicketStringLine(string pLineText)
+        {
+            this.ticketStringText += pLineText + "\n";
+        }
 
 
         #region Métodos Anteriores
@@ -262,7 +275,7 @@ namespace SILO
         public void printPrizeTicket(string impresora)
         {
             this.maxChar = 31;
-            this.printFont = new Font(fontName, (float)prizeTicketFontSize, FontStyle.Regular);
+            this.printFont = new Font(fontName, (float) prizeTicketFontSize, FontStyle.Regular);
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrinterSettings.PrinterName = impresora;
             printDocument.PrintPage += printPrizePage;
@@ -271,6 +284,7 @@ namespace SILO
 
         private void printPrizePage(object sender, PrintPageEventArgs e)
         {
+            this.ticketStringText = "";
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
             gfx = e.Graphics;
             this.generatePrizeHeader();
@@ -287,15 +301,17 @@ namespace SILO
         {
             string line = "";
             string printTime = this.prizeTicket.createDate.ToString("HH:mm");
-            string printDate = this.prizeTicket.createDate.ToString("dd-MM-yyyy");
+            string printDate = this.prizeTicket.createDate.ToString("dd-MM");
             string drawDate = this.prizeTicket.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.prizeTicket.drawDate.ToString("dd/MM/yyyy");
             // Imprimir líneas de encabezado
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 2, FontStyle.Bold);
             this.drawCenterLine(this.prizeTicket.companyName);
             this.drawCenterLine(this.prizeTicket.title);
             line = "**" + this.prizeTicket.drawTypeCode + "**";
             this.drawCenterLine(line);
             this.drawCenterLine(drawDate);
             this.DrawEspacio();
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 1, FontStyle.Bold);
             line = "PREMIOS: -";
             for (int i = 0; i < this.prizeTicket.winnerNumbers.Length; i++)
             {
@@ -305,24 +321,86 @@ namespace SILO
             line = "SUC: " + this.prizeTicket.pointSaleName;
             this.drawCenterLine(line);
             this.DrawEspacio();
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize - 1, FontStyle.Regular);
             line = "" + printTime + "                " + printDate + "";
             this.drawCenterLine(line);
         }
 
         private void generatePrizeList()
         {
-            this.generateLine("=");
-            string listHeaders = "No \t MONTO \t PREMIO \t CLAVE";
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Bold);
+            //this.generateLine("=");
+            this.drawCenterLine("", 0, "-");
+            string listHeaders = "No "
+                + this.fillString("MONTO", 7)
+                + this.fillString("PREMIO", 11)
+                ;
             this.drawLine(listHeaders);
-            this.generateLine("=");
+            this.drawCenterLine("", 0, "-");
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Bold);
             this.DrawEspacio();
             this.printPriceList();
-
         }
 
         private void printPriceList()
         {
-            foreach(WinningNumberInfo item in this.prizeTicket.listWinningInfo)
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
+            foreach (WinningNumberInfo item in this.prizeTicket.listWinningInfo)
+            {
+                // Línea de números e importes
+                string localTicketId = this.fillString(item.localId.ToString(), 4, "0");
+                string globalTicketId = UtilityService.getGlobalId(item.localId);
+                string itemList =
+                    this.fillString(item.numberCode, 2, "0")                                // Número Ganador
+                    + " " + this.fillString(this.formatNumber(item.saleImport), 7) + " "    // Importe de la Venta
+                    + this.fillString(this.formatNumber(item.prizeImport), 11)              // Importe Pagado
+                    ;
+                this.drawLine(itemList);
+                // Línea de número de Ticket
+                this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 1, FontStyle.Bold);
+                itemList = "->" + globalTicketId
+                    + "/" + localTicketId
+                    ;
+                itemList += (item.customerName.Trim() == "" ? "" : " ->" + item.customerName.Substring(0, 6));
+                //this.drawLine(itemList);
+                this.addTicketStringLine(itemList);
+                this.drawPrizeTicketLine(globalTicketId, localTicketId, item.customerName);
+                this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
+                this.DrawEspacio();
+            }
+        }
+
+        // Método que dibuja la linea que se le envía como parámetro
+        private void drawPrizeTicketLine(string pGlobalId, string pLocalTicketId, string pCustomerName)
+        {
+            int oldSize = this.maxChar;
+            Font oldPrintFont = this.printFont;
+            //this.setFontAndMaxChar(this.defaultTicketFontSize - 1, FontStyle.Regular);
+            //gfx.DrawString("->", printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+            this.setFontAndMaxChar(this.defaultTicketFontSize + 2, FontStyle.Bold);
+            gfx.DrawString(pGlobalId, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+            this.setFontAndMaxChar(this.defaultTicketFontSize, FontStyle.Regular);
+            gfx.DrawString("        /" + pLocalTicketId, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+            if (pCustomerName.Trim() != "")
+            {
+                this.setFontAndMaxChar(this.defaultTicketFontSize - 1, FontStyle.Regular);
+                gfx.DrawString("               ->" + pCustomerName.Substring(0, 10), printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+            }
+            this.printFont = oldPrintFont;
+            this.addLineHeight();
+            count++;
+            this.maxChar = oldSize;
+        }
+
+        private void setFontAndMaxChar(int pFontSize, FontStyle pfontStyle)
+        {
+            this.setPrintFont(this.defaultTicketFontName, pFontSize, pfontStyle);
+            this.maxChar = this.getMaxCharByFontSize((int)this.printFont.Size);
+        }
+
+        private void printPriceListBK()
+        {
+            foreach (WinningNumberInfo item in this.prizeTicket.listWinningInfo)
             {
                 string itemList =
                     this.fillString(item.numberCode, 2, "0")
@@ -339,33 +417,20 @@ namespace SILO
             }
         }
 
-        private void printPriceList2()
-        {
-            int[] numeros = { 84, 07, 42, 23, 00 };
-            int[] montos = { 500, 500, 1000, 500, 1500 };
-            int[] premios = { 37500, 86000, 23700, 98000, 235600 };
-            string[] claves = { "370811", "370811", "370811", "370811", "370811" };
-            string[] idArray = { "0037", "0037", "0037", "0037", "0037" };
-
-            for (int i = 0; i < montos.Length; i++)
-            {
-                string itemList =
-                    this.fillString(numeros[i].ToString(), 2, "0")
-                    + " " + this.fillString(this.formatNumber(montos[i]), 6) + " "
-                    + this.fillString(this.formatNumber(premios[i]), 7)
-                    + "->" + claves[i] + "/" + idArray[i]
-                    ;
-                this.drawLine(itemList);
-                this.drawLine("--> ESTRELLA");
-                this.DrawEspacio();
-            }
-        }
 
         private void generatePrizeFooter() {
-            this.generateLine("=");
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Bold);
+            //this.generateLine("=");
+            this.drawCenterLine("", 0, "-");
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
             long saleImport = this.prizeTicket.getTotalSaleImport();
             long prizeImport = this.prizeTicket.getTotalPrizeImport();
-            string line = "**TOTAL   " + this.formatNumber(saleImport) + "      " + this.formatNumber(prizeImport);
+            //string line = "**TOTAL   " + this.formatNumber(saleImport) + "      " + this.formatNumber(prizeImport);
+            string line =
+                    "TOTAL"
+                    + this.fillString(this.formatNumber(saleImport), 7) + " "    // Importe Total de la Venta
+                    + this.fillString(this.formatNumber(prizeImport), 11)              // Importe Total Pagado
+                    ;
             this.drawCenterLine(line);
         }
 
@@ -384,6 +449,9 @@ namespace SILO
             {
                 case 7:
                     size = 30;
+                    break;
+                case 8:
+                    size = 27;
                     break;
                 case 9:
                     size = 24;
@@ -515,83 +583,7 @@ namespace SILO
 
 
         #endregion
-
-        /*
-        private void pr_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            e.Graphics.PageUnit = GraphicsUnit.Millimeter;
-            gfx = e.Graphics;
-            //DrawImage();
-            //DrawHeader();
-            this.generateHeader();
-            this.generateList();
-            this.generateFooter();
-            //DrawSubHeader();
-            //DrawItems();
-            //DrawTotales();
-            //DrawFooter();
-            if (headerImage != null)
-            {
-                HeaderImage.Dispose();
-                headerImage.Dispose();
-            }
-        }
-
         
-        private void generateHeader()
-        {
-            string line = "/17:15/----------------------/0039/";
-            this.drawLine(line);
-            line = "<<ESTRELLA>>";
-            this.drawCenterLine(line);
-            line = "TIEMPOS RIVERA";
-            this.drawCenterLine(line);
-            line = "**NOCHE**";
-            this.drawCenterLine(line);
-            line = "JUEVES 18/10/2018";
-            this.drawCenterLine(line);
-            line = "GRUPO: SAN PABLO \t CL: 639648";
-            this.drawCenterLine(line);
-        }
-
-        private void generateList()
-        {
-            this.generateLine("-");
-            //this.DrawEspacio();
-            this.printList();
-            this.DrawEspacio();
-        }
-
-        private void generateFooter()
-        {
-            this.drawCenterLine(" RECUERDE QUE ", "=");
-            string line = "AL 1RO: 75";
-            this.drawCenterLine(line);
-            line = "*** REVISE SU TIQUETE ***";
-            this.drawCenterLine(line);
-            line = "*** GRACIAS Y SUERTE ***";
-            this.drawCenterLine(line);
-            line = "***";
-            this.drawCenterLine(line);
-        }
-
-        private void printList()
-        {
-            int[] montos = { 500, 500, 1000, 500, 1500 };
-            int[] numeros = { 84, 07, 42, 23, 00 };
-            string listHeaders = this.fillString("MONTO", 6) + "   No";
-            this.drawLine(this.printInColumns(listHeaders, 3));
-            for (int i = 0; i < montos.Length; i++)
-            {
-                string itemList = "" + this.fillString(montos[i].ToString(), 6) + " X " + this.fillString(numeros[i].ToString(), 2, "0");
-                this.drawLine(this.printInColumns(itemList, 3));
-                //this.drawLine(itemList);
-            }
-            string totalLabel = "+++TOTAL: ***5,500";
-            this.drawLine(this.printInColumns(totalLabel, 3));
-        }
-        */
-
         private string printInColumns(string pText, int pColumns)
         {
             int oldSize = this.maxChar;
@@ -656,10 +648,14 @@ namespace SILO
         // Método que dibuja la linea que se le envía como parámetro
         private void drawLine(string pLineText)
         {
+            int oldSize = this.maxChar;
+            this.maxChar = this.getMaxCharByFontSize((int)this.printFont.Size);
             line = pLineText;
+            this.addTicketStringLine(line);
             gfx.DrawString(line, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
             this.addLineHeight();
             count++;
+            this.maxChar = oldSize;
         }
 
         // Método que dibuja la linea que se le envía como parámetro
@@ -678,6 +674,7 @@ namespace SILO
             {
                 line = pLineText;
             }
+            this.addTicketStringLine(line);
             gfx.DrawString(line, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
             count++;
             this.addLineHeight();
@@ -688,11 +685,14 @@ namespace SILO
         private void generateLine(string pTextPatterm)
         {
             string text = "";
+            int oldSize = this.maxChar;
+            this.maxChar = this.getMaxCharByFontSize((int)this.printFont.Size);
             for (int i = 0; i < maxChar; i++)
             {
                 text += pTextPatterm;
             }
             this.drawLine(text);
+            this.maxChar = oldSize;
         }
 
         // Línea divisoria
@@ -844,9 +844,11 @@ namespace SILO
         {
             line = "";
             gfx.DrawString(line, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+            this.addTicketStringLine(line);
             this.addLineHeight();
             count++;
         }
+
     }
 
 }

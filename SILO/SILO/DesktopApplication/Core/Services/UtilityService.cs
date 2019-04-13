@@ -311,6 +311,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
         */
 
+        /*
         public static void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
         {
             // Configurar impresión para Ticket de Venta
@@ -337,6 +338,7 @@ namespace SILO.DesktopApplication.Core.Services
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printPrizeTicket(printerName);
         }
+        */
 
         public static Bitmap buildQRCode(string pCodeText, int pBitmapWidth, int pBitmapHeight)
         {

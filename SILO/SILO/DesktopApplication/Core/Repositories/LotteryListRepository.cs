@@ -112,7 +112,10 @@ namespace SILO.DesktopApplication.Core.Repositories
                         + " FROM LTL_LotteryList AS L INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id " 
                         + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw INNER JOIN LNR_LotteryNumber AS LN ON LN.LNR_Id = N.LNR_LotteryNumber "
                         + "WHERE L.LPS_LotteryPointSale = " + posId + " "
-                        + " AND D.LTD_Id = " + pDraw.LTD_Id + " AND LN.LNR_Number = '" + pWinningNumberArray[0] + "' ;";
+                        + " AND D.LTD_Id = " + pDraw.LTD_Id + " "
+                        + " AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
+                        + " AND LN.LNR_Number = '" + pWinningNumberArray[0] + "'" 
+                        + " ;";
                     listDataCollection = context.Database.
                         SqlQuery<WinningNumberInfo>(query)
                         .ToList()
