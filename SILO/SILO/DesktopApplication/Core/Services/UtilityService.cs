@@ -1,5 +1,6 @@
 ﻿using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
+using SILO.DesktopApplication.Core.Model.TicketModel;
 using SILO.DesktopApplication.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,9 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static string getCompanyName()
         {
-            return getLocalParameterValue(COMPANY_NAME_PARAM);
+            CompanyRepository companyRepo = new CompanyRepository();
+            long posId = Convert.ToInt64(getCompanyId());
+            return companyRepo.getById(posId).CPN_DisplayName;
         }
 
         public static LPS_LotteryPointSale getPointSale()
@@ -63,6 +66,26 @@ namespace SILO.DesktopApplication.Core.Services
             long posId = Convert.ToInt64(getLocalParameterValue(POS_NAME_PARAM));
             return posRepository.getById(posId).LPS_Id;
         }
+
+
+        public static void setPrinter(string pNewParamValue)
+        {
+            setLocalParameter("Nombre_Impresora", pNewParamValue);
+        }
+
+        public static void setEnablePrinter(string pNewParamValue)
+        {
+            setLocalParameter("Habilitar_Impresion", pNewParamValue);
+        }
+
+        public static void setLocalParameter(string pParamName, string pNewParamValue)
+        {
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            LPR_LocalParameter localParameter = localParamRepo.getByName(pParamName);
+            localParameter.LPR_Value = pNewParamValue;
+            localParamRepo.save(localParameter);
+        }
+
 
         public static bool printerEnabled()
         {
@@ -164,7 +187,10 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static string getEncodeQRString(String pNumberListString, DateTime pDate, long pGroup)
         {
-            return fillNumberString(pGroup.ToString(), 2) + pDate.ToString("yyyyMMdd") + "N" + pNumberListString;
+            string pointSaleId = fillNumberString(UtilityService.getPointSaleId().ToString(), 2);
+            string draDate = pDate.ToString("yyyyMMdd");
+            string groupId = fillNumberString(pGroup.ToString(), 2);
+            return groupId + draDate + pointSaleId + "N" + pNumberListString;
         }
 
 
@@ -188,7 +214,8 @@ namespace SILO.DesktopApplication.Core.Services
         public static string getPendingTransactions(DateTime pDate, long pGroup)
         {
             LotteryListRepository lotteryListRepository = new LotteryListRepository();
-            return lotteryListRepository.getPosTotalListString(pDate, pGroup);
+            //return lotteryListRepository.getPosTotalListString(pDate, pGroup);
+            return lotteryListRepository.getPosPendingTransactionsListString(pDate, pGroup);
         }
 
         public static string compressNumberString(string pNumberString)
@@ -251,7 +278,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
 
-
+        /*
         public static void printList(LTL_LotteryList pNumberList)
         {
             // Configurar impresión para Ticket de Venta
@@ -276,13 +303,15 @@ namespace SILO.DesktopApplication.Core.Services
             saleTicket.customerName = pNumberList.LTL_CustomerName;
             // Obtener detalle de la lista procesada
             LotteryListRepository listRepo = new LotteryListRepository();
-            saleTicket.listNumberDetail = listRepo.getListDetail(pNumberList.LTL_Id);
+            saleTicket.listNumberDetail = listRepo.getTupleListDetail(pNumberList.LTL_Id);
             ticketPrinter.saleTicket = saleTicket;
             // Obtener nombre de impresora y enviar impresión
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printLotterySaleTicket(printerName);
         }
+        */
 
+        /*
         public static void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
         {
             // Configurar impresión para Ticket de Venta
@@ -309,6 +338,7 @@ namespace SILO.DesktopApplication.Core.Services
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printPrizeTicket(printerName);
         }
+        */
 
         public static Bitmap buildQRCode(string pCodeText, int pBitmapWidth, int pBitmapHeight)
         {

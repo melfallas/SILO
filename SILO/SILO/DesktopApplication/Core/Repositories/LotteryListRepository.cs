@@ -1,4 +1,6 @@
-﻿using SILO.DesktopApplication.Core.Constants;
+﻿using SILO.DesktopApplication.Core.Abstract.Generic;
+using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Model.NumberModel;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -8,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Repositories
 {
-    class LotteryListRepository
+    class LotteryListRepository : GenericRepository<LTL_LotteryList, Object>
     {
+        /*
         public LTL_LotteryList getById(long pId) {
             LTL_LotteryList list = null;
             using (var context = new SILOEntities())
@@ -18,9 +21,31 @@ namespace SILO.DesktopApplication.Core.Repositories
             }
             return list;
         }
+        */
 
+        public List<LTL_LotteryList> getPosPendingTransactions() {
+            return this.getAll().Where(
+                item =>
+                    item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
+                &&  item.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER
+                ).ToList(); ;
+        }
 
-        public List<LotteryTuple> getListDetail(long pId) {
+        public List<LND_ListNumberDetail> getListDetail(long pId)
+        {
+            List<LND_ListNumberDetail> numberList = null;
+            using (var context = new SILOEntities())
+            {
+                if (pId != 0)
+                {
+                    // Obtener detalle de números pertenecientes a la lista
+                    numberList = context.LND_ListNumberDetail.Where(item => item.LTL_LotteryList == pId).ToList();
+                }
+            }
+            return numberList;
+        }
+
+        public List<LotteryTuple> getTupleListDetail(long pId) {
             List<LotteryTuple> tupleList = new List<LotteryTuple>();
             using (var context = new SILOEntities())
             {
@@ -48,6 +73,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                 list.LTL_CreateDate = pList.LTL_CreateDate;
                 list.LTL_CustomerName = pList.LTL_CustomerName;
                 list.LLS_LotteryListStatus = pList.LLS_LotteryListStatus;
+                list.SYS_SynchronyStatus = pList.SYS_SynchronyStatus;
                 context.SaveChanges();
             }
         }
@@ -62,7 +88,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                 var query = "SELECT '0' || L.LPS_LotteryPointSale || '000' || L.LTL_Id AS global, '0' || L.LTL_Id AS id, L.LTL_CreateDate AS date, L.LTL_CustomerName AS name FROM LTL_LotteryList AS L INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw " 
                     + "WHERE D.LTD_CreateDate = '"+ drawDate + "' " 
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
-                    + "AND L.LLS_LotteryListStatus <> 2 "
+                    + "AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
                     + " ;";
                 listDataCollection = context.Database.
                     SqlQuery<ListData>(query)
@@ -86,7 +112,10 @@ namespace SILO.DesktopApplication.Core.Repositories
                         + " FROM LTL_LotteryList AS L INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id " 
                         + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw INNER JOIN LNR_LotteryNumber AS LN ON LN.LNR_Id = N.LNR_LotteryNumber "
                         + "WHERE L.LPS_LotteryPointSale = " + posId + " "
-                        + " AND D.LTD_Id = " + pDraw.LTD_Id + " AND LN.LNR_Number = '" + pWinningNumberArray[0] + "' ;";
+                        + " AND D.LTD_Id = " + pDraw.LTD_Id + " "
+                        + " AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
+                        + " AND LN.LNR_Number = '" + pWinningNumberArray[0] + "'" 
+                        + " ;";
                     listDataCollection = context.Database.
                         SqlQuery<WinningNumberInfo>(query)
                         .ToList()
@@ -121,11 +150,11 @@ namespace SILO.DesktopApplication.Core.Repositories
         }
         */
 
-        public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup)
+        public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup, bool pOnlyPendingTransactions = false)
         {
             int[] importArray = new int[100];
             string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
-
+            string pendingFilter = " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
             Dictionary<int, int> importCollection = new Dictionary<int, int>();
             using (var context = new SILOEntities())
             {
@@ -139,6 +168,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                     + "AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
                     + "AND D.LTD_CreateDate = '" + drawDate + "' "
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
+                    + (pOnlyPendingTransactions ? pendingFilter : "")
                     + "GROUP BY N.LNR_LotteryNumber "
                     + ";"
                     ;
@@ -167,6 +197,13 @@ namespace SILO.DesktopApplication.Core.Repositories
         }
 
         //******************* Obtiene ListString de una Sucursal Específica *******************//
+        
+        public string getPosPendingTransactionsListString(DateTime pDate, long pGroup)
+        {
+            long salePointId = UtilityService.getPointSaleId();
+            return this.getDrawListTotalCompressString(salePointId, pDate, pGroup, true);
+        }
+
         public string getPosTotalListString(DateTime pDate, long pGroup)
         {
             long salePointId = UtilityService.getPointSaleId();
@@ -181,12 +218,12 @@ namespace SILO.DesktopApplication.Core.Repositories
             */
         }
 
-        public string getDrawListTotalCompressString(long pSalePointId, DateTime pDate, long pGroup)
+        public string getDrawListTotalCompressString(long pSalePointId, DateTime pDate, long pGroup, bool pOnlyPendingTransactions = false)
         {
             string totalString = "";
             int[] importArray = new int[100];
             // Obtener colección con totales de números y su importe
-            Dictionary<int, int> numberImportCollection = getDrawListTotalCollection(pSalePointId, pDate, pGroup);
+            Dictionary<int, int> numberImportCollection = getDrawListTotalCollection(pSalePointId, pDate, pGroup, pOnlyPendingTransactions);
             // Construir hilera de números e importes comprimida
             for (int i = 0; i < importArray.Length; i++)
             {
@@ -200,7 +237,7 @@ namespace SILO.DesktopApplication.Core.Repositories
             return totalString;
         }
 
-        public Dictionary<int, int> getDrawListTotalCollection(long pSalePointId, DateTime pDate, long pGroup)
+        public Dictionary<int, int> getDrawListTotalCollection(long pSalePointId, DateTime pDate, long pGroup, bool pOnlyPendingTransactions = false)
         {
             string aditionalQueryFilters = " ";
             int[] importArray = new int[100];
@@ -226,6 +263,11 @@ namespace SILO.DesktopApplication.Core.Repositories
                     aditionalQueryFilters += " AND D.LTD_CreateDate = '" + pDate.ToString("yyyy-MM-dd") + " 00:00:00' ";
                 }
             }
+            // Verificar si se requieren solo transacciones pendientes
+            if (pOnlyPendingTransactions)
+            {
+                aditionalQueryFilters += " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
+            }
             // Aplicar el query para obtener los datos
             using (var context = new SILOEntities())
             {
@@ -236,8 +278,8 @@ namespace SILO.DesktopApplication.Core.Repositories
                     + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw "
                     + "INNER JOIN LDT_LotteryDrawType AS T ON T.LDT_Id = D.LDT_LotteryDrawType "
                     + "WHERE L.LPS_LotteryPointSale = " + pSalePointId + " "
-                    + "AND L.LLS_LotteryListStatus <> 2 "
                     + aditionalQueryFilters
+                    + "AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
                     + "GROUP BY N.LNR_LotteryNumber "
                     + ";"
                     ;

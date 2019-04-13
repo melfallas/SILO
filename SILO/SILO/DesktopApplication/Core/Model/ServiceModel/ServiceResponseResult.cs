@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SILO.DesktopApplication.Core.Model
+namespace SILO.DesktopApplication.Core.Model.ServiceModel
 {
     public class ServiceResponseResult
     {

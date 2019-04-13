@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Model;
+using SILO.DesktopApplication.Core.Model.ServiceModel;
+using SILO.DesktopApplication.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,12 +42,12 @@ namespace SILO.DesktopApplication.Core.Services
 
         //----------------- Métodos para enviar datos al Servidor -----------------//
 
-        public ServiceResponseResult sendNumberDataToService(Object pJsonObject, string pHttpMethod = "POST")
+        public ServiceResponseResult sendNumberDataToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POS_METHOD)
         {
             return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_NUMBER_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
         }
 
-        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = "POST")
+        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POS_METHOD)
         {
             return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
         }
@@ -105,13 +107,99 @@ namespace SILO.DesktopApplication.Core.Services
             readStream.Close();
         }
 
-
-        public ServiceResponseResult generateList(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumberDetail)
+        public object generateSimpleListObject(LTL_LotteryList pListObject, 
+            long pListStatus = SystemConstants.LIST_STATUS_CREATED, 
+            long pSyncStatus = SystemConstants.SYNC_STATUS_COMPLETED
+            )
         {
-            // Trasnformar LND_ListNumberDetail en una lista de elementos para el json
-            List<ListNumberDetail> numberDetail = pListNumberDetail.Select(
-                x => new ListNumberDetail(x.LND_Id, x.LTL_LotteryList, x.LNR_LotteryNumber, x.LND_SaleImport)
-            ).ToList();
+            LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
+            LTD_LotteryDraw draw = lotteryDrawRepository.getById(pListObject.LTD_LotteryDraw);
+            LotteryPointSaleRepository saleRepo = new LotteryPointSaleRepository();
+            LPS_LotteryPointSale pointSale = saleRepo.getById(pListObject.LPS_LotteryPointSale);
+            // Crear el objeto JSON
+            var jsonObject = new
+            {
+                listNumber = pListObject.LTL_Id,
+                lotteryPointSale = pointSale.LPS_Id,
+                lotteryDraw = pListObject.LTD_LotteryDraw,
+                lotteryListStatus = pListStatus,
+                synchronyStatus = pSyncStatus,
+                customerName = pListObject.LTL_CustomerName,
+                createDate = pListObject.LTL_CreateDate.ToString("yyyy-MM-dd HH:mm:ss"),
+            };
+            return jsonObject;
+        }
+
+        public object generateListObject(LTL_LotteryList pListObject)
+        {
+            LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
+            LTD_LotteryDraw draw = lotteryDrawRepository.getById(pListObject.LTD_LotteryDraw);
+            LotteryPointSaleRepository saleRepo = new LotteryPointSaleRepository();
+            LPS_LotteryPointSale pointSale = saleRepo.getById(pListObject.LPS_LotteryPointSale);
+            // Crear el objeto JSON
+            var jsonObject = new
+            {
+                listNumber = pListObject.LTL_Id,
+                lotteryPointSale = new
+                {
+                    id = pointSale.LPS_Id,
+                    code = pointSale.LPS_Code,
+                    synchronyStatus = new
+                    {
+                        code = "SC",
+                        displayName = "Sincronizado",
+                        description = "Sincronización completa",
+                        id = 3
+                    },
+                    displayName = pointSale.LPS_DisplayName,
+                    description = pointSale.LPS_Description,
+                    company = new
+                    {
+                        code = "TR",
+                        displayName = "TIEMPOS RIVERA",
+                        description = "Tiempos Rivera",
+                        id = 1,
+                        createDate = pointSale.LPS_CreateDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    },
+                    createDate = pointSale.LPS_CreateDate.ToString("yyyy-MM-dd HH:mm:ss")
+                },
+                lotteryDraw = new
+                {
+                    id = pListObject.LTD_LotteryDraw,
+                    lotteryDrawType = draw.LDT_LotteryDrawType,
+                    lotteryDrawStatus = draw.LDS_LotteryDrawStatus,
+                    createDate = draw.LTD_CreateDate
+                },
+                lotteryListStatus = new
+                {
+                    id = 2,
+                    code = "R",
+                    displayName = "Borrada",
+                    description = "Borrada"
+                },
+                synchronyStatus = new
+                {
+                    id = 3,
+                    code = "SC",
+                    displayName = "Sincronización completa",
+                    description = "Sincronización completa"
+                },
+                customerName = pListObject.LTL_CustomerName,
+                createDate = pListObject.LTL_CreateDate.ToString("yyyy-MM-dd HH:mm:ss"),
+            }
+            ;
+            return jsonObject;
+        }
+
+        public object generateNewListToSync(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumberDetail = null) {
+            List<ListNumberDetail> numberDetail = null;
+            if (pListNumberDetail != null)
+            {
+                // Trasnformar LND_ListNumberDetail en una lista de elementos para el json
+                numberDetail = pListNumberDetail.Select(
+                    x => new ListNumberDetail(x.LND_Id, x.LTL_LotteryList, x.LNR_LotteryNumber, x.LND_SaleImport)
+                ).ToList();
+            }
             LotteryDrawRepository lotteryDrawRepository = new LotteryDrawRepository();
             LTD_LotteryDraw draw = lotteryDrawRepository.getById(pListObject.LTD_LotteryDraw);
             // Crear el objeto JSON
@@ -132,9 +220,30 @@ namespace SILO.DesktopApplication.Core.Services
                 listNumberDetail = numberDetail
             }
             ;
+            return jsonObject;
+        }
+
+
+        public ServiceResponseResult syncListToServer(LTL_LotteryList pListObject, 
+            List<LND_ListNumberDetail> pListNumberDetail, Func<ServiceResponseResult, bool> processResponseFunction)
+        {
+            var jsonObject = this.generateNewListToSync(pListObject, pListNumberDetail);
             Console.WriteLine("Request Venta: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
-            return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
+            RestClientService restClient = new RestClientService();
+            //return restClient.processHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD);
+            return restClient.processAsyncHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD, processResponseFunction);
+        }
+
+        public ServiceResponseResult reverseListToServer(LTL_LotteryList pListObject)
+        {
+            var jsonObject = this.generateSimpleListObject(pListObject, 
+                SystemConstants.LIST_STATUS_CANCELED, SystemConstants.SYNC_STATUS_COMPLETED);
+            Console.WriteLine("Request Reversión: " + jsonObject);
+            string urlEndPoint = ServiceConectionConstants.ROOT_LIST_RESOURCE_URL + "/" + pListObject.LTL_Id + "/";
+            RestClientService restClient = new RestClientService();
+            return restClient.processHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_PUT_METHOD);
+            //return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
 
         public ServiceResponseResult synchronizeDrawAssociation()

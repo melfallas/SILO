@@ -27,7 +27,19 @@ namespace SILO
         public System.DateTime LTL_CreateDate { get; set; }
         public long LLS_LotteryListStatus { get; set; }
         public long SYS_SynchronyStatus { get; set; }
-    
+
+        public long copy(LTL_LotteryList pList)
+        {
+            long actualStatus = pList.SYS_SynchronyStatus;
+            this.LPS_LotteryPointSale = pList.LPS_LotteryPointSale;
+            this.LTD_LotteryDraw = pList.LTD_LotteryDraw;
+            this.LTL_CustomerName = pList.LTL_CustomerName;
+            this.LTL_CreateDate = pList.LTL_CreateDate;
+            this.LLS_LotteryListStatus = pList.LLS_LotteryListStatus;
+            this.SYS_SynchronyStatus = pList.SYS_SynchronyStatus;
+            return actualStatus;
+        }
+
         public virtual LLS_LotteryListStatus LLS_LotteryListStatus1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }
