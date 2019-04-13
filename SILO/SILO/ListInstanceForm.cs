@@ -35,6 +35,8 @@ namespace SILO
 
         public ApplicationMediator appMediator { get; set; }
 
+        private TicketPrintService ticketPrintService;
+
 
         /*  
         public ListInstanceForm()
@@ -54,6 +56,7 @@ namespace SILO
             initializeComponent();
             // Establecer el ApplicationMediator
             this.appMediator = pMediator;
+            this.ticketPrintService = new TicketPrintService();
         }
 
         public ListInstanceForm(ApplicationMediator pMediator, ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
@@ -72,6 +75,7 @@ namespace SILO
             }
             // Establecer el ApplicationMediator
             this.appMediator = pMediator;
+            this.ticketPrintService = new TicketPrintService();
         }
 
         public void initializeComponent() {
@@ -143,7 +147,7 @@ namespace SILO
             // Imprimir solamente si la impresora está habilitada
             if (UtilityService.printerEnabled())
             {
-                UtilityService.printList(this.list);
+                ticketPrintService.printList(this.list);
             }            
             // ***Actualizar NumberBox si no es nula
             if (this.numberBoxFormParent != null)
@@ -174,7 +178,6 @@ namespace SILO
             //this.resetFormList();
             //this.focusList();
         }
-
 
         private List<LND_ListNumberDetail> saveList(LotteryListControl pListControl)
         {

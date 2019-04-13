@@ -10,6 +10,7 @@ namespace SILO
     {
         public string companyName { get; set; }
         public string pointSaleName { get; set; }
+        public string userName { get; set; }
         public string drawTypeCode { get; set; }
         public DateTime drawDate { get; set; }
         public DateTime createDate { get; set; }

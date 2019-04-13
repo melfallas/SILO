@@ -26,21 +26,34 @@ namespace SILO
 
         private int count;
 
-        //private int maxChar = 35;
-        private int maxChar = 24;
-
-        private int maxCharDescription = 20;
-
         private int imageHeight;
-
         private float leftMargin;
-
         private float topMargin = 3f;
 
-        private string fontName = "Lucida Console";
 
+        private float topPrintMargin = 0;
+
+        
+        private static string fontName = "Lucida Console";
         private int fontSize = 7;
-        private int saleTicketFontSize = 9;
+
+        // Máximo de Caracteres
+        private static int saleTicketSmallMaxChar = 24;
+        private static int saleTicketMediumMaxChar = 30;
+        private static int saleTicketLargeMaxChar = 38;
+        // Tamaño de Fuente
+        private static int saleTicketSmallFontSize = 9;
+        private static int saleTicketMediumFontSize = 11;
+        private static int saleTicketLargeFontSize = 14;
+
+
+        //private static int maxChar = 35;
+        private int maxChar = saleTicketSmallMaxChar;
+        private int maxCharDescription = saleTicketSmallMaxChar - 4;
+        private int defaultTicketFontSize = saleTicketSmallFontSize;
+        private string defaultTicketFontName = fontName;
+
+
         private int prizeTicketFontSize = 7;
 
         private Font printFont;
@@ -215,9 +228,14 @@ namespace SILO
         }
         */
         #endregion
-        
+
 
         #region Utilitarios
+
+        public void addLineHeight(float pFontHeight = 0) {
+            this.topPrintMargin += pFontHeight;
+            this.topPrintMargin += printFont.GetHeight(gfx);
+        }
 
         public string formatNumber(int pNumberToFormat)
         {
@@ -354,9 +372,36 @@ namespace SILO
 
         #region Sale Ticket
 
+        private void setPrintFont(string pFontName, int pFontSize, FontStyle pFontStyle) {
+            printFont = new Font(pFontName, (float)pFontSize, pFontStyle);
+        }
+
+        private int getMaxCharByFontSize(int pFontSize) {
+            int size = 24;
+            switch (pFontSize)
+            {
+                case 7:
+                    size = 30;
+                    break;
+                case 9:
+                    size = 24;
+                    break;
+                case 10:
+                    size = 22;
+                    break;
+                case 11:
+                    size = 20;
+                    break;
+                default:
+                    break;
+            }
+            return size;
+        }
+
         public void printLotterySaleTicket(string impresora)
         {
-            printFont = new Font(fontName, (float)saleTicketFontSize, FontStyle.Regular);
+            //printFont = new Font(fontName, (float)saleTicketSmallFontSize, FontStyle.Regular);
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrinterSettings.PrinterName = impresora;
             printDocument.PrintPage += saleTicketPage;
@@ -379,44 +424,76 @@ namespace SILO
 
         private void generateSaleTicketHeader()
         {
+            // Obtener parámetros de encabizado
             string printTime = this.saleTicket.createDate.ToString("HH:mm");
-            string printDate = this.saleTicket.createDate.ToString("dd-MM-yyyy");
+            string printDate = this.saleTicket.createDate.ToString("dd-MM");
             string drawDate = this.saleTicket.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.saleTicket.drawDate.ToString("dd/MM/yyyy");
             string ticketId = this.fillString(this.saleTicket.ticketId.ToString(), 4, "0");
             string globalId = this.fillString(UtilityService.getGlobalId(this.saleTicket.ticketId), 6, "0");
+            // Iniciar con la impresión
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
             this.drawCenterLine(printDate);
             string line = "/" + printTime + "/----------/" + ticketId + "/";
             this.drawCenterLine(line);
-            string customerName = this.saleTicket.customerName.Trim() == "" ? GeneralConstants.NO_NAME_LABEL : this.saleTicket.customerName;
-            line = "<< " + customerName + " >>";
-            this.drawCenterLine(line);
+            // Imprimir nombre de la compañía
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 2, FontStyle.Bold);
             this.drawCenterLine(this.saleTicket.companyName);
+            // Imprimir nombre del cliente
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize - 2, FontStyle.Regular);
+            string customerName = this.saleTicket.customerName.Trim() == "" ? GeneralConstants.NO_NAME_LABEL : this.saleTicket.customerName;
+            //this.drawCenterLine("");
+            //this.spaceLine(this.defaultTicketFontSize);
+            line = "<< " + customerName + " >>";
+            //line = "01234567890123456789";
+            this.drawCenterLine(line);
+            // Imprimir tipo de sorteo
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 2, FontStyle.Bold);
             line = "**" + this.saleTicket.drawTypeCode + "**";
             this.drawCenterLine(line);
+            // Imprimir fecha de sorteo
             this.drawCenterLine(drawDate);
-            line = "SUC: " + this.saleTicket.pointSaleName + " CL:" + globalId;
+            //this.drawCenterLine("");
+            this.spaceLine(this.defaultTicketFontSize);
+            // Imprimir sucursal e identificador de cliente
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Bold);
+            line = "USU: " + this.saleTicket.userName + "  CL:" + globalId;
+            this.drawCenterLine(line);
+            // Imprimir sucursal
+            line = "SUC: " + this.saleTicket.pointSaleName;
             this.drawCenterLine(line);
         }
 
         private void generateSaleTicketList()
         {
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
             this.generateLine("-");
             //this.DrawEspacio();
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 1, FontStyle.Bold);
             this.printSaleTicketList();
             this.DrawEspacio();
         }
 
         private void generateSaleTicketFooter()
         {
-            this.drawCenterLine(" RECUERDE QUE ", "=");
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
+            this.drawCenterLine(" RECUERDE QUE ", 0, "=");
             string line = "AL 1RO: 75";
             this.drawCenterLine(line);
             line = "*** REVISE SU TIQUETE ***";
             this.drawCenterLine(line);
             line = "*** GRACIAS Y SUERTE ***";
             this.drawCenterLine(line);
+            line = "NO SE PAGA SIN TIQUETE";
+            this.drawCenterLine(line);
             line = "***";
             this.drawCenterLine(line);
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 2, FontStyle.Regular);
+            string globalId = this.fillString(UtilityService.getGlobalId(this.saleTicket.ticketId), 6, "0");
+            line = "----< " + globalId + " >----";
+            this.drawCenterLine(line);
+            this.drawCenterLine(".");
+            this.drawCenterLine(".");
+            this.drawCenterLine(".");
         }
 
         private void printSaleTicketList()
@@ -429,7 +506,7 @@ namespace SILO
                     + " X " + this.fillString(tuple.number, 2, "0");
                 this.drawLine(this.printInColumns(itemList, 3));
             }
-            string totalLabel = "+++TOTAL: " + this.fillString(this.formatNumber(this.saleTicket.getTotalImport()), 8, "*");
+            string totalLabel = "+++TOTAL: " + this.fillString(this.formatNumber(this.saleTicket.getTotalImport()), 9, "*");
             this.drawCenterLine(totalLabel);
             //this.drawLine(this.printInColumns(totalLabel, 3));
         }
@@ -515,11 +592,27 @@ namespace SILO
 
         private string printInColumns(string pText, int pColumns)
         {
+            int oldSize = this.maxChar;
+            this.maxChar = this.getMaxCharByFontSize((int) this.printFont.Size);
+            string resultLine = "";
+            int columnSize = (int)Math.Floor(this.maxChar / (pColumns + 5 ) * 1.0);
+            resultLine += this.fillLine(columnSize);
+            resultLine += this.fillString(pText, 14);
+            //resultLine += this.fillLine(columnSize);
+            this.maxChar = oldSize;
+            return resultLine;
+        }
+
+        private string printInColumnsBK(string pText, int pColumns)
+        {
+            int oldSize = this.maxChar;
+            this.maxChar = this.getMaxCharByFontSize((int)this.printFont.Size);
             string resultLine = "";
             int columnSize = (int)Math.Floor(this.maxChar / pColumns * 1.0);
             resultLine += this.fillLine(columnSize);
             resultLine += this.fillString(pText, columnSize);
             //resultLine += this.fillLine(columnSize);
+            this.maxChar = oldSize;
             return resultLine;
         }
 
@@ -563,12 +656,15 @@ namespace SILO
         {
             line = pLineText;
             gfx.DrawString(line, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+            this.addLineHeight();
             count++;
         }
 
         // Método que dibuja la linea que se le envía como parámetro
-        private void drawCenterLine(string pLineText, string pFillText = " ")
+        private void drawCenterLine(string pLineText, int pFontSize = 0, string pFillText = " ")
         {
+            int oldSize = this.maxChar;
+            this.maxChar = this.getMaxCharByFontSize(pFontSize == 0 ? (int) this.printFont.Size : pFontSize);
             int size = pLineText.Length;
             if (size < maxChar)
             {
@@ -582,6 +678,8 @@ namespace SILO
             }
             gfx.DrawString(line, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
             count++;
+            this.addLineHeight();
+            this.maxChar = oldSize;
         }
 
         // 
@@ -631,7 +729,9 @@ namespace SILO
 
         private float YPosition()
         {
-            return topMargin + ((float)count * printFont.GetHeight(gfx) + (float)imageHeight);
+            //this.topPrintMargin += printFont.GetHeight(gfx);
+            //return topMargin + ((float)count * printFont.GetHeight(gfx) + (float)imageHeight);
+            return topMargin + (this.topPrintMargin + (float)imageHeight);
         }
 
         private void DrawImage()
@@ -742,6 +842,7 @@ namespace SILO
         {
             line = "";
             gfx.DrawString(line, printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+            this.addLineHeight();
             count++;
         }
     }

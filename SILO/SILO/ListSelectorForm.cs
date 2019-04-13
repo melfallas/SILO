@@ -25,6 +25,8 @@ namespace SILO
 
         public ApplicationMediator appMediator { get; set; }
 
+        private TicketPrintService ticketPrintService;
+
 
         //--------------------------------------- Métodos de Inicialización --------------------------------------//
         #region Métodos de Inicialización
@@ -38,6 +40,7 @@ namespace SILO
             this.addControls();
             // Establecer el ApplicationMediator
             this.appMediator = pMediator;
+            this.ticketPrintService = new TicketPrintService();
         }
 
         private void addControls()
@@ -81,7 +84,7 @@ namespace SILO
         private void printList(long pListId)
         {
             LotteryListRepository listRepository = new LotteryListRepository();
-            UtilityService.printList(listRepository.getById(pListId));
+            this.ticketPrintService.printList(listRepository.getById(pListId));
         }
 
         private void validateEraseList(long pListId)

@@ -168,6 +168,7 @@
     <Compile Include="DesktopApplication\Core\Services\ProgramInitializationService.cs" />
     <Compile Include="DesktopApplication\Core\Services\RestClientService.cs" />
     <Compile Include="DesktopApplication\Core\Services\SecurityService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\TicketPrintService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ValidationService.cs" />
     <Compile Include="DesktopApplication\Core\SystemConfig\SystemSession.cs" />
     <Compile Include="DesktopApplication\Core\Util\EntityType.cs" />

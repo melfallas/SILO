@@ -47,7 +47,9 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static string getCompanyName()
         {
-            return getLocalParameterValue(COMPANY_NAME_PARAM);
+            CompanyRepository companyRepo = new CompanyRepository();
+            long posId = Convert.ToInt64(getCompanyId());
+            return companyRepo.getById(posId).CPN_DisplayName;
         }
 
         public static LPS_LotteryPointSale getPointSale()
@@ -275,7 +277,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
 
-
+        /*
         public static void printList(LTL_LotteryList pNumberList)
         {
             // Configurar impresión para Ticket de Venta
@@ -306,6 +308,7 @@ namespace SILO.DesktopApplication.Core.Services
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printLotterySaleTicket(printerName);
         }
+        */
 
         public static void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
         {
