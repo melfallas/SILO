@@ -1,6 +1,7 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
 using System;
@@ -20,8 +21,9 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
     {
 
         private BoxNumberUnit[] boxArray;
+        public ApplicationMediator appMediator { get; set; }
 
-        public NumberBoxForm()
+        public NumberBoxForm(ApplicationMediator pMediator)
         {
             InitializeComponent();
             this.type = SystemConstants.NUMBER_BOX_CODE;
@@ -29,6 +31,9 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             this.erasePanels();
             this.loadControls();
             this.createBoxNumber();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
+
             //Thread.Sleep(5000);
             //this.contentPanel.Visible = true;
         }
@@ -38,6 +43,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         }
 
         public void loadControls() {
+            // TODO: Encapsular con Delegados para ThreadSafe
             this.drawTypeBox.ValueMember = GeneralConstants.DISPLAY_DRAWTYPE_KEY_LABEL;
             this.drawTypeBox.DisplayMember = GeneralConstants.DISPLAY_DRAWTYPE_VALUE_LABEL;
             this.drawTypeBox.DataSource = UtilityService.drawTypeDataTable(this.drawTypeBox.ValueMember, this.drawTypeBox.DisplayMember);
@@ -80,9 +86,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 numberLabel.Width = 20;
                 numberLabel.Height = 20;
                 // Marcar los números prohibidos
-                if (prohibitedNumbers[i]) {
-                    numberLabel.ForeColor = Color.FromArgb(255, 0, 0);
-                }
+                this.markProhibitedNumber(prohibitedNumbers[i], numberLabel);
                 this.numberBoxPanel.Controls.Add(numberLabel);
                 // Crear el TextBox para la casilla
                 TextBox txbImport = new TextBox();
@@ -100,34 +104,150 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             }
         }
 
+        // Método para marcado de números prohibidos
+        public void markProhibitedNumber(bool pIsProhibitedNumber, Label pLabelControl)
+        {
+            if (pIsProhibitedNumber)
+            {
+                pLabelControl.ForeColor = Color.FromArgb(255, 0, 0);
+            }
+            else
+            {
+                pLabelControl.ForeColor = Color.FromArgb(0, 0, 0);
+            }
+        }
+
+        // Delegados para seteo de propiedades desde otros hilos
+        delegate void SetNumberBoxTextCallback(int pElementIndex, string pText);
+        delegate void SetSelectedGroupCallback(int pGroupId);
+        delegate void SetTotalImportCallback(string pText);
+        delegate void SetSyncImportCallback(string pText);
+        delegate void SetPendingImportCallback(string pText);
+        delegate void SetMaxToReceiveCallback(string pText);
+
+        // Evento para setear el BoxNumber desde otro hilo
+        public void setNumberBoxText(int pElementIndex, string pText)
+        {
+            if (this.boxArray[pElementIndex].textbox.InvokeRequired)
+            {
+                SetNumberBoxTextCallback callBack = new SetNumberBoxTextCallback(setNumberBoxText);
+                this.Invoke(callBack, new object[] { pElementIndex, pText });
+            }
+            else
+            {
+                this.boxArray[pElementIndex].textbox.Text = pText;
+            }
+        }
+        // Evento para setear el SelectedGroup desde otro hilo
+        public void setSelectedGroup(int pGroupId)
+        {
+            if (this.drawTypeBox.InvokeRequired)
+            {
+                SetSelectedGroupCallback callBack = new SetSelectedGroupCallback(setSelectedGroup);
+                this.Invoke(callBack, new object[] { pGroupId });
+            }
+            else
+            {
+                this.drawTypeBox.SelectedIndex = pGroupId;
+            }
+        }
+        // Evento para setear el TotalImport desde otro hilo
+        public void setTotalImport(string pText)
+        {
+            if (this.txbTotalImport.InvokeRequired)
+            {
+                SetTotalImportCallback callBack = new SetTotalImportCallback(setTotalImport);
+                this.Invoke(callBack, new object[] { pText });
+            }
+            else
+            {
+                this.txbTotalImport.Text = pText;
+            }
+        }
+        // Evento para setear el SyncImport desde otro hilo
+        public void setSyncImport(string pText)
+        {
+            if (this.txbSyncImport.InvokeRequired)
+            {
+                SetSyncImportCallback callBack = new SetSyncImportCallback(setSyncImport);
+                this.Invoke(callBack, new object[] { pText });
+            }
+            else
+            {
+                this.txbSyncImport.Text = pText;
+            }
+        }
+        // Evento para setear el PendingImport desde otro hilo
+        public void setPendingImport(string pText)
+        {
+            if (this.txbPendingImport.InvokeRequired)
+            {
+                SetPendingImportCallback callBack = new SetPendingImportCallback(setPendingImport);
+                this.Invoke(callBack, new object[] { pText });
+            }
+            else
+            {
+                this.txbPendingImport.Text = pText;
+            }
+        }
+
+        // Evento para setear el MaxToReceive desde otro hilo
+        public void setMaxToReceive(string pText)
+        {
+            if (this.txbMaxToReceive.InvokeRequired)
+            {
+                SetMaxToReceiveCallback callBack = new SetMaxToReceiveCallback(setMaxToReceive);
+                this.Invoke(callBack, new object[] { pText });
+            }
+            else
+            {
+                this.txbMaxToReceive.Text = pText;
+            }
+        }
+
 
         //--------------------------------------- Métodos de Actualización --------------------------------------//
 
-        private void updateBoxArray(int[] importArray)
+        private void updateBoxArray(long pGroupId)
         {
             int totalImport = 0;
-            for (int i = 0; i < importArray.Length; i++)
+            int pendingImport = 0;
+            ListService listService = new ListService();
+            // Calcular importe sincronizado con el server
+            int[] syncTotalImportArray = listService.getDrawTotals(this.datePickerList.Value.Date, pGroupId);
+            for (int i = 0; i < syncTotalImportArray.Length; i++)
             {
-                totalImport += importArray[i];
-                this.boxArray[i].textbox.Text = FormatService.formatInt(importArray[i]);
+                totalImport += syncTotalImportArray[i];
+                //this.boxArray[i].textbox.Text = FormatService.formatInt(syncTotalImportArray[i]);
+                this.setNumberBoxText(i, FormatService.formatInt(syncTotalImportArray[i]));
             }
-            this.txbTotalImport.Text = FormatService.formatInt(totalImport);
-            this.txbSyncImport.Text = FormatService.formatInt(totalImport);
-            //var maxToReceive = Math.Round(totalImport * 0.00011);
+            this.setTotalImport(FormatService.formatInt(totalImport));
+            // Calcular importe pendiente de sincronización
+            int[] pendingSyncImportArray = listService.getDrawPendingSyncTotals(this.datePickerList.Value.Date, pGroupId);
+            for (int i = 0; i < syncTotalImportArray.Length; i++)
+            {
+                pendingImport += pendingSyncImportArray[i];
+            }
+            this.setSyncImport(FormatService.formatInt(totalImport - pendingImport));
+            this.setPendingImport(FormatService.formatInt(pendingImport));
             int maxToReceive = (int) (totalImport * 0.03);
-            //this.txbMaxToReceive.Text = FormatService.formatInt(maxToReceive);
-            this.txbMaxToReceive.Text = maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive);
+            this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
         }
 
         private void cleanBoxNumber()
         {
-            for (int i = 0; i < boxArray.Length; i++)
+            if (this.boxArray != null)
             {
-                this.boxArray[i].textbox.Text = "0";
+                for (int i = 0; i < this.boxArray.Length; i++)
+                {
+                    //this.boxArray[i].textbox.Text = "0";
+                    this.setNumberBoxText(i, "0");
+                }
+                this.setTotalImport("0");
+                this.setSyncImport("0");
+                this.setPendingImport("0");
+                this.setMaxToReceive("0");
             }
-            this.txbTotalImport.Text = "0";
-            this.txbSyncImport.Text = "0";
-            this.txbMaxToReceive.Text = "";
         }
 
         private void displayNewListInstance() {
@@ -137,6 +257,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             {
                 LotteryDrawTypeRepository typeRepository = new LotteryDrawTypeRepository();
                 ListInstanceForm listInstance = new ListInstanceForm(
+                    this.appMediator,
                     this,
                     UtilityService.getPointSale(),
                     typeRepository.getById(this.drawTypeBox.SelectedIndex),
@@ -154,22 +275,76 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         }
 
 
-        public void updateNumberBox(long pGroupId)
-        {
-            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
-            ListService listService = new ListService();
-            this.updateBoxArray(listService.getDrawTotals(this.datePickerList.Value.Date, groupId));
-            //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
-        }
-
         public void updateNumberBox()
         {
             long groupId = this.drawTypeBox.SelectedIndex;
-            // Actualizar sólo si el grupo es distinto de cero
-            if (groupId != 0)
-            {
-                this.updateNumberBox(groupId);
+            this.updateNumberBox(groupId);
+        }
+
+        public void updateNumberBox(DateTime? pDrawDate, long pGroupId)
+        {
+            if (pDrawDate == null) {
+                this.datePickerList.Value = DateTime.Today;
             }
+            else
+            {
+                this.datePickerList.Value = (DateTime) pDrawDate;
+            }
+            this.updateNumberBox(pGroupId);
+        }
+
+        /*
+        public void updateNumberBox(long pGroupId)
+        {
+            // Si no hay número de grupo se debe limpiar el boxNumber
+            if (pGroupId == 0)
+            {
+                this.cleanBoxNumber();
+            }
+            else
+            {
+                // Actualizar importes sólo si el grupo es distinto de cero
+                //long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+                this.updateBoxArray(pGroupId);
+            }
+            // Actualizar números prohibidos siempre
+            bool[] prohibitedNumbers = UtilityService.getProhibitedArray();
+            for (int i = 0; i < prohibitedNumbers.Length; i++)
+            {
+                this.markProhibitedNumber(prohibitedNumbers[i], this.boxArray[i].label);
+            }
+            // Actualizar el drawType ComboBox al id de grupo especificado
+            this.drawTypeBox.SelectedIndex = (int)pGroupId;
+            //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
+        }
+        */
+
+        public Task updateNumberBox(long pGroupId)
+        {
+            return Task.Run(() => {
+                // Si no hay número de grupo se debe limpiar el boxNumber
+                if (pGroupId == 0)
+                {
+                    this.cleanBoxNumber();
+                }
+                else
+                {
+                    // Actualizar importes sólo si el grupo es distinto de cero
+                    //long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+                    this.updateBoxArray(pGroupId);
+                }
+                // Actualizar números prohibidos siempre
+                bool[] prohibitedNumbers = UtilityService.getProhibitedArray();
+                for (int i = 0; i < prohibitedNumbers.Length; i++)
+                {
+                    this.markProhibitedNumber(prohibitedNumbers[i], this.boxArray[i].label);
+                }
+                // Actualizar el drawType ComboBox al id de grupo especificado
+                //this.drawTypeBox.SelectedIndex = (int)pGroupId;
+                this.setSelectedGroup((int)pGroupId);
+                //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
+            });
+            
         }
 
 
@@ -186,17 +361,20 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         private void datePickerList_ValueChanged(object sender, EventArgs e)
         {
-            this.drawTypeBox.SelectedIndex = 0;
-            this.cleanBoxNumber();
-            //MessageBox.Show(this.datePickerList.Value.Date);
+            this.setSelectedGroup(0);
+            //this.cleanBoxNumber();
         }
 
-        private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
-            if (groupId != 0)
+            if (groupId == 0)
             {
-                this.updateNumberBox(groupId);
+                this.cleanBoxNumber();
+            }
+            else
+            {
+                await this.updateNumberBox(groupId);
                 this.displayNewListInstance();
             }
         }

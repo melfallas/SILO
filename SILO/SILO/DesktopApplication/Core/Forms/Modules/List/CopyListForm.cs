@@ -1,4 +1,5 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,17 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
         private ListSelectorForm selectorForm;
         private DrawTypeService groupService;
 
-        public CopyListForm(ListSelectorForm pSelectorForm, long pListId)
+        public ApplicationMediator appMediator { get; set; }
+
+        public CopyListForm(ApplicationMediator pMediator, ListSelectorForm pSelectorForm, long pListId)
         {
             InitializeComponent();
             this.listId = pListId;
             this.selectorForm = pSelectorForm;
             this.groupService = new DrawTypeService();
             this.createControls();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
         }
 
         public void createControls()
@@ -38,7 +43,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
             return this.centerMainPanel.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
         }
 
-        private void process() {
+        private void processCopy() {
             RadioButton checkedRadio = this.getCheckedGroupRadio();
             // Validar si hay un grupo seleccionado para la copia
             if (checkedRadio == null)
@@ -55,6 +60,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
                 {
                     LDT_LotteryDrawType selectedGroup = this.groupService.getById(drawTypeId);
                     ListInstanceForm listInstance = new ListInstanceForm(
+                        this.appMediator,
                         this.selectorForm,
                         UtilityService.getPointSale(),
                         selectedGroup,
@@ -74,12 +80,30 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
 
         private void copyButton_Click(object sender, EventArgs e)
         {
-            this.process();
+            this.processCopy();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void CopyListForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    this.processCopy();
+                    break;
+                case Keys.Escape:
+                    this.Dispose();
+                    break;
+                case Keys.Multiply:
+
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

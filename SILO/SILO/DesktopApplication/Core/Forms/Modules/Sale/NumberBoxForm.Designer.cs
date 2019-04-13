@@ -32,6 +32,8 @@
             this.contentPanel = new System.Windows.Forms.Panel();
             this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.footerPanel = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txbPendingImport = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txbMaxToReceive = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -80,12 +82,14 @@
             this.numberBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numberBoxPanel.Location = new System.Drawing.Point(0, 63);
             this.numberBoxPanel.Name = "numberBoxPanel";
-            this.numberBoxPanel.Size = new System.Drawing.Size(567, 259);
+            this.numberBoxPanel.Size = new System.Drawing.Size(567, 237);
             this.numberBoxPanel.TabIndex = 2;
             // 
             // footerPanel
             // 
             this.footerPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.footerPanel.Controls.Add(this.label7);
+            this.footerPanel.Controls.Add(this.txbPendingImport);
             this.footerPanel.Controls.Add(this.label6);
             this.footerPanel.Controls.Add(this.txbMaxToReceive);
             this.footerPanel.Controls.Add(this.label5);
@@ -93,10 +97,30 @@
             this.footerPanel.Controls.Add(this.label4);
             this.footerPanel.Controls.Add(this.txbTotalImport);
             this.footerPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.footerPanel.Location = new System.Drawing.Point(0, 322);
+            this.footerPanel.Location = new System.Drawing.Point(0, 300);
             this.footerPanel.Name = "footerPanel";
-            this.footerPanel.Size = new System.Drawing.Size(567, 61);
+            this.footerPanel.Size = new System.Drawing.Size(567, 83);
             this.footerPanel.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(387, 62);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 13);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Total Pend.";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txbPendingImport
+            // 
+            this.txbPendingImport.Location = new System.Drawing.Point(455, 59);
+            this.txbPendingImport.Name = "txbPendingImport";
+            this.txbPendingImport.ReadOnly = true;
+            this.txbPendingImport.Size = new System.Drawing.Size(100, 20);
+            this.txbPendingImport.TabIndex = 6;
+            this.txbPendingImport.Text = "0";
+            this.txbPendingImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label6
             // 
@@ -277,5 +301,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txbMaxToReceive;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txbPendingImport;
     }
 }

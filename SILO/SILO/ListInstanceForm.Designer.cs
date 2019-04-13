@@ -137,8 +137,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ListInstanceForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ListInstanceForm";
+            this.Text = "Ingreso de Venta";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListInstanceForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListInstanceForm_KeyDown);
             this.listInstanceTopPanel.ResumeLayout(false);

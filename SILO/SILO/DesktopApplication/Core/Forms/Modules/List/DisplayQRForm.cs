@@ -36,7 +36,10 @@ namespace SILO
             if (text.Trim() == "")
             {
                 successGeneration = false;
-                MessageBox.Show("No existen datos para el sorteo especificado.");
+                MessageService.displayInfoMessage(
+                    "Todas las transacciones están sincronizadas.\nNo es necesario enviar el QR.", 
+                    "TRANSACCIONES SINCRONIZADAS COMPLETAMENTE");
+                //MessageBox.Show("No existen datos para el sorteo especificado.");
             }
             else
             {

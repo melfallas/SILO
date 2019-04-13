@@ -39,8 +39,13 @@
             this.prohibidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosGeneralesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parámetrosGeneralesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.parámetrosDeImpresiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sincronizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transaccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enviarAlServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
@@ -56,12 +61,12 @@
             this.userLabel = new System.Windows.Forms.Label();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.copyListButton = new System.Windows.Forms.Button();
             this.displayQRMenuButton = new System.Windows.Forms.Button();
             this.eraseButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.copyListButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -76,6 +81,7 @@
             this.ventasToolStripMenuItem,
             this.catálogosToolStripMenuItem,
             this.configuraciónToolStripMenuItem,
+            this.sincronizaciónToolStripMenuItem,
             this.salirToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -147,9 +153,25 @@
             // 
             // parámetrosGeneralesToolStripMenuItem
             // 
+            this.parámetrosGeneralesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parámetrosGeneralesToolStripMenuItem1,
+            this.parámetrosDeImpresiónToolStripMenuItem});
             this.parámetrosGeneralesToolStripMenuItem.Name = "parámetrosGeneralesToolStripMenuItem";
             this.parámetrosGeneralesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.parámetrosGeneralesToolStripMenuItem.Text = "Parámetros Generales";
+            this.parámetrosGeneralesToolStripMenuItem.Text = "Parámetros";
+            // 
+            // parámetrosGeneralesToolStripMenuItem1
+            // 
+            this.parámetrosGeneralesToolStripMenuItem1.Name = "parámetrosGeneralesToolStripMenuItem1";
+            this.parámetrosGeneralesToolStripMenuItem1.Size = new System.Drawing.Size(206, 22);
+            this.parámetrosGeneralesToolStripMenuItem1.Text = "Parámetros Generales";
+            // 
+            // parámetrosDeImpresiónToolStripMenuItem
+            // 
+            this.parámetrosDeImpresiónToolStripMenuItem.Name = "parámetrosDeImpresiónToolStripMenuItem";
+            this.parámetrosDeImpresiónToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.parámetrosDeImpresiónToolStripMenuItem.Text = "Parámetros de Impresión";
+            this.parámetrosDeImpresiónToolStripMenuItem.Click += new System.EventHandler(this.parámetrosDeImpresiónToolStripMenuItem_Click);
             // 
             // parámetrosDeSucursalToolStripMenuItem
             // 
@@ -162,6 +184,29 @@
             this.parámetrosDeSistemaToolStripMenuItem.Name = "parámetrosDeSistemaToolStripMenuItem";
             this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.parámetrosDeSistemaToolStripMenuItem.Text = "Parámetros de Sistema";
+            // 
+            // sincronizaciónToolStripMenuItem
+            // 
+            this.sincronizaciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.transaccionesToolStripMenuItem});
+            this.sincronizaciónToolStripMenuItem.Name = "sincronizaciónToolStripMenuItem";
+            this.sincronizaciónToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.sincronizaciónToolStripMenuItem.Text = "Sincronización";
+            // 
+            // transaccionesToolStripMenuItem
+            // 
+            this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enviarAlServidorToolStripMenuItem});
+            this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.transaccionesToolStripMenuItem.Text = "Transacciones";
+            // 
+            // enviarAlServidorToolStripMenuItem
+            // 
+            this.enviarAlServidorToolStripMenuItem.Name = "enviarAlServidorToolStripMenuItem";
+            this.enviarAlServidorToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.enviarAlServidorToolStripMenuItem.Text = "Enviar al Servidor";
+            this.enviarAlServidorToolStripMenuItem.Click += new System.EventHandler(this.enviarAlServidorToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 
@@ -189,7 +234,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 24);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(967, 562);
+            this.mainPanel.Size = new System.Drawing.Size(967, 589);
             this.mainPanel.TabIndex = 1;
             // 
             // centerBoxPanel
@@ -198,7 +243,7 @@
             this.centerBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.centerBoxPanel.Location = new System.Drawing.Point(220, 30);
             this.centerBoxPanel.Name = "centerBoxPanel";
-            this.centerBoxPanel.Size = new System.Drawing.Size(697, 513);
+            this.centerBoxPanel.Size = new System.Drawing.Size(697, 540);
             this.centerBoxPanel.TabIndex = 1;
             // 
             // panel3
@@ -207,14 +252,14 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel3.Location = new System.Drawing.Point(917, 30);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(50, 513);
+            this.panel3.Size = new System.Drawing.Size(50, 540);
             this.panel3.TabIndex = 3;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(220, 543);
+            this.panel2.Location = new System.Drawing.Point(220, 570);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(747, 19);
             this.panel2.TabIndex = 2;
@@ -296,7 +341,7 @@
             this.lateralLeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.lateralLeftPanel.Location = new System.Drawing.Point(0, 0);
             this.lateralLeftPanel.Name = "lateralLeftPanel";
-            this.lateralLeftPanel.Size = new System.Drawing.Size(220, 562);
+            this.lateralLeftPanel.Size = new System.Drawing.Size(220, 589);
             this.lateralLeftPanel.TabIndex = 0;
             // 
             // menuPanel
@@ -311,8 +356,25 @@
             this.menuPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
             this.menuPanel.Name = "menuPanel";
-            this.menuPanel.Size = new System.Drawing.Size(220, 562);
+            this.menuPanel.Size = new System.Drawing.Size(220, 589);
             this.menuPanel.TabIndex = 0;
+            // 
+            // copyListButton
+            // 
+            this.copyListButton.FlatAppearance.BorderSize = 0;
+            this.copyListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.copyListButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.copyListButton.ForeColor = System.Drawing.Color.White;
+            this.copyListButton.Image = ((System.Drawing.Image)(resources.GetObject("copyListButton.Image")));
+            this.copyListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.copyListButton.Location = new System.Drawing.Point(2, 116);
+            this.copyListButton.Name = "copyListButton";
+            this.copyListButton.Size = new System.Drawing.Size(217, 54);
+            this.copyListButton.TabIndex = 1;
+            this.copyListButton.Text = "   Copiar Lista";
+            this.copyListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.copyListButton.UseVisualStyleBackColor = true;
+            this.copyListButton.Click += new System.EventHandler(this.copyListButton_Click);
             // 
             // displayQRMenuButton
             // 
@@ -398,29 +460,12 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
-            // copyListButton
-            // 
-            this.copyListButton.FlatAppearance.BorderSize = 0;
-            this.copyListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.copyListButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.copyListButton.ForeColor = System.Drawing.Color.White;
-            this.copyListButton.Image = ((System.Drawing.Image)(resources.GetObject("copyListButton.Image")));
-            this.copyListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.copyListButton.Location = new System.Drawing.Point(2, 116);
-            this.copyListButton.Name = "copyListButton";
-            this.copyListButton.Size = new System.Drawing.Size(217, 54);
-            this.copyListButton.TabIndex = 1;
-            this.copyListButton.Text = "   Copiar Lista";
-            this.copyListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.copyListButton.UseVisualStyleBackColor = true;
-            this.copyListButton.Click += new System.EventHandler(this.copyListButton_Click);
-            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(967, 586);
+            this.ClientSize = new System.Drawing.Size(967, 613);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -478,6 +523,11 @@
         private System.Windows.Forms.Label posContentLabel;
         private System.Windows.Forms.Label posLabel;
         private System.Windows.Forms.Button copyListButton;
+        private System.Windows.Forms.ToolStripMenuItem sincronizaciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem transaccionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enviarAlServidorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parámetrosGeneralesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem parámetrosDeImpresiónToolStripMenuItem;
     }
 }
 

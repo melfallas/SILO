@@ -1,5 +1,6 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SILO
+namespace SILO.DesktopApplication.Core.Forms.Modules.Number
 {
     public partial class DrawNumberWinningForm : Form
     {
+        private TicketPrintService ticketPrintService;
+
         public DrawNumberWinningForm()
         {
             InitializeComponent();
             this.loadControls();
+            this.ticketPrintService = new TicketPrintService();
         }
 
         private void loadControls() {
@@ -136,7 +140,8 @@ namespace SILO
                             winningNumberArray[0] = this.txbFirst.Text.Trim() == "" ? "NA" : this.txbFirst.Text;
                             winningNumberArray[1] = this.txbSecond.Text.Trim() == "" ? "NA" : this.txbSecond.Text;
                             winningNumberArray[2] = this.txbThird.Text.Trim() == "" ? "NA" : this.txbThird.Text;
-                            UtilityService.printPrizeTicket(selectedDraw, winningNumberArray);
+                            this.ticketPrintService.printPrizeTicket(selectedDraw, winningNumberArray);
+                            //UtilityService.printPrizeTicket(selectedDraw, winningNumberArray);
                         }
                         //PC: MessageBox.Show(selectedDraw.LTD_Id.ToString());
                         this.Dispose();

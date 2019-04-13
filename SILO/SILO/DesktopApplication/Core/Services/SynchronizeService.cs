@@ -2,6 +2,8 @@
 using Newtonsoft.Json.Linq;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Model;
+using SILO.DesktopApplication.Core.Model.ListModel;
+using SILO.DesktopApplication.Core.Model.ServiceModel;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Util;
 using System;
@@ -146,7 +148,7 @@ namespace SILO.DesktopApplication.Core.Services
         {
             bool successProcess = true;
             ApplicationUserRepository userRepo = new ApplicationUserRepository();
-            List <AUS_ApplicationUser> unsynUserList = userRepo.findUnsynUsers();
+            List<AUS_ApplicationUser> unsynUserList = userRepo.findUnsynUsers();
             foreach (var userItem in unsynUserList)
             {
                 Console.WriteLine(userItem.AUS_Username);
@@ -194,7 +196,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
 
-        
+
         // Enviar sincronización de números al servidor
         public bool syncDrawType_LocalToServer()
         {
@@ -234,6 +236,129 @@ namespace SILO.DesktopApplication.Core.Services
             }
             return successProcess;
         }
+
         
+        public void setListCompleteSync(LTL_LotteryList pList)
+        {
+            this.changeListSyncStatus(pList);
+        }
+
+        public void changeListSyncStatus(LTL_LotteryList pList, long pSyncStatus = SystemConstants.SYNC_STATUS_COMPLETED)
+        {
+            // Cambiar el estado de la lista local a Sincronizado
+            LotteryListRepository listRepository = new LotteryListRepository();
+            LTL_LotteryList syncList = listRepository.getById(pList.LTL_Id);
+            syncList.SYS_SynchronyStatus = pSyncStatus;
+            listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
+            //Console.WriteLine("Respuesta Venta: " + response.result);
+            Console.WriteLine("Respuesta Venta");
+        }
+        
+
+        public void setListCompleteSync(long pList)
+        {
+            this.changeListSyncStatus(pList);
+        }
+
+        public void changeListSyncStatus(long pList, long pSyncStatus = SystemConstants.SYNC_STATUS_COMPLETED)
+        {
+            // Cambiar el estado de la lista local a Sincronizado
+            LotteryListRepository listRepository = new LotteryListRepository();
+            LTL_LotteryList syncList = listRepository.getById(pList);
+            syncList.SYS_SynchronyStatus = pSyncStatus;
+            listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
+            //Console.WriteLine("Respuesta Venta: " + response.result);
+            Console.WriteLine("Respuesta Venta");
+        }
+
+
+        //----------------- Servicios de Sincronización de Pago y Reversión -----------------//
+        #region Servicios de Sincronización de Pago y Reversión
+
+        public void sendListNumberToServer(LTL_LotteryList pList, List<LND_ListNumberDetail> pNumberDetail)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult responseResult = service.syncListToServer(pList, pNumberDetail, result => processResponseToSendList(result));
+            //this.processResponseToSendList(responseResult);
+        }
+
+        // Método para procesar el resultado del envío de la lista al servidor
+        public bool processResponseToSendList(ServiceResponseResult pResponseResult)
+        {
+            //Console.WriteLine("Ejecutando processResponseToSendList...");
+            bool processDone = false;
+            if (ServiceValidator.isValidAndNotEmptyServiceResponse(pResponseResult))
+            {
+                // Obtener el JSON resultado de la sincronización
+                String resultString = pResponseResult.result.ToString();
+                SyncListResult listSyncResult = JsonConvert.DeserializeObject<SyncListResult>(resultString);
+                long listId = listSyncResult.listNumber;
+                //Console.WriteLine(listId);
+                LotteryListRepository listRepository = new LotteryListRepository();
+                listRepository.getById(listId);
+                //this.setListCompleteSync(listRepository.getById(listId));
+                // Cambiar el estado de la lista local a Sincronizado
+                this.setListCompleteSync(listId);
+                processDone = true;
+            }
+            else
+            {
+                // Error de sincronización
+                string responseType = pResponseResult == null ? "N/A" : pResponseResult.type;
+                LogService.logErrorServiceResponse("No se pudo sincronizar la venta", responseType, "Pendiente");
+            }
+            return processDone;
+        }
+
+
+        public void reverseListNumberFromServer(LTL_LotteryList pList)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService serverConection = new ServerConnectionService();
+            ServiceResponseResult response = serverConection.reverseListToServer(pList);
+            if (ServiceValidator.isValidServiceResponse(response))
+            {
+                // Cambiar el estado de la lista local a Sincronizado
+                this.setListCompleteSync(pList);
+            }
+            else
+            {
+                // Error de sincronización
+                string responseType = response == null ? "N/A" : response.type;
+                LogService.logErrorServiceResponse("No se pudo sincronizar la venta", responseType, "Pendiente");
+            }
+        }
+        
+
+        public void syncPendingListNumberToServer()
+        {
+            LotteryListRepository listRepo = new LotteryListRepository();
+            List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
+            foreach (LTL_LotteryList item in pendingTransactions)
+            {
+                Console.Write(item.LTL_Id);
+                switch (item.LLS_LotteryListStatus)
+                {
+                    case SystemConstants.LIST_STATUS_CREATED:
+                        // Procesar creación de la lista en el servidor
+                        Console.WriteLine(" - Creada ");
+                        List<LND_ListNumberDetail> listNumber = listRepo.getListDetail(item.LTL_Id);
+                        this.sendListNumberToServer(item, listNumber);
+                        break;
+                    case SystemConstants.LIST_STATUS_CANCELED:
+                        // Procesar reversión de la lista en el servidor
+                        Console.WriteLine(" - Anulada ");
+                        this.reverseListNumberFromServer(item);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        #endregion
+
+
     }
 }

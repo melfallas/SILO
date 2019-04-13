@@ -1,4 +1,4 @@
-﻿namespace SILO
+﻿namespace SILO.DesktopApplication.Core.Forms.Modules.Number
 {
     partial class DrawNumberWinningForm
     {

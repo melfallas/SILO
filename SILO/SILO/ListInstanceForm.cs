@@ -1,7 +1,9 @@
 ﻿using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.Sale;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,14 +33,24 @@ namespace SILO
         public NumberBoxForm numberBoxFormParent { get; set; }
         public ListSelectorForm listSelectorFormParent { get; set; }
 
+        public ApplicationMediator appMediator { get; set; }
+
+        private TicketPrintService ticketPrintService;
+
+
+        private bool optionMenuEnabled;
+
+
         /*  
         public ListInstanceForm()
         {
             initializeComponent();
         }
         */
-        public ListInstanceForm(NumberBoxForm pParent, LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
+        public ListInstanceForm(ApplicationMediator pMediator,
+        NumberBoxForm pParent, LPS_LotteryPointSale pPointSale, LDT_LotteryDrawType pDrawType, DateTime pDrawDate)
         {
+            this.optionMenuEnabled = true;
             this.numberBoxFormParent = pParent;
             this.listSelectorFormParent = null;
             this.pointSale = pPointSale;
@@ -46,21 +58,29 @@ namespace SILO
             this.drawDate = pDrawDate;
             //this.numberDetail = null;
             initializeComponent();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
+            this.ticketPrintService = new TicketPrintService();
         }
 
-        public ListInstanceForm(ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
+        public ListInstanceForm(ApplicationMediator pMediator, ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
             LDT_LotteryDrawType pDrawType, DateTime pDrawDate, List<LotteryTuple> pNumberList = null)
         {
+            this.optionMenuEnabled = true;
             this.numberBoxFormParent = null;
             this.listSelectorFormParent = pSelectorForm;
             this.pointSale = pPointSale;
             this.drawType = pDrawType;
             this.drawDate = pDrawDate;
             this.initializeComponent();
+            // Inicializar el list control si hay una lista asociada
             if (pNumberList != null)
             {
                 this.initializeListControl(pNumberList);
             }
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
+            this.ticketPrintService = new TicketPrintService();
         }
 
         public void initializeComponent() {
@@ -94,7 +114,16 @@ namespace SILO
         }
 
         private LotteryListControl getCurrentListControl() {
-            return this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            LotteryListControl list = null;
+            if (this.listInstanceMainPanel.Controls.Count > 0)
+            {
+                list = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            }
+            else
+            {
+                MessageBox.Show("ERROR: Desplegando la instancia");
+            }
+            return list;
         }
 
         public void processList()
@@ -103,8 +132,7 @@ namespace SILO
             // Validar si la lista tiene datos
             if (listControl.loteryList.tupleList.Count == 0)
             {
-                this.setActiveButton(this.printListButton, true);
-                this.setActiveButton(this.eraseListButton, true);
+                this.setEnabledButtonsAndMenu(true);
                 MessageBox.Show("La lista no tiene datos");
                 //this.togglePrintListButton();
             }
@@ -117,24 +145,7 @@ namespace SILO
 
         public void createList()
         {
-            // Guardar la lista de manera local
-            LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
-            List < LND_ListNumberDetail > savedNumberDetailList = this.saveList(listControl);
-            // Imprimir solamente si la impresora está habilitada
-            if (UtilityService.printerEnabled())
-            {
-                UtilityService.printList(this.list);
-            }
-            // Actualizar NumberBox si no es nula
-            if (this.numberBoxFormParent != null)
-            {
-                this.numberBoxFormParent.updateNumberBox(this.drawType.LDT_Id);
-            }
-            // Sincronizar con el servidor, solamente si los servicios están habilitados
-            if (UtilityService.realTimeSyncEnabled())
-            {
-                this.sendListNumberToServer(savedNumberDetailList);
-            }
+            this.setEnabledButtonsAndMenu(false);
             // Cerrar y liberar memoria de formulario de selección si no es nulo
             if (this.listSelectorFormParent != null)
             {
@@ -145,11 +156,45 @@ namespace SILO
             {
                 this.mainOptionMenu.Hide();
             }
-            this.resetFormList();
+            // Guardar la lista de manera local
+            LotteryListControl listControl = this.listInstanceMainPanel.Controls.OfType<LotteryListControl>().First();
+            List < LND_ListNumberDetail > savedNumberDetailList = this.saveList(listControl);
+            // Imprimir solamente si la impresora está habilitada
+            if (UtilityService.printerEnabled())
+            {
+                ticketPrintService.printList(this.list);
+            }            
+            // ***Actualizar NumberBox si no es nula
+            if (this.numberBoxFormParent != null)
+            {
+                //this.numberBoxFormParent.updateNumberBox(this.drawType.LDT_Id);
+            }
+            // Sincronizar con el servidor, solamente si los servicios están habilitados
+            if (UtilityService.realTimeSyncEnabled())
+            {
+                this.sendListNumberToServer(savedNumberDetailList);
+            }
+            /*
+            // Cerrar y liberar memoria de formulario de selección si no es nulo
+            if (this.listSelectorFormParent != null)
+            {
+                this.listSelectorFormParent.Dispose();
+            }
+            // Si existe un option menu abierto, cerrarlo
+            if (this.mainOptionMenu != null)
+            {
+                this.mainOptionMenu.Hide();
+            }
+            */
+            this.Dispose();
+            // Actualizar BoxNumber y mostrar en pantalla resultado de la venta
+            //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);
+            this.appMediator.setBoxNumberGroup(0);
+            this.appMediator.displayNumberBox(this.drawDate, this.drawType.LDT_Id);
+            // Limpiar y reestablecer el ListControl
+            //this.resetFormList();
             //this.focusList();
-            //this.Dispose();
         }
-
 
         private List<LND_ListNumberDetail> saveList(LotteryListControl pListControl)
         {
@@ -158,7 +203,6 @@ namespace SILO
             LTD_LotteryDraw drawToSave = new LTD_LotteryDraw();
             drawToSave.LTD_CreateDate = this.drawDate;
             drawToSave.LDT_LotteryDrawType = this.drawType.LDT_Id;
-            drawToSave.LDS_LotteryDrawStatus = 2;
             drawToSave.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_OPENED;
             lotteryDrawRepository.save(ref drawToSave);
             // Crear y guardar nueva lista
@@ -169,6 +213,7 @@ namespace SILO
             this.printDate = DateTime.Now;
             listToSave.LTL_CreateDate = this.printDate;
             listToSave.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CREATED;
+            listToSave.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_PENDING_TO_SERVER;
             lotteryDrawRepository.saveList(ref listToSave);
             this.list = listToSave;
             // Crear colección y guardar a nivel local detalle de números de la lista
@@ -191,21 +236,20 @@ namespace SILO
 
         private void sendListNumberToServer(List<LND_ListNumberDetail> pNumberDetail)
         {
-            ServerConnectionService service = new ServerConnectionService();
-            ServiceResponseResult response = service.generateList(this.list, pNumberDetail);
-            Console.WriteLine("Respuesta Venta: " + response.result);
+            SynchronizeService syncService = new SynchronizeService();
+            syncService.sendListNumberToServer(this.list, pNumberDetail);
         }
 
         private void setActiveButton(Button pButton, bool pEnabled) {
             pButton.Enabled = pEnabled;
         }
         
-        private void processMenuRequest(KeyEventArgs pEvent)
+        private void processMenuRequest(/*KeyEventArgs pEvent*/)
         {
-            if (pEvent.KeyCode == Keys.Multiply)
+            // Actualizar la estructura de lista antes de desplegar menú de opciones
+            LotteryListControl listControl = this.getCurrentListControl();
+            if (listControl != null)
             {
-                // Actualizar la estructura de lista antes de desplegar menú de opciones
-                LotteryListControl listControl = this.getCurrentListControl();
                 listControl.getList().EndEdit();
                 if (this.mainOptionMenu != null)
                 {
@@ -214,7 +258,7 @@ namespace SILO
                 // Desplegar menú de opciones
                 this.mainOptionMenu = new MainOptionMenu(this);
                 mainOptionMenu.ShowDialog(this);
-                pEvent.SuppressKeyPress = true;
+                //pEvent.SuppressKeyPress = true;
             }
         }
 
@@ -226,16 +270,26 @@ namespace SILO
         private void focusList()
         {
             this.listInstanceMainPanel.Focus();
-            this.getCurrentListControl().Focus();
+            LotteryListControl listControl = this.getCurrentListControl();
+            if (listControl != null)
+            {
+                listControl.Focus();
+            }
         }
 
         private void resetFormList()
         {
             //this.numberDetail = null;
-            this.setActiveButton(this.printListButton, true);
-            this.setActiveButton(this.eraseListButton, true);
+            this.setEnabledButtonsAndMenu(true);
             this.clearList();
             this.focusList();
+        }
+
+        private void setEnabledButtonsAndMenu(bool pActivate)
+        {
+            this.optionMenuEnabled = pActivate;
+            this.setActiveButton(this.printListButton, pActivate);
+            this.setActiveButton(this.eraseListButton, pActivate);
         }
 
         //--------------------------------------- Eventos de Controles --------------------------------------//
@@ -253,8 +307,7 @@ namespace SILO
             {
                 case DialogResult.Yes:
                     // Procesar la impresión
-                    this.setActiveButton(this.printListButton, false);
-                    this.setActiveButton(this.eraseListButton, false);
+                    this.setEnabledButtonsAndMenu(false);
                     this.processList();
                     this.resetFormList();
                     break;
@@ -290,11 +343,26 @@ namespace SILO
 
         private void ListInstanceForm_KeyDown(object sender, KeyEventArgs e)
         {
-            processMenuRequest(e);
+            switch (e.KeyCode)
+            {
+                case Keys.Multiply:
+                    if (this.optionMenuEnabled)
+                    {
+                        this.processMenuRequest();
+                    }
+                    break;
+                case Keys.Escape:
+                    //this.appMediator.setBoxNumberGroup(0);
+                    this.Dispose();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ListInstanceForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            this.appMediator.setBoxNumberGroup(0);
             if (this.listSelectorFormParent != null)
             {
                 this.listSelectorFormParent.Dispose();

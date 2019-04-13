@@ -1,6 +1,8 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
+using SILO.DesktopApplication.Core.Integration;
+using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
 using System;
@@ -21,16 +23,24 @@ namespace SILO
         public long drawType { get; set; }
         public int operationType { get; set; }
 
+        public ApplicationMediator appMediator { get; set; }
+
+        private TicketPrintService ticketPrintService;
+
+
         //--------------------------------------- Métodos de Inicialización --------------------------------------//
         #region Métodos de Inicialización
 
-        public ListSelectorForm(DateTime pDate, long pGroup, int pOperation)
+        public ListSelectorForm(ApplicationMediator pMediator, DateTime pDate, long pGroup, int pOperation)
         {
             InitializeComponent();
             this.drawDate = pDate;
             this.drawType = pGroup;
             this.operationType = pOperation;
             this.addControls();
+            // Establecer el ApplicationMediator
+            this.appMediator = pMediator;
+            this.ticketPrintService = new TicketPrintService();
         }
 
         private void addControls()
@@ -64,9 +74,9 @@ namespace SILO
 
         private void copyList(long pListId)
         {
-            CopyListForm copyListForm = new CopyListForm(this, pListId);
+            CopyListForm copyListForm = new CopyListForm(this.appMediator, this, pListId);
             this.Hide();
-            copyListForm.ShowDialog();
+            copyListForm.ShowDialog(this);
             LotteryListRepository listRepository = new LotteryListRepository();
            // UtilityService.printList(listRepository.getById(pListId));
         }
@@ -74,7 +84,7 @@ namespace SILO
         private void printList(long pListId)
         {
             LotteryListRepository listRepository = new LotteryListRepository();
-            UtilityService.printList(listRepository.getById(pListId));
+            this.ticketPrintService.printList(listRepository.getById(pListId));
         }
 
         private void validateEraseList(long pListId)
@@ -100,16 +110,23 @@ namespace SILO
 
         private void eraseList(long pListId)
         {
+            // Obtener la lista por el id
             ListService listService = new ListService();
             LTL_LotteryList list = listService.getById(pListId);
+            // Modificar el estado y guardar localmente
             list.LLS_LotteryListStatus = SystemConstants.LIST_STATUS_CANCELED;
+            list.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_PENDING_TO_SERVER;
             listService.updateList(list);
-            // TODO: Reversar la lista en el servidor
+            // Reversar la lista en el servidor
+            SynchronizeService syncService = new SynchronizeService();
+            syncService.reverseListNumberFromServer(list);
+            // Acciones posteriores a la reversión
             this.Hide();
             MessageService.displayInfoMessage(GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_MESSAGE, GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE);
             LotteryDrawRepository drawRepository = new LotteryDrawRepository();
             LotteryDrawTypeRepository drawTypeRepository = new LotteryDrawTypeRepository();
             ListInstanceForm listInstance = new ListInstanceForm(
+                this.appMediator,
                 this,
                 UtilityService.getPointSale(),
                 drawTypeRepository.getById(drawRepository.getById(list.LTD_LotteryDraw).LDT_LotteryDrawType),
