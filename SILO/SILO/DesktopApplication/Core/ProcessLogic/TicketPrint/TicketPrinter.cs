@@ -5,6 +5,8 @@ using System.Collections;
 using System.Drawing.Printing;
 using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Model.TicketModel;
+using SILO.DesktopApplication.Core.Model.NumberModel;
 
 namespace SILO
 {

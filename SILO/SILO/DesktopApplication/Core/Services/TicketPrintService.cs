@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Repositories;
+﻿using SILO.DesktopApplication.Core.Model.TicketModel;
+using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
 using System.Collections.Generic;

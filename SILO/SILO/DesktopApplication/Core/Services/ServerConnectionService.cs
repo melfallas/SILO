@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Model;
+using SILO.DesktopApplication.Core.Model.ServiceModel;
 using SILO.DesktopApplication.Core.Repositories;
 using System;
 using System.Collections.Generic;

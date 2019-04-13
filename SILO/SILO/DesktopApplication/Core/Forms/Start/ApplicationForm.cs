@@ -2,6 +2,7 @@
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
+using SILO.DesktopApplication.Core.Forms.Modules.Number;
 using SILO.DesktopApplication.Core.Forms.Modules.Parameters;
 using SILO.DesktopApplication.Core.Forms.Modules.Sale;
 using SILO.DesktopApplication.Core.Forms.UX;

@@ -1,5 +1,6 @@
 ﻿using SILO.DesktopApplication.Core.Abstract.Generic;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Model.NumberModel;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
