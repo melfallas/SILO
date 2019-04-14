@@ -237,6 +237,7 @@ namespace SILO
         private void sendListNumberToServer(List<LND_ListNumberDetail> pNumberDetail)
         {
             SynchronizeService syncService = new SynchronizeService();
+            syncService.appMediator = this.appMediator;
             syncService.sendListNumberToServer(this.list, pNumberDetail);
         }
 
