@@ -20,6 +20,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
     public partial class NumberBoxForm : MainModuleForm
     {
 
+        private long lastGroup;
         private BoxNumberUnit[] boxArray;
         public ApplicationMediator appMediator { get; set; }
 
@@ -33,6 +34,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             this.createBoxNumber();
             // Establecer el ApplicationMediator
             this.appMediator = pMediator;
+            this.lastGroup = 0;
 
             //Thread.Sleep(5000);
             //this.contentPanel.Visible = true;
@@ -119,12 +121,106 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         // Delegados para seteo de propiedades desde otros hilos
         delegate void SetNumberBoxTextCallback(int pElementIndex, string pText);
+        delegate int GetSelectedGroupCallback();
         delegate void SetSelectedGroupCallback(int pGroupId);
         delegate void SetTotalImportCallback(string pText);
         delegate void SetSyncImportCallback(string pText);
         delegate void SetPendingImportCallback(string pText);
         delegate void SetMaxToReceiveCallback(string pText);
 
+
+        // Evento para setear el BoxNumber desde otro hilo
+        public void setNumberBoxText(int pElementIndex, string pText)
+        {
+            this.setTextBoxWithThread(this.boxArray[pElementIndex].textbox, pText);
+            /*
+            if (this.boxArray[pElementIndex].textbox.InvokeRequired)
+            {
+                SetNumberBoxTextCallback callBack = new SetNumberBoxTextCallback(setNumberBoxText);
+                this.Invoke(callBack, new object[] { pElementIndex, pText });
+            }
+            else
+            {
+                this.boxArray[pElementIndex].textbox.Text = pText;
+            }
+            */
+        }
+        // Evento para obtener el SelectedGroup desde otro hilo
+        public int getSelectedGroup()
+        {
+            int selectedIndex = 0;
+            if (this.drawTypeBox.InvokeRequired)
+            {
+                /*
+                GetSelectedGroupCallback callBack = new GetSelectedGroupCallback(getSelectedGroup);
+                selectedIndex = (int)this.Invoke(callBack, new object[] { });
+                */
+
+                this.drawTypeBox.BeginInvoke(new MethodInvoker(delegate {
+                    selectedIndex = this.drawTypeBox.SelectedIndex;
+                }));
+
+            }
+            else
+            {
+                selectedIndex = this.drawTypeBox.SelectedIndex;
+            }
+            Console.WriteLine("selectedIndex: " + selectedIndex);
+            return selectedIndex;
+        }
+
+        // Evento para setear el SelectedGroup desde otro hilo
+        public void setSelectedGroup(int pGroupId)
+        {
+            if (this.drawTypeBox.InvokeRequired)
+            {
+                this.drawTypeBox.BeginInvoke(new MethodInvoker(delegate {
+                    this.drawTypeBox.SelectedIndex = pGroupId;
+                }));
+            }
+            else
+            {
+                this.drawTypeBox.SelectedIndex = pGroupId;
+            }
+        }
+
+        // Evento para setear un TextBox desde otro hilo
+        public void setTextBoxWithThread(TextBox pTextBox, string pText)
+        {
+            if (pTextBox.InvokeRequired)
+            {
+                pTextBox.BeginInvoke(new MethodInvoker(delegate {
+                    pTextBox.Text = pText;
+                }));
+            }
+            else
+            {
+                pTextBox.Text = pText;
+            }
+        }
+
+        // Evento para setear el TotalImport desde otro hilo
+        public void setTotalImport(string pText)
+        {
+            this.setTextBoxWithThread(this.txbTotalImport, pText);
+        }
+        // Evento para setear el SyncImport desde otro hilo
+        public void setSyncImport(string pText)
+        {
+            this.setTextBoxWithThread(this.txbSyncImport, pText);
+        }
+        // Evento para setear el PendingImport desde otro hilo
+        public void setPendingImport(string pText)
+        {
+            this.setTextBoxWithThread(this.txbPendingImport, pText);
+        }
+        // Evento para setear el MaxToReceive desde otro hilo
+        public void setMaxToReceive(string pText)
+        {
+            this.setTextBoxWithThread(this.txbMaxToReceive, pText);
+        }
+
+        /*
         // Evento para setear el BoxNumber desde otro hilo
         public void setNumberBoxText(int pElementIndex, string pText)
         {
@@ -136,7 +232,23 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             else
             {
                 this.boxArray[pElementIndex].textbox.Text = pText;
+            }            
+        }
+        // Evento para obtener el SelectedGroup desde otro hilo
+        public int getSelectedGroup()
+        {
+            int selectedIndex = 0;
+            if (this.drawTypeBox.InvokeRequired)
+            {
+                GetSelectedGroupCallback callBack = new GetSelectedGroupCallback(getSelectedGroup);
+                selectedIndex = (int)this.Invoke(callBack, new object[] { });
             }
+            else
+            {
+                selectedIndex = this.drawTypeBox.SelectedIndex;
+            }
+            Console.WriteLine("selectedIndex: " + selectedIndex);
+            return selectedIndex;
         }
         // Evento para setear el SelectedGroup desde otro hilo
         public void setSelectedGroup(int pGroupId)
@@ -190,7 +302,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.txbPendingImport.Text = pText;
             }
         }
-
         // Evento para setear el MaxToReceive desde otro hilo
         public void setMaxToReceive(string pText)
         {
@@ -204,7 +315,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.txbMaxToReceive.Text = pText;
             }
         }
-
+        */
 
         //--------------------------------------- Métodos de Actualización --------------------------------------//
 
@@ -274,10 +385,41 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             }
         }
 
+        private void updateTotalBoxes(long pGroupId)
+        {
+            int totalImport = 0;
+            int pendingImport = 0;
+            ListService listService = new ListService();
+            // Calcular importe sincronizado con el server
+            int[] syncTotalImportArray = listService.getDrawTotals(this.datePickerList.Value.Date, pGroupId);
+            for (int i = 0; i < syncTotalImportArray.Length; i++)
+            {
+                totalImport += syncTotalImportArray[i];
+            }
+            this.setTotalImport(FormatService.formatInt(totalImport));
+            // Calcular importe pendiente de sincronización
+            int[] pendingSyncImportArray = listService.getDrawPendingSyncTotals(this.datePickerList.Value.Date, pGroupId);
+            for (int i = 0; i < syncTotalImportArray.Length; i++)
+            {
+                pendingImport += pendingSyncImportArray[i];
+            }
+            this.setSyncImport(FormatService.formatInt(totalImport - pendingImport));
+            this.setPendingImport(FormatService.formatInt(pendingImport));
+            int maxToReceive = (int)(totalImport * 0.03);
+            this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
+        }
+
+        public void updateTotalBoxes() {
+            //long groupId = this.getSelectedGroup();
+            long groupId = this.lastGroup;
+            this.updateTotalBoxes(groupId);
+            //this.updateNumberBox(null, 1);
+        }
 
         public void updateNumberBox()
         {
-            long groupId = this.drawTypeBox.SelectedIndex;
+            long groupId = this.getSelectedGroup();
+            //long groupId = this.drawTypeBox.SelectedIndex;
             this.updateNumberBox(groupId);
         }
 
@@ -374,6 +516,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             }
             else
             {
+                this.lastGroup = groupId;
+                Console.WriteLine("lastGroup: " + lastGroup);
                 await this.updateNumberBox(groupId);
                 this.displayNewListInstance();
             }
