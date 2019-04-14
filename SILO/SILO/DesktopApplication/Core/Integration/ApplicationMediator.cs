@@ -14,6 +14,15 @@ namespace SILO.DesktopApplication.Core.Integration
         public ApplicationForm appForm { get; set; }
         public NumberBoxForm appNumberBox { get; set; }
 
+
+        public void updateTotalBoxes()
+        {
+            if (this.appNumberBox != null)
+            {
+                this.appNumberBox.updateTotalBoxes();
+            }
+        }
+
         public void displayNumberBox(DateTime? pDrawDate = null, long pGroupId = 0)
         {
             this.appForm.showFormInMainPanel(new NumberBoxForm(this), pDrawDate, pGroupId);

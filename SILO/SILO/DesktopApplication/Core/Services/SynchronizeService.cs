@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Model;
 using SILO.DesktopApplication.Core.Model.ListModel;
 using SILO.DesktopApplication.Core.Model.ServiceModel;
@@ -15,8 +16,10 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Services
 {
-    class SynchronizeService
+    public class SynchronizeService
     {
+
+        public ApplicationMediator appMediator { get; set; }
 
         private bool isValidResponse(ServiceResponseResult pResponseResult, string pCodeSectionDetail = "SynchronizeService: ")
         {
@@ -295,11 +298,9 @@ namespace SILO.DesktopApplication.Core.Services
                 SyncListResult listSyncResult = JsonConvert.DeserializeObject<SyncListResult>(resultString);
                 long listId = listSyncResult.listNumber;
                 //Console.WriteLine(listId);
-                LotteryListRepository listRepository = new LotteryListRepository();
-                listRepository.getById(listId);
-                //this.setListCompleteSync(listRepository.getById(listId));
                 // Cambiar el estado de la lista local a Sincronizado
                 this.setListCompleteSync(listId);
+                this.appMediator.updateTotalBoxes();
                 processDone = true;
             }
             else
