@@ -499,12 +499,18 @@ namespace SILO
             string printDate = this.saleTicket.createDate.ToString("dd-MM");
             string drawDate = this.saleTicket.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.saleTicket.drawDate.ToString("dd/MM/yyyy");
             string ticketId = this.fillString(this.saleTicket.ticketId.ToString(), 4, "0");
-            string globalId = this.fillString(UtilityService.getGlobalId(this.saleTicket.ticketId), 6, "0");
+            string globalId = this.fillString(UtilityService.getGlobalId(this.saleTicket.ticketId), 6, "0");            
             // Iniciar con la impresión
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
             this.drawCenterLine(printDate);
+            // Imprimir tipo de ticket
+            string titleLegend = this.saleTicket.getTicketType().Trim();
+            if (titleLegend != "")
+            {
+                this.drawCenterLine("<< " + titleLegend + " >>");
+            }
             string line = "/" + printTime + "/----------/" + ticketId + "/";
-            this.drawCenterLine(line);
+            this.drawCenterLine(line);            
             // Imprimir nombre de la compañía
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 2, FontStyle.Bold);
             this.drawCenterLine(this.saleTicket.companyName);

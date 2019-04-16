@@ -72,6 +72,25 @@ namespace SILO
             }
         }
 
+        public int getTicketType() {
+            int type = TicketPrintService.SALE_TICKET_TYPE;
+            switch (this.operationType)
+            {
+                case SystemConstants.COPY_LIST_CODE:
+                    type = TicketPrintService.COPY_TICKET_TYPE;
+                    break;
+                case SystemConstants.PRINTER_LIST_CODE:
+                    type = TicketPrintService.REPRINT_TICKET_TYPE;
+                    break;
+                case SystemConstants.ERASER_LIST_CODE:
+                    type = TicketPrintService.ERASE_TICKET_TYPE;
+                    break;
+                default:
+                    break;
+            }
+            return type;
+        }
+
         private void copyList(long pListId)
         {
             CopyListForm copyListForm = new CopyListForm(this.appMediator, this, pListId);
@@ -84,7 +103,7 @@ namespace SILO
         private void printList(long pListId)
         {
             LotteryListRepository listRepository = new LotteryListRepository();
-            this.ticketPrintService.printList(listRepository.getById(pListId));
+            this.ticketPrintService.printList(listRepository.getById(pListId), this.getTicketType());
         }
 
         private void validateEraseList(long pListId)
@@ -99,6 +118,7 @@ namespace SILO
             {
                 case DialogResult.Yes:
                     // Procesar el borrado
+                    this.printList(pListId);
                     this.eraseList(pListId);
                     break;
                 case DialogResult.No:

@@ -16,16 +16,21 @@ namespace SILO.DesktopApplication.Core.Services
 
         public int type { get; set; }
 
+        public static int SALE_TICKET_TYPE = SaleTicket.SALE_TICKET_TYPE;
+        public static int COPY_TICKET_TYPE = SaleTicket.COPY_TICKET_TYPE;
+        public static int REPRINT_TICKET_TYPE = SaleTicket.REPRINT_TICKET_TYPE;
+        public static int ERASE_TICKET_TYPE = SaleTicket.ERASE_TICKET_TYPE;
+
         public TicketPrintService() {
             LotteryListRepository listRepo = new LotteryListRepository();
             LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
         }
 
         // Método para imprimir un ticket de venta de una lista
-        public void printList(LTL_LotteryList pNumberList)
+        public void printList(LTL_LotteryList pNumberList, int pTicketType = 0)
         {
             // Configurar impresión para Ticket de Venta
-            SaleTicket saleTicket = new SaleTicket();
+            SaleTicket saleTicket = new SaleTicket(pTicketType);
             saleTicket.companyName = UtilityService.getCompanyName();
             // Obtener datos del punto de venta
             LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
