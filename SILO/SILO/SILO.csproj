@@ -157,12 +157,15 @@
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\CompanyRepository.cs" />
     <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LotteryPrizeFactorRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ConcreteMessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawTypeService.cs" />
     <Compile Include="DesktopApplication\Core\Services\FormatService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ListService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LogService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\PrizeFactorService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PrinterService.cs" />
@@ -186,6 +189,7 @@
     <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.Designer.cs">
       <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Util\SaleValidator.cs" />
     <Compile Include="DesktopApplication\Core\Util\ServiceValidator.cs" />
     <Compile Include="DNW_DrawNumberWinning.cs">
       <DependentUpon>DataModel.tt</DependentUpon>

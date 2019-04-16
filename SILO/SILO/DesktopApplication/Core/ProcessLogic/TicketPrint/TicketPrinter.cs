@@ -566,6 +566,10 @@ namespace SILO
             this.drawCenterLine(".");
         }
 
+        private void printPrizeFactors() {
+
+        }
+
         private void printSaleTicketList()
         {
             string listHeaders = this.fillString("MONTO", 6) + "   No";

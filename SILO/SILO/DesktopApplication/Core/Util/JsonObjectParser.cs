@@ -74,7 +74,7 @@ namespace SILO.DesktopApplication.Core.Util
         public void changeJsonProp(JToken pToken, string pPropName)
         {
             long companyId = long.Parse(getJsonProp(getJsonProp(pToken, pPropName), "id").ToString());
-            setJsonProp(pToken, pPropName, companyId);
+            this.setJsonProp(pToken, pPropName, companyId);
         }
 
         public JToken getJsonProp(JToken pToken, string pPropName)

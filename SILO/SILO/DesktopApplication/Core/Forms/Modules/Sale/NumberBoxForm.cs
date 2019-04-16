@@ -4,6 +4,7 @@ using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -516,12 +517,34 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             }
             else
             {
-                this.lastGroup = groupId;
-                Console.WriteLine("lastGroup: " + lastGroup);
-                await this.updateNumberBox(groupId);
-                this.displayNewListInstance();
+                SaleValidator saleValidator = new SaleValidator();
+                await saleValidator.validatePrizeFactorAsync(groupId, updateBoxAndDisplayListInstance);
+                /*
+                LotteryPrizeFactorService prizeFactorService = new LotteryPrizeFactorService();
+                LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(groupId);
+                if (prizeFactor == null)
+                {
+                    ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                }
+                else
+                {
+                    await this.updateBoxAndDisplayListInstance(groupId);
+                }
+                */
             }
         }
+
+        public async Task<bool> updateBoxAndDisplayListInstance(long pGroupId)
+        {
+            bool result = true;
+            this.lastGroup = pGroupId;
+            Console.WriteLine("lastGroup: " + lastGroup);
+            await this.updateNumberBox(pGroupId);
+            this.displayNewListInstance();
+            return result;
+            //return Task.Run(() => result);
+        } 
+
 
     }
 }

@@ -52,6 +52,12 @@ namespace SILO.Core.Constants
         public const string GET_SESSION_USER_ERROR2 = "Error";
 
 
+        // Constantes de VENTA
+
+        public const string PRIZE_FACTOR_NOT_FOUND_TITLE = "FACTOR DE PREMIO NO ESPECIFICADO";
+        public const string PRIZE_FACTOR_NOT_FOUND_MESSAGE = "No se ha especificado un factor de premio para el grupo.\nPor favor, contacte al administrador.";
+
+
         //--- Venta no permitida
         public const string NOT_ALLOWED_PREVIOUS_DATE_SALE_TITLE = "VENTA NO PERMITIDA";
         public const string NOT_ALLOWED_PREVIOUS_DATE_SALE_MESSAGE = "No es posible realizar ventas de días anteriores.\nSolamente podrá visualizar el resumen de los importes.";

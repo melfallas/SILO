@@ -19,6 +19,8 @@ namespace SILO.DesktopApplication.Core.Model.TicketModel
         public string customerName { get; set; }
         public List<LotteryTuple> listNumberDetail { get; set; }
 
+        public float MyProperty { get; set; }
+
         public long getTotalImport()
         {
             long totalImport = 0;
