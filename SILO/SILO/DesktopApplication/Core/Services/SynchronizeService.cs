@@ -21,6 +21,13 @@ namespace SILO.DesktopApplication.Core.Services
 
         public ApplicationMediator appMediator { get; set; }
 
+        /*
+        public SynchronizeService(ApplicationMediator pAppMediator)
+        {
+            this.appMediator = pAppMediator;
+        }
+        */
+
         private bool isValidResponse(ServiceResponseResult pResponseResult, string pCodeSectionDetail = "SynchronizeService: ")
         {
             bool validResponse = true;
@@ -271,7 +278,7 @@ namespace SILO.DesktopApplication.Core.Services
             syncList.SYS_SynchronyStatus = pSyncStatus;
             listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
             //Console.WriteLine("Respuesta Venta: " + response.result);
-            Console.WriteLine("Respuesta Venta");
+            Console.WriteLine("Estado cambiado a sincronizado: " + pList);
         }
 
 
@@ -300,7 +307,10 @@ namespace SILO.DesktopApplication.Core.Services
                 //Console.WriteLine(listId);
                 // Cambiar el estado de la lista local a Sincronizado
                 this.setListCompleteSync(listId);
-                this.appMediator.updateTotalBoxes();
+                if (this.appMediator != null)
+                {
+                    this.appMediator.updateTotalBoxes();
+                }
                 processDone = true;
             }
             else
@@ -336,6 +346,7 @@ namespace SILO.DesktopApplication.Core.Services
         {
             LotteryListRepository listRepo = new LotteryListRepository();
             List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
+            Console.WriteLine("Transacciones a Sincronizar: " + pendingTransactions);
             foreach (LTL_LotteryList item in pendingTransactions)
             {
                 Console.Write(item.LTL_Id);
