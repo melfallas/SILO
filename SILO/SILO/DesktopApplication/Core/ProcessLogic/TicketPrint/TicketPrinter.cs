@@ -494,7 +494,7 @@ namespace SILO
 
         private void generateSaleTicketHeader()
         {
-            // Obtener parámetros de encabizado
+            // Obtener parámetros de encabezado
             string printTime = this.saleTicket.createDate.ToString("HH:mm");
             string printDate = this.saleTicket.createDate.ToString("dd-MM");
             string drawDate = this.saleTicket.drawDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + this.saleTicket.drawDate.ToString("dd/MM/yyyy");
@@ -510,12 +510,13 @@ namespace SILO
             this.drawCenterLine(this.saleTicket.companyName);
             // Imprimir nombre del cliente
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize - 2, FontStyle.Regular);
-            string customerName = this.saleTicket.customerName.Trim() == "" ? GeneralConstants.NO_NAME_LABEL : this.saleTicket.customerName;
-            //this.drawCenterLine("");
-            //this.spaceLine(this.defaultTicketFontSize);
-            line = "<< " + customerName + " >>";
-            //line = "01234567890123456789";
-            this.drawCenterLine(line);
+            //string customerName = this.saleTicket.customerName.Trim() == "" ? GeneralConstants.NO_NAME_LABEL : this.saleTicket.customerName;
+            string customerName = this.saleTicket.customerName;
+            if (customerName.Trim() != "")
+            {
+                line = "<< " + customerName + " >>";
+                this.drawCenterLine(line);
+            }
             // Imprimir tipo de sorteo
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 2, FontStyle.Bold);
             line = "**" + this.saleTicket.drawTypeCode + "**";
@@ -547,8 +548,9 @@ namespace SILO
         {
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
             this.drawCenterLine(" RECUERDE QUE ", 0, "=");
-            string line = "AL 1RO: 75";
-            this.drawCenterLine(line);
+            // Imprimir factores de premio
+            this.printPrizeFactors();
+            // Imprimir leyendas finales
             line = "*** REVISE SU TIQUETE ***";
             this.drawCenterLine(line);
             line = "*** GRACIAS Y SUERTE ***";
@@ -556,18 +558,29 @@ namespace SILO
             line = "NO SE PAGA SIN TIQUETE";
             this.drawCenterLine(line);
             line = "***";
+            // Imprimir identificador del ticket
             this.drawCenterLine(line);
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 2, FontStyle.Regular);
             string globalId = this.fillString(UtilityService.getGlobalId(this.saleTicket.ticketId), 6, "0");
             line = "----< " + globalId + " >----";
             this.drawCenterLine(line);
+            // Imprimir líneas de espacio finales
             this.drawCenterLine(".");
             this.drawCenterLine(".");
             this.drawCenterLine(".");
         }
 
         private void printPrizeFactors() {
-
+            string[] legendArray = { "1RO", "2DO", "3RO"};
+            double[] prizeFactorArray = this.saleTicket.prizeFactorArray;
+            for (int i = 0; i < prizeFactorArray.Length; i++)
+            {
+                if (prizeFactorArray[i] != 0)
+                {
+                    string line = "AL " + legendArray[i] + ": " + this.fillString(prizeFactorArray[i].ToString(), 2);
+                    this.drawCenterLine(line);
+                }
+            }
         }
 
         private void printSaleTicketList()

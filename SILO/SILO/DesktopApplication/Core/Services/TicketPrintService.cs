@@ -40,6 +40,15 @@ namespace SILO.DesktopApplication.Core.Services
             this.drawTypeRepo = new LotteryDrawTypeRepository();
             LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
             saleTicket.drawTypeCode = drawType.LDT_Code;
+            // Obtener datos de los premios
+            PrizeFactorService prizeFactorService = new PrizeFactorService();
+            LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(drawType.LDT_Id);
+            if (prizeFactor != null)
+            {
+                saleTicket.prizeFactorArray[0] = prizeFactor.LPF_FirtsPrizeFactor;
+                saleTicket.prizeFactorArray[1] = prizeFactor.LPF_SecondPrizeFactor;
+                saleTicket.prizeFactorArray[2] = prizeFactor.LPF_ThirdPrizeFactor;
+            }
             // Llenar datos del número de lista
             saleTicket.createDate = DateTime.Now;
             saleTicket.ticketId = pNumberList.LTL_Id;

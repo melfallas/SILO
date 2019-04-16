@@ -19,7 +19,16 @@ namespace SILO.DesktopApplication.Core.Model.TicketModel
         public string customerName { get; set; }
         public List<LotteryTuple> listNumberDetail { get; set; }
 
-        public float MyProperty { get; set; }
+        public double[] prizeFactorArray { get; set; }
+
+        public SaleTicket()
+        {
+            this.prizeFactorArray = new double[3];
+            for (int i = 0; i < this.prizeFactorArray.Length; i++)
+            {
+                this.prizeFactorArray[i] = 0;
+            }
+        }
 
         public long getTotalImport()
         {
