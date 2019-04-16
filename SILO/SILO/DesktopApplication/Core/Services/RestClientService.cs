@@ -96,6 +96,7 @@ namespace SILO.DesktopApplication.Core.Services
             catch (Exception e)
             {
                 // Capturar errores en el log
+                Console.WriteLine("processAsyncHttpRequest");
                 LogService.log(e.Message, e.StackTrace);
                 //throw;
             }
@@ -104,40 +105,58 @@ namespace SILO.DesktopApplication.Core.Services
 
         private static void getRequestStreamCallback(IAsyncResult asyncResult)
         {
-            // Get request parameters
-            object[] requestParams = (object[]) asyncResult.AsyncState;
-            HttpWebRequest request = (HttpWebRequest) requestParams[0];
-            string requestData = requestParams[1].ToString();
-            Func<ServiceResponseResult, bool> proccessResponse = (Func<ServiceResponseResult, bool>) requestParams[2];
-            // End the operation and process the result data
-            Stream postStream = request.EndGetRequestStream(asyncResult);
-            byte[] byteData = Encoding.UTF8.GetBytes(requestData);
-            postStream.Write(byteData, 0, requestData.Length);
-            postStream.Close();
-            // Start the asynchronous operation to get the response
-            request.BeginGetResponse(new AsyncCallback(getResponseCallback), new object[] { request, proccessResponse });
+            try
+            {
+                // Get request parameters
+                object[] requestParams = (object[])asyncResult.AsyncState;
+                HttpWebRequest request = (HttpWebRequest)requestParams[0];
+                string requestData = requestParams[1].ToString();
+                Func<ServiceResponseResult, bool> proccessResponse = (Func<ServiceResponseResult, bool>)requestParams[2];
+                // End the operation and process the result data
+                Stream postStream = request.EndGetRequestStream(asyncResult);
+                byte[] byteData = Encoding.UTF8.GetBytes(requestData);
+                postStream.Write(byteData, 0, requestData.Length);
+                postStream.Close();
+                // Start the asynchronous operation to get the response
+                request.BeginGetResponse(new AsyncCallback(getResponseCallback), new object[] { request, proccessResponse });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("getRequestStreamCallback");
+                LogService.log(e.Message, e.StackTrace);
+                throw;
+            }
         }
 
         private static void getResponseCallback(IAsyncResult asyncResult)
         {
-            // Get request parameters
-            object[] requestParams = (object[])asyncResult.AsyncState;
-            HttpWebRequest request = (HttpWebRequest)requestParams[0];
-            Func<ServiceResponseResult, bool> proccessResponse = (Func<ServiceResponseResult, bool>)requestParams[1];
-            // End the operation
-            HttpWebResponse response = (HttpWebResponse) request.EndGetResponse(asyncResult);
-            Stream streamResponse = response.GetResponseStream();
-            StreamReader streamRead = new StreamReader(streamResponse);
-            string responseBody = streamRead.ReadToEnd();
-            ServiceResponseResult responseResult = JsonConvert.DeserializeObject<ServiceResponseResult>(responseBody);
-            Console.WriteLine(responseResult.ToString());
-            bool result = proccessResponse(responseResult);
-            // Close the stream object
-            streamResponse.Close();
-            streamRead.Close();
-            // Release the HttpWebResponse
-            response.Close();
-            allDone.Set();
+            try
+            {
+                // Get request parameters
+                object[] requestParams = (object[])asyncResult.AsyncState;
+                HttpWebRequest request = (HttpWebRequest)requestParams[0];
+                Func<ServiceResponseResult, bool> proccessResponse = (Func<ServiceResponseResult, bool>)requestParams[1];
+                // End the operation
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asyncResult);
+                Stream streamResponse = response.GetResponseStream();
+                StreamReader streamRead = new StreamReader(streamResponse);
+                string responseBody = streamRead.ReadToEnd();
+                ServiceResponseResult responseResult = JsonConvert.DeserializeObject<ServiceResponseResult>(responseBody);
+                Console.WriteLine(responseResult.ToString());
+                bool result = proccessResponse(responseResult);
+                // Close the stream object
+                streamResponse.Close();
+                streamRead.Close();
+                // Release the HttpWebResponse
+                response.Close();
+                allDone.Set();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("getResponseCallback");
+                LogService.log(e.Message, e.StackTrace);
+                throw;
+            }
         }
 
 
