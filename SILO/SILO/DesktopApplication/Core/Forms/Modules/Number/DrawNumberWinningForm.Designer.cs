@@ -42,9 +42,9 @@
             this.centerBoxPanel = new System.Windows.Forms.Panel();
             this.centerPanel = new System.Windows.Forms.Panel();
             this.txbThird = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.thirdNumberLabel = new System.Windows.Forms.Label();
             this.txbSecond = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.secondNumberLabel = new System.Windows.Forms.Label();
             this.txbFirst = new System.Windows.Forms.TextBox();
             this.firstNumberLabel = new System.Windows.Forms.Label();
             this.centerLeftPanel = new System.Windows.Forms.Panel();
@@ -209,9 +209,9 @@
             this.centerPanel.BackColor = System.Drawing.Color.Silver;
             this.centerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.centerPanel.Controls.Add(this.txbThird);
-            this.centerPanel.Controls.Add(this.label2);
+            this.centerPanel.Controls.Add(this.thirdNumberLabel);
             this.centerPanel.Controls.Add(this.txbSecond);
-            this.centerPanel.Controls.Add(this.label1);
+            this.centerPanel.Controls.Add(this.secondNumberLabel);
             this.centerPanel.Controls.Add(this.txbFirst);
             this.centerPanel.Controls.Add(this.firstNumberLabel);
             this.centerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -230,17 +230,17 @@
             this.txbThird.TabIndex = 11;
             this.txbThird.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label2
+            // thirdNumberLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label2.Location = new System.Drawing.Point(374, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 29);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Tercero:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.thirdNumberLabel.AutoSize = true;
+            this.thirdNumberLabel.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thirdNumberLabel.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.thirdNumberLabel.Location = new System.Drawing.Point(374, 26);
+            this.thirdNumberLabel.Name = "thirdNumberLabel";
+            this.thirdNumberLabel.Size = new System.Drawing.Size(105, 29);
+            this.thirdNumberLabel.TabIndex = 10;
+            this.thirdNumberLabel.Text = "Tercero:";
+            this.thirdNumberLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txbSecond
             // 
@@ -252,17 +252,17 @@
             this.txbSecond.TabIndex = 9;
             this.txbSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label1
+            // secondNumberLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label1.Location = new System.Drawing.Point(190, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 29);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Segundo:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.secondNumberLabel.AutoSize = true;
+            this.secondNumberLabel.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondNumberLabel.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.secondNumberLabel.Location = new System.Drawing.Point(180, 26);
+            this.secondNumberLabel.Name = "secondNumberLabel";
+            this.secondNumberLabel.Size = new System.Drawing.Size(124, 29);
+            this.secondNumberLabel.TabIndex = 8;
+            this.secondNumberLabel.Text = "Segundo:";
+            this.secondNumberLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txbFirst
             // 
@@ -447,6 +447,8 @@
             this.Controls.Add(this.winningTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DrawNumberWinningForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ingreso de números ganadores";
@@ -493,9 +495,9 @@
         private System.Windows.Forms.TextBox txbFirst;
         private System.Windows.Forms.Label firstNumberLabel;
         private System.Windows.Forms.TextBox txbThird;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label thirdNumberLabel;
         private System.Windows.Forms.TextBox txbSecond;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label secondNumberLabel;
         private System.Windows.Forms.Label dateLabel;
         private System.Windows.Forms.Label groupLabel;
         private System.Windows.Forms.Panel actionPanel;

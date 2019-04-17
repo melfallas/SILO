@@ -76,6 +76,9 @@ namespace SILO
         public SaleTicket saleTicket { get; set; }
         public PrizeTicket prizeTicket { get; set; }
 
+        public long saleImport { get; set; }
+        public long prizeImport { get; set; }
+
         #endregion
 
 
@@ -312,10 +315,17 @@ namespace SILO
             this.drawCenterLine(drawDate);
             this.DrawEspacio();
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize + 1, FontStyle.Bold);
-            line = "PREMIOS: -";
+            line = "NÚMEROS: -";
             for (int i = 0; i < this.prizeTicket.winnerNumbers.Length; i++)
             {
-                line += (this.prizeTicket.winnerNumbers[i] != "" ? this.prizeTicket.winnerNumbers[i] + "-" : "NA-");
+                line += (this.prizeTicket.winnerNumbers[i] == "" ? "NA-" : this.prizeTicket.winnerNumbers[i] + "-" );
+            }
+            this.drawCenterLine(line);
+            line = "PREMIOS: -";
+            for (int i = 0; i < this.prizeTicket.prizeFactorArray.Length; i++)
+            {
+                string prizeFactorString = ((int) this.prizeTicket.prizeFactorArray[i]).ToString();
+                line += (prizeFactorString == "" ? "NA-" : this.fillString(prizeFactorString, 2) + "-");
             }
             this.drawCenterLine(line);
             line = "SUC: " + this.prizeTicket.pointSaleName;
@@ -344,16 +354,21 @@ namespace SILO
 
         private void printPriceList()
         {
+            this.saleImport = 0;
+            this.prizeImport = 0;
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
             foreach (WinningNumberInfo item in this.prizeTicket.listWinningInfo)
             {
                 // Línea de números e importes
+                int prizeOrder = item.prizeOrder;
+                int prizeFactor = (int) this.prizeTicket.prizeFactorArray[prizeOrder - 1];
+                long payImport = item.saleImport * prizeFactor;
                 string localTicketId = this.fillString(item.localId.ToString(), 4, "0");
                 string globalTicketId = UtilityService.getGlobalId(item.localId);
                 string itemList =
                     this.fillString(item.numberCode, 2, "0")                                // Número Ganador
                     + " " + this.fillString(this.formatNumber(item.saleImport), 7) + " "    // Importe de la Venta
-                    + this.fillString(this.formatNumber(item.prizeImport), 11)              // Importe Pagado
+                    + this.fillString(this.formatNumber(payImport), 11)                     // Importe Pagado
                     ;
                 this.drawLine(itemList);
                 // Línea de número de Ticket
@@ -361,12 +376,14 @@ namespace SILO
                 itemList = "->" + globalTicketId
                     + "/" + localTicketId
                     ;
-                itemList += (item.customerName.Trim() == "" ? "" : " ->" + item.customerName.Substring(0, 6));
+                itemList += item.customerName.Trim() == "" ? "" : " ->" + this.limitString(item.customerName, 6);
                 //this.drawLine(itemList);
                 this.addTicketStringLine(itemList);
                 this.drawPrizeTicketLine(globalTicketId, localTicketId, item.customerName);
                 this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
                 this.DrawEspacio();
+                this.saleImport += item.saleImport;
+                this.prizeImport += payImport;
             }
         }
 
@@ -384,12 +401,16 @@ namespace SILO
             if (pCustomerName.Trim() != "")
             {
                 this.setFontAndMaxChar(this.defaultTicketFontSize - 1, FontStyle.Regular);
-                gfx.DrawString("               ->" + pCustomerName.Substring(0, 10), printFont, myBrush, leftMargin, YPosition(), new StringFormat());
+                gfx.DrawString("               ->" + this.limitString(pCustomerName, 10), printFont, myBrush, leftMargin, YPosition(), new StringFormat());
             }
             this.printFont = oldPrintFont;
             this.addLineHeight();
             count++;
             this.maxChar = oldSize;
+        }
+
+        private string limitString(string pStringToProcess, int pCharNumber) {
+            return (pStringToProcess.Length <= pCharNumber ? pStringToProcess : pStringToProcess.Substring(0, pCharNumber));
         }
 
         private void setFontAndMaxChar(int pFontSize, FontStyle pfontStyle)
@@ -423,8 +444,10 @@ namespace SILO
             //this.generateLine("=");
             this.drawCenterLine("", 0, "-");
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize, FontStyle.Regular);
-            long saleImport = this.prizeTicket.getTotalSaleImport();
-            long prizeImport = this.prizeTicket.getTotalPrizeImport();
+            //long saleImport = this.prizeTicket.getTotalSaleImport();
+            //long prizeImport = this.prizeTicket.getTotalPrizeImport();
+            long saleImport = this.saleImport;
+            long prizeImport = this.prizeImport;
             //string line = "**TOTAL   " + this.formatNumber(saleImport) + "      " + this.formatNumber(prizeImport);
             string line =
                     "TOTAL"

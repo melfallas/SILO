@@ -71,7 +71,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
         // Método para imprimir la lista de los números premiados y ganadores
-        public void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        public void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray, bool sendToPrint = true)
         {
             // Configurar impresión para Ticket de Venta
             TicketPrinter ticketPrinter = new TicketPrinter();
@@ -88,9 +88,18 @@ namespace SILO.DesktopApplication.Core.Services
             prizeTicket.drawTypeCode = drawType.LDT_Code;
             // Llenar datos del número de lista
             prizeTicket.createDate = DateTime.Now;
+            // Obtener datos de los premios
+            PrizeFactorService prizeFactorService = new PrizeFactorService();
+            LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(drawType.LDT_Id);
+            if (prizeFactor != null)
+            {
+                prizeTicket.prizeFactorArray[0] = prizeFactor.LPF_FirtsPrizeFactor;
+                prizeTicket.prizeFactorArray[1] = prizeFactor.LPF_SecondPrizeFactor;
+                prizeTicket.prizeFactorArray[2] = prizeFactor.LPF_ThirdPrizeFactor;
+            }
             // Obtener listado de información de ganadores
-            LotteryListRepository lotteryListRepository = new LotteryListRepository();
-            prizeTicket.listWinningInfo = lotteryListRepository.getWinningNumbersList(pDraw, pWinningNumberArray);
+            LotteryListRepository listRepository = new LotteryListRepository();
+            prizeTicket.listWinningInfo = listRepository.getWinningNumbersList(pDraw, pWinningNumberArray);
             prizeTicket.winnerNumbers = pWinningNumberArray;
             ticketPrinter.prizeTicket = prizeTicket;
             // Obtener nombre de impresora y enviar impresión

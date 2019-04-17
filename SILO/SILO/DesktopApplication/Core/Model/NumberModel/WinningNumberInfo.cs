@@ -8,6 +8,7 @@ namespace SILO.DesktopApplication.Core.Model.NumberModel
 {
     public class WinningNumberInfo
     {
+        public int prizeOrder { get; set; }
         public string numberCode { get; set; }
         public long saleImport { get; set; }
         public long prizeImport { get; set; }

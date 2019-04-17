@@ -18,7 +18,10 @@ namespace SILO.Core.Constants
         public const string DISPLAY_DRAWTYPE_VALUE_LABEL = "display";
 
         public const string NO_NAME_LABEL = "Sin Nombre";
-        public const string SELECT_GROUP_LABEL = "Seleccione un grupo";
+        public const string SELECT_GROUP_LABEL = "SELECCIONE UN GRUPO";
+
+
+        public const string EMPTY_WINNER_VALUE = "";
 
         // Security Constants
         public const string BAD_USER_OR_PASS_TITLE = "ERROR DE AUTENTICACIÓN";
