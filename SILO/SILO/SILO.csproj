@@ -98,6 +98,12 @@
     <Compile Include="DesktopApplication\Core\Forms\Modules\ModuleForm\MainModuleForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Number\PrizeTicketPanelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Number\PrizeTicketPanelForm.Designer.cs">
+      <DependentUpon>PrizeTicketPanelForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,12 +163,15 @@
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\CompanyRepository.cs" />
     <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\LotteryPrizeFactorRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ConcreteMessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawTypeService.cs" />
     <Compile Include="DesktopApplication\Core\Services\FormatService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ListService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LogService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\PrizeFactorService.cs" />
     <Compile Include="DesktopApplication\Core\Services\MessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PointSaleService.cs" />
     <Compile Include="DesktopApplication\Core\Services\PrinterService.cs" />
@@ -186,7 +195,9 @@
     <Compile Include="DesktopApplication\Core\Forms\Modules\List\DisplayQRForm.Designer.cs">
       <DependentUpon>DisplayQRForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Util\SaleValidator.cs" />
     <Compile Include="DesktopApplication\Core\Util\ServiceValidator.cs" />
+    <Compile Include="DesktopApplication\Core\Validators\TextBoxValidator.cs" />
     <Compile Include="DNW_DrawNumberWinning.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -319,6 +330,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\CopyListForm.resx">
       <DependentUpon>CopyListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Number\PrizeTicketPanelForm.resx">
+      <DependentUpon>PrizeTicketPanelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.resx">
       <DependentUpon>PrinterParamsForm.cs</DependentUpon>

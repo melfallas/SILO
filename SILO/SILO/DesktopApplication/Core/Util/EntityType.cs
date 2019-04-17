@@ -12,6 +12,7 @@ namespace SILO.DesktopApplication.Core.Util
         PointSale,
         UserRole,
         ApplicationUser,
+        PrizeFactor,
         Other
     }
 }
