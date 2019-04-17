@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Model.TicketModel;
+﻿using SILO.DesktopApplication.Core.Forms.Modules.Number;
+using SILO.DesktopApplication.Core.Model.TicketModel;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SILO.DesktopApplication.Core.Services
 {
@@ -16,16 +18,21 @@ namespace SILO.DesktopApplication.Core.Services
 
         public int type { get; set; }
 
+        public static int SALE_TICKET_TYPE = SaleTicket.SALE_TICKET_TYPE;
+        public static int COPY_TICKET_TYPE = SaleTicket.COPY_TICKET_TYPE;
+        public static int REPRINT_TICKET_TYPE = SaleTicket.REPRINT_TICKET_TYPE;
+        public static int ERASE_TICKET_TYPE = SaleTicket.ERASE_TICKET_TYPE;
+
         public TicketPrintService() {
             LotteryListRepository listRepo = new LotteryListRepository();
             LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
         }
 
         // Método para imprimir un ticket de venta de una lista
-        public void printList(LTL_LotteryList pNumberList)
+        public void printList(LTL_LotteryList pNumberList, int pTicketType = 0)
         {
             // Configurar impresión para Ticket de Venta
-            SaleTicket saleTicket = new SaleTicket();
+            SaleTicket saleTicket = new SaleTicket(pTicketType);
             saleTicket.companyName = UtilityService.getCompanyName();
             // Obtener datos del punto de venta
             LPS_LotteryPointSale pointSale = UtilityService.getPointSale();
@@ -40,6 +47,15 @@ namespace SILO.DesktopApplication.Core.Services
             this.drawTypeRepo = new LotteryDrawTypeRepository();
             LDT_LotteryDrawType drawType = drawTypeRepo.getById(drawObject.LDT_LotteryDrawType);
             saleTicket.drawTypeCode = drawType.LDT_Code;
+            // Obtener datos de los premios
+            PrizeFactorService prizeFactorService = new PrizeFactorService();
+            LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(drawType.LDT_Id);
+            if (prizeFactor != null)
+            {
+                saleTicket.prizeFactorArray[0] = prizeFactor.LPF_FirtsPrizeFactor;
+                saleTicket.prizeFactorArray[1] = prizeFactor.LPF_SecondPrizeFactor;
+                saleTicket.prizeFactorArray[2] = prizeFactor.LPF_ThirdPrizeFactor;
+            }
             // Llenar datos del número de lista
             saleTicket.createDate = DateTime.Now;
             saleTicket.ticketId = pNumberList.LTL_Id;
@@ -57,7 +73,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
         // Método para imprimir la lista de los números premiados y ganadores
-        public void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        public void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray, bool pSendToPrint, bool pShowInPanel)
         {
             // Configurar impresión para Ticket de Venta
             TicketPrinter ticketPrinter = new TicketPrinter();
@@ -74,15 +90,32 @@ namespace SILO.DesktopApplication.Core.Services
             prizeTicket.drawTypeCode = drawType.LDT_Code;
             // Llenar datos del número de lista
             prizeTicket.createDate = DateTime.Now;
+            // Obtener datos de los premios
+            PrizeFactorService prizeFactorService = new PrizeFactorService();
+            LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(drawType.LDT_Id);
+            if (prizeFactor != null)
+            {
+                prizeTicket.prizeFactorArray[0] = prizeFactor.LPF_FirtsPrizeFactor;
+                prizeTicket.prizeFactorArray[1] = prizeFactor.LPF_SecondPrizeFactor;
+                prizeTicket.prizeFactorArray[2] = prizeFactor.LPF_ThirdPrizeFactor;
+            }
             // Obtener listado de información de ganadores
-            LotteryListRepository lotteryListRepository = new LotteryListRepository();
-            prizeTicket.listWinningInfo = lotteryListRepository.getWinningNumbersList(pDraw, pWinningNumberArray);
+            LotteryListRepository listRepository = new LotteryListRepository();
+            prizeTicket.listWinningInfo = listRepository.getWinningNumbersList(pDraw, pWinningNumberArray);
             prizeTicket.winnerNumbers = pWinningNumberArray;
             ticketPrinter.prizeTicket = prizeTicket;
             // Obtener nombre de impresora y enviar impresión
             string printerName = UtilityService.getTicketPrinterName();
-            ticketPrinter.printPrizeTicket(printerName);
-            Console.Write(ticketPrinter.ticketStringText);
+            ticketPrinter.printPrizeTicket(printerName, pSendToPrint);
+            if (pShowInPanel)
+            {
+                Console.Write(ticketPrinter.ticketStringText);
+                MessageBox.Show(ticketPrinter.ticketStringText);
+                /*
+                PrizeTicketPanelForm prizeTicketPanelForm = new PrizeTicketPanelForm(ticketPrinter.ticketStringText);
+                prizeTicketPanelForm.ShowDialog();
+                */
+            }
         }
 
     }

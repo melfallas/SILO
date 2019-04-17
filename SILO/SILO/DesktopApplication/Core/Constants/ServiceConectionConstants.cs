@@ -23,6 +23,7 @@ namespace SILO.DesktopApplication.Core.Constants
         public const string GET_ALL_POINT_SALE_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotterypointsale/";
         public const string GET_ALL_ROLES_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "userrole/";
         public const string GET_ALL_USERS_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "applicationuser/";
+        public const string GET_ALL_PRIZE_FACTOR_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotteryprizefactor/";
 
         public const string POST_SAVE_NUMBER_LIST_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotterynumber/saveList/";
         public const string POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL = ROOT_SERVICE_API_END_POINT + "lotterydrawtype/saveList/";

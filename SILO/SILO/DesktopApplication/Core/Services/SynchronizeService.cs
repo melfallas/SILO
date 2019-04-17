@@ -21,6 +21,13 @@ namespace SILO.DesktopApplication.Core.Services
 
         public ApplicationMediator appMediator { get; set; }
 
+        /*
+        public SynchronizeService(ApplicationMediator pAppMediator)
+        {
+            this.appMediator = pAppMediator;
+        }
+        */
+
         private bool isValidResponse(ServiceResponseResult pResponseResult, string pCodeSectionDetail = "SynchronizeService: ")
         {
             bool validResponse = true;
@@ -140,6 +147,35 @@ namespace SILO.DesktopApplication.Core.Services
                 // Realizar la persistencia de los cambios
                 ApplicationUserRepository userRepo = new ApplicationUserRepository();
                 userRepo.saveList(JsonConvert.DeserializeObject<List<AUS_ApplicationUser>>(parsedJsonString));
+            }
+            return successProcess;
+        }
+
+
+        public bool syncPrizeFactor_ServerToLocal()
+        {
+            bool successProcess = true;
+            // Realizar la petición http
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getPrizeFactorFromServer();
+            successProcess = this.isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string jsonStringResult = responseResult.result.ToString();
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.PrizeFactor);
+                // Reemplazar objetos complejos en el json por su id
+                JArray jsonArray = JArray.Parse(jsonStringResult);
+                foreach (var item in jsonArray)
+                {
+                    parser.changeJsonProp(item, "lotteryPointSale");
+                    parser.changeJsonProp(item, "lotteryDrawType");
+                    parser.changeJsonProp(item, "synchronyStatus");
+                }
+                // Parsear el json de respuesta
+                string parsedJsonString = parser.parse(jsonArray.ToString());
+                // Realizar la persistencia de los cambios
+                LotteryPrizeFactorRepository prizeFactorRepo = new LotteryPrizeFactorRepository();
+                prizeFactorRepo.saveList(JsonConvert.DeserializeObject<List<LPF_LotteryPrizeFactor>>(parsedJsonString));
             }
             return successProcess;
         }
@@ -271,7 +307,7 @@ namespace SILO.DesktopApplication.Core.Services
             syncList.SYS_SynchronyStatus = pSyncStatus;
             listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
             //Console.WriteLine("Respuesta Venta: " + response.result);
-            Console.WriteLine("Respuesta Venta");
+            Console.WriteLine("Estado cambiado a sincronizado: " + pList);
         }
 
 
@@ -300,7 +336,10 @@ namespace SILO.DesktopApplication.Core.Services
                 //Console.WriteLine(listId);
                 // Cambiar el estado de la lista local a Sincronizado
                 this.setListCompleteSync(listId);
-                this.appMediator.updateTotalBoxes();
+                if (this.appMediator != null)
+                {
+                    this.appMediator.updateTotalBoxes();
+                }
                 processDone = true;
             }
             else
@@ -336,6 +375,7 @@ namespace SILO.DesktopApplication.Core.Services
         {
             LotteryListRepository listRepo = new LotteryListRepository();
             List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
+            Console.WriteLine("Transacciones a Sincronizar: " + pendingTransactions.Count);
             foreach (LTL_LotteryList item in pendingTransactions)
             {
                 Console.Write(item.LTL_Id);
@@ -360,6 +400,10 @@ namespace SILO.DesktopApplication.Core.Services
 
         #endregion
 
+        //----------------- Servicios Asíncronos de Pendientes de Pago y Reversión -----------------//
+        #region Servicios Asíncronos de Pendientes de Pago y Reversión
+
+        #endregion
 
     }
 }

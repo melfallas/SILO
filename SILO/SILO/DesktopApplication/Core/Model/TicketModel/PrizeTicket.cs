@@ -18,6 +18,17 @@ namespace SILO.DesktopApplication.Core.Model.TicketModel
         public DateTime createDate { get; set; }
         public string[] winnerNumbers { get; set; }
         public List<WinningNumberInfo> listWinningInfo { get; set; }
+        public double[] prizeFactorArray { get; set; }
+
+
+        public PrizeTicket()
+        {
+            this.prizeFactorArray = new double[3];
+            for (int i = 0; i < this.prizeFactorArray.Length; i++)
+            {
+                this.prizeFactorArray[i] = 0;
+            }
+        }
 
         public long getTotalSaleImport()
         {

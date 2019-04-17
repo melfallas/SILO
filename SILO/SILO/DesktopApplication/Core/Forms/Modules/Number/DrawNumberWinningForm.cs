@@ -2,6 +2,7 @@
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,8 +33,31 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
             this.drawTypeBox.DataSource = UtilityService.drawTypeDataTable(this.drawTypeBox.ValueMember, this.drawTypeBox.DisplayMember);
             this.drawTypeBox.SelectedIndex = 0;
             this.dateLabel.Text = UtilityService.getLargeDate(this.datePickerList.Value);
-            this.actionPanel.Hide();
+            this.togglePanels(false);
             this.datePickerList.Focus();
+        }
+
+        private void togglePanels(bool pActivate) {
+            if (pActivate)
+            {
+                this.firstNumberLabel.Show();
+                this.txbFirst.Show();
+                this.secondNumberLabel.Show();
+                this.txbSecond.Show();
+                this.thirdNumberLabel.Show();
+                this.txbThird.Show();
+                this.actionPanel.Show();
+            }
+            else
+            {
+                this.firstNumberLabel.Hide();
+                this.txbFirst.Hide();
+                this.secondNumberLabel.Hide();
+                this.txbSecond.Hide();
+                this.thirdNumberLabel.Hide();
+                this.txbThird.Hide();
+                this.actionPanel.Hide();
+            }
         }
 
         private void cleanTextBoxes() {
@@ -83,6 +107,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
             this.drawTypeBox.SelectedIndex = 0;
             this.dateLabel.Text = UtilityService.getLargeDate(this.datePickerList.Value);
             this.groupLabel.Text = GeneralConstants.SELECT_GROUP_LABEL;
+            this.togglePanels(false);
             this.cleanTextBoxes();
         }
 
@@ -90,7 +115,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
         {
             this.groupLabel.Text = this.drawTypeBox.Text;
             this.cleanTextBoxes();
-            this.actionPanel.Show();
+            this.togglePanels(true);
             this.fillTextBoxes();
             this.txbFirst.Focus();
         }
@@ -134,16 +159,13 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
                         DrawNumberWinningRepository drawNumberWinningRepository = new DrawNumberWinningRepository();
                         drawNumberWinningRepository.save(ref drawNumberWinning);
                         // Imprimir tiquete de premios / ganadores
-                        if (this.ckbPrint.Checked)
-                        {
-                            string[] winningNumberArray = new string[3];
-                            winningNumberArray[0] = this.txbFirst.Text.Trim() == "" ? "NA" : this.txbFirst.Text;
-                            winningNumberArray[1] = this.txbSecond.Text.Trim() == "" ? "NA" : this.txbSecond.Text;
-                            winningNumberArray[2] = this.txbThird.Text.Trim() == "" ? "NA" : this.txbThird.Text;
-                            this.ticketPrintService.printPrizeTicket(selectedDraw, winningNumberArray);
-                            //UtilityService.printPrizeTicket(selectedDraw, winningNumberArray);
-                        }
-                        //PC: MessageBox.Show(selectedDraw.LTD_Id.ToString());
+                        string[] winningNumberArray = new string[3];
+                        winningNumberArray[0] = this.txbFirst.Text.Trim() == "" ? GeneralConstants.EMPTY_STRING : UtilityService.fillString(this.txbFirst.Text, 2, "0");
+                        winningNumberArray[1] = this.txbSecond.Text.Trim() == "" ? GeneralConstants.EMPTY_STRING : UtilityService.fillString(this.txbSecond.Text, 2, "0");
+                        winningNumberArray[2] = this.txbThird.Text.Trim() == "" ? GeneralConstants.EMPTY_STRING : UtilityService.fillString(this.txbThird.Text, 2, "0");
+                        bool sendToPrint = this.ckbPrint.Checked ? true : false;
+                        bool showInPanel = this.ckbPrintScreen.Checked ? true : false;
+                        this.ticketPrintService.printPrizeTicket(selectedDraw, winningNumberArray, sendToPrint, showInPanel);
                         this.Dispose();
                     }
                 }
@@ -155,5 +177,21 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
         {
             this.Dispose();
         }
+
+        private void txbFirst_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBoxValidator.validateNumberContent(e);
+        }
+
+        private void txbSecond_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBoxValidator.validateNumberContent(e);
+        }
+
+        private void txbThird_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBoxValidator.validateNumberContent(e);
+        }
+
     }
 }

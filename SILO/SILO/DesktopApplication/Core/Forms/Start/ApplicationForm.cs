@@ -201,18 +201,22 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             {
                 case DialogResult.Yes:
                     // Procesar la sincronización
-                    LoadingForm loading = new LoadingForm();
-                    loading.Show(this);
-                    SynchronizeService service = new SynchronizeService();
-                    service.syncPendingListNumberToServer();
-                    loading.Dispose();
-                    MessageService.displayInfoMessage("La sincronización ha finalizado");
+                    this.processLinealSynchronization();
                     break;
                 case DialogResult.No:
                     break;
                 default:
                     break;
             }
+        }
+
+        private void processLinealSynchronization() {
+            LoadingForm loading = new LoadingForm();
+            loading.Show(this);
+            SynchronizeService service = new SynchronizeService();
+            service.syncPendingListNumberToServer();
+            loading.Dispose();
+            MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
 
         private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
