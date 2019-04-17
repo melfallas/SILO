@@ -39,6 +39,11 @@ namespace SILO.DesktopApplication.Core.Services
             return this.processGetRequest(ServiceConectionConstants.GET_ALL_USERS_RESOURCE_URL);
         }
 
+        public ServiceResponseResult getPrizeFactorFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_PRIZE_FACTOR_RESOURCE_URL);
+        }
+
 
         //----------------- Métodos para enviar datos al Servidor -----------------//
 

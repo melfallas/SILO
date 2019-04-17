@@ -78,7 +78,8 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         private void startInitialSynchronization()
         {
 
-            bool[] synStatusArray = new bool[4];
+            //bool[] synStatusArray = new bool[4];
+            bool[] synStatusArray = new bool[5];
             LoginForm.waitHandle.WaitOne();
             this.updateProgressBar(25);
             this.changeStatusLegend("Iniciando la carga...");
@@ -92,9 +93,12 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.updateProgressBar(75);
             this.changeStatusLegend("Cargando roles...");
             synStatusArray[2] = syncService.syncRole_ServerToLocal();
-            this.updateProgressBar(90);
+            this.updateProgressBar(80);
             this.changeStatusLegend("Cargando usuarios...");
             synStatusArray[3] = syncService.syncAppUsers_ServerToLocal();
+            this.updateProgressBar(90);
+            this.changeStatusLegend("Cargando factores de premio...");
+            synStatusArray[4] = syncService.syncPrizeFactor_ServerToLocal();
             this.updateProgressBar(100);
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);            
             // Verificar si falló algún proceso de sincronización

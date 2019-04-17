@@ -18,6 +18,31 @@ namespace SILO.DesktopApplication.Core.Model.TicketModel
         public string globalId { get; set; }
         public string customerName { get; set; }
         public List<LotteryTuple> listNumberDetail { get; set; }
+        public double[] prizeFactorArray { get; set; }
+        public int ticketType { get; set; }
+
+        public static int SALE_TICKET_TYPE = 0;
+        public static int COPY_TICKET_TYPE = 1;
+        public static int REPRINT_TICKET_TYPE = 2;
+        public static int ERASE_TICKET_TYPE = 3;
+
+        private string[] titleTicketLegend = { "", "COPIA", "REIMPRESIÓN",  "ANULADO"};
+
+
+        public SaleTicket(int pTicketType)
+        {
+            this.ticketType = pTicketType;
+            this.prizeFactorArray = new double[3];
+            for (int i = 0; i < this.prizeFactorArray.Length; i++)
+            {
+                this.prizeFactorArray[i] = 0;
+            }
+        }
+
+        public string getTicketType()
+        {
+            return this.titleTicketLegend[this.ticketType];
+        }
 
         public long getTotalImport()
         {

@@ -120,7 +120,7 @@ namespace SILO.DesktopApplication.Core.Services
         public static string fillString(string pStringToFill, int pSpaces, string pFillPattern = " ")
         {
             string filledString = "";
-            string originalString = pStringToFill;
+            string originalString = pStringToFill.Trim();
             if (originalString.Length < pSpaces)
             {
                 int fillCount = pSpaces - originalString.Length;

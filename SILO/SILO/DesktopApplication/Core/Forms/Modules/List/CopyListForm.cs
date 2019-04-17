@@ -1,6 +1,7 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,23 +54,13 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
             else
             {
                 long drawTypeId = -1;
-                ListService listService = new ListService();
                 string drawTypeString = checkedRadio.Name.Replace(GeneralConstants.CHECKBOX_NAME_ID_LABEL, "");
                 bool isNumericResult = long.TryParse(drawTypeString, out drawTypeId);
                 if (isNumericResult)
                 {
-                    LDT_LotteryDrawType selectedGroup = this.groupService.getById(drawTypeId);
-                    ListInstanceForm listInstance = new ListInstanceForm(
-                        this.appMediator,
-                        this.selectorForm,
-                        UtilityService.getPointSale(),
-                        selectedGroup,
-                        DateTime.Today,
-                        listService.getListDetail(this.listId)
-                        );
-                    listInstance.StartPosition = FormStartPosition.CenterParent;
-                    listInstance.ShowDialog();
-                    //MessageBox.Show("Display: " + selectedGroup.LDT_DisplayName);
+                    SaleValidator saleValidator = new SaleValidator();
+                    saleValidator.validatePrizeFactor(drawTypeId, copyAndDisplayListInstance);
+                    //this.copyAndDisplayListInstance(drawTypeId);
                 }
                 else
                 {
@@ -77,6 +68,25 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
                 }
             }
         }
+
+        private bool copyAndDisplayListInstance(long pDrawTypeId) {
+            bool successResult = true;
+            ListService listService = new ListService();
+            LDT_LotteryDrawType selectedGroup = this.groupService.getById(pDrawTypeId);
+            ListInstanceForm listInstance = new ListInstanceForm(
+                this.appMediator,
+                this.selectorForm,
+                UtilityService.getPointSale(),
+                selectedGroup,
+                DateTime.Today,
+                listService.getListDetail(this.listId)
+                );
+            listInstance.StartPosition = FormStartPosition.CenterParent;
+            listInstance.ShowDialog();
+            //MessageBox.Show("Display: " + selectedGroup.LDT_DisplayName);
+            return successResult;
+        }
+
 
         private void copyButton_Click(object sender, EventArgs e)
         {

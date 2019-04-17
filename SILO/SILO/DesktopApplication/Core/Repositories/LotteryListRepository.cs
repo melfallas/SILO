@@ -104,17 +104,35 @@ namespace SILO.DesktopApplication.Core.Repositories
             List<WinningNumberInfo> listDataCollection = new List<WinningNumberInfo>();
             if (pDraw.LTD_Id != 0)
             {
+                string acumulateFilters = "";
+                string winningNumbersFilter = " AND LN.LNR_Number IN  (";
+                foreach (string number in pWinningNumberArray)
+                {
+                    acumulateFilters += number == "" ? "" : " '" + number + "',";
+                }
+                winningNumbersFilter = acumulateFilters.Trim() == "" ? "" : winningNumbersFilter
+                    + acumulateFilters.Substring(0, acumulateFilters.Length - 1) + " ) "
+                    ;
                 using (var context = new SILOEntities())
                 {
                     long posId = UtilityService.getPointSale().LPS_Id;
-                    var query = "SELECT LN.LNR_Number AS numberCode, N.LND_SaleImport AS saleImport, N.LND_SaleImport * 75 AS prizeImport, " 
-                        + "L.LPS_LotteryPointSale AS salePoint, L.LTL_Id AS localId, L.LTL_CustomerName AS customerName"
+                    var query = 
+                        "SELECT "
+                        + "CASE LN.LNR_Number "
+                        + "WHEN '" + pWinningNumberArray[0] +"' THEN 1 "
+                        + "WHEN '" + pWinningNumberArray[1] + "' THEN 2 "
+                        + "WHEN '" + pWinningNumberArray[2] + "' THEN 3 "
+                        + "ELSE 4 "
+                        + "END AS prizeOrder, "
+                        + " LN.LNR_Number AS numberCode, N.LND_SaleImport AS saleImport, N.LND_SaleImport * 1 AS prizeImport, " 
+                        + " L.LPS_LotteryPointSale AS salePoint, L.LTL_Id AS localId, L.LTL_CustomerName AS customerName"
                         + " FROM LTL_LotteryList AS L INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id " 
-                        + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw INNER JOIN LNR_LotteryNumber AS LN ON LN.LNR_Id = N.LNR_LotteryNumber "
+                        + " INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw INNER JOIN LNR_LotteryNumber AS LN ON LN.LNR_Id = N.LNR_LotteryNumber "
                         + "WHERE L.LPS_LotteryPointSale = " + posId + " "
                         + " AND D.LTD_Id = " + pDraw.LTD_Id + " "
                         + " AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
-                        + " AND LN.LNR_Number = '" + pWinningNumberArray[0] + "'" 
+                        + winningNumbersFilter
+                        + " ORDER BY prizeOrder, localId, customerName"
                         + " ;";
                     listDataCollection = context.Database.
                         SqlQuery<WinningNumberInfo>(query)

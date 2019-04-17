@@ -21,7 +21,19 @@ namespace SILO
         public double LPF_SecondPrizeFactor { get; set; }
         public double LPF_ThirdPrizeFactor { get; set; }
         public long SYS_SynchronyStatus { get; set; }
-    
+
+        public long copy(LPF_LotteryPrizeFactor pPrizeFactor)
+        {
+            long actualStatus = this.SYS_SynchronyStatus;
+            this.LPS_LotteryPointSale = pPrizeFactor.LPS_LotteryPointSale;
+            this.LDT_LotteryDrawType = pPrizeFactor.LDT_LotteryDrawType;
+            this.LPF_FirtsPrizeFactor = pPrizeFactor.LPF_FirtsPrizeFactor;
+            this.LPF_SecondPrizeFactor = pPrizeFactor.LPF_SecondPrizeFactor;
+            this.LPF_ThirdPrizeFactor = pPrizeFactor.LPF_ThirdPrizeFactor;
+            this.SYS_SynchronyStatus = pPrizeFactor.SYS_SynchronyStatus;
+            return actualStatus;
+        }
+
         public virtual LDT_LotteryDrawType LDT_LotteryDrawType1 { get; set; }
         public virtual SYS_SynchronyStatus SYS_SynchronyStatus1 { get; set; }
         public virtual LPS_LotteryPointSale LPS_LotteryPointSale1 { get; set; }
