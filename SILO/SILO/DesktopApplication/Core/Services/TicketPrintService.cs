@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Model.TicketModel;
+﻿using SILO.DesktopApplication.Core.Forms.Modules.Number;
+using SILO.DesktopApplication.Core.Model.TicketModel;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.SystemConfig;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SILO.DesktopApplication.Core.Services
 {
@@ -71,7 +73,7 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
         // Método para imprimir la lista de los números premiados y ganadores
-        public void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray, bool sendToPrint = true)
+        public void printPrizeTicket(LTD_LotteryDraw pDraw, string[] pWinningNumberArray, bool pSendToPrint, bool pShowInPanel)
         {
             // Configurar impresión para Ticket de Venta
             TicketPrinter ticketPrinter = new TicketPrinter();
@@ -104,8 +106,16 @@ namespace SILO.DesktopApplication.Core.Services
             ticketPrinter.prizeTicket = prizeTicket;
             // Obtener nombre de impresora y enviar impresión
             string printerName = UtilityService.getTicketPrinterName();
-            ticketPrinter.printPrizeTicket(printerName);
-            Console.Write(ticketPrinter.ticketStringText);
+            ticketPrinter.printPrizeTicket(printerName, pSendToPrint);
+            if (pShowInPanel)
+            {
+                Console.Write(ticketPrinter.ticketStringText);
+                MessageBox.Show(ticketPrinter.ticketStringText);
+                /*
+                PrizeTicketPanelForm prizeTicketPanelForm = new PrizeTicketPanelForm(ticketPrinter.ticketStringText);
+                prizeTicketPanelForm.ShowDialog();
+                */
+            }
         }
 
     }

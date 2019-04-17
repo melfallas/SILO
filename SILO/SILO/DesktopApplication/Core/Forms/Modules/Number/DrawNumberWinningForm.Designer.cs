@@ -229,6 +229,7 @@
             this.txbThird.Size = new System.Drawing.Size(49, 39);
             this.txbThird.TabIndex = 11;
             this.txbThird.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txbThird.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbThird_KeyPress);
             // 
             // thirdNumberLabel
             // 
@@ -251,6 +252,7 @@
             this.txbSecond.Size = new System.Drawing.Size(49, 39);
             this.txbSecond.TabIndex = 9;
             this.txbSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txbSecond.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbSecond_KeyPress);
             // 
             // secondNumberLabel
             // 
@@ -273,6 +275,7 @@
             this.txbFirst.Size = new System.Drawing.Size(49, 39);
             this.txbFirst.TabIndex = 7;
             this.txbFirst.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txbFirst.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txbFirst_KeyPress);
             // 
             // firstNumberLabel
             // 

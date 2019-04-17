@@ -102,3 +102,4 @@ C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.pdb
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Number.DrawNumberWinningForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.csprojResolveAssemblyReference.cache
+C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Number.PrizeTicketPanelForm.resources

@@ -275,14 +275,18 @@ namespace SILO
 
         #region Prize Ticket
 
-        public void printPrizeTicket(string impresora)
+        public void printPrizeTicket(string impresora, bool pSendToPrint)
         {
             this.maxChar = 31;
             this.printFont = new Font(fontName, (float) prizeTicketFontSize, FontStyle.Regular);
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrinterSettings.PrinterName = impresora;
             printDocument.PrintPage += printPrizePage;
-            printDocument.Print();
+            //if (pSendToPrint)
+            if (true)
+            {
+                printDocument.Print();
+            }
         }
 
         private void printPrizePage(object sender, PrintPageEventArgs e)

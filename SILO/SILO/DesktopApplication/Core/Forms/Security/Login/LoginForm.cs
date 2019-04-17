@@ -83,6 +83,10 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.updateProgressBar(25);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
+            this.updateProgressBar(90);
+            this.changeStatusLegend("Cargando usuarios...");
+            synStatusArray[3] = syncService.syncAppUsers_ServerToLocal();
+            this.updateProgressBar(100);
             //synStatusArray[0] = syncService.syncNumbers_LocalToServer();
             /*
             synStatusArray[0] = syncService.syncCompany_ServerToLocal();

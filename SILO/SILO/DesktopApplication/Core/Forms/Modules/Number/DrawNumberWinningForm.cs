@@ -2,6 +2,7 @@
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -163,7 +164,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
                         winningNumberArray[1] = this.txbSecond.Text.Trim() == "" ? GeneralConstants.EMPTY_STRING : UtilityService.fillString(this.txbSecond.Text, 2, "0");
                         winningNumberArray[2] = this.txbThird.Text.Trim() == "" ? GeneralConstants.EMPTY_STRING : UtilityService.fillString(this.txbThird.Text, 2, "0");
                         bool sendToPrint = this.ckbPrint.Checked ? true : false;
-                        this.ticketPrintService.printPrizeTicket(selectedDraw, winningNumberArray, sendToPrint);
+                        bool showInPanel = this.ckbPrintScreen.Checked ? true : false;
+                        this.ticketPrintService.printPrizeTicket(selectedDraw, winningNumberArray, sendToPrint, showInPanel);
                         this.Dispose();
                     }
                 }
@@ -175,5 +177,21 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
         {
             this.Dispose();
         }
+
+        private void txbFirst_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBoxValidator.validateNumberContent(e);
+        }
+
+        private void txbSecond_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBoxValidator.validateNumberContent(e);
+        }
+
+        private void txbThird_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBoxValidator.validateNumberContent(e);
+        }
+
     }
 }
