@@ -53,6 +53,15 @@ namespace SILO.DesktopApplication.Core.Util
                     this.fieldCollection.Add("isActive", "AUS_IsActive");
                     this.fieldCollection.Add("createDate", "AUS_CreateDate");
                     break;
+                case (int)EntityType.PrizeFactor:
+                    this.fieldCollection.Add("id", "LPF_Id");
+                    this.fieldCollection.Add("lotteryDrawType", "LDT_LotteryDrawType");
+                    this.fieldCollection.Add("lotteryPointSale", "LPS_LotteryPointSale");
+                    this.fieldCollection.Add("firtsPrizeFactor", "LPF_FirtsPrizeFactor");
+                    this.fieldCollection.Add("secondPrizeFactor", "LPF_SecondPrizeFactor");
+                    this.fieldCollection.Add("thirdPrizeFactor", "LPF_ThirdPrizeFactor");
+                    this.fieldCollection.Add("synchronyStatus", "SYS_SynchronyStatus");
+                    break;
                 case (int)EntityType.Other:
 
                     break;

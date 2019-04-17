@@ -152,6 +152,35 @@ namespace SILO.DesktopApplication.Core.Services
         }
 
 
+        public bool syncPrizeFactor_ServerToLocal()
+        {
+            bool successProcess = true;
+            // Realizar la petición http
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getPrizeFactorFromServer();
+            successProcess = this.isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string jsonStringResult = responseResult.result.ToString();
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.PrizeFactor);
+                // Reemplazar objetos complejos en el json por su id
+                JArray jsonArray = JArray.Parse(jsonStringResult);
+                foreach (var item in jsonArray)
+                {
+                    parser.changeJsonProp(item, "lotteryPointSale");
+                    parser.changeJsonProp(item, "lotteryDrawType");
+                    parser.changeJsonProp(item, "synchronyStatus");
+                }
+                // Parsear el json de respuesta
+                string parsedJsonString = parser.parse(jsonArray.ToString());
+                // Realizar la persistencia de los cambios
+                LotteryPrizeFactorRepository prizeFactorRepo = new LotteryPrizeFactorRepository();
+                prizeFactorRepo.saveList(JsonConvert.DeserializeObject<List<LPF_LotteryPrizeFactor>>(parsedJsonString));
+            }
+            return successProcess;
+        }
+
+
         //----------------- Sincronizaciones LocalToServer -----------------//
 
         public bool syncAppUsers_LocalToServer()
