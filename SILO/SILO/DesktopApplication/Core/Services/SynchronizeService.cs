@@ -375,7 +375,7 @@ namespace SILO.DesktopApplication.Core.Services
         {
             LotteryListRepository listRepo = new LotteryListRepository();
             List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
-            Console.WriteLine("Transacciones a Sincronizar: " + pendingTransactions);
+            Console.WriteLine("Transacciones a Sincronizar: " + pendingTransactions.Count);
             foreach (LTL_LotteryList item in pendingTransactions)
             {
                 Console.Write(item.LTL_Id);
@@ -400,6 +400,10 @@ namespace SILO.DesktopApplication.Core.Services
 
         #endregion
 
+        //----------------- Servicios Asíncronos de Pendientes de Pago y Reversión -----------------//
+        #region Servicios Asíncronos de Pendientes de Pago y Reversión
+
+        #endregion
 
     }
 }
