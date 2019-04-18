@@ -95,9 +95,12 @@
             this.Controls.Add(this.userLabel);
             this.Controls.Add(this.versionAppLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SplashScreenForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Silo Application";
+            this.TopMost = true;
             this.UseWaitCursor = true;
             this.ResumeLayout(false);
             this.PerformLayout();
