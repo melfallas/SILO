@@ -167,7 +167,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void ingresarGanadoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawNumberWinningForm winningForm = new DrawNumberWinningForm();
+            DrawNumberWinningForm winningForm = new DrawNumberWinningForm(this.mediator);
             winningForm.ShowDialog();
         }
 
