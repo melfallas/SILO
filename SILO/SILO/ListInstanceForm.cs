@@ -234,11 +234,12 @@ namespace SILO
             return numberDetailCollection;
         }
 
-        private void sendListNumberToServer(List<LND_ListNumberDetail> pNumberDetail)
+        private async void sendListNumberToServer(List<LND_ListNumberDetail> pNumberDetail)
         {
             SynchronizeService syncService = new SynchronizeService();
             syncService.appMediator = this.appMediator;
-            syncService.sendListNumberToServer(this.list, pNumberDetail);
+            //syncService.sendListNumberToServer(this.list, pNumberDetail);
+            await syncService.sendListNumberToServerAsync(this.list, pNumberDetail);
         }
 
         private void setActiveButton(Button pButton, bool pEnabled) {
