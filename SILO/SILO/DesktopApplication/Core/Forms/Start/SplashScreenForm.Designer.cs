@@ -37,8 +37,9 @@
             // versionAppLabel
             // 
             this.versionAppLabel.AutoSize = true;
-            this.versionAppLabel.ForeColor = System.Drawing.Color.White;
-            this.versionAppLabel.Location = new System.Drawing.Point(261, 9);
+            this.versionAppLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.versionAppLabel.ForeColor = System.Drawing.Color.Black;
+            this.versionAppLabel.Location = new System.Drawing.Point(284, 194);
             this.versionAppLabel.Name = "versionAppLabel";
             this.versionAppLabel.Size = new System.Drawing.Size(49, 13);
             this.versionAppLabel.TabIndex = 0;
@@ -48,21 +49,22 @@
             // userLabel
             // 
             this.userLabel.AutoSize = true;
-            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userLabel.ForeColor = System.Drawing.Color.White;
-            this.userLabel.Location = new System.Drawing.Point(110, 85);
+            this.userLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userLabel.ForeColor = System.Drawing.Color.Black;
+            this.userLabel.Location = new System.Drawing.Point(42, 23);
             this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(117, 25);
+            this.userLabel.Size = new System.Drawing.Size(140, 29);
             this.userLabel.TabIndex = 1;
             this.userLabel.Text = "Iniciando...";
             this.userLabel.UseWaitCursor = true;
             // 
             // splashProgressBar
             // 
-            this.splashProgressBar.Location = new System.Drawing.Point(115, 139);
+            this.splashProgressBar.Location = new System.Drawing.Point(43, 55);
             this.splashProgressBar.MarqueeAnimationSpeed = 50;
             this.splashProgressBar.Name = "splashProgressBar";
-            this.splashProgressBar.Size = new System.Drawing.Size(104, 23);
+            this.splashProgressBar.Size = new System.Drawing.Size(139, 23);
             this.splashProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.splashProgressBar.TabIndex = 2;
             this.splashProgressBar.UseWaitCursor = true;
@@ -71,8 +73,9 @@
             // loadStatusLabel
             // 
             this.loadStatusLabel.AutoSize = true;
-            this.loadStatusLabel.ForeColor = System.Drawing.Color.White;
-            this.loadStatusLabel.Location = new System.Drawing.Point(115, 169);
+            this.loadStatusLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.loadStatusLabel.ForeColor = System.Drawing.Color.Black;
+            this.loadStatusLabel.Location = new System.Drawing.Point(51, 81);
             this.loadStatusLabel.Name = "loadStatusLabel";
             this.loadStatusLabel.Size = new System.Drawing.Size(131, 13);
             this.loadStatusLabel.TabIndex = 3;
@@ -84,6 +87,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SlateGray;
+            this.BackgroundImage = global::SILO.Properties.Resources.Fondo_2;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(336, 216);
             this.Controls.Add(this.loadStatusLabel);
             this.Controls.Add(this.splashProgressBar);

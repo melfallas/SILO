@@ -210,11 +210,12 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
-        private void processLinealSynchronization() {
+        private async void processLinealSynchronization() {
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
-            service.syncPendingListNumberToServer();
+            //service.syncPendingListNumberToServer();
+            await service.syncPendingListNumberToServerAsync();
             loading.Dispose();
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
