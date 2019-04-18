@@ -145,6 +145,7 @@ namespace SILO
 
         public void createList()
         {
+            this.appMediator.setAppTopMost(true);
             this.setEnabledButtonsAndMenu(false);
             // Cerrar y liberar memoria de formulario de selección si no es nulo
             if (this.listSelectorFormParent != null)
@@ -191,6 +192,7 @@ namespace SILO
             //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);
             this.appMediator.setBoxNumberGroup(0);
             this.appMediator.displayNumberBox(this.drawDate, this.drawType.LDT_Id);
+            this.appMediator.setAppTopMost(false);
             // Limpiar y reestablecer el ListControl
             //this.resetFormList();
             //this.focusList();

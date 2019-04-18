@@ -124,8 +124,8 @@
             this.ingresarGanadoresToolStripMenuItem,
             this.prohibidosToolStripMenuItem});
             this.catálogosToolStripMenuItem.Name = "catálogosToolStripMenuItem";
-            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
-            this.catálogosToolStripMenuItem.Text = "Mantenimientos";
+            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
+            this.catálogosToolStripMenuItem.Text = "Mantenimiento";
             // 
             // ingresarGanadoresToolStripMenuItem
             // 
