@@ -403,6 +403,34 @@ namespace SILO.DesktopApplication.Core.Services
         //----------------- Servicios Asíncronos de Pendientes de Pago y Reversión -----------------//
         #region Servicios Asíncronos de Pendientes de Pago y Reversión
 
+        public async Task syncPendingListNumberToServerAsync()
+        {
+            LotteryListRepository listRepo = new LotteryListRepository();
+            List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
+            Console.WriteLine("Transacciones a Sincronizar: " + pendingTransactions.Count);
+            foreach (LTL_LotteryList item in pendingTransactions)
+            {
+                Console.Write(item.LTL_Id);
+                switch (item.LLS_LotteryListStatus)
+                {
+                    case SystemConstants.LIST_STATUS_CREATED:
+                        // Procesar creación de la lista en el servidor
+                        Console.WriteLine(" - Creada ");
+                        List<LND_ListNumberDetail> listNumber = listRepo.getListDetail(item.LTL_Id);
+                        this.sendListNumberToServer(item, listNumber);
+                        break;
+                    case SystemConstants.LIST_STATUS_CANCELED:
+                        // Procesar reversión de la lista en el servidor
+                        Console.WriteLine(" - Anulada ");
+                        this.reverseListNumberFromServer(item);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+
         #endregion
 
     }
