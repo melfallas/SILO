@@ -322,6 +322,15 @@ namespace SILO.DesktopApplication.Core.Services
             //this.processResponseToSendList(responseResult);
         }
 
+        public async Task sendListNumberToServerAsync(LTL_LotteryList pList, List<LND_ListNumberDetail> pNumberDetail)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult responseResult = await service.syncListToServerAsync(pList, pNumberDetail);
+            this.processResponseToSendList(responseResult);
+            //this.processResponseToSendList(responseResult);
+        }
+
         // Método para procesar el resultado del envío de la lista al servidor
         public bool processResponseToSendList(ServiceResponseResult pResponseResult)
         {
@@ -417,13 +426,15 @@ namespace SILO.DesktopApplication.Core.Services
                         // Procesar creación de la lista en el servidor
                         Console.WriteLine(" - Creada ");
                         List<LND_ListNumberDetail> listNumber = listRepo.getListDetail(item.LTL_Id);
-                        this.sendListNumberToServer(item, listNumber);
+                        await this.sendListNumberToServerAsync(item, listNumber);
                         break;
                     case SystemConstants.LIST_STATUS_CANCELED:
+                        /*
                         // Procesar reversión de la lista en el servidor
                         Console.WriteLine(" - Anulada ");
                         this.reverseListNumberFromServer(item);
                         break;
+                        */
                     default:
                         break;
                 }

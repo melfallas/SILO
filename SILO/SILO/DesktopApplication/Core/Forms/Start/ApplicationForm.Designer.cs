@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ApplicationForm));
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,8 +68,12 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
+            this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
+            this.syncStatusLabel = new System.Windows.Forms.Label();
+            this.syncTimer = new System.Windows.Forms.Timer(this.components);
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
             this.menuPanel.SuspendLayout();
@@ -124,8 +129,8 @@
             this.ingresarGanadoresToolStripMenuItem,
             this.prohibidosToolStripMenuItem});
             this.catálogosToolStripMenuItem.Name = "catálogosToolStripMenuItem";
-            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
-            this.catálogosToolStripMenuItem.Text = "Mantenimientos";
+            this.catálogosToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
+            this.catálogosToolStripMenuItem.Text = "Mantenimiento";
             // 
             // ingresarGanadoresToolStripMenuItem
             // 
@@ -198,7 +203,7 @@
             this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enviarAlServidorToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
             // 
             // enviarAlServidorToolStripMenuItem
@@ -243,7 +248,7 @@
             this.centerBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.centerBoxPanel.Location = new System.Drawing.Point(220, 30);
             this.centerBoxPanel.Name = "centerBoxPanel";
-            this.centerBoxPanel.Size = new System.Drawing.Size(697, 540);
+            this.centerBoxPanel.Size = new System.Drawing.Size(697, 537);
             this.centerBoxPanel.TabIndex = 1;
             // 
             // panel3
@@ -252,16 +257,18 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel3.Location = new System.Drawing.Point(917, 30);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(50, 540);
+            this.panel3.Size = new System.Drawing.Size(50, 537);
             this.panel3.TabIndex = 3;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel2.Controls.Add(this.syncStatusLabel);
+            this.panel2.Controls.Add(this.syncStatusProgressBar);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(220, 570);
+            this.panel2.Location = new System.Drawing.Point(220, 567);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(747, 19);
+            this.panel2.Size = new System.Drawing.Size(747, 22);
             this.panel2.TabIndex = 2;
             // 
             // panel1
@@ -460,6 +467,33 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
+            // syncStatusProgressBar
+            // 
+            this.syncStatusProgressBar.Location = new System.Drawing.Point(456, 6);
+            this.syncStatusProgressBar.MarqueeAnimationSpeed = 40;
+            this.syncStatusProgressBar.Minimum = 20;
+            this.syncStatusProgressBar.Name = "syncStatusProgressBar";
+            this.syncStatusProgressBar.Size = new System.Drawing.Size(97, 10);
+            this.syncStatusProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.syncStatusProgressBar.TabIndex = 0;
+            this.syncStatusProgressBar.UseWaitCursor = true;
+            this.syncStatusProgressBar.Value = 20;
+            // 
+            // syncStatusLabel
+            // 
+            this.syncStatusLabel.AutoSize = true;
+            this.syncStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.syncStatusLabel.Location = new System.Drawing.Point(559, 3);
+            this.syncStatusLabel.Name = "syncStatusLabel";
+            this.syncStatusLabel.Size = new System.Drawing.Size(119, 13);
+            this.syncStatusLabel.TabIndex = 1;
+            this.syncStatusLabel.Text = "Sincronización completa";
+            // 
+            // syncTimer
+            // 
+            this.syncTimer.Interval = 300000;
+            this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -479,6 +513,8 @@
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.mainPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.lateralLeftPanel.ResumeLayout(false);
@@ -528,6 +564,9 @@
         private System.Windows.Forms.ToolStripMenuItem enviarAlServidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parámetrosGeneralesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem parámetrosDeImpresiónToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar syncStatusProgressBar;
+        private System.Windows.Forms.Label syncStatusLabel;
+        private System.Windows.Forms.Timer syncTimer;
     }
 }
 

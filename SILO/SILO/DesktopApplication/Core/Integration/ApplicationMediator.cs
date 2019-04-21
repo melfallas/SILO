@@ -15,6 +15,10 @@ namespace SILO.DesktopApplication.Core.Integration
         public NumberBoxForm appNumberBox { get; set; }
 
 
+        public void setAppTopMost(bool pSetTop) {
+            this.appForm.TopMost = pSetTop;
+        }
+
         public void updateTotalBoxes()
         {
             if (this.appNumberBox != null)
