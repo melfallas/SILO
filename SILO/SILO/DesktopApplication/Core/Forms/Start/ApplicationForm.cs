@@ -171,6 +171,28 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             winningForm.ShowDialog();
         }
 
+        private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult msgResult =
+                    MessageService.displayConfirmWarningMessage(
+                            "¿Está seguro desea realizar sincronización con el servidor?",
+                            "SINCRONIZANDO TRANSACCIONES AL SERVIDOR..."
+                            );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la sincronización
+                    //this.processLinearSynchronization();
+                    this.processParallelSynchronization();
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -189,33 +211,30 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
         #endregion
 
-        private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private async void processPeridicSynchronization()
         {
-            DialogResult msgResult =
-                    MessageService.displayConfirmWarningMessage(
-                            "¿Está seguro desea realizar sincronización con el servidor?",
-                            "SINCRONIZANDO TRANSACCIONES AL SERVIDOR..."
-                            );
-            // Procesar el resultado de la confirmación
-            switch (msgResult)
-            {
-                case DialogResult.Yes:
-                    // Procesar la sincronización
-                    this.processLinealSynchronization();
-                    break;
-                case DialogResult.No:
-                    break;
-                default:
-                    break;
-            }
+
+            SynchronizeService service = new SynchronizeService();
+            await service.syncPendingListNumberToServerAsync();
+
         }
 
-        private async void processLinealSynchronization() {
+        private async void processParallelSynchronization()
+        {
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
-            //service.syncPendingListNumberToServer();
             await service.syncPendingListNumberToServerAsync();
+            loading.Dispose();
+            MessageService.displayInfoMessage("La sincronización ha finalizado");
+        }
+
+        private void processLinearSynchronization() {
+            LoadingForm loading = new LoadingForm();
+            loading.Show(this);
+            SynchronizeService service = new SynchronizeService();
+            service.syncPendingListNumberToServer();
             loading.Dispose();
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
