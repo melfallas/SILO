@@ -30,13 +30,45 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
             InitializeComponent();
             this.parentForm = pParentForm;
-            this.userContentLabel.Text = SystemSession.username;
-            this.posContentLabel.Text = SystemSession.salePoint;
-            this.companyContentLabel.Text = SystemSession.company;
+            this.initializeControls();
             // Crear el objeto mediador para los distintos componentes
             mediator = new ApplicationMediator();
             mediator.appForm = this;
             //this.printMenuButton.BackColor = Color.FromArgb(12, 61, 92);
+        }
+
+        private void initializeControls() {
+            this.syncStatusLabel.Text = "";
+            this.displaySyncStatusComponents(false);
+            this.userContentLabel.Text = SystemSession.username;
+            this.posContentLabel.Text = SystemSession.salePoint;
+            this.companyContentLabel.Text = SystemSession.company;
+        }
+
+        public void setSyncStatusText(string pStatusText)
+        {
+            this.syncStatusLabel.Text = pStatusText;
+            if (pStatusText == LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT)
+            {
+                this.syncStatusProgressBar.Style = ProgressBarStyle.Blocks;
+                this.syncStatusProgressBar.Value = 100;
+            }
+        }
+
+        private void displaySyncStatusComponents(bool pNeedDisplay)
+        {
+            if (pNeedDisplay)
+            {
+                this.syncStatusProgressBar.Value = 20;
+                this.syncStatusProgressBar.Style = ProgressBarStyle.Marquee;
+                this.syncStatusLabel.Show();
+                this.syncStatusProgressBar.Show();
+            }
+            else
+            {
+                this.syncStatusLabel.Hide();
+                this.syncStatusProgressBar.Hide();
+            }
         }
 
         public void showFormInMainPanel(MainModuleForm pForm, DateTime? pDrawDate = null, long pGroupId = 0)
@@ -171,6 +203,12 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             winningForm.ShowDialog();
         }
 
+        private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrinterParamsForm printerParamsForm = new PrinterParamsForm();
+            printerParamsForm.Show();
+        }
+
         private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult msgResult =
@@ -214,20 +252,26 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private async void processPeridicSynchronization()
         {
-
+            this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
+            this.displaySyncStatusComponents(true);
             SynchronizeService service = new SynchronizeService();
             await service.syncPendingListNumberToServerAsync();
-
+            this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
+            this.displaySyncStatusComponents(false);
         }
 
         private async void processParallelSynchronization()
         {
+            this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
+            this.displaySyncStatusComponents(true);
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
             await service.syncPendingListNumberToServerAsync();
+            this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
             loading.Dispose();
             MessageService.displayInfoMessage("La sincronización ha finalizado");
+            this.displaySyncStatusComponents(false);
         }
 
         private void processLinearSynchronization() {
@@ -238,11 +282,6 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             loading.Dispose();
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
-
-        private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PrinterParamsForm printerParamsForm = new PrinterParamsForm();
-            printerParamsForm.Show();
-        }
+        
     }
 }

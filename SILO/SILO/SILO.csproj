@@ -89,6 +89,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Constants\LabelConstants.cs" />
     <Compile Include="DesktopApplication\Core\Forms\Modules\List\CopyListForm.cs">
       <SubType>Form</SubType>
     </Compile>
