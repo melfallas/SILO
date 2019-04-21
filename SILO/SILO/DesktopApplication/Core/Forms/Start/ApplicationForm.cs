@@ -30,13 +30,53 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
             InitializeComponent();
             this.parentForm = pParentForm;
-            this.userContentLabel.Text = SystemSession.username;
-            this.posContentLabel.Text = SystemSession.salePoint;
-            this.companyContentLabel.Text = SystemSession.company;
+            this.initializeControls();
             // Crear el objeto mediador para los distintos componentes
             mediator = new ApplicationMediator();
             mediator.appForm = this;
             //this.printMenuButton.BackColor = Color.FromArgb(12, 61, 92);
+        }
+
+        private void initializeControls() {
+            // Deshabiliar controles de estado de sincronización
+            this.syncStatusLabel.Text = "";
+            this.displaySyncStatusComponents(false);
+            // Mostrar propiedades del sistema
+            this.userContentLabel.Text = SystemSession.username;
+            this.posContentLabel.Text = SystemSession.salePoint;
+            this.companyContentLabel.Text = SystemSession.company;
+            // Habilitar la sincronización periódica si está activa
+            if (ParameterService.isSyncEnabled())
+            {
+                this.syncTimer.Interval = ParameterService.getSyncInterval();
+                this.syncTimer.Enabled = true;
+            }
+        }
+
+        public void setSyncStatusText(string pStatusText)
+        {
+            this.syncStatusLabel.Text = pStatusText;
+            if (pStatusText == LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT)
+            {
+                this.syncStatusProgressBar.Style = ProgressBarStyle.Blocks;
+                this.syncStatusProgressBar.Value = 100;
+            }
+        }
+
+        private void displaySyncStatusComponents(bool pNeedDisplay)
+        {
+            if (pNeedDisplay)
+            {
+                this.syncStatusProgressBar.Value = 20;
+                this.syncStatusProgressBar.Style = ProgressBarStyle.Marquee;
+                this.syncStatusLabel.Show();
+                this.syncStatusProgressBar.Show();
+            }
+            else
+            {
+                this.syncStatusLabel.Hide();
+                this.syncStatusProgressBar.Hide();
+            }
         }
 
         public void showFormInMainPanel(MainModuleForm pForm, DateTime? pDrawDate = null, long pGroupId = 0)
@@ -167,8 +207,41 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void ingresarGanadoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DrawNumberWinningForm winningForm = new DrawNumberWinningForm();
+            DrawNumberWinningForm winningForm = new DrawNumberWinningForm(this.mediator);
             winningForm.ShowDialog();
+        }
+
+        private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrinterParamsForm printerParamsForm = new PrinterParamsForm();
+            printerParamsForm.Show();
+        }
+
+        private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult msgResult =
+                    MessageService.displayConfirmWarningMessage(
+                            "¿Está seguro desea realizar sincronización con el servidor?",
+                            "SINCRONIZANDO TRANSACCIONES AL SERVIDOR..."
+                            );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la sincronización
+                    //this.processLinearSynchronization();
+                    this.processParallelSynchronization();
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void syncTimer_Tick(object sender, EventArgs e)
+        {
+            this.processPeridicSynchronization();
         }
 
         private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -189,41 +262,45 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
         #endregion
 
-        private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private async void processPeridicSynchronization()
         {
-            DialogResult msgResult =
-                    MessageService.displayConfirmWarningMessage(
-                            "¿Está seguro desea realizar sincronización con el servidor?",
-                            "SINCRONIZANDO TRANSACCIONES AL SERVIDOR..."
-                            );
-            // Procesar el resultado de la confirmación
-            switch (msgResult)
-            {
-                case DialogResult.Yes:
-                    // Procesar la sincronización
-                    this.processLinealSynchronization();
-                    break;
-                case DialogResult.No:
-                    break;
-                default:
-                    break;
-            }
+            // Tareas previas a la sincronización
+            Console.WriteLine("Inicia SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
+            this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
+            this.displaySyncStatusComponents(true);
+            // Invocar la sincronización
+            SynchronizeService service = new SynchronizeService();
+            await service.syncPendingListNumberToServerAsync();
+            // Tareas posteriores a la sincronización
+            this.mediator.updateTotalBoxes();
+            this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
+            this.displaySyncStatusComponents(false);
+            Console.WriteLine("Finaliza SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
-        private async void processLinealSynchronization() {
+        private async void processParallelSynchronization()
+        {
+            this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
+            this.displaySyncStatusComponents(true);
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
-            //service.syncPendingListNumberToServer();
             await service.syncPendingListNumberToServerAsync();
+            this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
+            loading.Dispose();
+            MessageService.displayInfoMessage("La sincronización ha finalizado");
+            this.displaySyncStatusComponents(false);
+        }
+
+        private void processLinearSynchronization() {
+            LoadingForm loading = new LoadingForm();
+            loading.Show(this);
+            SynchronizeService service = new SynchronizeService();
+            service.syncPendingListNumberToServer();
             loading.Dispose();
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
-
-        private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PrinterParamsForm printerParamsForm = new PrinterParamsForm();
-            printerParamsForm.Show();
-        }
+        
     }
 }

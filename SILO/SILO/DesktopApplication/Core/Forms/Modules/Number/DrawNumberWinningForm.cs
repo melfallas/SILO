@@ -1,5 +1,6 @@
 ﻿using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Repositories;
 using SILO.DesktopApplication.Core.Services;
 using SILO.DesktopApplication.Core.Validators;
@@ -18,10 +19,12 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
     public partial class DrawNumberWinningForm : Form
     {
         private TicketPrintService ticketPrintService;
+        public ApplicationMediator appMediator { get; set; }
 
-        public DrawNumberWinningForm()
+        public DrawNumberWinningForm(ApplicationMediator pMediator)
         {
             InitializeComponent();
+            this.appMediator = pMediator;
             this.loadControls();
             this.ticketPrintService = new TicketPrintService();
         }
@@ -98,7 +101,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Dispose();
+                this.closeView();
             }
         }
 
@@ -173,9 +176,17 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
 
         }
 
+        private void closeView()
+        {
+            this.appMediator.setAppTopMost(true);
+            this.Dispose();
+            this.appMediator.setAppTopMost(false);
+        }
+
+
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.closeView();
         }
 
         private void txbFirst_KeyPress(object sender, KeyPressEventArgs e)
