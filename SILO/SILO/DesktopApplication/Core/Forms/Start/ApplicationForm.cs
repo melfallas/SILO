@@ -38,11 +38,19 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
 
         private void initializeControls() {
+            // Deshabiliar controles de estado de sincronización
             this.syncStatusLabel.Text = "";
             this.displaySyncStatusComponents(false);
+            // Mostrar propiedades del sistema
             this.userContentLabel.Text = SystemSession.username;
             this.posContentLabel.Text = SystemSession.salePoint;
             this.companyContentLabel.Text = SystemSession.company;
+            // Habilitar la sincronización periódica si está activa
+            if (ParameterService.isSyncEnabled())
+            {
+                this.syncTimer.Interval = ParameterService.getSyncInterval();
+                this.syncTimer.Enabled = true;
+            }
         }
 
         public void setSyncStatusText(string pStatusText)
@@ -231,6 +239,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
+        private void syncTimer_Tick(object sender, EventArgs e)
+        {
+            this.processPeridicSynchronization();
+        }
+
         private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -252,12 +265,18 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private async void processPeridicSynchronization()
         {
+            // Tareas previas a la sincronización
+            Console.WriteLine("Inicia SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
             this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
             this.displaySyncStatusComponents(true);
+            // Invocar la sincronización
             SynchronizeService service = new SynchronizeService();
             await service.syncPendingListNumberToServerAsync();
+            // Tareas posteriores a la sincronización
+            this.mediator.updateTotalBoxes();
             this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
             this.displaySyncStatusComponents(false);
+            Console.WriteLine("Finaliza SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
         }
 
         private async void processParallelSynchronization()

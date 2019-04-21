@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ApplicationForm));
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.ventasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +70,7 @@
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
             this.syncStatusLabel = new System.Windows.Forms.Label();
+            this.syncTimer = new System.Windows.Forms.Timer(this.components);
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -487,6 +489,11 @@
             this.syncStatusLabel.TabIndex = 1;
             this.syncStatusLabel.Text = "Sincronización completa";
             // 
+            // syncTimer
+            // 
+            this.syncTimer.Interval = 300000;
+            this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -559,6 +566,7 @@
         private System.Windows.Forms.ToolStripMenuItem parámetrosDeImpresiónToolStripMenuItem;
         private System.Windows.Forms.ProgressBar syncStatusProgressBar;
         private System.Windows.Forms.Label syncStatusLabel;
+        private System.Windows.Forms.Timer syncTimer;
     }
 }
 
