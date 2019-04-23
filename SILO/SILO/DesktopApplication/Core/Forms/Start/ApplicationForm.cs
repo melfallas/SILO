@@ -140,6 +140,28 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.showFormInMainPanel(displayListForm);
         }
 
+        private void closeTransactions()
+        {
+            DialogResult msgResult =
+                    MessageService.displayConfirmWarningMessage(
+                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nEsta operación no es reversible.",
+                            "CERRANDO SORTEO..."
+                            );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la sincronización
+                    //this.processLinearSynchronization();
+                    this.processParallelSynchronization();
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         //--------------------------------------- Botones de Menú Lateral --------------------------------------//
         #region Botones de Menú Lateral
         private void saleMenuButton_Click(object sender, EventArgs e)
@@ -165,6 +187,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         private void displayQRMenuButton_Click(object sender, EventArgs e)
         {
             this.showDisplayListForm(SystemConstants.DISPLAY_QR_CODE);
+        }
+
+        private void closeDrawMenuButton_Click(object sender, EventArgs e)
+        {
+            this.closeTransactions();
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
