@@ -292,18 +292,22 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private async void processPeridicSynchronization()
         {
-            // Tareas previas a la sincronización
-            Console.WriteLine("Inicia SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
-            this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
-            this.displaySyncStatusComponents(true);
-            // Invocar la sincronización
-            SynchronizeService service = new SynchronizeService();
-            await service.syncPendingListNumberToServerAsync();
-            // Tareas posteriores a la sincronización
-            this.mediator.updateTotalBoxes();
-            this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
-            this.displaySyncStatusComponents(false);
-            Console.WriteLine("Finaliza SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
+            // Lanzar sincronización periódica solamente si está activa
+            if (ParameterService.isSyncEnabled())
+            {
+                // Tareas previas a la sincronización
+                Console.WriteLine("Inicia SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
+                this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
+                this.displaySyncStatusComponents(true);
+                // Invocar la sincronización
+                SynchronizeService service = new SynchronizeService();
+                await service.syncPendingListNumberToServerAsync();
+                // Tareas posteriores a la sincronización
+                this.mediator.updateTotalBoxes();
+                this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
+                this.displaySyncStatusComponents(false);
+                Console.WriteLine("Finaliza SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
+            }
         }
 
         private async void processParallelSynchronization()
