@@ -11,27 +11,34 @@ namespace SILO.DesktopApplication.Core.Services
     {
         public static DialogResult displayInfoMessage(string pMessage, string pTitle = "")
         {
-            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return MessageBox.Show(new Form { TopMost = true, MinimizeBox = false }, pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public static DialogResult displayWarningMessage(string pMessage, string pTitle = "")
         {
-            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return MessageBox.Show(new Form { TopMost = true, MinimizeBox = false }, pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public static DialogResult displayErrorMessage(string pMessage, string pTitle = "")
         {
-            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return MessageBox.Show(new Form { TopMost = true, MinimizeBox = false }, pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        /*
+        public static DialogResult displayErrorMessage(string pMessage, string pTitle = "", Form pOwner = null)
+        {
+            return MessageBox.Show(pOwner, pMessage, pTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        */
 
         public static DialogResult displayConfirmMessage(string pMessage, string pTitle = "")
         {
-            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            return MessageBox.Show(new Form { TopMost = true, MinimizeBox = false }, pMessage, pTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
         }
 
         public static DialogResult displayConfirmWarningMessage(string pMessage, string pTitle = "")
         {
-            return MessageBox.Show(pMessage, pTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            return MessageBox.Show(new Form { TopMost = true, MinimizeBox = false }, pMessage, pTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
         }
     }
 }

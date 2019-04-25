@@ -100,13 +100,10 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.changeStatusLegend("Cargando factores de premio...");
             synStatusArray[4] = syncService.syncPrizeFactor_ServerToLocal();
             this.updateProgressBar(100);
-            this.changeStatusLegend(GeneralConstants.EMPTY_STRING);            
+            this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
             // Verificar si falló algún proceso de sincronización
-            if (!UtilityService.verifySynStatusFromArray(synStatusArray))
-            {
-                MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
-            }
-            
+            this.verifySynStatus(synStatusArray);
+
         }
 
         private void updateProgressBar(int pProgressValue)
@@ -163,6 +160,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             if (!UtilityService.verifySynStatusFromArray(pSynStatusArray))
             {
                 MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
+                //MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE, this.splashScreen.getForm());
             }
         }
 
