@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Forms.Modules.Closing;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Forms.Modules.Number;
@@ -140,26 +141,15 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.showFormInMainPanel(displayListForm);
         }
 
-        private void closeTransactions()
+        private void displayCloseSelector()
         {
-            DialogResult msgResult =
-                    MessageService.displayConfirmWarningMessage(
-                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nEsta operación no es reversible.",
-                            "CERRANDO SORTEO..."
-                            );
-            // Procesar el resultado de la confirmación
-            switch (msgResult)
-            {
-                case DialogResult.Yes:
-                    // Procesar la sincronización
-                    //this.processLinearSynchronization();
-                    this.processParallelSynchronization();
-                    break;
-                case DialogResult.No:
-                    break;
-                default:
-                    break;
-            }
+            ClosingSelectorForm closingForm = new ClosingSelectorForm(this.mediator);
+            closingForm.ShowDialog(this);
+        }
+
+        public void closeTransactions()
+        {
+            this.processParallelSynchronization();
         }
 
         //--------------------------------------- Botones de Menú Lateral --------------------------------------//
@@ -191,7 +181,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void closeDrawMenuButton_Click(object sender, EventArgs e)
         {
-            this.closeTransactions();
+            this.displayCloseSelector();
         }
 
         private void aboutButton_Click(object sender, EventArgs e)

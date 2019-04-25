@@ -90,6 +90,12 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="DesktopApplication\Core\Constants\LabelConstants.cs" />
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Closing\ClosingSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Closing\ClosingSelectorForm.Designer.cs">
+      <DependentUpon>ClosingSelectorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Modules\List\CopyListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -329,6 +335,9 @@
     <Compile Include="DesktopApplication\Core\Model\NumberModel\WinningNumberInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Closing\ClosingSelectorForm.resx">
+      <DependentUpon>ClosingSelectorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\List\CopyListForm.resx">
       <DependentUpon>CopyListForm.cs</DependentUpon>
