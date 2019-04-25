@@ -65,7 +65,9 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                     case DialogResult.Yes:
                         // Procesar la sincronización
                         this.closeView();
+                        this.appMediator.setAppTopMost(true);
                         this.appMediator.closeTransactions();
+                        this.appMediator.setAppTopMost(false);
                         break;
                     case DialogResult.No:
                         break;
