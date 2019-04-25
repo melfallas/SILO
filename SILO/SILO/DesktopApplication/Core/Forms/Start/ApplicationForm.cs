@@ -288,8 +288,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         }
         #endregion
-
-
+        
         private async void processPeridicSynchronization()
         {
             // Lanzar sincronización periódica solamente si está activa
@@ -317,10 +316,17 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
-            await service.syncPendingListNumberToServerAsync();
+            bool syncResult = await service.syncPendingListNumberToServerAsync();
             this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
             loading.Dispose();
-            MessageService.displayInfoMessage("La sincronización ha finalizado");
+            if (syncResult)
+            {
+                MessageService.displayInfoMessage("La sincronización ha finalizado de manera exitosa", "RESULTADO DE LA SINCRONIZACIÓN");
+            }
+            else
+            {
+                MessageService.displayErrorMessage("No fue posible realizar la sincronización.\nPor favor intente más tarde.", "RESULTADO DE LA SINCRONIZACIÓN");
+            }
             this.displaySyncStatusComponents(false);
         }
 
