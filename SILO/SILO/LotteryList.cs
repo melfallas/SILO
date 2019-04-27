@@ -35,16 +35,7 @@ namespace SILO
                 this.isFillingList = true;
                 this.count = pGridView.RowCount - 1;
                 this.tupleList = new Dictionary<int, LotteryTuple>();
-                /*
-                if (this.tupleList == null)
-                {
-                    this.tupleList = new Dictionary<int, LotteryTuple>();
-                }
-                else
-                {
-                    this.tupleList.Clear();
-                }
-                */
+                // Iterar por la lista formateando valores e ingresando en el tupleList
                 for (int i = 0; i < this.count; i++)
                 {
                     string numberCode = getGridCellValue(pGridView, i, 0);
@@ -52,14 +43,22 @@ namespace SILO
                     // Filtrar caracteres no numéricos
                     numberCode = Regex.Replace(numberCode, @"[^\d]", "");
                     importItem = Regex.Replace(importItem, @"[^\d]", "");
-                    // Rellenar código numérico de 2 dígitos
-                    numberCode = UtilityService.fillNumberString(numberCode, 2);
+                    // Rellenar código numérico de 2 dígitos si no es vacío
+                    numberCode = numberCode.Trim() == "" ? "" : UtilityService.fillNumberString(numberCode, 2);
+                    string importNumericValue = "";
+                    // Si el número es válido, se debe formatear el importe
+                    //if (numberCode.Trim() != "")
+                    if (true)
+                    {
+                        // Transformar importItem a entero si está ingresado el valor
+                        Console.WriteLine("Imp: '" + importItem + "'");
+                        importNumericValue = importItem == null || importItem.Trim() == "" ? "" : Int32.Parse(importItem).ToString();
+                    }
                     // Actualizar celdas del grid
                     pGridView.Rows[i].Cells[0].Value = numberCode;
-                    pGridView.Rows[i].Cells[1].Value = importItem;
-                    //MessageBox.Show(importItem);
-
-                    Boolean emptyRegister = numberCode.Equals("") || importItem.Equals("");
+                    pGridView.Rows[i].Cells[1].Value = importNumericValue;
+                    // Registrar en la lista de tuplas solo las celdas no vacías
+                    bool emptyRegister = numberCode == "" || importItem == "";
                     if (!emptyRegister)
                     {
                         LotteryTuple tuple = new LotteryTuple(numberCode, int.Parse(importItem));
