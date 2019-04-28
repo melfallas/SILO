@@ -379,6 +379,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 //listInstance.ShowDialog();
                 listInstance.ShowDialog(this);
                 //listInstance.Show(this);
+                //listInstance.resetCurrentListCell();
             }
             else
             {
@@ -498,7 +499,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 //this.drawTypeBox
-                //MessageBox.Show("dfddf");
             }
         }
 
@@ -508,7 +508,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             //this.cleanBoxNumber();
         }
 
-        private async void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
             if (groupId == 0)
@@ -518,22 +518,31 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             else
             {
                 SaleValidator saleValidator = new SaleValidator();
-                await saleValidator.validatePrizeFactorAsync(groupId, updateBoxAndDisplayListInstance);
-                /*
-                LotteryPrizeFactorService prizeFactorService = new LotteryPrizeFactorService();
-                LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(groupId);
-                if (prizeFactor == null)
+                bool existingFactor = saleValidator.validatePrizeFactorAsync(groupId);
+                if (existingFactor)
                 {
-                    ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                    this.updateBoxAndDisplayListInstance(groupId);
                 }
                 else
                 {
-                    await this.updateBoxAndDisplayListInstance(groupId);
+                    ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                    this.appMediator.updateBoxNumber(0);
+                    this.appMediator.appForm.Focus();
                 }
-                */
             }
         }
 
+        public bool updateBoxAndDisplayListInstance(long pGroupId)
+        {
+            bool result = true;
+            this.lastGroup = pGroupId;
+            Console.WriteLine("lastGroup: " + lastGroup);
+            this.updateNumberBox(pGroupId);
+            this.displayNewListInstance();
+            return result;
+        }
+
+        /*
         public async Task<bool> updateBoxAndDisplayListInstance(long pGroupId)
         {
             bool result = true;
@@ -543,8 +552,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             this.displayNewListInstance();
             return result;
             //return Task.Run(() => result);
-        } 
-
+        }
+        */
 
     }
 }

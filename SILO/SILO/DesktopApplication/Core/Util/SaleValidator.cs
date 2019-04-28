@@ -24,9 +24,21 @@ namespace SILO.DesktopApplication.Core.Util
             return validFactor;
         }
 
+        public bool validatePrizeFactorAsync(long pGroupId)
+        {
+            bool validFactor = false;
+            PrizeFactorService prizeFactorService = new PrizeFactorService();
+            LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(pGroupId);
+            if (prizeFactor != null)
+            {
+                validFactor = true;
+            }
+            return validFactor;
+         }
+
+        /*
         public async Task<bool> validatePrizeFactorAsync(long pGroupId, Func<long, Task<bool>> pProcessResponseFunction)
         {
-            //return (Task.Run(() => { this.validatePrizeFactor(pGroupId, pProcessResponseFunction) });
             bool validFactor = false;
             PrizeFactorService prizeFactorService = new PrizeFactorService();
             LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(pGroupId);
@@ -40,6 +52,6 @@ namespace SILO.DesktopApplication.Core.Util
             }
             return validFactor;
          }
-
+         */
     }
 }

@@ -61,6 +61,7 @@ namespace SILO
             // Establecer el ApplicationMediator
             this.appMediator = pMediator;
             this.ticketPrintService = new TicketPrintService();
+            //this.lotteryListControl.resetCurrentCell();
         }
 
         public ListInstanceForm(ApplicationMediator pMediator, ListSelectorForm pSelectorForm, LPS_LotteryPointSale pPointSale, 
@@ -81,6 +82,7 @@ namespace SILO
             // Establecer el ApplicationMediator
             this.appMediator = pMediator;
             this.ticketPrintService = new TicketPrintService();
+            //this.lotteryListControl.resetCurrentCell();
         }
 
         public void initializeComponent() {
@@ -89,6 +91,11 @@ namespace SILO
             this.addControls();
             //this.listInstanceBottomPanel.Hide();
             this.focusList();
+        }
+
+        public void resetCurrentListCell()
+        {
+            this.lotteryListControl.resetCurrentCell();
         }
 
         public void formatLabels()
@@ -104,6 +111,7 @@ namespace SILO
             lotteryListControl = new LotteryListControl();
             lotteryListControl.TabIndex = 0;
             lotteryListControl.Focus();
+            //lotteryListControl.resetCurrentCell();
             this.listInstanceMainPanel.Controls.Add(lotteryListControl);
             this.listInstanceMainPanel.Focus();
         }
@@ -260,7 +268,7 @@ namespace SILO
                     this.mainOptionMenu.Dispose();
                 }
                 // Desplegar menú de opciones
-                this.mainOptionMenu = new MainOptionMenu(this);
+                this.mainOptionMenu = new MainOptionMenu(this.appMediator, this);
                 mainOptionMenu.ShowDialog(this);
                 //pEvent.SuppressKeyPress = true;
             }
@@ -356,8 +364,10 @@ namespace SILO
                     }
                     break;
                 case Keys.Escape:
+                    this.appMediator.setAppTopMost(true);
                     //this.appMediator.setBoxNumberGroup(0);
                     this.Dispose();
+                    this.appMediator.setAppTopMost(false);
                     break;
                 default:
                     break;

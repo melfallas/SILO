@@ -64,6 +64,7 @@
             this.userLabel = new System.Windows.Forms.Label();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.closeDrawMenuButton = new System.Windows.Forms.Button();
             this.copyListButton = new System.Windows.Forms.Button();
             this.displayQRMenuButton = new System.Windows.Forms.Button();
             this.eraseButton = new System.Windows.Forms.Button();
@@ -71,7 +72,6 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.closeDrawMenuButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -390,6 +390,23 @@
             this.menuPanel.Size = new System.Drawing.Size(220, 589);
             this.menuPanel.TabIndex = 0;
             // 
+            // closeDrawMenuButton
+            // 
+            this.closeDrawMenuButton.FlatAppearance.BorderSize = 0;
+            this.closeDrawMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeDrawMenuButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeDrawMenuButton.ForeColor = System.Drawing.Color.White;
+            this.closeDrawMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("closeDrawMenuButton.Image")));
+            this.closeDrawMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.closeDrawMenuButton.Location = new System.Drawing.Point(3, 353);
+            this.closeDrawMenuButton.Name = "closeDrawMenuButton";
+            this.closeDrawMenuButton.Size = new System.Drawing.Size(217, 54);
+            this.closeDrawMenuButton.TabIndex = 6;
+            this.closeDrawMenuButton.Text = "Envío y Cierre";
+            this.closeDrawMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.closeDrawMenuButton.UseVisualStyleBackColor = true;
+            this.closeDrawMenuButton.Click += new System.EventHandler(this.closeDrawMenuButton_Click);
+            // 
             // copyListButton
             // 
             this.copyListButton.FlatAppearance.BorderSize = 0;
@@ -496,23 +513,6 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // closeDrawMenuButton
-            // 
-            this.closeDrawMenuButton.FlatAppearance.BorderSize = 0;
-            this.closeDrawMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeDrawMenuButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeDrawMenuButton.ForeColor = System.Drawing.Color.White;
-            this.closeDrawMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("closeDrawMenuButton.Image")));
-            this.closeDrawMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.closeDrawMenuButton.Location = new System.Drawing.Point(3, 353);
-            this.closeDrawMenuButton.Name = "closeDrawMenuButton";
-            this.closeDrawMenuButton.Size = new System.Drawing.Size(217, 54);
-            this.closeDrawMenuButton.TabIndex = 6;
-            this.closeDrawMenuButton.Text = "Envío y Cierre";
-            this.closeDrawMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.closeDrawMenuButton.UseVisualStyleBackColor = true;
-            this.closeDrawMenuButton.Click += new System.EventHandler(this.closeDrawMenuButton_Click);
-            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,6 +522,7 @@
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.mainMenu;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -529,6 +530,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema Informático para Control de Lotería";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ApplicationForm_FormClosed);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ApplicationForm_KeyDown);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.mainPanel.ResumeLayout(false);

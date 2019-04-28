@@ -34,6 +34,13 @@ namespace SILO
             fillRowListNumber();
         }
 
+        public void resetCurrentCell()
+        {
+            //Console.WriteLine("RC: " + listView.RowCount + " - CC; " + listView.Rows[0]);
+            this.listView.CurrentCell = this.listView.Rows[0].Cells[0];
+            //this.listView.CurrentCell = this.listView[0, 0];
+        }
+
         public void print()
         {
             this.loteryList = new LotteryList(this.listView);
@@ -87,13 +94,19 @@ namespace SILO
         private void listView_KeyDown(object sender, KeyEventArgs e)
         {
             DataGridView gridSender = (DataGridView)sender;
-            int currentRow = gridSender.CurrentCell.RowIndex;
-            int currentCol = gridSender.CurrentCell.ColumnIndex;
+            int currentRow = 0;
+            int currentCol = 0;
             switch (e.KeyCode)
             {
                 case Keys.Enter:
-                    //Console.WriteLine("listView_KeyDown - F: " + currentRow + " - C: " + currentCol);
+                    // Obtener indices de la celda actual
+                    if (gridSender.CurrentCell != null)
+                    {
+                        currentRow = gridSender.CurrentCell.RowIndex;
+                        currentCol = gridSender.CurrentCell.ColumnIndex;
+                    }
                     this.replyImport(currentRow, currentCol);
+                    //Console.WriteLine("listView_KeyDown - F: " + currentRow + " - C: " + currentCol);
                     e.SuppressKeyPress = true;
                     SendKeys.Send("{TAB}");
                     break;
@@ -102,6 +115,12 @@ namespace SILO
                     break;
                 case Keys.Delete:
                 case Keys.Back:
+                    // Obtener indices de la celda actual
+                    if (gridSender.CurrentCell != null)
+                    {
+                        currentRow = gridSender.CurrentCell.RowIndex;
+                        currentCol = gridSender.CurrentCell.ColumnIndex;
+                    }
                     this.listView.Rows[currentRow].Cells[currentCol].Value = "";
                     break;
                 default:
