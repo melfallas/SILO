@@ -96,7 +96,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
-        public void showFormInMainPanel(MainModuleForm pForm, DateTime? pDrawDate = null, long pGroupId = 0)
+        public void showFormInMainPanel(MainModuleForm pForm, DateTime? pDrawDate = null, long pGroupId = 0, bool pUpdateBox=false)
         {
             MainModuleForm existingForm = getExistingForm(pForm);
             // Validar si existe o no el formulario
@@ -123,7 +123,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             {
                 // Destruir el formulario nuevo y mostrar el existente
                 pForm.Dispose();
-                if (this.activeFormType != existingForm.type)
+                if (this.activeFormType != existingForm.type || pUpdateBox)
+                //if(true)
                 {
                     this.centerBoxPanel.Hide();
                     existingForm.BringToFront();

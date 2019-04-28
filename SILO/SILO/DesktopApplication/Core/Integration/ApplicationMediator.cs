@@ -42,11 +42,11 @@ namespace SILO.DesktopApplication.Core.Integration
             }
         }
 
-        public void displayNumberBox(DateTime? pDrawDate = null, long pGroupId = 0)
+        public void displayNumberBox(DateTime? pDrawDate = null, long pGroupId = 0, bool pUpdateBox = false)
         {
             if (this.appForm != null)
             {
-                this.appForm.showFormInMainPanel(new NumberBoxForm(this), pDrawDate, pGroupId);
+                this.appForm.showFormInMainPanel(new NumberBoxForm(this), pDrawDate, pGroupId, pUpdateBox);
             }
         }
 

@@ -199,7 +199,7 @@ namespace SILO
             // Actualizar BoxNumber y mostrar en pantalla resultado de la venta
             //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);
             this.appMediator.setBoxNumberGroup(0);
-            this.appMediator.displayNumberBox(this.drawDate, this.drawType.LDT_Id);
+            this.appMediator.displayNumberBox(this.drawDate, this.drawType.LDT_Id, true);
             this.appMediator.setAppTopMost(false);
             // Limpiar y reestablecer el ListControl
             //this.resetFormList();
