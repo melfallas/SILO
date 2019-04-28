@@ -527,7 +527,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 {
                     ConcreteMessageService.displayPrizeFactorNotFoundMessage();
                     this.appMediator.updateBoxNumber(0);
-                    this.appMediator.appForm.Focus();
+                    this.appMediator.setApplicationFocus();
                 }
             }
         }

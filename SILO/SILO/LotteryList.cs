@@ -45,15 +45,17 @@ namespace SILO
                     importItem = Regex.Replace(importItem, @"[^\d]", "");
                     // Rellenar código numérico de 2 dígitos si no es vacío
                     numberCode = numberCode.Trim() == "" ? "" : UtilityService.fillNumberString(numberCode, 2);
-                    string importNumericValue = "";
                     // Si el número es válido, se debe formatear el importe
+                    string importNumericValue = importItem == null || importItem.Trim() == "" ? "" : Int32.Parse(importItem).ToString();
+                    /*
                     //if (numberCode.Trim() != "")
                     if (true)
                     {
                         // Transformar importItem a entero si está ingresado el valor
-                        Console.WriteLine("Imp: '" + importItem + "'");
+                        //Console.WriteLine("Imp: '" + importItem + "'");
                         importNumericValue = importItem == null || importItem.Trim() == "" ? "" : Int32.Parse(importItem).ToString();
                     }
+                    */
                     // Actualizar celdas del grid
                     pGridView.Rows[i].Cells[0].Value = numberCode;
                     pGridView.Rows[i].Cells[1].Value = importNumericValue;

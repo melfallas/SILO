@@ -49,6 +49,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
+        public void setApplicationFocus()
+        {
+            this.saleMenuButton.Focus();
+        }
+
         private void initializeControls() {
             // Deshabiliar controles de estado de sincronización
             this.syncStatusLabel.Text = "";

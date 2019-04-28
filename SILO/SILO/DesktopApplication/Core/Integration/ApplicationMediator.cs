@@ -19,6 +19,14 @@ namespace SILO.DesktopApplication.Core.Integration
             this.appForm.TopMost = pSetTop;
         }
 
+        public void setApplicationFocus()
+        {
+            if (this.appForm != null)
+            {
+                this.appForm.setApplicationFocus();
+            }
+        }
+
         public void closeTransactions() {
             if (this.appForm != null)
             {
