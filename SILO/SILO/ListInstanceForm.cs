@@ -129,7 +129,7 @@ namespace SILO
             }
             else
             {
-                MessageBox.Show("ERROR: Desplegando la instancia");
+                //MessageBox.Show("ERROR: Desplegando la instancia");
             }
             return list;
         }

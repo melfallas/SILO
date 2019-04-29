@@ -90,11 +90,11 @@
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
-            this.dateLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateLabel.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateLabel.ForeColor = System.Drawing.Color.MidnightBlue;
             this.dateLabel.Location = new System.Drawing.Point(164, 9);
             this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(55, 16);
+            this.dateLabel.Size = new System.Drawing.Size(55, 18);
             this.dateLabel.TabIndex = 3;
             this.dateLabel.Text = "Fecha:";
             this.dateLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
