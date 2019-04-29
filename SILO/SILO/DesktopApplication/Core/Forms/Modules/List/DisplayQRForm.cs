@@ -43,6 +43,12 @@ namespace SILO
             }
             else
             {
+                DrawTypeService drawTypeService = new DrawTypeService();
+                PointSaleService posService = new PointSaleService();
+                this.dateLabel.Text = "" + UtilityService.getLargeDate(this.drawDate);
+                this.drawLabel.Text = "Grupo: " + drawTypeService.getById(this.drawType).LDT_DisplayName;
+                this.posLabel.Text = "Suc: " + posService.getPointSale().LPS_DisplayName;
+
                 text = UtilityService.getEncodeQRString(text, this.drawDate, this.drawType);
                 Console.WriteLine("Original QR: " + text);
                 //text = UtilityService.compressText(text);
