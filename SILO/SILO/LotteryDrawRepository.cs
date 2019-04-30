@@ -29,6 +29,21 @@ namespace SILO
             return draw;
         }
 
+        public LTD_LotteryDraw getByTypeAndDate(long pDrawType, DateTime pDrawDate)
+        {
+            LTD_LotteryDraw findedDraw = null;
+            List < LTD_LotteryDraw > drawList = this.getAll().Where(
+                item =>
+                    item.LDT_LotteryDrawType == pDrawType
+                    && item.LTD_CreateDate == pDrawDate
+                ).ToList();
+            if (drawList.Count > 0)
+            {
+                findedDraw = drawList[0];
+            }
+            return findedDraw;
+        }
+
 
         public LTD_LotteryDraw getDrawRegister(LTD_LotteryDraw pDraw)
         {

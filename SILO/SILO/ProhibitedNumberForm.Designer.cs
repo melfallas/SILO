@@ -99,7 +99,7 @@
             this.MinimizeBox = false;
             this.Name = "ProhibitedNumberForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Números Prohibidos";
+            this.Text = "Ingreso de números prohibidos";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProhibitedNumberForm_KeyDown);
             this.prohibitedTopPanel.ResumeLayout(false);
             this.prohibitedTopPanel.PerformLayout();

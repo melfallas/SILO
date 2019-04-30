@@ -249,6 +249,16 @@ namespace SILO.DesktopApplication.Core.Services
             return restClient.processAsyncHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD, processResponseFunction);
         }
 
+        public async Task<ServiceResponseResult> reverseListToServerAsync(LTL_LotteryList pListObject)
+        {
+            var jsonObject = this.generateSimpleListObject(pListObject,
+                SystemConstants.LIST_STATUS_CANCELED, SystemConstants.SYNC_STATUS_COMPLETED);
+            Console.WriteLine("Request Reversión: " + jsonObject);
+            string urlEndPoint = ServiceConectionConstants.ROOT_LIST_RESOURCE_URL + "/" + pListObject.LTL_Id + "/";
+            RestClientService restClient = new RestClientService();
+            return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_PUT_METHOD);
+        }
+
         public ServiceResponseResult reverseListToServer(LTL_LotteryList pListObject)
         {
             var jsonObject = this.generateSimpleListObject(pListObject, 
@@ -257,7 +267,6 @@ namespace SILO.DesktopApplication.Core.Services
             string urlEndPoint = ServiceConectionConstants.ROOT_LIST_RESOURCE_URL + "/" + pListObject.LTL_Id + "/";
             RestClientService restClient = new RestClientService();
             return restClient.processHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_PUT_METHOD);
-            //return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
 
         public ServiceResponseResult synchronizeDrawAssociation()
@@ -289,7 +298,6 @@ namespace SILO.DesktopApplication.Core.Services
             string urlEndPoint = ServiceConectionConstants.DRAW_TYPE_RESOURCE_URL;
             return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
-
 
         //--******************** Método Utilizado para servicios *********************--//
         public ServiceResponseResult processHttpRequest(string pUrlEndPoint, Object pJsonObject, string pHttpMethod)

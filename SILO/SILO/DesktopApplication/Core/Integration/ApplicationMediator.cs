@@ -19,6 +19,21 @@ namespace SILO.DesktopApplication.Core.Integration
             this.appForm.TopMost = pSetTop;
         }
 
+        public void setApplicationFocus()
+        {
+            if (this.appForm != null)
+            {
+                this.appForm.setApplicationFocus();
+            }
+        }
+
+        public void closeTransactions() {
+            if (this.appForm != null)
+            {
+                this.appForm.closeTransactions();
+            }
+        }
+
         public void updateTotalBoxes()
         {
             if (this.appNumberBox != null)
@@ -27,9 +42,12 @@ namespace SILO.DesktopApplication.Core.Integration
             }
         }
 
-        public void displayNumberBox(DateTime? pDrawDate = null, long pGroupId = 0)
+        public void displayNumberBox(DateTime? pDrawDate = null, long pGroupId = 0, bool pUpdateBox = false)
         {
-            this.appForm.showFormInMainPanel(new NumberBoxForm(this), pDrawDate, pGroupId);
+            if (this.appForm != null)
+            {
+                this.appForm.showFormInMainPanel(new NumberBoxForm(this), pDrawDate, pGroupId, pUpdateBox);
+            }
         }
 
         public void setBoxNumberGroup(int pGroupId)

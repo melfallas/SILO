@@ -27,8 +27,32 @@ namespace SILO.DesktopApplication.Core.Repositories
             return this.getAll().Where(
                 item =>
                     item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
-                &&  item.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER
-                ).ToList(); ;
+                && item.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER
+                // Excluir de las transacciones pendientes los estados de lista TEMPORALES
+                && item.LLS_LotteryListStatus != SystemConstants.LIST_STATUS_PROCESSING
+            ).ToList();
+        }
+
+        public List<LTL_LotteryList> getPosPendingTransactionsByDraw(LTD_LotteryDraw pDraw)
+        {
+            return this.getAll().Where(
+                item =>
+                    item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
+                    && item.LTD_LotteryDraw == pDraw.LTD_Id
+                    && item.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER
+                    // Excluir de las transacciones pendientes los estados de lista TEMPORALES
+                    && item.LLS_LotteryListStatus != SystemConstants.LIST_STATUS_PROCESSING
+            ).ToList();
+        }
+
+        // Métodos que cambia el estado de una lista de objetos
+        public void changeListSyncStatus(List<LTL_LotteryList> pEntityList, long pNewStatus)
+        {
+            foreach (LTL_LotteryList entity in pEntityList)
+            {
+                entity.SYS_SynchronyStatus = pNewStatus;
+                this.save(entity, entity.LTL_Id, (e1, e2) => e1.copy(e2));
+            }
         }
 
         public List<LND_ListNumberDetail> getListDetail(long pId)
@@ -168,11 +192,12 @@ namespace SILO.DesktopApplication.Core.Repositories
         }
         */
 
-        public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup, bool pOnlyPendingTransactions = false)
+        public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup, long pSyncStatus = 0, bool pOnlyPendingTransactions = false)
         {
             int[] importArray = new int[100];
             string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
             string pendingFilter = " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
+            string synStatusFilter = " AND L.SYS_SynchronyStatus = " + pSyncStatus + " ";
             Dictionary<int, int> importCollection = new Dictionary<int, int>();
             using (var context = new SILOEntities())
             {
@@ -187,6 +212,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                     + "AND D.LTD_CreateDate = '" + drawDate + "' "
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
                     + (pOnlyPendingTransactions ? pendingFilter : "")
+                    + (pSyncStatus != 0 ? synStatusFilter : "")
                     + "GROUP BY N.LNR_LotteryNumber "
                     + ";"
                     ;
@@ -284,7 +310,8 @@ namespace SILO.DesktopApplication.Core.Repositories
             // Verificar si se requieren solo transacciones pendientes
             if (pOnlyPendingTransactions)
             {
-                aditionalQueryFilters += " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
+                //aditionalQueryFilters += " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
+                aditionalQueryFilters += " AND L.SYS_SynchronyStatus <> " + SystemConstants.SYNC_STATUS_COMPLETED + " ";
             }
             // Aplicar el query para obtener los datos
             using (var context = new SILOEntities())

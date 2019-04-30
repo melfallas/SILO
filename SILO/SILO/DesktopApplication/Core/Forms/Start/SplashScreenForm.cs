@@ -23,11 +23,28 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         {
             InitializeComponent();
             this.initializeComponent();
+            this.TopMost = true;
         }
 
         public void initializeComponent()
         {
             this.versionAppLabel.Text = UtilityService.getApplicationVersion();
+        }
+
+        public SplashScreenForm getForm()
+        {
+            SplashScreenForm thisForm = null;
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new MethodInvoker(delegate {
+                    thisForm = this;
+                }));
+            }
+            else
+            {
+                thisForm = this;
+            }
+            return thisForm;
         }
 
         public void DisposeForm()

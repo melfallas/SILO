@@ -34,6 +34,13 @@ namespace SILO
             fillRowListNumber();
         }
 
+        public void resetCurrentCell()
+        {
+            //Console.WriteLine("RC: " + listView.RowCount + " - CC; " + listView.Rows[0]);
+            this.listView.CurrentCell = this.listView.Rows[0].Cells[0];
+            //this.listView.CurrentCell = this.listView[0, 0];
+        }
+
         public void print()
         {
             this.loteryList = new LotteryList(this.listView);
@@ -86,32 +93,47 @@ namespace SILO
 
         private void listView_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            DataGridView gridSender = (DataGridView)sender;
+            int currentRow = 0;
+            int currentCol = 0;
+            switch (e.KeyCode)
             {
-                /*
-                DataGridViewCell currentCell = this.listView.CurrentCell;
-                this.listView.EndEdit();
-                this.listView.CurrentCell = currentCell;
-                */
-                e.SuppressKeyPress = true;
-                //SendKeys.Send("{UP}");
-                SendKeys.Send("{TAB}");
-                //e.Handled = true;
-            }
-            else
-            {
-                if (e.KeyCode == Keys.Multiply)
-                {
+                case Keys.Enter:
+                    // Obtener indices de la celda actual
+                    if (gridSender.CurrentCell != null)
+                    {
+                        currentRow = gridSender.CurrentCell.RowIndex;
+                        currentCol = gridSender.CurrentCell.ColumnIndex;
+                    }
+                    this.replyImport(currentRow, currentCol);
+                    //Console.WriteLine("listView_KeyDown - F: " + currentRow + " - C: " + currentCol);
+                    e.SuppressKeyPress = true;
                     SendKeys.Send("{TAB}");
-                }
+                    break;
+                case Keys.Multiply:
+                    SendKeys.Send("{TAB}");
+                    break;
+                case Keys.Delete:
+                case Keys.Back:
+                    // Obtener indices de la celda actual
+                    if (gridSender.CurrentCell != null)
+                    {
+                        currentRow = gridSender.CurrentCell.RowIndex;
+                        currentCol = gridSender.CurrentCell.ColumnIndex;
+                    }
+                    this.listView.Rows[currentRow].Cells[currentCol].Value = "";
+                    break;
+                default:
+                    break;
             }
         }
 
         private void listView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            //MessageBox.Show("dfdf");
             SendKeys.Send("{UP}");
             SendKeys.Send("{TAB}");
+            //Console.WriteLine("CellEndEdit - F: " + e.RowIndex + " - C: " + e.ColumnIndex);
+            this.replyImport(e.RowIndex, e.ColumnIndex);
         }
 
         private void listView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -126,6 +148,28 @@ namespace SILO
         }
 
         #endregion
+
+        private void replyImport(int pPreviousRowIndex, int pPreviousColumIndex)
+        {
+            // Replicar importe solamente si se hace tab en columna de importes
+            if (pPreviousColumIndex == 1)
+            {
+                int rowCount = this.listView.RowCount;
+                int nextRowIndex = pPreviousRowIndex + 1;
+                // Replicar únicamente cuando no está en la última fila
+                if (nextRowIndex < rowCount)
+                {
+                    object nextValue = this.listView.Rows[nextRowIndex].Cells[pPreviousColumIndex].Value;
+                    // Replicar solamente si el valor del siguiente monto no se ha establecido
+                    if (nextValue == null || nextValue.ToString().Trim() == "")
+                    {
+                        string previousImport = this.listView.Rows[pPreviousRowIndex].Cells[pPreviousColumIndex].Value.ToString();
+                        this.listView.Rows[nextRowIndex].Cells[pPreviousColumIndex].Value = previousImport;
+                    }
+                }
+            }
+        }
+
 
     }
 }

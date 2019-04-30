@@ -23,7 +23,8 @@ namespace SILO.DesktopApplication.Core.Constants
         public const long SYNC_STATUS_PENDING_TO_SERVER = 1;
         public const long SYNC_STATUS_PENDING_TO_CLIENT = 2;
         public const long SYNC_STATUS_COMPLETED = 3;
-        // Constantes para estados de lista
+        public const long SYNC_STATUS_QRUPDATED = 2;
+        // Constantes para estados de Sorteo
         public const long DRAW_STATUS_OPENED = 1;
         public const long DRAW_STATUS_CLOSED = 2;
         public const long DRAW_STATUS_REOPENED = 3;
@@ -31,6 +32,9 @@ namespace SILO.DesktopApplication.Core.Constants
         // Constantes para estados de lista
         public const long LIST_STATUS_CREATED = 1;
         public const long LIST_STATUS_CANCELED = 2;
+        public const long LIST_STATUS_PRINTED = 3;
+        public const long LIST_STATUS_PROCESSING = 4;
+
         // Constantes para tipos de formulario operaciones de lista
         public const int NUMBER_BOX_CODE = 1;
         public const int PRINTER_LIST_CODE = 2;

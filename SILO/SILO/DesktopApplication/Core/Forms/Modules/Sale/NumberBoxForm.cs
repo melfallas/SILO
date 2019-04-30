@@ -210,6 +210,11 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         {
             this.setTextBoxWithThread(this.txbSyncImport, pText);
         }
+        // Evento para setear el SyncImport desde otro hilo
+        public void setSyncQRImport(string pText)
+        {
+            this.setTextBoxWithThread(this.txbQRImport, pText);
+        }
         // Evento para setear el PendingImport desde otro hilo
         public void setPendingImport(string pText)
         {
@@ -322,8 +327,10 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         private void updateBoxArray(long pGroupId)
         {
+            this.updateTotalBoxes(pGroupId);
+            
             int totalImport = 0;
-            int pendingImport = 0;
+            //int pendingImport = 0;
             ListService listService = new ListService();
             // Calcular importe sincronizado con el server
             int[] syncTotalImportArray = listService.getDrawTotals(this.datePickerList.Value.Date, pGroupId);
@@ -334,6 +341,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.setNumberBoxText(i, FormatService.formatInt(syncTotalImportArray[i]));
             }
             this.setTotalImport(FormatService.formatInt(totalImport));
+            /*
             // Calcular importe pendiente de sincronización
             int[] pendingSyncImportArray = listService.getDrawPendingSyncTotals(this.datePickerList.Value.Date, pGroupId);
             for (int i = 0; i < syncTotalImportArray.Length; i++)
@@ -344,6 +352,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             this.setPendingImport(FormatService.formatInt(pendingImport));
             int maxToReceive = (int) (totalImport * 0.03);
             this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
+            */
         }
 
         private void cleanBoxNumber()
@@ -357,6 +366,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 }
                 this.setTotalImport("0");
                 this.setSyncImport("0");
+                this.setSyncQRImport("0");
                 this.setPendingImport("0");
                 this.setMaxToReceive("0");
             }
@@ -379,6 +389,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 //listInstance.ShowDialog();
                 listInstance.ShowDialog(this);
                 //listInstance.Show(this);
+                //listInstance.resetCurrentListCell();
             }
             else
             {
@@ -389,6 +400,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         private void updateTotalBoxes(long pGroupId)
         {
             int totalImport = 0;
+            int syncImport = 0;
+            int qrImport = 0;
             int pendingImport = 0;
             ListService listService = new ListService();
             // Calcular importe sincronizado con el server
@@ -399,12 +412,28 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             }
             this.setTotalImport(FormatService.formatInt(totalImport));
             // Calcular importe pendiente de sincronización
-            int[] pendingSyncImportArray = listService.getDrawPendingSyncTotals(this.datePickerList.Value.Date, pGroupId);
-            for (int i = 0; i < syncTotalImportArray.Length; i++)
+            //int[] pendingSyncImportArray = listService.getDrawPendingSyncTotals(this.datePickerList.Value.Date, pGroupId);
+            int[] pendingSyncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_PENDING_TO_SERVER);
+            for (int i = 0; i < pendingSyncImportArray.Length; i++)
             {
                 pendingImport += pendingSyncImportArray[i];
             }
-            this.setSyncImport(FormatService.formatInt(totalImport - pendingImport));
+            // Calcular importe sincronizado vía web
+            int[] syncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_COMPLETED);
+            for (int i = 0; i < syncImportArray.Length; i++)
+            {
+                syncImport += syncImportArray[i];
+            }
+            // Calcular importe sincronizado vía Código QR
+            int[] qrSyncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_QRUPDATED);
+            for (int i = 0; i < qrSyncImportArray.Length; i++)
+            {
+                qrImport += qrSyncImportArray[i];
+            }
+            // Setear los controles
+            //this.setSyncImport(FormatService.formatInt(totalImport - pendingImport));
+            this.setSyncImport(FormatService.formatInt(syncImport));
+            this.setSyncQRImport(FormatService.formatInt(qrImport));
             this.setPendingImport(FormatService.formatInt(pendingImport));
             int maxToReceive = (int)(totalImport * 0.03);
             this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
@@ -498,7 +527,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 //this.drawTypeBox
-                //MessageBox.Show("dfddf");
             }
         }
 
@@ -508,7 +536,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             //this.cleanBoxNumber();
         }
 
-        private async void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
             if (groupId == 0)
@@ -518,22 +546,31 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             else
             {
                 SaleValidator saleValidator = new SaleValidator();
-                await saleValidator.validatePrizeFactorAsync(groupId, updateBoxAndDisplayListInstance);
-                /*
-                LotteryPrizeFactorService prizeFactorService = new LotteryPrizeFactorService();
-                LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByGroup(groupId);
-                if (prizeFactor == null)
+                bool existingFactor = saleValidator.validatePrizeFactorAsync(groupId);
+                if (existingFactor)
                 {
-                    ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                    this.updateBoxAndDisplayListInstance(groupId);
                 }
                 else
                 {
-                    await this.updateBoxAndDisplayListInstance(groupId);
+                    ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                    this.appMediator.updateBoxNumber(0);
+                    this.appMediator.setApplicationFocus();
                 }
-                */
             }
         }
 
+        public bool updateBoxAndDisplayListInstance(long pGroupId)
+        {
+            bool result = true;
+            this.lastGroup = pGroupId;
+            Console.WriteLine("lastGroup: " + lastGroup);
+            this.updateNumberBox(pGroupId);
+            this.displayNewListInstance();
+            return result;
+        }
+
+        /*
         public async Task<bool> updateBoxAndDisplayListInstance(long pGroupId)
         {
             bool result = true;
@@ -543,8 +580,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             this.displayNewListInstance();
             return result;
             //return Task.Run(() => result);
-        } 
-
+        }
+        */
 
     }
 }

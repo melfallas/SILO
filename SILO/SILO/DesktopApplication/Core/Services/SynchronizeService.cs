@@ -322,13 +322,13 @@ namespace SILO.DesktopApplication.Core.Services
             //this.processResponseToSendList(responseResult);
         }
 
-        public async Task sendListNumberToServerAsync(LTL_LotteryList pList, List<LND_ListNumberDetail> pNumberDetail)
+        public async Task<ServiceResponseResult> sendListNumberToServerAsync(LTL_LotteryList pList, List<LND_ListNumberDetail> pNumberDetail)
         {
             // Llamar al servicio de sincronización con el servidor
             ServerConnectionService service = new ServerConnectionService();
             ServiceResponseResult responseResult = await service.syncListToServerAsync(pList, pNumberDetail);
             this.processResponseToSendList(responseResult);
-            //this.processResponseToSendList(responseResult);
+            return responseResult;
         }
 
         // Método para procesar el resultado del envío de la lista al servidor
@@ -378,7 +378,15 @@ namespace SILO.DesktopApplication.Core.Services
                 LogService.logErrorServiceResponse("No se pudo sincronizar la venta", responseType, "Pendiente");
             }
         }
-        
+
+        public async Task<ServiceResponseResult> reverseListNumberFromServerAsync(LTL_LotteryList pList)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService serverConection = new ServerConnectionService();
+            ServiceResponseResult response = await serverConection.reverseListToServerAsync(pList);
+            return response;
+        }
+
 
         public void syncPendingListNumberToServer()
         {
@@ -412,8 +420,9 @@ namespace SILO.DesktopApplication.Core.Services
         //----------------- Servicios Asíncronos de Pendientes de Pago y Reversión -----------------//
         #region Servicios Asíncronos de Pendientes de Pago y Reversión
 
-        public async Task syncPendingListNumberToServerAsync()
+        public async Task<bool> syncPendingListNumberToServerAsync()
         {
+            bool successProcess = true;
             LotteryListRepository listRepo = new LotteryListRepository();
             List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
             Console.WriteLine("Transacciones a Sincronizar: " + pendingTransactions.Count);
@@ -424,21 +433,72 @@ namespace SILO.DesktopApplication.Core.Services
                 {
                     case SystemConstants.LIST_STATUS_CREATED:
                         // Procesar creación de la lista en el servidor
-                        Console.WriteLine(" - Creada ");
                         List<LND_ListNumberDetail> listNumber = listRepo.getListDetail(item.LTL_Id);
-                        await this.sendListNumberToServerAsync(item, listNumber);
+                        bool successSale = await this.processListToServerAsync(item, listNumber);
+                        // Si hay fallos en el registro de la venta, reportar sincronización como fallida
+                        if (!successSale)
+                        {
+                            successProcess = false;
+                        }
                         break;
                     case SystemConstants.LIST_STATUS_CANCELED:
-                        /*
                         // Procesar reversión de la lista en el servidor
-                        Console.WriteLine(" - Anulada ");
-                        this.reverseListNumberFromServer(item);
+                        bool successReversion = await this.processReverseToServerAsync(item);
+                        // Si hay fallos en la reversión, reportar sincronización como fallida
+                        if (!successReversion)
+                        {
+                            successProcess = false;
+                        }
                         break;
-                        */
                     default:
                         break;
                 }
             }
+            return successProcess;
+        }
+
+        private async Task<bool> processListToServerAsync(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumber)
+        {
+            bool successReversion = false;
+            Console.WriteLine(" - Creada ");
+            ServiceResponseResult response = await this.sendListNumberToServerAsync(pListObject, pListNumber);
+            if (ServiceValidator.isValidServiceResponse(response))
+            {
+                // Cambiar el estado de la lista local a Sincronizado
+                this.setListCompleteSync(pListObject);
+                successReversion = true;
+            }
+            else
+            {
+                // Error de sincronización
+                string responseType = response == null ? "N/A" : response.type;
+                LogService.logErrorServiceResponse("No se pudo sincronizar la venta", responseType, "Pendiente");
+            }
+            return successReversion;
+        }
+
+        private async Task<bool> processReverseToServerAsync(LTL_LotteryList pListObject)
+        {
+            bool successReversion = false;
+            Console.WriteLine(" - Anulada ");
+            ServiceResponseResult response = await this.reverseListNumberFromServerAsync(pListObject);
+            if (ServiceValidator.isValidServiceResponse(response))
+            {
+                // Cambiar el estado de la lista local a Sincronizado
+                this.setListCompleteSync(pListObject);
+                successReversion = true;
+            }
+            else
+            {
+                // Error de sincronización
+                string responseType = response == null ? "N/A" : response.type;
+                LogService.logErrorServiceResponse("No se pudo sincronizar la reversión", responseType, "Pendiente");
+            }
+            if (response != null && response.message == "No se pudo actualizar. El elemento especificado no existe")
+            {
+                successReversion = true;
+            }
+            return successReversion;
         }
 
 

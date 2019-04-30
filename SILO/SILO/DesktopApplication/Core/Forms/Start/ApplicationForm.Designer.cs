@@ -53,6 +53,8 @@
             this.centerBoxPanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.syncStatusLabel = new System.Windows.Forms.Label();
+            this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.posContentLabel = new System.Windows.Forms.Label();
             this.posLabel = new System.Windows.Forms.Label();
@@ -62,14 +64,13 @@
             this.userLabel = new System.Windows.Forms.Label();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.closeDrawMenuButton = new System.Windows.Forms.Button();
             this.copyListButton = new System.Windows.Forms.Button();
             this.displayQRMenuButton = new System.Windows.Forms.Button();
             this.eraseButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
-            this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
-            this.syncStatusLabel = new System.Windows.Forms.Label();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -203,7 +204,7 @@
             this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enviarAlServidorToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
             // 
             // enviarAlServidorToolStripMenuItem
@@ -270,6 +271,28 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(747, 22);
             this.panel2.TabIndex = 2;
+            // 
+            // syncStatusLabel
+            // 
+            this.syncStatusLabel.AutoSize = true;
+            this.syncStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.syncStatusLabel.Location = new System.Drawing.Point(559, 3);
+            this.syncStatusLabel.Name = "syncStatusLabel";
+            this.syncStatusLabel.Size = new System.Drawing.Size(119, 13);
+            this.syncStatusLabel.TabIndex = 1;
+            this.syncStatusLabel.Text = "Sincronización completa";
+            // 
+            // syncStatusProgressBar
+            // 
+            this.syncStatusProgressBar.Location = new System.Drawing.Point(456, 6);
+            this.syncStatusProgressBar.MarqueeAnimationSpeed = 40;
+            this.syncStatusProgressBar.Minimum = 20;
+            this.syncStatusProgressBar.Name = "syncStatusProgressBar";
+            this.syncStatusProgressBar.Size = new System.Drawing.Size(97, 10);
+            this.syncStatusProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.syncStatusProgressBar.TabIndex = 0;
+            this.syncStatusProgressBar.UseWaitCursor = true;
+            this.syncStatusProgressBar.Value = 20;
             // 
             // panel1
             // 
@@ -354,6 +377,7 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.closeDrawMenuButton);
             this.menuPanel.Controls.Add(this.copyListButton);
             this.menuPanel.Controls.Add(this.displayQRMenuButton);
             this.menuPanel.Controls.Add(this.eraseButton);
@@ -365,6 +389,23 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(220, 589);
             this.menuPanel.TabIndex = 0;
+            // 
+            // closeDrawMenuButton
+            // 
+            this.closeDrawMenuButton.FlatAppearance.BorderSize = 0;
+            this.closeDrawMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeDrawMenuButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.closeDrawMenuButton.ForeColor = System.Drawing.Color.White;
+            this.closeDrawMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("closeDrawMenuButton.Image")));
+            this.closeDrawMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.closeDrawMenuButton.Location = new System.Drawing.Point(3, 353);
+            this.closeDrawMenuButton.Name = "closeDrawMenuButton";
+            this.closeDrawMenuButton.Size = new System.Drawing.Size(217, 54);
+            this.closeDrawMenuButton.TabIndex = 6;
+            this.closeDrawMenuButton.Text = "Envío y Cierre";
+            this.closeDrawMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.closeDrawMenuButton.UseVisualStyleBackColor = true;
+            this.closeDrawMenuButton.Click += new System.EventHandler(this.closeDrawMenuButton_Click);
             // 
             // copyListButton
             // 
@@ -425,7 +466,7 @@
             this.aboutButton.ForeColor = System.Drawing.Color.White;
             this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
             this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(0, 353);
+            this.aboutButton.Location = new System.Drawing.Point(3, 413);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(217, 54);
             this.aboutButton.TabIndex = 5;
@@ -467,28 +508,6 @@
             this.saleMenuButton.UseVisualStyleBackColor = true;
             this.saleMenuButton.Click += new System.EventHandler(this.saleMenuButton_Click);
             // 
-            // syncStatusProgressBar
-            // 
-            this.syncStatusProgressBar.Location = new System.Drawing.Point(456, 6);
-            this.syncStatusProgressBar.MarqueeAnimationSpeed = 40;
-            this.syncStatusProgressBar.Minimum = 20;
-            this.syncStatusProgressBar.Name = "syncStatusProgressBar";
-            this.syncStatusProgressBar.Size = new System.Drawing.Size(97, 10);
-            this.syncStatusProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.syncStatusProgressBar.TabIndex = 0;
-            this.syncStatusProgressBar.UseWaitCursor = true;
-            this.syncStatusProgressBar.Value = 20;
-            // 
-            // syncStatusLabel
-            // 
-            this.syncStatusLabel.AutoSize = true;
-            this.syncStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.syncStatusLabel.Location = new System.Drawing.Point(559, 3);
-            this.syncStatusLabel.Name = "syncStatusLabel";
-            this.syncStatusLabel.Size = new System.Drawing.Size(119, 13);
-            this.syncStatusLabel.TabIndex = 1;
-            this.syncStatusLabel.Text = "Sincronización completa";
-            // 
             // syncTimer
             // 
             this.syncTimer.Interval = 300000;
@@ -503,6 +522,7 @@
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MainMenuStrip = this.mainMenu;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -510,6 +530,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema Informático para Control de Lotería";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ApplicationForm_FormClosed);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ApplicationForm_KeyDown);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.mainPanel.ResumeLayout(false);
@@ -567,6 +588,7 @@
         private System.Windows.Forms.ProgressBar syncStatusProgressBar;
         private System.Windows.Forms.Label syncStatusLabel;
         private System.Windows.Forms.Timer syncTimer;
+        private System.Windows.Forms.Button closeDrawMenuButton;
     }
 }
 

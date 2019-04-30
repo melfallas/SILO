@@ -12,7 +12,7 @@ namespace SILO.DesktopApplication.Core.Pattern
         void updateBoxNumber();
         void updateBoxNumber(long pGroupId);
 
-        void displayNumberBox(DateTime? pDrawDate = null, long pGroupId = 0);
+        void displayNumberBox(DateTime? pDrawDate = null, long pGroupId = 0, bool pUpdateBox = false);
 
 
 
