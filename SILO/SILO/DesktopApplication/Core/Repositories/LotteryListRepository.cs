@@ -29,7 +29,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                     item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
                 && item.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER
                 // Excluir de las transacciones pendientes los estados de lista TEMPORALES
-                //&& item.LLS_LotteryListStatus != SystemConstants.LIST_STATUS_PROCESSING
+                && item.LLS_LotteryListStatus != SystemConstants.LIST_STATUS_PROCESSING
             ).ToList();
         }
 

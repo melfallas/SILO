@@ -54,8 +54,8 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
                     {
                         long actualStatus = pCopyFuntion(findedEntity, pEntityInstance);
                         // Validar estado de la entidad para determinar si se actualiza
-                        if (actualStatus == SystemConstants.SYNC_STATUS_COMPLETED)
-                        //if (actualStatus != SystemConstants.SYNC_STATUS_PENDING_TO_SERVER)
+                        //if (actualStatus == SystemConstants.SYNC_STATUS_COMPLETED)
+                        if (actualStatus != SystemConstants.SYNC_STATUS_PENDING_TO_SERVER)
                         {
                             // Update solamente si el estado es completamente sincronizado
                             context.SaveChanges();
