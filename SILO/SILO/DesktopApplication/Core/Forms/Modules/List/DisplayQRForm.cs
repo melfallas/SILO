@@ -32,7 +32,7 @@ namespace SILO
         {
             bool successGeneration = true;
             // Obtener transacciones pendientes en forma de hilera
-            String text = UtilityService.getPendingTransactions(this.drawDate, this.drawType);
+            String text = UtilityService.getPendingTransactions(this.drawDate, this.drawType);            
             if (text.Trim() == "")
             {
                 successGeneration = false;
@@ -43,6 +43,16 @@ namespace SILO
             }
             else
             {
+                // Cambiar estado de lista a QR Generado
+                ListService listService = new ListService();
+                listService.changeSyncStatusToQRUpdated(this.drawType, this.drawDate);
+                // Obtener parámetros del QR generado
+                DrawTypeService drawTypeService = new DrawTypeService();
+                PointSaleService posService = new PointSaleService();
+                this.dateLabel.Text = "" + UtilityService.getLargeDate(this.drawDate);
+                this.drawLabel.Text = "Grupo: " + drawTypeService.getById(this.drawType).LDT_DisplayName;
+                this.posLabel.Text = "Suc: " + posService.getPointSale().LPS_DisplayName;
+                // Obtener QRString codificada
                 text = UtilityService.getEncodeQRString(text, this.drawDate, this.drawType);
                 Console.WriteLine("Original QR: " + text);
                 //text = UtilityService.compressText(text);

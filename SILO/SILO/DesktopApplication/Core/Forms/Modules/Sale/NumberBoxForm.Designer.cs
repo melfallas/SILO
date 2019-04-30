@@ -32,6 +32,8 @@
             this.contentPanel = new System.Windows.Forms.Panel();
             this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.footerPanel = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txbQRImport = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txbPendingImport = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -88,6 +90,8 @@
             // footerPanel
             // 
             this.footerPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.footerPanel.Controls.Add(this.label8);
+            this.footerPanel.Controls.Add(this.txbQRImport);
             this.footerPanel.Controls.Add(this.label7);
             this.footerPanel.Controls.Add(this.txbPendingImport);
             this.footerPanel.Controls.Add(this.label6);
@@ -101,6 +105,26 @@
             this.footerPanel.Name = "footerPanel";
             this.footerPanel.Size = new System.Drawing.Size(567, 83);
             this.footerPanel.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(213, 36);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Envíado QR";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // txbQRImport
+            // 
+            this.txbQRImport.Location = new System.Drawing.Point(281, 33);
+            this.txbQRImport.Name = "txbQRImport";
+            this.txbQRImport.ReadOnly = true;
+            this.txbQRImport.Size = new System.Drawing.Size(100, 20);
+            this.txbQRImport.TabIndex = 8;
+            this.txbQRImport.Text = "0";
+            this.txbQRImport.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label7
             // 
@@ -303,5 +327,7 @@
         private System.Windows.Forms.TextBox txbMaxToReceive;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txbPendingImport;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txbQRImport;
     }
 }
