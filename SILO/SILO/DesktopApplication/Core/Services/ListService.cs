@@ -26,7 +26,12 @@ namespace SILO.DesktopApplication.Core.Services
 
         public int[] getDrawPendingSyncTotals(DateTime pDate, long pGroup)
         {
-            return this.listRepository.getDrawListTotals(UtilityService.getPointSaleId(), pDate, pGroup, true);
+            return this.listRepository.getDrawListTotals(UtilityService.getPointSaleId(), pDate, pGroup, 0, true);
+        }
+
+        public int[] getTotalImportBySyncStatus(DateTime pDate, long pGroup, long pSyncStatus)
+        {
+            return this.listRepository.getDrawListTotals(UtilityService.getPointSaleId(), pDate, pGroup, pSyncStatus);
         }
 
 

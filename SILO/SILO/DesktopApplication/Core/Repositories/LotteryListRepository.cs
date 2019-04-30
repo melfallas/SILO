@@ -192,11 +192,12 @@ namespace SILO.DesktopApplication.Core.Repositories
         }
         */
 
-        public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup, bool pOnlyPendingTransactions = false)
+        public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup, long pSyncStatus = 0, bool pOnlyPendingTransactions = false)
         {
             int[] importArray = new int[100];
             string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
             string pendingFilter = " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
+            string synStatusFilter = " AND L.SYS_SynchronyStatus = " + pSyncStatus + " ";
             Dictionary<int, int> importCollection = new Dictionary<int, int>();
             using (var context = new SILOEntities())
             {
@@ -211,6 +212,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                     + "AND D.LTD_CreateDate = '" + drawDate + "' "
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
                     + (pOnlyPendingTransactions ? pendingFilter : "")
+                    + (pSyncStatus != 0 ? synStatusFilter : "")
                     + "GROUP BY N.LNR_LotteryNumber "
                     + ";"
                     ;
