@@ -190,7 +190,7 @@ namespace SILO.DesktopApplication.Core.Services
             string pointSaleId = fillNumberString(UtilityService.getPointSaleId().ToString(), 2);
             string draDate = pDate.ToString("yyyyMMdd");
             string groupId = fillNumberString(pGroup.ToString(), 2);
-            return groupId + draDate + pointSaleId + "N" + pNumberListString;
+            return groupId + draDate + pointSaleId + "H" + pNumberListString;
         }
 
 

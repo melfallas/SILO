@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Forms.Modules.Closing;
 using SILO.DesktopApplication.Core.Forms.Modules.List;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Forms.Modules.Number;
@@ -23,8 +24,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 {
     public partial class ApplicationForm : Form
     {
-        private ApplicationMediator mediator;
+        private ApplicationMediator mediator;        
         public Form parentForm { get; set; }
+        public MainOptionMenu mainOptionMenu { get; set; }
+
+        private int activeFormType = -1;
 
         public ApplicationForm(Form pParentForm)
         {
@@ -35,6 +39,19 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             mediator = new ApplicationMediator();
             mediator.appForm = this;
             //this.printMenuButton.BackColor = Color.FromArgb(12, 61, 92);
+        }
+
+        public ApplicationMediator getMediator
+        {
+            get
+            {
+                return this.mediator;
+            }
+        }
+
+        public void setApplicationFocus()
+        {
+            this.saleMenuButton.Focus();
         }
 
         private void initializeControls() {
@@ -79,13 +96,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
-        public void showFormInMainPanel(MainModuleForm pForm, DateTime? pDrawDate = null, long pGroupId = 0)
+        public void showFormInMainPanel(MainModuleForm pForm, DateTime? pDrawDate = null, long pGroupId = 0, bool pUpdateBox=false)
         {
-            this.centerBoxPanel.Hide();
             MainModuleForm existingForm = getExistingForm(pForm);
             // Validar si existe o no el formulario
             if (existingForm == null)
             {
+                this.centerBoxPanel.Hide();
                 // Agregar BoxNumber al AppMediator
                 if (pForm.type == SystemConstants.NUMBER_BOX_CODE)
                 {
@@ -100,23 +117,31 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 formToAdd.Show();
                 formToAdd.BringToFront();
                 this.mediator.updateBoxNumber(0, DateTime.Today);
+                this.centerBoxPanel.Show();
             }
             else
             {
                 // Destruir el formulario nuevo y mostrar el existente
                 pForm.Dispose();
-                existingForm.BringToFront();
-                // Si se trae al frente un NumberBoxForm, se debe actualizar
-                if (existingForm.type == SystemConstants.NUMBER_BOX_CODE)
+                if (this.activeFormType != existingForm.type || pUpdateBox)
+                //if(true)
                 {
-                    NumberBoxForm numberBox = (NumberBoxForm)existingForm;
-                    numberBox.updateNumberBox(pDrawDate, pGroupId);
-                }
-                else {
-                    this.mediator.updateBoxNumber(0, DateTime.Today);
+                    this.centerBoxPanel.Hide();
+                    existingForm.BringToFront();
+                    // Si se trae al frente un NumberBoxForm, se debe actualizar
+                    if (existingForm.type == SystemConstants.NUMBER_BOX_CODE)
+                    {
+                        NumberBoxForm numberBox = (NumberBoxForm)existingForm;
+                        numberBox.updateNumberBox(pDrawDate, pGroupId);
+                    }
+                    else
+                    {
+                        this.mediator.updateBoxNumber(0, DateTime.Today);
+                    }
+                    this.centerBoxPanel.Show();
                 }
             }
-            this.centerBoxPanel.Show();
+            this.activeFormType = pForm.type;
         }
 
         private MainModuleForm getExistingForm(MainModuleForm pForm) {
@@ -140,11 +165,43 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.showFormInMainPanel(displayListForm);
         }
 
+        private void displayCloseSelector()
+        {
+            ClosingSelectorForm closingForm = new ClosingSelectorForm(this.mediator);
+            closingForm.ShowDialog(this);
+        }
+
+        public void closeTransactions()
+        {
+            this.processParallelSynchronization();
+        }
+
+        private void processMenuRequest(/*KeyEventArgs pEvent*/)
+        {
+            // Validar si existe menú de opciones            
+            if (this.mainOptionMenu != null)
+            {
+                this.mainOptionMenu.Dispose();
+            }
+            // Desplegar menú de opciones
+            this.mainOptionMenu = new MainOptionMenu(this.mediator);
+            this.mainOptionMenu.ShowDialog(this);
+        }
+
+
+
+
         //--------------------------------------- Botones de Menú Lateral --------------------------------------//
         #region Botones de Menú Lateral
-        private void saleMenuButton_Click(object sender, EventArgs e)
+
+        public void showBoxNumber()
         {
             this.showFormInMainPanel(new NumberBoxForm(this.mediator));
+        }
+
+        private void saleMenuButton_Click(object sender, EventArgs e)
+        {
+            this.showBoxNumber();
         }
 
         private void copyListButton_Click(object sender, EventArgs e)
@@ -165,6 +222,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         private void displayQRMenuButton_Click(object sender, EventArgs e)
         {
             this.showDisplayListForm(SystemConstants.DISPLAY_QR_CODE);
+        }
+
+        private void closeDrawMenuButton_Click(object sender, EventArgs e)
+        {
+            this.displayCloseSelector();
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
@@ -239,6 +301,25 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
+        private void ApplicationForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Multiply:
+                    //if (this.optionMenuEnabled)
+                    if (true)
+                    {
+                        this.processMenuRequest();
+                    }
+                    break;
+                case Keys.Escape:
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void syncTimer_Tick(object sender, EventArgs e)
         {
             this.processPeridicSynchronization();
@@ -261,22 +342,25 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         }
         #endregion
-
-
+        
         private async void processPeridicSynchronization()
         {
-            // Tareas previas a la sincronización
-            Console.WriteLine("Inicia SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
-            this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
-            this.displaySyncStatusComponents(true);
-            // Invocar la sincronización
-            SynchronizeService service = new SynchronizeService();
-            await service.syncPendingListNumberToServerAsync();
-            // Tareas posteriores a la sincronización
-            this.mediator.updateTotalBoxes();
-            this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
-            this.displaySyncStatusComponents(false);
-            Console.WriteLine("Finaliza SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
+            // Lanzar sincronización periódica solamente si está activa
+            if (ParameterService.isSyncEnabled())
+            {
+                // Tareas previas a la sincronización
+                Console.WriteLine("Inicia SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
+                this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
+                this.displaySyncStatusComponents(true);
+                // Invocar la sincronización
+                SynchronizeService service = new SynchronizeService();
+                await service.syncPendingListNumberToServerAsync();
+                // Tareas posteriores a la sincronización
+                this.mediator.updateTotalBoxes();
+                this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
+                this.displaySyncStatusComponents(false);
+                Console.WriteLine("Finaliza SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));
+            }
         }
 
         private async void processParallelSynchronization()
@@ -286,10 +370,17 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
-            await service.syncPendingListNumberToServerAsync();
+            bool syncResult = await service.syncPendingListNumberToServerAsync();
             this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
             loading.Dispose();
-            MessageService.displayInfoMessage("La sincronización ha finalizado");
+            if (syncResult)
+            {
+                MessageService.displayInfoMessage("La sincronización ha finalizado de manera exitosa", "RESULTADO DE LA SINCRONIZACIÓN");
+            }
+            else
+            {
+                MessageService.displayErrorMessage("No fue posible realizar la sincronización.\nPor favor intente más tarde.", "RESULTADO DE LA SINCRONIZACIÓN");
+            }
             this.displaySyncStatusComponents(false);
         }
 

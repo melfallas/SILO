@@ -31,6 +31,9 @@
             this.displayQRPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.countLabel = new System.Windows.Forms.Label();
+            this.drawLabel = new System.Windows.Forms.Label();
+            this.posLabel = new System.Windows.Forms.Label();
+            this.dateLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,9 +49,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.countLabel);
             this.panel1.Controls.Add(this.displayQRPanel);
-            this.panel1.Location = new System.Drawing.Point(32, 12);
+            this.panel1.Location = new System.Drawing.Point(33, 49);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(423, 392);
+            this.panel1.Size = new System.Drawing.Size(423, 396);
             this.panel1.TabIndex = 1;
             // 
             // countLabel
@@ -60,19 +63,59 @@
             this.countLabel.TabIndex = 2;
             this.countLabel.Text = "count";
             // 
+            // drawLabel
+            // 
+            this.drawLabel.AutoSize = true;
+            this.drawLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.drawLabel.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.drawLabel.Location = new System.Drawing.Point(284, 27);
+            this.drawLabel.Name = "drawLabel";
+            this.drawLabel.Size = new System.Drawing.Size(66, 19);
+            this.drawLabel.TabIndex = 2;
+            this.drawLabel.Text = "Sorteo:";
+            this.drawLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // posLabel
+            // 
+            this.posLabel.AutoSize = true;
+            this.posLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posLabel.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.posLabel.Location = new System.Drawing.Point(42, 27);
+            this.posLabel.Name = "posLabel";
+            this.posLabel.Size = new System.Drawing.Size(83, 19);
+            this.posLabel.TabIndex = 3;
+            this.posLabel.Text = "Sucursal:";
+            this.posLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateLabel.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.dateLabel.Location = new System.Drawing.Point(164, 9);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(55, 18);
+            this.dateLabel.TabIndex = 3;
+            this.dateLabel.Text = "Fecha:";
+            this.dateLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // DisplayQRForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(485, 426);
+            this.ClientSize = new System.Drawing.Size(485, 457);
+            this.Controls.Add(this.dateLabel);
+            this.Controls.Add(this.posLabel);
+            this.Controls.Add(this.drawLabel);
             this.Controls.Add(this.panel1);
             this.Name = "DisplayQRForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DisplayQRForm";
+            this.Text = "Despliegue de código QR";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -81,5 +124,8 @@
         private System.Windows.Forms.Panel displayQRPanel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label countLabel;
+        private System.Windows.Forms.Label drawLabel;
+        private System.Windows.Forms.Label posLabel;
+        private System.Windows.Forms.Label dateLabel;
     }
 }
