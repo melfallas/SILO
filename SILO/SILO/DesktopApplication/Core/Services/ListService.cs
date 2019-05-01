@@ -62,5 +62,21 @@ namespace SILO.DesktopApplication.Core.Services
             this.listRepository.changeListSyncStatus(pendingListCollection, pNewStatus);
         }
 
+        public List<LTL_LotteryList> getPosPendingTransactionsByDate(DateTime? pDrawDate)
+        {
+            return this.listRepository.getPosPendingTransactionsByDate(pDrawDate);
+        }
+
+        public List<LTL_LotteryList> getPosPendingTransactionsByDateAndType(DateTime? pDrawDate, long pDrawType)
+        {
+            return this.getPosPendingTransactionsByDraw(this.drawRepository.getByTypeAndDate(pDrawType, pDrawDate));
+        }
+
+        public List<LTL_LotteryList> getPosPendingTransactionsByDraw(LTD_LotteryDraw pDraw)
+        {
+
+            return this.listRepository.getPosPendingTransactionsByDraw(pDraw);
+        }
+
     }
 }

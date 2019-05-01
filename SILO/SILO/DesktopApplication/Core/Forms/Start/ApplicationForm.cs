@@ -171,9 +171,9 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             closingForm.ShowDialog(this);
         }
 
-        public void closeTransactions()
+        public void closeTransactions(DateTime? pDrawDate = null, long pDrawType = 0)
         {
-            this.processParallelSynchronization();
+            this.processParallelSynchronization(pDrawDate, pDrawType);
         }
 
         private void processMenuRequest(/*KeyEventArgs pEvent*/)
@@ -322,7 +322,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void syncTimer_Tick(object sender, EventArgs e)
         {
-            this.processPeridicSynchronization();
+            this.processPeridicSynchronization(FormatService.formatDrawDate(DateTime.Today));
         }
 
         private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -343,7 +343,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
         #endregion
         
-        private async void processPeridicSynchronization()
+        private async void processPeridicSynchronization(DateTime? pDrawDate = null, long pDrawType = 0)
         {
             // Lanzar sincronización periódica solamente si está activa
             if (ParameterService.isSyncEnabled())
@@ -354,7 +354,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 this.displaySyncStatusComponents(true);
                 // Invocar la sincronización
                 SynchronizeService service = new SynchronizeService();
-                await service.syncPendingListNumberToServerAsync();
+                await service.syncPendingListNumberToServerAsync(pDrawDate, pDrawType);
                 // Tareas posteriores a la sincronización
                 this.mediator.updateTotalBoxes();
                 this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
@@ -363,14 +363,14 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
-        private async void processParallelSynchronization()
+        private async void processParallelSynchronization(DateTime? pDrawDate = null, long pDrawType = 0)
         {
             this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
             this.displaySyncStatusComponents(true);
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
-            bool syncResult = await service.syncPendingListNumberToServerAsync();
+            bool syncResult = await service.syncPendingListNumberToServerAsync(pDrawDate, pDrawType);
             this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
             loading.Dispose();
             if (syncResult)

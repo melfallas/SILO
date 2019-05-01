@@ -66,7 +66,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                         // Procesar la sincronización
                         this.closeView();
                         this.appMediator.setAppTopMost(true);
-                        this.appMediator.closeTransactions();
+                        this.appMediator.closeTransactions(this.datePickerList.Value.Date, groupId);
                         this.appMediator.setAppTopMost(false);
                         break;
                     case DialogResult.No:

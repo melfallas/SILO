@@ -29,7 +29,7 @@ namespace SILO
             return draw;
         }
 
-        public LTD_LotteryDraw getByTypeAndDate(long pDrawType, DateTime pDrawDate)
+        public LTD_LotteryDraw getByTypeAndDate(long pDrawType, DateTime? pDrawDate)
         {
             LTD_LotteryDraw findedDraw = null;
             List < LTD_LotteryDraw > drawList = this.getAll().Where(

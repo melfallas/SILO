@@ -399,44 +399,47 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
 
         private void updateTotalBoxes(long pGroupId)
         {
-            int totalImport = 0;
-            int syncImport = 0;
-            int qrImport = 0;
-            int pendingImport = 0;
-            ListService listService = new ListService();
-            // Calcular importe sincronizado con el server
-            int[] syncTotalImportArray = listService.getDrawTotals(this.datePickerList.Value.Date, pGroupId);
-            for (int i = 0; i < syncTotalImportArray.Length; i++)
+            if (pGroupId != 0)
             {
-                totalImport += syncTotalImportArray[i];
+                int totalImport = 0;
+                int syncImport = 0;
+                int qrImport = 0;
+                int pendingImport = 0;
+                ListService listService = new ListService();
+                // Calcular importe sincronizado con el server
+                int[] syncTotalImportArray = listService.getDrawTotals(this.datePickerList.Value.Date, pGroupId);
+                for (int i = 0; i < syncTotalImportArray.Length; i++)
+                {
+                    totalImport += syncTotalImportArray[i];
+                }
+                this.setTotalImport(FormatService.formatInt(totalImport));
+                // Calcular importe pendiente de sincronización
+                //int[] pendingSyncImportArray = listService.getDrawPendingSyncTotals(this.datePickerList.Value.Date, pGroupId);
+                int[] pendingSyncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_PENDING_TO_SERVER);
+                for (int i = 0; i < pendingSyncImportArray.Length; i++)
+                {
+                    pendingImport += pendingSyncImportArray[i];
+                }
+                // Calcular importe sincronizado vía web
+                int[] syncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_COMPLETED);
+                for (int i = 0; i < syncImportArray.Length; i++)
+                {
+                    syncImport += syncImportArray[i];
+                }
+                // Calcular importe sincronizado vía Código QR
+                int[] qrSyncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_QRUPDATED);
+                for (int i = 0; i < qrSyncImportArray.Length; i++)
+                {
+                    qrImport += qrSyncImportArray[i];
+                }
+                // Setear los controles
+                //this.setSyncImport(FormatService.formatInt(totalImport - pendingImport));
+                this.setSyncImport(FormatService.formatInt(syncImport));
+                this.setSyncQRImport(FormatService.formatInt(qrImport));
+                this.setPendingImport(FormatService.formatInt(pendingImport));
+                int maxToReceive = (int)(totalImport * 0.03);
+                this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
             }
-            this.setTotalImport(FormatService.formatInt(totalImport));
-            // Calcular importe pendiente de sincronización
-            //int[] pendingSyncImportArray = listService.getDrawPendingSyncTotals(this.datePickerList.Value.Date, pGroupId);
-            int[] pendingSyncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_PENDING_TO_SERVER);
-            for (int i = 0; i < pendingSyncImportArray.Length; i++)
-            {
-                pendingImport += pendingSyncImportArray[i];
-            }
-            // Calcular importe sincronizado vía web
-            int[] syncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_COMPLETED);
-            for (int i = 0; i < syncImportArray.Length; i++)
-            {
-                syncImport += syncImportArray[i];
-            }
-            // Calcular importe sincronizado vía Código QR
-            int[] qrSyncImportArray = listService.getTotalImportBySyncStatus(this.datePickerList.Value.Date, pGroupId, SystemConstants.SYNC_STATUS_QRUPDATED);
-            for (int i = 0; i < qrSyncImportArray.Length; i++)
-            {
-                qrImport += qrSyncImportArray[i];
-            }
-            // Setear los controles
-            //this.setSyncImport(FormatService.formatInt(totalImport - pendingImport));
-            this.setSyncImport(FormatService.formatInt(syncImport));
-            this.setSyncQRImport(FormatService.formatInt(qrImport));
-            this.setPendingImport(FormatService.formatInt(pendingImport));
-            int maxToReceive = (int)(totalImport * 0.03);
-            this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
         }
 
         public void updateTotalBoxes() {
@@ -541,6 +544,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
             if (groupId == 0)
             {
+                this.lastGroup = 0;
                 this.cleanBoxNumber();
             }
             else
