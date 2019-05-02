@@ -1,4 +1,5 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
 using System;
@@ -66,7 +67,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                         // Procesar la sincronización
                         this.closeView();
                         this.appMediator.setAppTopMost(true);
-                        this.appMediator.closeTransactions(this.datePickerList.Value.Date, groupId);
+                        this.appMediator.closeTransactions(SystemConstants.SYNC_CLOSING_TYPE, this.datePickerList.Value.Date, groupId);
                         this.appMediator.setAppTopMost(false);
                         break;
                     case DialogResult.No:

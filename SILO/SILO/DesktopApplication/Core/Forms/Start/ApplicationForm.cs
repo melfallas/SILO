@@ -171,9 +171,9 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             closingForm.ShowDialog(this);
         }
 
-        public void closeTransactions(DateTime? pDrawDate = null, long pDrawType = 0)
+        public void closeTransactions(int pSyncType, DateTime? pDrawDate = null, long pDrawType = 0)
         {
-            this.processParallelSynchronization(pDrawDate, pDrawType);
+            this.processParallelSynchronization(pDrawDate, pDrawType, pSyncType);
         }
 
         private void processMenuRequest(/*KeyEventArgs pEvent*/)
@@ -363,7 +363,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
-        private async void processParallelSynchronization(DateTime? pDrawDate = null, long pDrawType = 0)
+        private async void processParallelSynchronization(DateTime? pDrawDate = null, long pDrawType = 0, int pSyncType = 0)
         {
             this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
             this.displaySyncStatusComponents(true);

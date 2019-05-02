@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Model;
@@ -176,6 +177,33 @@ namespace SILO.DesktopApplication.Core.Services
                 // Realizar la persistencia de los cambios
                 LotteryPrizeFactorRepository prizeFactorRepo = new LotteryPrizeFactorRepository();
                 prizeFactorRepo.saveList(JsonConvert.DeserializeObject<List<LPF_LotteryPrizeFactor>>(parsedJsonString));
+            }
+            return successProcess;
+        }
+
+        public bool syncDraw_ServerToLocal()
+        {
+            bool successProcess = true;
+            // Realizar la petición http
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getReopenDrawList(UtilityService.getPointSaleId());
+            successProcess = this.isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string jsonStringResult = responseResult.result.ToString();
+                // Obtener array de los id de sorteos reabiertos para la sucursal
+                JArray jsonArray = JArray.Parse(jsonStringResult);
+                // Realizar la persistencia de los sorteos reabiertos
+                LotteryDrawRepository drawRepo = new LotteryDrawRepository();
+                foreach (var drawId in jsonArray)
+                {
+                    LTD_LotteryDraw draw = drawRepo.getById((long) drawId);
+                    if (draw != null)
+                    {
+                        draw.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_REOPENED;
+                        drawRepo.save(ref draw);
+                    }
+                }
             }
             return successProcess;
         }

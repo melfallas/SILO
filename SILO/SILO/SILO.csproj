@@ -173,6 +173,7 @@
     <Compile Include="DesktopApplication\Core\Repositories\LotteryPrizeFactorRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\ConcreteMessageService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\DrawService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawTypeService.cs" />
     <Compile Include="DesktopApplication\Core\Services\FormatService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ListService.cs" />

@@ -44,6 +44,11 @@ namespace SILO.DesktopApplication.Core.Services
             return this.processGetRequest(ServiceConectionConstants.GET_ALL_PRIZE_FACTOR_RESOURCE_URL);
         }
 
+        public ServiceResponseResult getReopenDrawList(long pPointId)
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_REOPEN_DRAW_LIST_RESOURCE_URL + pPointId);
+        }
+
 
         //----------------- Métodos para enviar datos al Servidor -----------------//
 
