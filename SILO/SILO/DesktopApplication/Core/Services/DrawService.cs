@@ -15,10 +15,14 @@ namespace SILO.DesktopApplication.Core.Services
             this.drawRepo = new LotteryDrawRepository();
         }
 
-        public void changeDrawStatus(long pNewStatus)
+        public void changeDrawStatus(long pDrawType, DateTime? pDrawDate, long pNewStatus)
         {
-            //this.drawRepo.getById(1);
-            //this.drawRepo.save();
+            LTD_LotteryDraw existingDraw = this.drawRepo.getByTypeAndDate(pDrawType, pDrawDate);
+            if (existingDraw != null)
+            {
+                existingDraw.LDS_LotteryDrawStatus = pNewStatus;
+                this.drawRepo.save(ref existingDraw);
+            }
         }
 
     }

@@ -32,16 +32,17 @@ namespace SILO
         {
             using (var context = new SILOEntities())
             {
-                LTD_LotteryDraw matchingDraw = context.LTD_LotteryDraw.Find(pDraw.LTD_Id);
+                //LTD_LotteryDraw matchingDraw = context.LTD_LotteryDraw.Find(pDraw.LTD_Id);
+                LTD_LotteryDraw matchingDraw = this.getByTypeAndDate(pDraw.LDT_LotteryDrawType, pDraw.LTD_CreateDate);
                 if (matchingDraw != null)
                 {
+                    matchingDraw = context.LTD_LotteryDraw.Find(matchingDraw.LTD_Id);
                     matchingDraw.LDS_LotteryDrawStatus = pDraw.LDS_LotteryDrawStatus;
                     context.SaveChanges();
                     pDraw = matchingDraw;
                 }
                 else
                 {
-
                     context.LTD_LotteryDraw.Add(pDraw);
                     context.SaveChanges();
                 }

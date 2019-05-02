@@ -171,9 +171,17 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             closingForm.ShowDialog(this);
         }
 
-        public void closeTransactions(int pSyncType, DateTime? pDrawDate = null, long pDrawType = 0)
+        public async void closeTransactions(int pSyncType, DateTime? pDrawDate = null, long pDrawType = 0)
         {
-            this.processParallelSynchronization(pDrawDate, pDrawType, pSyncType);
+            bool syncResult = await this.processParallelSynchronization(pDrawDate, pDrawType, pSyncType);
+            if (syncResult)
+            {
+                if (pDrawDate != null && pDrawType != 0)
+                {
+                    DrawService drawService = new DrawService();
+                    drawService.changeDrawStatus(pDrawType, pDrawDate, SystemConstants.DRAW_STATUS_CLOSED);
+                }
+            }
         }
 
         private void processMenuRequest(/*KeyEventArgs pEvent*/)
@@ -363,7 +371,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
-        private async void processParallelSynchronization(DateTime? pDrawDate = null, long pDrawType = 0, int pSyncType = 0)
+        private async Task<bool> processParallelSynchronization(DateTime? pDrawDate = null, long pDrawType = 0, int pSyncType = 0)
         {
             this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
             this.displaySyncStatusComponents(true);
@@ -382,6 +390,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 MessageService.displayErrorMessage("No fue posible realizar la sincronización.\nPor favor intente más tarde.", "RESULTADO DE LA SINCRONIZACIÓN");
             }
             this.displaySyncStatusComponents(false);
+            return syncResult;
         }
 
         private void processLinearSynchronization() {

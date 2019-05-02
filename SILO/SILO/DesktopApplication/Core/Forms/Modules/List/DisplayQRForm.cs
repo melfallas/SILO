@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Services;
+﻿using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,6 +60,12 @@ namespace SILO
                 Console.WriteLine("Compress QR: " + text);
                 this.countLabel.Text = text.Length.ToString() + " | " + (from c in text where c == '0' select c).Count().ToString();
                 this.displayQRPanel.BackgroundImage = UtilityService.buildQRCode(text, this.displayQRPanel.Width, this.displayQRPanel.Height);
+                // Cerrar el sorteo
+                if (this.drawDate != null && this.drawType != 0)
+                {
+                    DrawService drawService = new DrawService();
+                    drawService.changeDrawStatus(this.drawType, this.drawDate, SystemConstants.DRAW_STATUS_CLOSED);
+                }
             }
             return successGeneration;
         }
