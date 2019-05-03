@@ -31,7 +31,18 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.splashScreen = null;
             this.launchSplashThread();
             InitializeComponent();
+            this.posNameLabel.Text = "";
+            this.showSalePointName();
             this.versionLabel.Text = UtilityService.getApplicationVersion();
+        }
+
+        private void showSalePointName()
+        {
+            LPS_LotteryPointSale posInstance = ParameterService.getSystemSalePoint();
+            if (posInstance != null)
+            {
+                this.posNameLabel.Text = "SUCURSAL " + posInstance.LPS_DisplayName;
+            }
         }
 
         private void launchSplashThread()

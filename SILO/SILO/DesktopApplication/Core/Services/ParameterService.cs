@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Repositories;
+﻿using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,25 @@ namespace SILO.DesktopApplication.Core.Services
             return getLocalParameterValue(COMPANY_ID_PARAM);
         }
 
+        public static string getSalePointId()
+        {
+            return getLocalParameterValue(ParameterConstants.POS_NAME_PARAM);
+        }
 
+        public static LPS_LotteryPointSale getSystemSalePoint()
+        {
+            LPS_LotteryPointSale pointSaleInstance = null;
+            string posParam = getSalePointId();
+            if (posParam.Trim() != "")
+            {
+                LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
+                // TODO: Validar si es número
+                long posId = Convert.ToInt64(posParam);
+                pointSaleInstance = posRepository.getById(posId);
+            }
+            
+            return pointSaleInstance;
+        }
 
         public static bool isSyncEnabled()
         {
