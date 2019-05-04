@@ -293,7 +293,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             printerParamsForm.Show();
         }
 
-        private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult msgResult =
                     MessageService.displayConfirmWarningMessage(
@@ -306,7 +306,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 case DialogResult.Yes:
                     // Procesar la sincronización
                     //this.processLinearSynchronization();
-                    this.processParallelSynchronization();
+                    await this.processParallelSynchronization(FormatService.formatDrawDate(DateTime.Today));
                     break;
                 case DialogResult.No:
                     break;
