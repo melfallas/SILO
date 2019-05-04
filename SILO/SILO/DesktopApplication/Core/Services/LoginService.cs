@@ -20,41 +20,55 @@ namespace SILO.DesktopApplication.Core.Services
             // Verificar resultado de la autenticación
             if (authenticatedUser != null)
             {
-                // Verificar si el suaurio está activo
-                if (authenticatedUser.AUS_IsActive == 0)
+                successAuthentication = this.validateUser(authenticatedUser);
+            }
+            return successAuthentication;
+        }
+
+        public int validateUser(AUS_ApplicationUser pAuthenticatedUser)
+        {
+            int authenticationSuccess = SystemConstants.LOGIN_FAIL;
+            // Verificar si el usuario está activo
+            if (pAuthenticatedUser.AUS_IsActive == 0)
+            {
+                // Error de usuario inactivo
+                authenticationSuccess = SystemConstants.LOGIN_SUCCESS_WITH_ERRORS;
+                MessageService.displayErrorMessage(GeneralConstants.INACTIVE_USER_ERROR_MESSAGE, GeneralConstants.INACTIVE_USER_ERROR_TITLE);
+            }
+            else
+            {
+                // Realizar validación de sucursal sólo para usuarios de venta
+                if (pAuthenticatedUser.USR_UserRole == SystemConstants.ROLE_SALLER_ID)
                 {
-                    // Error de usuario inactivo
-                    successAuthentication = SystemConstants.LOGIN_SUCCESS_WITH_ERRORS;
-                    MessageService.displayErrorMessage(GeneralConstants.INACTIVE_USER_ERROR_MESSAGE, GeneralConstants.INACTIVE_USER_ERROR_TITLE);
+                    authenticationSuccess = this.validateSallerUser(pAuthenticatedUser);
                 }
                 else
                 {
-                    // Realizar validación de sucursal sólo para usuarios de venta
-                    if (authenticatedUser.USR_UserRole == SystemConstants.ROLE_SALLER_ID)
-                    {
-                        PointSaleService posService = new PointSaleService();
-                        string posInstance = posService.getPointSaleInstance();
-                        // Validar si sucursal del usuario coincide con la del sistema
-                        if (posInstance == null || authenticatedUser.LPS_LotteryPointSale.ToString() == posInstance)
-                        {
-                            // Si la sucursal coincide, indicar autenticación exitosa
-                            this.checkSuccessAutentication(ref successAuthentication, authenticatedUser);
-                        }
-                        else
-                        {
-                            // Error de inconsistencia en sucursal
-                            successAuthentication = SystemConstants.LOGIN_SUCCESS_WITH_ERRORS;
-                            MessageService.displayErrorMessage(GeneralConstants.INCORRRECT_POS_ERROR_MESSAGE, GeneralConstants.INCORRRECT_POS_ERROR_TITLE);
-                        }
-                    }
-                    else
-                    {
-                        // Si no es usuario de venta, indicar autenticación exitosa
-                        this.checkSuccessAutentication(ref successAuthentication, authenticatedUser);
-                    }
+                    // Si no es usuario de venta, indicar autenticación exitosa
+                    this.checkSuccessAutentication(ref authenticationSuccess, pAuthenticatedUser);
                 }
             }
-            return successAuthentication;
+            return authenticationSuccess;
+        }
+
+        public int validateSallerUser(AUS_ApplicationUser pAuthenticatedUser)
+        {
+            int authenticationSuccess = SystemConstants.LOGIN_FAIL;
+            PointSaleService posService = new PointSaleService();
+            string posInstance = posService.getPointSaleInstance();
+            // Validar si sucursal del usuario coincide con la del sistema
+            if (posInstance == null || pAuthenticatedUser.LPS_LotteryPointSale.ToString() == posInstance)
+            {
+                // Si la sucursal coincide, indicar autenticación exitosa
+                this.checkSuccessAutentication(ref authenticationSuccess, pAuthenticatedUser);
+            }
+            else
+            {
+                // Error de inconsistencia en sucursal
+                authenticationSuccess = SystemConstants.LOGIN_SUCCESS_WITH_ERRORS;
+                MessageService.displayErrorMessage(GeneralConstants.INCORRRECT_POS_ERROR_MESSAGE, GeneralConstants.INCORRRECT_POS_ERROR_TITLE);
+            }
+            return authenticationSuccess;
         }
 
         private void checkSuccessAutentication(ref int pAuthenticationResult, AUS_ApplicationUser pUser)
