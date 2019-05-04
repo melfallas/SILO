@@ -183,18 +183,7 @@ namespace SILO
             {
                 this.sendListNumberToServer(savedNumberDetailList);
             }
-            /*
-            // Cerrar y liberar memoria de formulario de selección si no es nulo
-            if (this.listSelectorFormParent != null)
-            {
-                this.listSelectorFormParent.Dispose();
-            }
-            // Si existe un option menu abierto, cerrarlo
-            if (this.mainOptionMenu != null)
-            {
-                this.mainOptionMenu.Hide();
-            }
-            */
+            // TODO: Cambiar todos los registros de QR a pendiente
             this.Dispose();
             // Actualizar BoxNumber y mostrar en pantalla resultado de la venta
             //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);
