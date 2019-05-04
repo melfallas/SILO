@@ -30,7 +30,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             InitializeComponent();
             this.type = SystemConstants.NUMBER_BOX_CODE;
             this.contentPanel.Visible = false;
-            this.erasePanels();
+            //this.erasePanels();
             this.loadControls();
             this.createBoxNumber();
             // Establecer el ApplicationMediator

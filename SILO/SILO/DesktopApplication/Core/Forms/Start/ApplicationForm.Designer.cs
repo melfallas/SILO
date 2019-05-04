@@ -55,13 +55,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.syncStatusLabel = new System.Windows.Forms.Label();
             this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.posContentLabel = new System.Windows.Forms.Label();
-            this.posLabel = new System.Windows.Forms.Label();
-            this.companyContentLabel = new System.Windows.Forms.Label();
-            this.companyLabel = new System.Windows.Forms.Label();
-            this.userContentLabel = new System.Windows.Forms.Label();
-            this.userLabel = new System.Windows.Forms.Label();
+            this.topAppPanel = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.closeDrawMenuButton = new System.Windows.Forms.Button();
@@ -72,10 +66,15 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
+            this.companyContentLabel = new System.Windows.Forms.Label();
+            this.companyLabel = new System.Windows.Forms.Label();
+            this.posContentLabel = new System.Windows.Forms.Label();
+            this.posLabel = new System.Windows.Forms.Label();
+            this.userContentLabel = new System.Windows.Forms.Label();
+            this.userLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -235,7 +234,7 @@
             this.mainPanel.Controls.Add(this.centerBoxPanel);
             this.mainPanel.Controls.Add(this.panel3);
             this.mainPanel.Controls.Add(this.panel2);
-            this.mainPanel.Controls.Add(this.panel1);
+            this.mainPanel.Controls.Add(this.topAppPanel);
             this.mainPanel.Controls.Add(this.lateralLeftPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 24);
@@ -294,75 +293,14 @@
             this.syncStatusProgressBar.UseWaitCursor = true;
             this.syncStatusProgressBar.Value = 20;
             // 
-            // panel1
+            // topAppPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel1.Controls.Add(this.posContentLabel);
-            this.panel1.Controls.Add(this.posLabel);
-            this.panel1.Controls.Add(this.companyContentLabel);
-            this.panel1.Controls.Add(this.companyLabel);
-            this.panel1.Controls.Add(this.userContentLabel);
-            this.panel1.Controls.Add(this.userLabel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(220, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(747, 30);
-            this.panel1.TabIndex = 0;
-            // 
-            // posContentLabel
-            // 
-            this.posContentLabel.AutoSize = true;
-            this.posContentLabel.Location = new System.Drawing.Point(328, 11);
-            this.posContentLabel.Name = "posContentLabel";
-            this.posContentLabel.Size = new System.Drawing.Size(26, 13);
-            this.posContentLabel.TabIndex = 5;
-            this.posContentLabel.Text = "Suc";
-            this.posContentLabel.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // posLabel
-            // 
-            this.posLabel.AutoSize = true;
-            this.posLabel.Location = new System.Drawing.Point(271, 11);
-            this.posLabel.Name = "posLabel";
-            this.posLabel.Size = new System.Drawing.Size(51, 13);
-            this.posLabel.TabIndex = 4;
-            this.posLabel.Text = "Sucursal:";
-            // 
-            // companyContentLabel
-            // 
-            this.companyContentLabel.AutoSize = true;
-            this.companyContentLabel.Location = new System.Drawing.Point(71, 11);
-            this.companyContentLabel.Name = "companyContentLabel";
-            this.companyContentLabel.Size = new System.Drawing.Size(28, 13);
-            this.companyContentLabel.TabIndex = 3;
-            this.companyContentLabel.Text = "Cmp";
-            // 
-            // companyLabel
-            // 
-            this.companyLabel.AutoSize = true;
-            this.companyLabel.Location = new System.Drawing.Point(6, 11);
-            this.companyLabel.Name = "companyLabel";
-            this.companyLabel.Size = new System.Drawing.Size(59, 13);
-            this.companyLabel.TabIndex = 2;
-            this.companyLabel.Text = "Compañía:";
-            // 
-            // userContentLabel
-            // 
-            this.userContentLabel.AutoSize = true;
-            this.userContentLabel.Location = new System.Drawing.Point(659, 11);
-            this.userContentLabel.Name = "userContentLabel";
-            this.userContentLabel.Size = new System.Drawing.Size(29, 13);
-            this.userContentLabel.TabIndex = 1;
-            this.userContentLabel.Text = "User";
-            // 
-            // userLabel
-            // 
-            this.userLabel.AutoSize = true;
-            this.userLabel.Location = new System.Drawing.Point(615, 11);
-            this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(49, 13);
-            this.userLabel.TabIndex = 0;
-            this.userLabel.Text = "Usuario: ";
+            this.topAppPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.topAppPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topAppPanel.Location = new System.Drawing.Point(220, 0);
+            this.topAppPanel.Name = "topAppPanel";
+            this.topAppPanel.Size = new System.Drawing.Size(747, 30);
+            this.topAppPanel.TabIndex = 0;
             // 
             // lateralLeftPanel
             // 
@@ -377,6 +315,12 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.userContentLabel);
+            this.menuPanel.Controls.Add(this.userLabel);
+            this.menuPanel.Controls.Add(this.posContentLabel);
+            this.menuPanel.Controls.Add(this.posLabel);
+            this.menuPanel.Controls.Add(this.companyContentLabel);
+            this.menuPanel.Controls.Add(this.companyLabel);
             this.menuPanel.Controls.Add(this.closeDrawMenuButton);
             this.menuPanel.Controls.Add(this.copyListButton);
             this.menuPanel.Controls.Add(this.displayQRMenuButton);
@@ -513,6 +457,72 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
+            // companyContentLabel
+            // 
+            this.companyContentLabel.AutoSize = true;
+            this.companyContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.companyContentLabel.ForeColor = System.Drawing.Color.White;
+            this.companyContentLabel.Location = new System.Drawing.Point(93, 491);
+            this.companyContentLabel.Name = "companyContentLabel";
+            this.companyContentLabel.Size = new System.Drawing.Size(36, 17);
+            this.companyContentLabel.TabIndex = 8;
+            this.companyContentLabel.Text = "Cmp";
+            // 
+            // companyLabel
+            // 
+            this.companyLabel.AutoSize = true;
+            this.companyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.companyLabel.ForeColor = System.Drawing.Color.White;
+            this.companyLabel.Location = new System.Drawing.Point(12, 491);
+            this.companyLabel.Name = "companyLabel";
+            this.companyLabel.Size = new System.Drawing.Size(84, 17);
+            this.companyLabel.TabIndex = 7;
+            this.companyLabel.Text = "Compañía:";
+            // 
+            // posContentLabel
+            // 
+            this.posContentLabel.AutoSize = true;
+            this.posContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posContentLabel.ForeColor = System.Drawing.Color.White;
+            this.posContentLabel.Location = new System.Drawing.Point(93, 514);
+            this.posContentLabel.Name = "posContentLabel";
+            this.posContentLabel.Size = new System.Drawing.Size(32, 17);
+            this.posContentLabel.TabIndex = 10;
+            this.posContentLabel.Text = "Suc";
+            // 
+            // posLabel
+            // 
+            this.posLabel.AutoSize = true;
+            this.posLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posLabel.ForeColor = System.Drawing.Color.White;
+            this.posLabel.Location = new System.Drawing.Point(12, 514);
+            this.posLabel.Name = "posLabel";
+            this.posLabel.Size = new System.Drawing.Size(76, 17);
+            this.posLabel.TabIndex = 9;
+            this.posLabel.Text = "Sucursal:";
+            // 
+            // userContentLabel
+            // 
+            this.userContentLabel.AutoSize = true;
+            this.userContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userContentLabel.ForeColor = System.Drawing.Color.White;
+            this.userContentLabel.Location = new System.Drawing.Point(93, 538);
+            this.userContentLabel.Name = "userContentLabel";
+            this.userContentLabel.Size = new System.Drawing.Size(38, 17);
+            this.userContentLabel.TabIndex = 12;
+            this.userContentLabel.Text = "User";
+            // 
+            // userLabel
+            // 
+            this.userLabel.AutoSize = true;
+            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userLabel.ForeColor = System.Drawing.Color.White;
+            this.userLabel.Location = new System.Drawing.Point(14, 538);
+            this.userLabel.Name = "userLabel";
+            this.userLabel.Size = new System.Drawing.Size(74, 17);
+            this.userLabel.TabIndex = 11;
+            this.userLabel.Text = "Usuario: ";
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -536,10 +546,9 @@
             this.mainPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.lateralLeftPanel.ResumeLayout(false);
             this.menuPanel.ResumeLayout(false);
+            this.menuPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -555,7 +564,7 @@
         private System.Windows.Forms.Panel lateralLeftPanel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel topAppPanel;
         private System.Windows.Forms.Panel menuPanel;
         private System.Windows.Forms.Button saleMenuButton;
         private System.Windows.Forms.Button printMenuButton;
@@ -573,12 +582,6 @@
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirDelSistemaToolStripMenuItem;
         private System.Windows.Forms.Button displayQRMenuButton;
-        private System.Windows.Forms.Label userContentLabel;
-        private System.Windows.Forms.Label userLabel;
-        private System.Windows.Forms.Label companyContentLabel;
-        private System.Windows.Forms.Label companyLabel;
-        private System.Windows.Forms.Label posContentLabel;
-        private System.Windows.Forms.Label posLabel;
         private System.Windows.Forms.Button copyListButton;
         private System.Windows.Forms.ToolStripMenuItem sincronizaciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem transaccionesToolStripMenuItem;
@@ -589,6 +592,12 @@
         private System.Windows.Forms.Label syncStatusLabel;
         private System.Windows.Forms.Timer syncTimer;
         private System.Windows.Forms.Button closeDrawMenuButton;
+        private System.Windows.Forms.Label userContentLabel;
+        private System.Windows.Forms.Label userLabel;
+        private System.Windows.Forms.Label posContentLabel;
+        private System.Windows.Forms.Label posLabel;
+        private System.Windows.Forms.Label companyContentLabel;
+        private System.Windows.Forms.Label companyLabel;
     }
 }
 

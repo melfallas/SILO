@@ -35,6 +35,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             InitializeComponent();
             this.parentForm = pParentForm;
             this.initializeControls();
+            this.hidePanels();
             // Crear el objeto mediador para los distintos componentes
             mediator = new ApplicationMediator();
             mediator.appForm = this;
@@ -52,6 +53,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         public void setApplicationFocus()
         {
             this.saleMenuButton.Focus();
+        }
+
+        public void hidePanels()
+        {
+            this.topAppPanel.Hide();
         }
 
         private void initializeControls() {

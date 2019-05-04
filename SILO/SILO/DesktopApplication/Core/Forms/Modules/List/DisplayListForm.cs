@@ -38,19 +38,37 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
             this.appMediator = pMediator;
         }
 
-        public void initializeAttributes(int pType) {
+        private void initializeAttributes(int pType) {
             this.type = pType;
-            string title = "";
-            if (this.type == SystemConstants.DISPLAY_QR_CODE)
+            string formTitle = this.getDisplayFormTitle(pType);
+            if (formTitle != "")
             {
-                title = "Pantalla de QR" + this.type.ToString();
+                this.displayFormTitleLabel.Text = formTitle;
             }
-            else
-            {
-                title = "Pantalla de " + this.type.ToString();
-            }
-            this.label1.Text = title;
         }
+
+        private string getDisplayFormTitle(int pType)
+        {
+            string title = "";
+            switch (pType)
+            {
+                case SystemConstants.PRINTER_LIST_CODE:
+                    title = "REIMPRESIÓN DE LISTAS";
+                    break;
+                case SystemConstants.ERASER_LIST_CODE:
+                    title = "BORRADO  DE LISTAS";
+                    break;
+                case SystemConstants.COPY_LIST_CODE:
+                    title = "COPIADO DE LISTAS";
+                    break;
+                case SystemConstants.DISPLAY_QR_CODE:
+                    title = "ENVÍO DE QR Y CIERRE";
+                    break;
+                default:
+                    break;
+            }
+            return title;
+    }
 
         public void loadControls()
         {
