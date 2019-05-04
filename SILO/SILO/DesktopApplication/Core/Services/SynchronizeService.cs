@@ -528,7 +528,7 @@ namespace SILO.DesktopApplication.Core.Services
             return successReversion;
         }
 
-        private async Task<bool> processReverseToServerAsync(LTL_LotteryList pListObject)
+        public async Task<bool> processReverseToServerAsync(LTL_LotteryList pListObject)
         {
             bool successReversion = false;
             Console.WriteLine(" - Anulada ");

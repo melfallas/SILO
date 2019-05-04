@@ -128,7 +128,7 @@ namespace SILO
             }
         }
 
-        private void eraseList(long pListId)
+        private async void eraseList(long pListId)
         {
             // Obtener la lista por el id
             ListService listService = new ListService();
@@ -139,7 +139,7 @@ namespace SILO
             listService.updateList(list);
             // Reversar la lista en el servidor
             SynchronizeService syncService = new SynchronizeService();
-            syncService.reverseListNumberFromServer(list);
+            await syncService.processReverseToServerAsync(list);
             // Acciones posteriores a la reversión
             this.Hide();
             MessageService.displayInfoMessage(GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_MESSAGE, GeneralConstants.SUCCESS_TRANSACTION_CANCELATION_TITLE);
