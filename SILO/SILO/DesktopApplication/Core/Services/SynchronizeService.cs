@@ -184,24 +184,29 @@ namespace SILO.DesktopApplication.Core.Services
         public bool syncDraw_ServerToLocal()
         {
             bool successProcess = true;
-            // Realizar la petición http
-            ServerConnectionService connection = new ServerConnectionService();
-            ServiceResponseResult responseResult = connection.getReopenDrawList(UtilityService.getPointSaleId());
-            successProcess = this.isValidResponse(responseResult);
-            if (successProcess)
+            long posId = ParameterService.getSalePointId();
+            // Realizar sincronización solamente si la sucursal está asignada
+            if (posId != 0)
             {
-                string jsonStringResult = responseResult.result.ToString();
-                // Obtener array de los id de sorteos reabiertos para la sucursal
-                JArray jsonArray = JArray.Parse(jsonStringResult);
-                // Realizar la persistencia de los sorteos reabiertos
-                LotteryDrawRepository drawRepo = new LotteryDrawRepository();
-                foreach (var drawId in jsonArray)
+                // Realizar la petición http
+                ServerConnectionService connection = new ServerConnectionService();
+                ServiceResponseResult responseResult = connection.getReopenDrawList(posId);
+                successProcess = this.isValidResponse(responseResult);
+                if (successProcess)
                 {
-                    LTD_LotteryDraw draw = drawRepo.getById((long) drawId);
-                    if (draw != null)
+                    string jsonStringResult = responseResult.result.ToString();
+                    // Obtener array de los id de sorteos reabiertos para la sucursal
+                    JArray jsonArray = JArray.Parse(jsonStringResult);
+                    // Realizar la persistencia de los sorteos reabiertos
+                    LotteryDrawRepository drawRepo = new LotteryDrawRepository();
+                    foreach (var drawId in jsonArray)
                     {
-                        draw.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_REOPENED;
-                        drawRepo.save(ref draw);
+                        LTD_LotteryDraw draw = drawRepo.getById((long)drawId);
+                        if (draw != null)
+                        {
+                            draw.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_REOPENED;
+                            drawRepo.save(ref draw);
+                        }
                     }
                 }
             }

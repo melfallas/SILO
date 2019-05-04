@@ -34,15 +34,22 @@ namespace SILO.DesktopApplication.Core.Services
             return getLocalParameterValue(COMPANY_ID_PARAM);
         }
 
-        public static string getSalePointId()
+        public static string getSalePointParamValue()
         {
             return getLocalParameterValue(ParameterConstants.POS_NAME_PARAM);
+        }
+
+        public static long getSalePointId()
+        {
+            string posParamValue = getSalePointParamValue();
+            // TODO: Validar si es número
+            return posParamValue.Trim() == "" ? 0 : Convert.ToInt64(posParamValue);
         }
 
         public static LPS_LotteryPointSale getSystemSalePoint()
         {
             LPS_LotteryPointSale pointSaleInstance = null;
-            string posParam = getSalePointId();
+            string posParam = getSalePointParamValue();
             if (posParam.Trim() != "")
             {
                 LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
