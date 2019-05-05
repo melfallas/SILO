@@ -29,11 +29,10 @@ namespace SILO.DesktopApplication.Core.Services
                 // Validar el Rol del usuario
                 switch (userRoleId)
                 {
-                    case SystemConstants.ROLE_SA_ID:
                     case SystemConstants.ROLE_ADMIN_ID:
-
                         instanceSetup = this.validateSalePointInstance();
                         break;
+                    case SystemConstants.ROLE_SA_ID:
                     case SystemConstants.ROLE_SALLER_ID:
                         instanceSetup = this.requestPosId();
                         break;
@@ -101,32 +100,42 @@ namespace SILO.DesktopApplication.Core.Services
             }
             else
             {
-                // Solicitar inicialización de Sucursal
-                long userPosId = SystemSession.sessionUser.LPS_LotteryPointSale;
-                LotteryPointSaleRepository pointSaleRepo = new LotteryPointSaleRepository();
-                SystemSession.sessionPointSale = pointSaleRepo.getById(userPosId);
-                DialogResult msgResult = 
-                    MessageService.displayConfirmMessage(
-                            GeneralConstants.getPosConfirmMessage(SystemSession.sessionUser, SystemSession.sessionPointSale),
-                            GeneralConstants.POS_CONFIRM_TITLE
-                            );
-                // Procesar el resultado de la confirmación
-                switch (msgResult)
+                // Solicitar inicialización de Sucursal solamente si el usuario no es SA
+                if (SystemSession.sessionUser != null && SystemSession.sessionUser.USR_UserRole != SystemConstants.ROLE_SA_ID)
                 {
-                    case DialogResult.Yes:
-                        // Configurar la instancia de sucursal
-                        this.initializePosParameter(userPosId);
-                        break;
-                    case DialogResult.No:
-                        instanceSetting = false;
-                        MessageService.displayErrorMessage(
-                            GeneralConstants.POS_INITIALIZATION_ERROR, 
-                            GeneralConstants.POS_INITIALIZATION_TITLE
-                            );
-                        break;
-                    default:
-                        break;
+                    instanceSetting = this.requestPosInitialization();
                 }
+            }
+            return instanceSetting;
+        }
+
+        public bool requestPosInitialization()
+        {
+            bool instanceSetting = true;
+            long userPosId = SystemSession.sessionUser.LPS_LotteryPointSale;
+            LotteryPointSaleRepository pointSaleRepo = new LotteryPointSaleRepository();
+            SystemSession.sessionPointSale = pointSaleRepo.getById(userPosId);
+            DialogResult msgResult =
+                MessageService.displayConfirmMessage(
+                        GeneralConstants.getPosConfirmMessage(SystemSession.sessionUser, SystemSession.sessionPointSale),
+                        GeneralConstants.POS_CONFIRM_TITLE
+                        );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Configurar la instancia de sucursal
+                    this.initializePosParameter(userPosId);
+                    break;
+                case DialogResult.No:
+                    instanceSetting = false;
+                    MessageService.displayErrorMessage(
+                        GeneralConstants.POS_INITIALIZATION_ERROR,
+                        GeneralConstants.POS_INITIALIZATION_TITLE
+                        );
+                    break;
+                default:
+                    break;
             }
             return instanceSetting;
         }

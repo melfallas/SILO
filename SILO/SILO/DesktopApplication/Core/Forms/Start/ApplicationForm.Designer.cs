@@ -58,6 +58,12 @@
             this.topAppPanel = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.userContentLabel = new System.Windows.Forms.Label();
+            this.userLabel = new System.Windows.Forms.Label();
+            this.posContentLabel = new System.Windows.Forms.Label();
+            this.posLabel = new System.Windows.Forms.Label();
+            this.companyContentLabel = new System.Windows.Forms.Label();
+            this.companyLabel = new System.Windows.Forms.Label();
             this.closeDrawMenuButton = new System.Windows.Forms.Button();
             this.copyListButton = new System.Windows.Forms.Button();
             this.displayQRMenuButton = new System.Windows.Forms.Button();
@@ -66,12 +72,8 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.companyContentLabel = new System.Windows.Forms.Label();
-            this.companyLabel = new System.Windows.Forms.Label();
-            this.posContentLabel = new System.Windows.Forms.Label();
-            this.posLabel = new System.Windows.Forms.Label();
-            this.userContentLabel = new System.Windows.Forms.Label();
-            this.userLabel = new System.Windows.Forms.Label();
+            this.generalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dispositivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -186,6 +188,9 @@
             // 
             // parámetrosDeSistemaToolStripMenuItem
             // 
+            this.parámetrosDeSistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generalesToolStripMenuItem,
+            this.dispositivosToolStripMenuItem});
             this.parámetrosDeSistemaToolStripMenuItem.Name = "parámetrosDeSistemaToolStripMenuItem";
             this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.parámetrosDeSistemaToolStripMenuItem.Text = "Parámetros de Sistema";
@@ -203,7 +208,7 @@
             this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enviarAlServidorToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
             // 
             // enviarAlServidorToolStripMenuItem
@@ -334,6 +339,72 @@
             this.menuPanel.Size = new System.Drawing.Size(220, 589);
             this.menuPanel.TabIndex = 0;
             // 
+            // userContentLabel
+            // 
+            this.userContentLabel.AutoSize = true;
+            this.userContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userContentLabel.ForeColor = System.Drawing.Color.White;
+            this.userContentLabel.Location = new System.Drawing.Point(93, 538);
+            this.userContentLabel.Name = "userContentLabel";
+            this.userContentLabel.Size = new System.Drawing.Size(38, 17);
+            this.userContentLabel.TabIndex = 12;
+            this.userContentLabel.Text = "User";
+            // 
+            // userLabel
+            // 
+            this.userLabel.AutoSize = true;
+            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userLabel.ForeColor = System.Drawing.Color.White;
+            this.userLabel.Location = new System.Drawing.Point(14, 538);
+            this.userLabel.Name = "userLabel";
+            this.userLabel.Size = new System.Drawing.Size(74, 17);
+            this.userLabel.TabIndex = 11;
+            this.userLabel.Text = "Usuario: ";
+            // 
+            // posContentLabel
+            // 
+            this.posContentLabel.AutoSize = true;
+            this.posContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posContentLabel.ForeColor = System.Drawing.Color.White;
+            this.posContentLabel.Location = new System.Drawing.Point(93, 514);
+            this.posContentLabel.Name = "posContentLabel";
+            this.posContentLabel.Size = new System.Drawing.Size(32, 17);
+            this.posContentLabel.TabIndex = 10;
+            this.posContentLabel.Text = "Suc";
+            // 
+            // posLabel
+            // 
+            this.posLabel.AutoSize = true;
+            this.posLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posLabel.ForeColor = System.Drawing.Color.White;
+            this.posLabel.Location = new System.Drawing.Point(12, 514);
+            this.posLabel.Name = "posLabel";
+            this.posLabel.Size = new System.Drawing.Size(76, 17);
+            this.posLabel.TabIndex = 9;
+            this.posLabel.Text = "Sucursal:";
+            // 
+            // companyContentLabel
+            // 
+            this.companyContentLabel.AutoSize = true;
+            this.companyContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.companyContentLabel.ForeColor = System.Drawing.Color.White;
+            this.companyContentLabel.Location = new System.Drawing.Point(93, 491);
+            this.companyContentLabel.Name = "companyContentLabel";
+            this.companyContentLabel.Size = new System.Drawing.Size(36, 17);
+            this.companyContentLabel.TabIndex = 8;
+            this.companyContentLabel.Text = "Cmp";
+            // 
+            // companyLabel
+            // 
+            this.companyLabel.AutoSize = true;
+            this.companyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.companyLabel.ForeColor = System.Drawing.Color.White;
+            this.companyLabel.Location = new System.Drawing.Point(12, 491);
+            this.companyLabel.Name = "companyLabel";
+            this.companyLabel.Size = new System.Drawing.Size(84, 17);
+            this.companyLabel.TabIndex = 7;
+            this.companyLabel.Text = "Compañía:";
+            // 
             // closeDrawMenuButton
             // 
             this.closeDrawMenuButton.FlatAppearance.BorderSize = 0;
@@ -457,71 +528,18 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // companyContentLabel
+            // generalesToolStripMenuItem
             // 
-            this.companyContentLabel.AutoSize = true;
-            this.companyContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.companyContentLabel.ForeColor = System.Drawing.Color.White;
-            this.companyContentLabel.Location = new System.Drawing.Point(93, 491);
-            this.companyContentLabel.Name = "companyContentLabel";
-            this.companyContentLabel.Size = new System.Drawing.Size(36, 17);
-            this.companyContentLabel.TabIndex = 8;
-            this.companyContentLabel.Text = "Cmp";
+            this.generalesToolStripMenuItem.Name = "generalesToolStripMenuItem";
+            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.generalesToolStripMenuItem.Text = "Generales";
             // 
-            // companyLabel
+            // dispositivosToolStripMenuItem
             // 
-            this.companyLabel.AutoSize = true;
-            this.companyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.companyLabel.ForeColor = System.Drawing.Color.White;
-            this.companyLabel.Location = new System.Drawing.Point(12, 491);
-            this.companyLabel.Name = "companyLabel";
-            this.companyLabel.Size = new System.Drawing.Size(84, 17);
-            this.companyLabel.TabIndex = 7;
-            this.companyLabel.Text = "Compañía:";
-            // 
-            // posContentLabel
-            // 
-            this.posContentLabel.AutoSize = true;
-            this.posContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.posContentLabel.ForeColor = System.Drawing.Color.White;
-            this.posContentLabel.Location = new System.Drawing.Point(93, 514);
-            this.posContentLabel.Name = "posContentLabel";
-            this.posContentLabel.Size = new System.Drawing.Size(32, 17);
-            this.posContentLabel.TabIndex = 10;
-            this.posContentLabel.Text = "Suc";
-            // 
-            // posLabel
-            // 
-            this.posLabel.AutoSize = true;
-            this.posLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.posLabel.ForeColor = System.Drawing.Color.White;
-            this.posLabel.Location = new System.Drawing.Point(12, 514);
-            this.posLabel.Name = "posLabel";
-            this.posLabel.Size = new System.Drawing.Size(76, 17);
-            this.posLabel.TabIndex = 9;
-            this.posLabel.Text = "Sucursal:";
-            // 
-            // userContentLabel
-            // 
-            this.userContentLabel.AutoSize = true;
-            this.userContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userContentLabel.ForeColor = System.Drawing.Color.White;
-            this.userContentLabel.Location = new System.Drawing.Point(93, 538);
-            this.userContentLabel.Name = "userContentLabel";
-            this.userContentLabel.Size = new System.Drawing.Size(38, 17);
-            this.userContentLabel.TabIndex = 12;
-            this.userContentLabel.Text = "User";
-            // 
-            // userLabel
-            // 
-            this.userLabel.AutoSize = true;
-            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.userLabel.ForeColor = System.Drawing.Color.White;
-            this.userLabel.Location = new System.Drawing.Point(14, 538);
-            this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(74, 17);
-            this.userLabel.TabIndex = 11;
-            this.userLabel.Text = "Usuario: ";
+            this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
+            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dispositivosToolStripMenuItem.Text = "Dispositivos";
+            this.dispositivosToolStripMenuItem.Click += new System.EventHandler(this.dispositivosToolStripMenuItem_Click);
             // 
             // ApplicationForm
             // 
@@ -598,6 +616,8 @@
         private System.Windows.Forms.Label posLabel;
         private System.Windows.Forms.Label companyContentLabel;
         private System.Windows.Forms.Label companyLabel;
+        private System.Windows.Forms.ToolStripMenuItem generalesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dispositivosToolStripMenuItem;
     }
 }
 

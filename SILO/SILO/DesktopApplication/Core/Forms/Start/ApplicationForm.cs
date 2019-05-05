@@ -293,6 +293,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             printerParamsForm.Show();
         }
 
+
+        private void dispositivosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeviceParamsForm deviceForm = new DeviceParamsForm();
+            deviceForm.Show();
+        }
+
         private async void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult msgResult =
@@ -407,6 +414,6 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             loading.Dispose();
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
-        
+
     }
 }

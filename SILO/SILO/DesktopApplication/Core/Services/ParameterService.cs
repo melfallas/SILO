@@ -19,14 +19,28 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static string getLocalParameterValue(string pParamName)
         {
-            LocalParameterRepository posParam = new LocalParameterRepository();
-            return posParam.getParamValue(pParamName);
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            return localParamRepo.getParamValue(pParamName);
         }
 
         public static LPR_LocalParameter getLocalParameter(string pParamName)
         {
-            LocalParameterRepository posParam = new LocalParameterRepository();
-            return posParam.getByName(pParamName);
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            return localParamRepo.getByName(pParamName);
+        }
+
+        public static void setLocalParameterValue(string pParamName, string pParamValue)
+        {
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            LPR_LocalParameter localParam = new LPR_LocalParameter();
+            localParam.LPR_Name = pParamName;
+            localParam.LPR_Value = pParamValue;
+            localParamRepo.save(localParam);
+        }
+
+        public static void setDeviceValue(string pParamValue)
+        {
+            setLocalParameterValue("Device", pParamValue);
         }
 
         public static string getCompanyId()
@@ -41,20 +55,20 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static long getSalePointId()
         {
-            string posParamValue = getSalePointParamValue();
+            string localParamValue = getSalePointParamValue();
             // TODO: Validar si es número
-            return posParamValue.Trim() == "" ? 0 : Convert.ToInt64(posParamValue);
+            return localParamValue.Trim() == "" ? 0 : Convert.ToInt64(localParamValue);
         }
 
         public static LPS_LotteryPointSale getSystemSalePoint()
         {
             LPS_LotteryPointSale pointSaleInstance = null;
-            string posParam = getSalePointParamValue();
-            if (posParam.Trim() != "")
+            string localParam = getSalePointParamValue();
+            if (localParam.Trim() != "")
             {
                 LotteryPointSaleRepository posRepository = new LotteryPointSaleRepository();
                 // TODO: Validar si es número
-                long posId = Convert.ToInt64(posParam);
+                long posId = Convert.ToInt64(localParam);
                 pointSaleInstance = posRepository.getById(posId);
             }
             

@@ -66,6 +66,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
@@ -110,6 +111,12 @@
     </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Modules\Number\PrizeTicketPanelForm.Designer.cs">
       <DependentUpon>PrizeTicketPanelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\DeviceParamsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\DeviceParamsForm.Designer.cs">
+      <DependentUpon>DeviceParamsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.cs">
       <SubType>Form</SubType>
@@ -173,8 +180,10 @@
     <Compile Include="DesktopApplication\Core\Repositories\LotteryPrizeFactorRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\ConcreteMessageService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\DeviceService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawTypeService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\EncryptingService.cs" />
     <Compile Include="DesktopApplication\Core\Services\FormatService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ListService.cs" />
     <Compile Include="DesktopApplication\Core\Services\LoginService.cs" />
@@ -345,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Number\PrizeTicketPanelForm.resx">
       <DependentUpon>PrizeTicketPanelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\DeviceParamsForm.resx">
+      <DependentUpon>DeviceParamsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.resx">
       <DependentUpon>PrinterParamsForm.cs</DependentUpon>
