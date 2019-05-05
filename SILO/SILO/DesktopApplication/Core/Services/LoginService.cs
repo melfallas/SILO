@@ -21,7 +21,8 @@ namespace SILO.DesktopApplication.Core.Services
             if (authenticatedUser != null)
             {
                 // Verificar registro de dispositivos
-                if (this.validDevice(authenticatedUser) > 0)
+                //if (this.validDevice(authenticatedUser) > 0)
+                if(true)
                 {
                     successAuthentication = this.validateUser(authenticatedUser);
                 }
