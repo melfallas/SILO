@@ -36,6 +36,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.parentForm = pParentForm;
             this.initializeControls();
             this.hidePanels();
+            this.hideToolStripMenuItems();
             // Crear el objeto mediador para los distintos componentes
             mediator = new ApplicationMediator();
             mediator.appForm = this;
@@ -58,6 +59,21 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         public void hidePanels()
         {
             this.topAppPanel.Hide();
+        }
+
+        public void hideToolStripMenuItems()
+        {
+            if (SystemSession.sessionUser != null && SystemSession.sessionUser.USR_UserRole != SystemConstants.ROLE_SA_ID)
+            {
+                this.topAppPanel.Hide();
+                string firstMenuItemName = "configuraciónToolStripMenuItem";
+                string secondMenuItemName = "parámetrosDeSistemaToolStripMenuItem";
+                string thirdMenuItemName = "dispositivosToolStripMenuItem";
+                ToolStripMenuItem firstMenuItem = this.mainMenu.Items[firstMenuItemName] as ToolStripMenuItem;
+                ToolStripDropDownItem secondMenuItem = firstMenuItem.DropDownItems[secondMenuItemName] as ToolStripDropDownItem;
+                ToolStripMenuItem thirdMenuItem = secondMenuItem.DropDownItems[thirdMenuItemName] as ToolStripMenuItem;
+                thirdMenuItem.Visible = false;
+            }
         }
 
         private void initializeControls() {
