@@ -54,6 +54,11 @@ namespace SILO.Core.Constants
         public const string POS_INITIALIZATION_ERROR = "No fue posible inicializar la sucursal.\nPor favor, vuelva a ingresar sus credenciales.\nPosteriormente confirme el punto de venta.";
         public const string GET_SESSION_USER_ERROR2 = "Error";
 
+        //--- Dispositivo no registrado
+        public const string UNREGISTERED_DEVICE_TITLE = "ERROR EN EL REGISTRO DEL DISPOSITIVO";
+        public const string UNREGISTERED_DEVICE_ERROR = "El dispositivo no se encuentra configurado adecuadamente.\nPor favor, contacte al administrador.";
+
+
 
         // Constantes de VENTA
 

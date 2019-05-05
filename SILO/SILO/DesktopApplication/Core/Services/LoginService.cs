@@ -20,9 +20,32 @@ namespace SILO.DesktopApplication.Core.Services
             // Verificar resultado de la autenticación
             if (authenticatedUser != null)
             {
-                successAuthentication = this.validateUser(authenticatedUser);
+                // Verificar registro de dispositivos
+                if (this.validDevice(authenticatedUser) > 0)
+                {
+                    successAuthentication = this.validateUser(authenticatedUser);
+                }
+                else
+                {
+                    successAuthentication = SystemConstants.LOGIN_SUCCESS_WITH_ERRORS;
+                    MessageService.displayErrorMessage(
+                        GeneralConstants.UNREGISTERED_DEVICE_ERROR,
+                        GeneralConstants.UNREGISTERED_DEVICE_TITLE
+                    );
+                }
             }
             return successAuthentication;
+        }
+
+        public int validDevice(AUS_ApplicationUser pCurrentUser)
+        {
+            int result = 1;
+            if (pCurrentUser.USR_UserRole != SystemConstants.ROLE_SA_ID)
+            {
+                DeviceService deviceService = new DeviceService();
+                result = deviceService.verifyRegisteredDevices();
+            }
+            return result;
         }
 
         public int validateUser(AUS_ApplicationUser pAuthenticatedUser)

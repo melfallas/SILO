@@ -12,6 +12,7 @@ namespace SILO.DesktopApplication.Core.Services
     {
 
         public const string COMPANY_ID_PARAM = "Empresa";
+        public const string DEVICE_ID_PARAM = "Device";
         public const string SYNC_ENABLED_PARAM = "Habilitar_Sync_Periodica";
         public const string SYNC_INTERVAL_PARAM = "Interval_Sync";
 
@@ -38,9 +39,14 @@ namespace SILO.DesktopApplication.Core.Services
             localParamRepo.save(localParam);
         }
 
+        public static string getDeviceValue()
+        {
+            return getLocalParameterValue(DEVICE_ID_PARAM);
+        }
+
         public static void setDeviceValue(string pParamValue)
         {
-            setLocalParameterValue("Device", pParamValue);
+            setLocalParameterValue(DEVICE_ID_PARAM, pParamValue);
         }
 
         public static string getCompanyId()

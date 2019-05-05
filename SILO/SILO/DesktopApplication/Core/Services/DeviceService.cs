@@ -43,6 +43,32 @@ namespace SILO.DesktopApplication.Core.Services
             return usbDevicesList;
         }
 
+        public int verifyRegisteredDevices()
+        {
+            int isRegisteredSerial = -1;
+            ManagementObjectCollection usbDevicesList = getUsbDevicesList();
+            if (usbDevicesList.Count == 0)
+            {
+                isRegisteredSerial = 0;
+                //MessageBox.Show("No hay dispositivos conectados.");
+            }
+            else
+            {
+                string registeredDeviceSerial = ParameterService.getDeviceValue();
+                if (this.findUsbDeviceBySerialId(registeredDeviceSerial, getUsbDevicesList()))
+                {
+                    isRegisteredSerial = 1;
+                    //MessageBox.Show("Bien.");
+                }
+                else
+                {
+                    isRegisteredSerial = -1;
+                    //MessageBox.Show("Debe registrar el dispositivo.");
+                }
+            }
+            return isRegisteredSerial;
+        }
+
         public bool findUsbDeviceBySerialId(string deviceSerialId, ManagementObjectCollection pUsbDevicesList)
         {
             bool deviceFinded = false;
@@ -56,47 +82,17 @@ namespace SILO.DesktopApplication.Core.Services
                 if (deviceSerialId == encryptedSerialNumber)
                 {
                     deviceFinded = true;
-                    Console.WriteLine("*****************************************************");
-                    Console.WriteLine("Finded: " + deviceId + " - Serial:" + usbSerialNumber);
+                    //Console.WriteLine("*****************************************************");
+                    //Console.WriteLine("Finded: " + deviceId + " - Serial:" + usbSerialNumber);
                 }
+                /*
                 Console.WriteLine(deviceId);
                 Console.WriteLine(usbSerialNumber);
                 Console.WriteLine(encryptedSerialNumber);
-                
+                */
             }
             return deviceFinded;
         }
 
-        /*
-        public void f()
-        {
-            EncryptingService encryptionService = new EncryptingService();
-            ///string encryptRegisteredDevice = encryptionService.encryptMessage(this.registeredDeviceSerial);
-            //this.registeredDeviceSerial = encryptRegisteredDevice;
-            //Console.WriteLine("RD: " + encryptRegisteredDevice);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            bool isRegisteredSerial = false;
-            ManagementObjectCollection usbDevicesList = getUsbDevicesList();
-            if (usbDevicesList.Count == 0)
-            {
-                MessageBox.Show("No hay dispositivos conectados.");
-            }
-            else
-            {
-                //isRegisteredSerial = this.findUsbDeviceBySerialId(this.registeredDeviceSerial, usbDevicesList);
-                if (true)
-                {
-                    MessageBox.Show("Bien.");
-                }
-                else
-                {
-                    MessageBox.Show("Debe registrar el dispositivo.");
-                }
-            }
-        }
-        */
     }
 }
