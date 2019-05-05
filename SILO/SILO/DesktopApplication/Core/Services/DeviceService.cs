@@ -26,9 +26,12 @@ namespace SILO.DesktopApplication.Core.Services
                 //Console.WriteLine(printerName);
                 deviceList.Add(encryptedSerialNumber, displayDeviceSerial);
             }
-            pListPrinter.DataSource = new BindingSource(deviceList, null);
-            pListPrinter.DisplayMember = "Value";
-            pListPrinter.ValueMember = "Key";
+            if (usbDevicesList.Count > 0)
+            {
+                pListPrinter.DataSource = new BindingSource(deviceList, null);
+                pListPrinter.DisplayMember = "Value";
+                pListPrinter.ValueMember = "Key";
+            }
         }
 
         private string getDeviceName(string pDevice) {
