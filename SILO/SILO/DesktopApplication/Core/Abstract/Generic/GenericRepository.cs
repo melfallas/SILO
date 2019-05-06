@@ -66,5 +66,32 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
             return findedEntity;
         }
 
+        // Save
+        public DataType saveWithStatus(DataType pEntityInstance, KeyType pEntityId, Func<DataType, DataType, long> pCopyFuntion)
+        {
+            DataType findedEntity = null;
+            using (var context = new SILOEntities())
+            {
+                if (pEntityId != default(KeyType))
+                {
+                    findedEntity = context.Set<DataType>().Find(pEntityId);
+                    if (findedEntity == null)
+                    {
+                        // Si no existe la entidad, añadirla y guardar cambios
+                        context.Set<DataType>().Add(pEntityInstance);
+                        context.SaveChanges();
+                        findedEntity = pEntityInstance;
+                    }
+                    else
+                    {
+                        long actualStatus = pCopyFuntion(findedEntity, pEntityInstance);
+                        // Update solamente si el estado es completamente sincronizado
+                        context.SaveChanges();
+                    }
+                }
+            }
+            return findedEntity;
+        }
+
     }
 }

@@ -13,5 +13,10 @@ namespace SILO.DesktopApplication.Core.Services
         {
             MessageService.displayErrorMessage(GeneralConstants.PRIZE_FACTOR_NOT_FOUND_MESSAGE, GeneralConstants.PRIZE_FACTOR_NOT_FOUND_TITLE);
         }
+
+        public static void displayDrawClosedMessage()
+        {
+            MessageService.displayErrorMessage(GeneralConstants.DRAW_CLOSED_MESSAGE, GeneralConstants.DRAW_CLOSED_TITLE);
+        }
     }
 }

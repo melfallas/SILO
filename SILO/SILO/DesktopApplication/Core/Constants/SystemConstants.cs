@@ -48,5 +48,9 @@ namespace SILO.DesktopApplication.Core.Constants
         public const string HTTP_PUT_METHOD = "PUT";
         public const string HTTP_DELETE_METHOD = "DELETE";
 
+        // Sincronización
+        public const int SYNC_DEFAULT_TYPE = 0;
+        public const int SYNC_CLOSING_TYPE = 1;
+
     }
 }

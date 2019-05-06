@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.titlePanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.displayFormTitleLabel = new System.Windows.Forms.Label();
             this.headerPanel = new System.Windows.Forms.Panel();
             this.drawTypeBox = new System.Windows.Forms.ComboBox();
             this.datePickerList = new System.Windows.Forms.DateTimePicker();
@@ -44,22 +44,23 @@
             // titlePanel
             // 
             this.titlePanel.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.titlePanel.Controls.Add(this.label1);
+            this.titlePanel.Controls.Add(this.displayFormTitleLabel);
             this.titlePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.titlePanel.Location = new System.Drawing.Point(0, 0);
             this.titlePanel.Name = "titlePanel";
             this.titlePanel.Size = new System.Drawing.Size(551, 37);
             this.titlePanel.TabIndex = 1;
             // 
-            // label1
+            // displayFormTitleLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(183, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Seleccione los Parámetros de la Lista";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.displayFormTitleLabel.AutoSize = true;
+            this.displayFormTitleLabel.Font = new System.Drawing.Font("Baskerville Old Face", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.displayFormTitleLabel.Location = new System.Drawing.Point(48, 9);
+            this.displayFormTitleLabel.Name = "displayFormTitleLabel";
+            this.displayFormTitleLabel.Size = new System.Drawing.Size(274, 22);
+            this.displayFormTitleLabel.TabIndex = 1;
+            this.displayFormTitleLabel.Text = "SELECTOR DE PARÁMETROS";
+            this.displayFormTitleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // headerPanel
             // 
@@ -162,7 +163,6 @@
         #endregion
 
         private System.Windows.Forms.Panel titlePanel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel headerPanel;
         private System.Windows.Forms.ComboBox drawTypeBox;
         private System.Windows.Forms.DateTimePicker datePickerList;
@@ -170,5 +170,6 @@
         private System.Windows.Forms.Label dateSelectorLabel;
         private System.Windows.Forms.Panel footerPanel;
         private System.Windows.Forms.Panel numberBoxPanel;
+        private System.Windows.Forms.Label displayFormTitleLabel;
     }
 }

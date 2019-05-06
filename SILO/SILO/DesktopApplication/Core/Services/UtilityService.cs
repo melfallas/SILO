@@ -358,11 +358,16 @@ namespace SILO.DesktopApplication.Core.Services
         public static void saveProhibitedNumbers(int [] pArray) {
             LotteryNumberRepository pointSaleRepository = new LotteryNumberRepository();
             pointSaleRepository.saveProhibitedNumbers(pArray);
-        } 
+        }
+
+        public static string getApplicationSimpleVersion()
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
 
         public static string getApplicationVersion()
         {
-            return "v " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            return "v " + getApplicationSimpleVersion();
         }
 
         public static bool verifySynStatusFromArray(bool[] synRestultArray)

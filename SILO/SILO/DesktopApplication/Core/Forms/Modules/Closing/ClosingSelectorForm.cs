@@ -1,4 +1,5 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
 using System;
@@ -47,33 +48,54 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
-            if (groupId == 0)
+            this.startDrawClosing(Convert.ToInt64(this.drawTypeBox.SelectedValue), this.datePickerList.Value.Date);
+        }
+
+        private void startDrawClosing(long pDrawTypeToClose, DateTime pDateToClose)
+        {
+            if (pDrawTypeToClose == 0)
             {
                 MessageBox.Show("Debe elegir un grupo válido");
             }
             else
             {
-                DialogResult msgResult =
+                DrawService drawService = new DrawService();
+                // Validar si el sorteo está cerrado
+                if (drawService.isDrawClosed(pDrawTypeToClose, pDateToClose))
+                {
+                    MessageService.displayInfoMessage(
+                    "El sorteo ya está cerrado\nNo es necesario realizar la operación.",
+                    "SORTEO CERRADO PREVIAMENTE"
+                    );
+                }
+                else
+                {
+                    this.confirmDrawClosing(pDrawTypeToClose, pDateToClose);
+                }
+            }
+        }
+
+        private void confirmDrawClosing(long pGroupId, DateTime pDrawDate)
+        {
+            DialogResult msgResult =
                     MessageService.displayConfirmWarningMessage(
-                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nEsta operación no es reversible.",
+                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nLuego de cerrar, las ventas para el sorteo no estarán permitidas.\nEsta operación no es reversible.",
                             "CERRANDO SORTEO..."
                             );
-                // Procesar el resultado de la confirmación
-                switch (msgResult)
-                {
-                    case DialogResult.Yes:
-                        // Procesar la sincronización
-                        this.closeView();
-                        this.appMediator.setAppTopMost(true);
-                        this.appMediator.closeTransactions();
-                        this.appMediator.setAppTopMost(false);
-                        break;
-                    case DialogResult.No:
-                        break;
-                    default:
-                        break;
-                }
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la sincronización
+                    this.closeView();
+                    this.appMediator.setAppTopMost(true);
+                    this.appMediator.closeTransactions(SystemConstants.SYNC_CLOSING_TYPE, pDrawDate, pGroupId);
+                    this.appMediator.setAppTopMost(false);
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
             }
         }
 

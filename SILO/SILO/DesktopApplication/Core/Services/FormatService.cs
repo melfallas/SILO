@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Services
 {
-    class FormatService
+    public class FormatService
     {
         public static string formatInt(int pNumberToFormat)
         {
@@ -18,5 +18,21 @@ namespace SILO.DesktopApplication.Core.Services
         {
             return formatInt(Int32.Parse(pNumberStringToFormat));
         }
+
+        public static string formatDrawDateToString(DateTime pDate)
+        {
+            return pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+        }
+
+        public static string formatDrawDateToString(DateTime? pDate)
+        {
+            return pDate?.ToString("yyyy-MM-dd") + " 00:00:00";
+        }
+        
+        public static DateTime formatDrawDate(DateTime? pDate)
+        {
+            return DateTime.Parse(pDate?.ToString("yyyy-MM-dd") + " 00:00:00");
+        }
+
     }
 }

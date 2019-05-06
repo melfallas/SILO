@@ -31,7 +31,18 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.splashScreen = null;
             this.launchSplashThread();
             InitializeComponent();
+            this.posNameLabel.Text = "";
+            this.showSalePointName();
             this.versionLabel.Text = UtilityService.getApplicationVersion();
+        }
+
+        private void showSalePointName()
+        {
+            LPS_LotteryPointSale posInstance = ParameterService.getSystemSalePoint();
+            if (posInstance != null)
+            {
+                this.posNameLabel.Text = "SUCURSAL " + posInstance.LPS_DisplayName;
+            }
         }
 
         private void launchSplashThread()
@@ -79,12 +90,11 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         {
 
             //bool[] synStatusArray = new bool[4];
-            bool[] synStatusArray = new bool[5];
+            bool[] synStatusArray = new bool[6];
             LoginForm.waitHandle.WaitOne();
             this.updateProgressBar(25);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
-            //synStatusArray[0] = syncService.syncNumbers_LocalToServer();
             
             synStatusArray[0] = syncService.syncCompany_ServerToLocal();
             this.updateProgressBar(40);
@@ -99,6 +109,8 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.updateProgressBar(90);
             this.changeStatusLegend("Cargando factores de premio...");
             synStatusArray[4] = syncService.syncPrizeFactor_ServerToLocal();
+            this.changeStatusLegend("Cargando sorteos re-abiertos...");
+            synStatusArray[5] = syncService.syncDraw_ServerToLocal();
             this.updateProgressBar(100);
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
             // Verificar si falló algún proceso de sincronización
