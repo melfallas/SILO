@@ -44,6 +44,8 @@
             this.parámetrosDeImpresiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dispositivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sincronizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transaccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enviarAlServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,8 +74,8 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.generalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dispositivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.softwareLabel = new System.Windows.Forms.Label();
+            this.softwareVersionLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -195,6 +197,19 @@
             this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.parámetrosDeSistemaToolStripMenuItem.Text = "Parámetros de Sistema";
             // 
+            // generalesToolStripMenuItem
+            // 
+            this.generalesToolStripMenuItem.Name = "generalesToolStripMenuItem";
+            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.generalesToolStripMenuItem.Text = "Generales";
+            // 
+            // dispositivosToolStripMenuItem
+            // 
+            this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
+            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.dispositivosToolStripMenuItem.Text = "Dispositivos";
+            this.dispositivosToolStripMenuItem.Click += new System.EventHandler(this.dispositivosToolStripMenuItem_Click);
+            // 
             // sincronizaciónToolStripMenuItem
             // 
             this.sincronizaciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -208,7 +223,7 @@
             this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enviarAlServidorToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
             // 
             // enviarAlServidorToolStripMenuItem
@@ -320,6 +335,8 @@
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.Controls.Add(this.softwareVersionLabel);
+            this.menuPanel.Controls.Add(this.softwareLabel);
             this.menuPanel.Controls.Add(this.userContentLabel);
             this.menuPanel.Controls.Add(this.userLabel);
             this.menuPanel.Controls.Add(this.posContentLabel);
@@ -344,7 +361,7 @@
             this.userContentLabel.AutoSize = true;
             this.userContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userContentLabel.ForeColor = System.Drawing.Color.White;
-            this.userContentLabel.Location = new System.Drawing.Point(93, 538);
+            this.userContentLabel.Location = new System.Drawing.Point(93, 555);
             this.userContentLabel.Name = "userContentLabel";
             this.userContentLabel.Size = new System.Drawing.Size(38, 17);
             this.userContentLabel.TabIndex = 12;
@@ -355,7 +372,7 @@
             this.userLabel.AutoSize = true;
             this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userLabel.ForeColor = System.Drawing.Color.White;
-            this.userLabel.Location = new System.Drawing.Point(14, 538);
+            this.userLabel.Location = new System.Drawing.Point(14, 555);
             this.userLabel.Name = "userLabel";
             this.userLabel.Size = new System.Drawing.Size(74, 17);
             this.userLabel.TabIndex = 11;
@@ -366,7 +383,7 @@
             this.posContentLabel.AutoSize = true;
             this.posContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posContentLabel.ForeColor = System.Drawing.Color.White;
-            this.posContentLabel.Location = new System.Drawing.Point(93, 514);
+            this.posContentLabel.Location = new System.Drawing.Point(93, 531);
             this.posContentLabel.Name = "posContentLabel";
             this.posContentLabel.Size = new System.Drawing.Size(32, 17);
             this.posContentLabel.TabIndex = 10;
@@ -377,7 +394,7 @@
             this.posLabel.AutoSize = true;
             this.posLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posLabel.ForeColor = System.Drawing.Color.White;
-            this.posLabel.Location = new System.Drawing.Point(12, 514);
+            this.posLabel.Location = new System.Drawing.Point(12, 531);
             this.posLabel.Name = "posLabel";
             this.posLabel.Size = new System.Drawing.Size(76, 17);
             this.posLabel.TabIndex = 9;
@@ -388,7 +405,7 @@
             this.companyContentLabel.AutoSize = true;
             this.companyContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.companyContentLabel.ForeColor = System.Drawing.Color.White;
-            this.companyContentLabel.Location = new System.Drawing.Point(93, 491);
+            this.companyContentLabel.Location = new System.Drawing.Point(93, 508);
             this.companyContentLabel.Name = "companyContentLabel";
             this.companyContentLabel.Size = new System.Drawing.Size(36, 17);
             this.companyContentLabel.TabIndex = 8;
@@ -399,7 +416,7 @@
             this.companyLabel.AutoSize = true;
             this.companyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.companyLabel.ForeColor = System.Drawing.Color.White;
-            this.companyLabel.Location = new System.Drawing.Point(12, 491);
+            this.companyLabel.Location = new System.Drawing.Point(12, 508);
             this.companyLabel.Name = "companyLabel";
             this.companyLabel.Size = new System.Drawing.Size(84, 17);
             this.companyLabel.TabIndex = 7;
@@ -528,18 +545,27 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // generalesToolStripMenuItem
+            // softwareLabel
             // 
-            this.generalesToolStripMenuItem.Name = "generalesToolStripMenuItem";
-            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.generalesToolStripMenuItem.Text = "Generales";
+            this.softwareLabel.AutoSize = true;
+            this.softwareLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.softwareLabel.ForeColor = System.Drawing.Color.White;
+            this.softwareLabel.Location = new System.Drawing.Point(13, 482);
+            this.softwareLabel.Name = "softwareLabel";
+            this.softwareLabel.Size = new System.Drawing.Size(111, 17);
+            this.softwareLabel.TabIndex = 13;
+            this.softwareLabel.Text = "SILO Software";
             // 
-            // dispositivosToolStripMenuItem
+            // softwareVersionLabel
             // 
-            this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
-            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dispositivosToolStripMenuItem.Text = "Dispositivos";
-            this.dispositivosToolStripMenuItem.Click += new System.EventHandler(this.dispositivosToolStripMenuItem_Click);
+            this.softwareVersionLabel.AutoSize = true;
+            this.softwareVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.softwareVersionLabel.ForeColor = System.Drawing.Color.White;
+            this.softwareVersionLabel.Location = new System.Drawing.Point(121, 482);
+            this.softwareVersionLabel.Name = "softwareVersionLabel";
+            this.softwareVersionLabel.Size = new System.Drawing.Size(65, 17);
+            this.softwareVersionLabel.TabIndex = 14;
+            this.softwareVersionLabel.Text = "V 0.0.0.1";
             // 
             // ApplicationForm
             // 
@@ -618,6 +644,8 @@
         private System.Windows.Forms.Label companyLabel;
         private System.Windows.Forms.ToolStripMenuItem generalesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dispositivosToolStripMenuItem;
+        private System.Windows.Forms.Label softwareVersionLabel;
+        private System.Windows.Forms.Label softwareLabel;
     }
 }
 

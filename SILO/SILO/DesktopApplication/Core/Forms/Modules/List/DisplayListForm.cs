@@ -3,6 +3,7 @@ using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Forms.Modules.ModuleForm;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -81,23 +82,58 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.List
         public void displayListForm() {
             if (Convert.ToInt32(this.drawTypeBox.SelectedValue) != 0)
             {
-                // Validar el tipo de pantalla de despliegue DisplayScreenForm
-                // DisplayScreenForm
-                if (this.type == SystemConstants.DISPLAY_QR_CODE)
+                long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+                DateTime date = this.datePickerList.Value.Date;
+                this.validateToDisplayListScreen(groupId, date);
+            }
+        }
+
+        public void validateToDisplayListScreen(long pGroupId, DateTime pDrawDate)
+        {
+            SaleValidator saleValidator = new SaleValidator();
+            bool existingFactor = saleValidator.validatePrizeFactorAsync(pGroupId);
+            if (existingFactor)
+            {
+                bool needValidateOperation = this.type == SystemConstants.COPY_LIST_CODE || this.type == SystemConstants.ERASER_LIST_CODE;
+                // Verificar si el sorteo está cerrado
+                if (needValidateOperation && saleValidator.isClosingDraw(pGroupId, pDrawDate))
                 {
-                    // Pantalla de despliegue de Código QR
-                    DisplayQRForm qrForm = new DisplayQRForm(this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex);
-                    if (qrForm.generateQRCode())
-                    {
-                        qrForm.Show();
-                    }
+                    // Error: no se puede operar si el sorteo está cerrado
+                    ConcreteMessageService.displayDrawClosedMessage();
+                    this.appMediator.updateBoxNumber(0);
+                    this.appMediator.setApplicationFocus();
                 }
                 else
                 {
-                    // Pantalla de despliegue de Selección de Lista
-                    ListSelectorForm listBoxSelector = new ListSelectorForm(this.appMediator, this.datePickerList.Value.Date, this.drawTypeBox.SelectedIndex, this.type);
-                    listBoxSelector.ShowDialog();
+                    this.displayScreenByType(pGroupId, pDrawDate);
                 }
+            }
+            else
+            {
+                // Error: Factor de premio no especificado para el sorteo
+                ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                this.appMediator.updateBoxNumber(0);
+                this.appMediator.setApplicationFocus();
+            }
+        }
+
+        private void displayScreenByType(long pGroupId, DateTime pDrawDate)
+        {
+            // Validar el tipo de pantalla de despliegue DisplayScreenForm
+            if (this.type == SystemConstants.DISPLAY_QR_CODE)
+            {
+                // Pantalla de despliegue de Código QR
+                DisplayQRForm qrForm = new DisplayQRForm(pDrawDate, pGroupId);
+                if (qrForm.generateQRCode())
+                {
+                    qrForm.Show();
+                }
+            }
+            else
+            {
+                // Pantalla de despliegue de Selección de Lista
+                ListSelectorForm listBoxSelector = new ListSelectorForm(this.appMediator, pDrawDate, pGroupId, this.type);
+                listBoxSelector.ShowDialog();
             }
         }
 

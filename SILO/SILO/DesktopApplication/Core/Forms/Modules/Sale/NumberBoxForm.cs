@@ -542,6 +542,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         private void drawTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
+            DateTime date = this.datePickerList.Value.Date;
             if (groupId == 0)
             {
                 this.lastGroup = 0;
@@ -549,18 +550,35 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             }
             else
             {
-                SaleValidator saleValidator = new SaleValidator();
-                bool existingFactor = saleValidator.validatePrizeFactorAsync(groupId);
-                if (existingFactor)
+                this.validateToDisplayInstance(groupId, date);
+            }
+        }
+
+        private void validateToDisplayInstance(long pGroupId, DateTime pDrawDate)
+        {
+            SaleValidator saleValidator = new SaleValidator();
+            bool existingFactor = saleValidator.validatePrizeFactorAsync(pGroupId);
+            if (existingFactor)
+            {
+                // Verificar si el sorteo está cerrado
+                if (saleValidator.isClosingDraw(pGroupId, pDrawDate))
                 {
-                    this.updateBoxAndDisplayListInstance(groupId);
-                }
-                else
-                {
-                    ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                    // Error: no se puede vender si el sorteo está cerrado
+                    ConcreteMessageService.displayDrawClosedMessage();
                     this.appMediator.updateBoxNumber(0);
                     this.appMediator.setApplicationFocus();
                 }
+                else
+                {
+                    this.updateBoxAndDisplayListInstance(pGroupId);
+                }
+            }
+            else
+            {
+                // Error: Factor de premio no especificado para el sorteo
+                ConcreteMessageService.displayPrizeFactorNotFoundMessage();
+                this.appMediator.updateBoxNumber(0);
+                this.appMediator.setApplicationFocus();
             }
         }
 

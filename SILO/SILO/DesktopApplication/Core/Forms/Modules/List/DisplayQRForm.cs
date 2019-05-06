@@ -44,31 +44,63 @@ namespace SILO
             }
             else
             {
-                // Cambiar estado de lista a QR Generado
-                ListService listService = new ListService();
-                listService.changeSyncStatusToQRUpdated(this.drawType, this.drawDate);
-                // Obtener parámetros del QR generado
-                DrawTypeService drawTypeService = new DrawTypeService();
-                PointSaleService posService = new PointSaleService();
-                this.dateLabel.Text = "" + UtilityService.getLargeDate(this.drawDate);
-                this.drawLabel.Text = "Grupo: " + drawTypeService.getById(this.drawType).LDT_DisplayName;
-                this.posLabel.Text = "Suc: " + posService.getPointSale().LPS_DisplayName;
-                // Obtener QRString codificada
-                text = UtilityService.getEncodeQRString(text, this.drawDate, this.drawType);
-                Console.WriteLine("Original QR: " + text);
-                //text = UtilityService.compressText(text);
-                Console.WriteLine("Compress QR: " + text);
-                this.countLabel.Text = text.Length.ToString() + " | " + (from c in text where c == '0' select c).Count().ToString();
-                this.displayQRPanel.BackgroundImage = UtilityService.buildQRCode(text, this.displayQRPanel.Width, this.displayQRPanel.Height);
-                // Cerrar el sorteo
-                if (this.drawDate != null && this.drawType != 0)
-                {
-                    DrawService drawService = new DrawService();
-                    drawService.changeDrawStatus(this.drawType, this.drawDate, SystemConstants.DRAW_STATUS_CLOSED);
-                }
+                successGeneration = this.confirmQRSendingAndDrawClosing( this.drawType, this.drawDate, text);
             }
             return successGeneration;
         }
+
+        private bool confirmQRSendingAndDrawClosing(long pGroupId, DateTime pDrawDate, string qrText)
+        {
+            bool successGeneration = true;
+            DialogResult msgResult =
+                MessageService.displayConfirmWarningMessage(
+                    "¿Desea generar y realizar el envío del QR para el sorteo?\nLuego de su generación, las ventas para el sorteo no estarán permitidas.\nEsta operación no es reversible.",
+                    "CERRANDO SORTEO..."
+                    );
+            // Procesar el resultado de la confirmación
+            switch (msgResult)
+            {
+                case DialogResult.Yes:
+                    // Procesar la generación de QR y cierre
+                    successGeneration = this.startQRGenrationAndClosing(pGroupId, pDrawDate, qrText);
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+            return successGeneration;
+        }
+
+        private bool startQRGenrationAndClosing(long pDrawType, DateTime pDrawDate, string qrText)
+        {
+            bool successGeneration = true;
+            // Cambiar estado de lista a QR Generado
+            ListService listService = new ListService();
+            listService.changeSyncStatusToQRUpdated(pDrawType, pDrawDate);
+            // Obtener parámetros del QR generado
+            DrawTypeService drawTypeService = new DrawTypeService();
+            PointSaleService posService = new PointSaleService();
+            this.dateLabel.Text = "" + UtilityService.getLargeDate(pDrawDate);
+            this.drawLabel.Text = "Grupo: " + drawTypeService.getById(pDrawType).LDT_DisplayName;
+            this.posLabel.Text = "Suc: " + posService.getPointSale().LPS_DisplayName;
+            // Obtener QRString codificada
+            qrText = UtilityService.getEncodeQRString(qrText, pDrawDate, pDrawType);
+            Console.WriteLine("Original QR: " + qrText);
+            //text = UtilityService.compressText(text);
+            Console.WriteLine("Compress QR: " + qrText);
+            this.countLabel.Text = qrText.Length.ToString() + " | " + (from c in qrText where c == '0' select c).Count().ToString();
+            this.displayQRPanel.BackgroundImage = UtilityService.buildQRCode(qrText, this.displayQRPanel.Width, this.displayQRPanel.Height);
+            // Cerrar el sorteo
+            if (pDrawDate != null && pDrawType != 0)
+            {
+                DrawService drawService = new DrawService();
+                drawService.changeDrawStatus(pDrawType, pDrawDate, SystemConstants.DRAW_STATUS_CLOSED);
+            }
+            return successGeneration;
+        }
+
+
 
     }
 }

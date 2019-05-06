@@ -81,6 +81,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.syncStatusLabel.Text = "";
             this.displaySyncStatusComponents(false);
             // Mostrar propiedades del sistema
+            String version = UtilityService.getApplicationSimpleVersion();
+            this.softwareVersionLabel.Text = $"V {version} ";
             this.userContentLabel.Text = SystemSession.username;
             this.posContentLabel.Text = SystemSession.salePoint;
             this.companyContentLabel.Text = SystemSession.company;
