@@ -35,6 +35,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             InitializeComponent();
             this.parentForm = pParentForm;
             this.initializeControls();
+            this.hidePanels();
+            this.hideToolStripMenuItems();
             // Crear el objeto mediador para los distintos componentes
             mediator = new ApplicationMediator();
             mediator.appForm = this;
@@ -54,11 +56,33 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.saleMenuButton.Focus();
         }
 
+        public void hidePanels()
+        {
+            this.topAppPanel.Hide();
+        }
+
+        public void hideToolStripMenuItems()
+        {
+            if (SystemSession.sessionUser != null && SystemSession.sessionUser.USR_UserRole != SystemConstants.ROLE_SA_ID)
+            {
+                this.topAppPanel.Hide();
+                string firstMenuItemName = "configuraciónToolStripMenuItem";
+                string secondMenuItemName = "parámetrosDeSistemaToolStripMenuItem";
+                string thirdMenuItemName = "dispositivosToolStripMenuItem";
+                ToolStripMenuItem firstMenuItem = this.mainMenu.Items[firstMenuItemName] as ToolStripMenuItem;
+                ToolStripDropDownItem secondMenuItem = firstMenuItem.DropDownItems[secondMenuItemName] as ToolStripDropDownItem;
+                ToolStripMenuItem thirdMenuItem = secondMenuItem.DropDownItems[thirdMenuItemName] as ToolStripMenuItem;
+                thirdMenuItem.Visible = false;
+            }
+        }
+
         private void initializeControls() {
             // Deshabiliar controles de estado de sincronización
             this.syncStatusLabel.Text = "";
             this.displaySyncStatusComponents(false);
             // Mostrar propiedades del sistema
+            String version = UtilityService.getApplicationSimpleVersion();
+            this.softwareVersionLabel.Text = $"V {version} ";
             this.userContentLabel.Text = SystemSession.username;
             this.posContentLabel.Text = SystemSession.salePoint;
             this.companyContentLabel.Text = SystemSession.company;
@@ -171,9 +195,17 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             closingForm.ShowDialog(this);
         }
 
-        public void closeTransactions()
+        public async void closeTransactions(int pSyncType, DateTime? pDrawDate = null, long pDrawType = 0)
         {
-            this.processParallelSynchronization();
+            bool syncResult = await this.processParallelSynchronization(pDrawDate, pDrawType, pSyncType);
+            if (syncResult)
+            {
+                if (pDrawDate != null && pDrawType != 0)
+                {
+                    DrawService drawService = new DrawService();
+                    drawService.changeDrawStatus(pDrawType, pDrawDate, SystemConstants.DRAW_STATUS_CLOSED);
+                }
+            }
         }
 
         private void processMenuRequest(/*KeyEventArgs pEvent*/)
@@ -279,7 +311,14 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             printerParamsForm.Show();
         }
 
-        private void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void dispositivosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeviceParamsForm deviceForm = new DeviceParamsForm();
+            deviceForm.Show();
+        }
+
+        private async void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult msgResult =
                     MessageService.displayConfirmWarningMessage(
@@ -292,7 +331,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 case DialogResult.Yes:
                     // Procesar la sincronización
                     //this.processLinearSynchronization();
-                    this.processParallelSynchronization();
+                    await this.processParallelSynchronization(FormatService.formatDrawDate(DateTime.Today));
                     break;
                 case DialogResult.No:
                     break;
@@ -322,7 +361,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void syncTimer_Tick(object sender, EventArgs e)
         {
-            this.processPeridicSynchronization();
+            this.processPeridicSynchronization(FormatService.formatDrawDate(DateTime.Today));
         }
 
         private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -343,7 +382,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
         #endregion
         
-        private async void processPeridicSynchronization()
+        private async void processPeridicSynchronization(DateTime? pDrawDate = null, long pDrawType = 0)
         {
             // Lanzar sincronización periódica solamente si está activa
             if (ParameterService.isSyncEnabled())
@@ -354,7 +393,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 this.displaySyncStatusComponents(true);
                 // Invocar la sincronización
                 SynchronizeService service = new SynchronizeService();
-                await service.syncPendingListNumberToServerAsync();
+                await service.syncPendingListNumberToServerAsync(pDrawDate, pDrawType);
                 // Tareas posteriores a la sincronización
                 this.mediator.updateTotalBoxes();
                 this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
@@ -363,14 +402,14 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             }
         }
 
-        private async void processParallelSynchronization()
+        private async Task<bool> processParallelSynchronization(DateTime? pDrawDate = null, long pDrawType = 0, int pSyncType = 0)
         {
             this.setSyncStatusText(LabelConstants.SYNC_PENDING_TRANSACTIONS_LABEL_TEXT);
             this.displaySyncStatusComponents(true);
             LoadingForm loading = new LoadingForm();
             loading.Show(this);
             SynchronizeService service = new SynchronizeService();
-            bool syncResult = await service.syncPendingListNumberToServerAsync();
+            bool syncResult = await service.syncPendingListNumberToServerAsync(pDrawDate, pDrawType);
             this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
             loading.Dispose();
             if (syncResult)
@@ -382,6 +421,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 MessageService.displayErrorMessage("No fue posible realizar la sincronización.\nPor favor intente más tarde.", "RESULTADO DE LA SINCRONIZACIÓN");
             }
             this.displaySyncStatusComponents(false);
+            return syncResult;
         }
 
         private void processLinearSynchronization() {
@@ -392,6 +432,6 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             loading.Dispose();
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
-        
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SILO.Core.Constants;
 using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Model;
@@ -176,6 +177,41 @@ namespace SILO.DesktopApplication.Core.Services
                 // Realizar la persistencia de los cambios
                 LotteryPrizeFactorRepository prizeFactorRepo = new LotteryPrizeFactorRepository();
                 prizeFactorRepo.saveList(JsonConvert.DeserializeObject<List<LPF_LotteryPrizeFactor>>(parsedJsonString));
+            }
+            return successProcess;
+        }
+
+        public bool syncDraw_ServerToLocal()
+        {
+            bool successProcess = true;
+            long posId = ParameterService.getSalePointId();
+            // Realizar sincronización solamente si la sucursal está asignada
+            if (posId != 0)
+            {
+                // Realizar la petición http
+                ServerConnectionService connection = new ServerConnectionService();
+                ServiceResponseResult responseResult = connection.getReopenDrawList(posId);
+                successProcess = this.isValidResponse(responseResult);
+                if (successProcess)
+                {
+                    string jsonStringResult = responseResult.result.ToString();
+                    // Obtener array de los id de sorteos reabiertos para la sucursal
+                    JArray jsonArray = JArray.Parse(jsonStringResult);
+                    // Realizar la persistencia de los sorteos reabiertos
+                    LotteryDrawRepository drawRepo = new LotteryDrawRepository();
+                    foreach (var drawId in jsonArray)
+                    {
+                        LTD_LotteryDraw draw = drawRepo.getById((long)drawId);
+                        if (draw != null)
+                        {
+                            draw.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_REOPENED;
+                            drawRepo.save(ref draw);
+                            // Cambiar todos los registros de QR a pendiente
+                            ListService listService = new ListService();
+                            listService.changeListStatusFromQRUpdated(draw, SystemConstants.SYNC_STATUS_PENDING_TO_SERVER);
+                        }
+                    }
+                }
             }
             return successProcess;
         }
@@ -420,11 +456,28 @@ namespace SILO.DesktopApplication.Core.Services
         //----------------- Servicios Asíncronos de Pendientes de Pago y Reversión -----------------//
         #region Servicios Asíncronos de Pendientes de Pago y Reversión
 
-        public async Task<bool> syncPendingListNumberToServerAsync()
+        public async Task<bool> syncPendingListNumberToServerAsync(DateTime? pDrawDate = null, long pDrawType = 0)
         {
             bool successProcess = true;
             LotteryListRepository listRepo = new LotteryListRepository();
-            List<LTL_LotteryList> pendingTransactions = listRepo.getPosPendingTransactions();
+            List<LTL_LotteryList> pendingTransactions = new List<LTL_LotteryList>();
+            if (pDrawDate == null && pDrawType == 0)
+            {
+                pendingTransactions = listRepo.getPosPendingTransactions();
+            }
+            else
+            {
+                ListService listService = new ListService();
+                if (pDrawType == 0)
+                {
+                    pendingTransactions = listService.getPosPendingTransactionsByDate(pDrawDate);
+                }
+                else
+                {
+                    pendingTransactions = listService.getPosPendingTransactionsByDateAndType(pDrawDate, pDrawType);
+                }
+                Console.WriteLine("Fecha: " + pDrawDate);
+            }            
             Console.WriteLine("Transacciones a Sincronizar: " + pendingTransactions.Count);
             foreach (LTL_LotteryList item in pendingTransactions)
             {
@@ -447,7 +500,8 @@ namespace SILO.DesktopApplication.Core.Services
                         // Si hay fallos en la reversión, reportar sincronización como fallida
                         if (!successReversion)
                         {
-                            successProcess = false;
+                            // TODO: Es necesario validar reversiones fallidas
+                            //successProcess = false;
                         }
                         break;
                     default:
@@ -477,7 +531,7 @@ namespace SILO.DesktopApplication.Core.Services
             return successReversion;
         }
 
-        private async Task<bool> processReverseToServerAsync(LTL_LotteryList pListObject)
+        public async Task<bool> processReverseToServerAsync(LTL_LotteryList pListObject)
         {
             bool successReversion = false;
             Console.WriteLine(" - Anulada ");
