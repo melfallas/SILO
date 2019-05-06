@@ -54,11 +54,18 @@ namespace SILO.Core.Constants
         public const string POS_INITIALIZATION_ERROR = "No fue posible inicializar la sucursal.\nPor favor, vuelva a ingresar sus credenciales.\nPosteriormente confirme el punto de venta.";
         public const string GET_SESSION_USER_ERROR2 = "Error";
 
+        //--- Dispositivo no registrado
+        public const string UNREGISTERED_DEVICE_TITLE = "ERROR EN EL REGISTRO DEL DISPOSITIVO";
+        public const string UNREGISTERED_DEVICE_ERROR = "El dispositivo no se encuentra configurado adecuadamente.\nPor favor, contacte al administrador.";
+
+
 
         // Constantes de VENTA
-
         public const string PRIZE_FACTOR_NOT_FOUND_TITLE = "FACTOR DE PREMIO NO ESPECIFICADO";
         public const string PRIZE_FACTOR_NOT_FOUND_MESSAGE = "No se ha especificado un factor de premio para el grupo.\nPor favor, contacte al administrador.";
+
+        public const string DRAW_CLOSED_TITLE = "SORTEO CERRADO - NO SE PUEDE VENDER";
+        public const string DRAW_CLOSED_MESSAGE = "El sorteo se encuentra cerrado.\nNo es posible realizar la operación.";
 
 
         //--- Venta no permitida

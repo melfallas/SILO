@@ -36,6 +36,19 @@ namespace SILO.DesktopApplication.Core.Util
             return validFactor;
          }
 
+        public bool isClosingDraw(long pGroupId, DateTime pDrawDate)
+        {
+            bool isClosing = false;
+            DrawService drawService = new DrawService();
+            if (drawService.isDrawClosed(pGroupId, pDrawDate))
+            {
+                isClosing = true;
+            }
+            return isClosing;
+        }
+
+
+
         /*
         public async Task<bool> validatePrizeFactorAsync(long pGroupId, Func<long, Task<bool>> pProcessResponseFunction)
         {

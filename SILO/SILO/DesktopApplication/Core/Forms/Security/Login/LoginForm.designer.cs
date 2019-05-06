@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.userLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txbUser = new System.Windows.Forms.TextBox();
@@ -35,6 +36,9 @@
             this.loginButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.posNameLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // userLabel
@@ -110,12 +114,35 @@
             this.versionLabel.TabIndex = 6;
             this.versionLabel.Text = "v 0.1.1.1";
             // 
+            // posNameLabel
+            // 
+            this.posNameLabel.AutoSize = true;
+            this.posNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.posNameLabel.ForeColor = System.Drawing.Color.White;
+            this.posNameLabel.Location = new System.Drawing.Point(55, 41);
+            this.posNameLabel.Name = "posNameLabel";
+            this.posNameLabel.Size = new System.Drawing.Size(305, 25);
+            this.posNameLabel.TabIndex = 7;
+            this.posNameLabel.Text = "Sucursal ABCDEFG HIJKLMN";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(87, 198);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(82, 79);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSlateGray;
             this.ClientSize = new System.Drawing.Size(412, 301);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.posNameLabel);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.loginButton);
@@ -132,6 +159,7 @@
             this.Text = "Ingreso al Sistema";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.LoginForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,5 +174,7 @@
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.Label posNameLabel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

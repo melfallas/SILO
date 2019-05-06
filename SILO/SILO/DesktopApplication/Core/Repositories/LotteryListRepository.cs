@@ -33,6 +33,19 @@ namespace SILO.DesktopApplication.Core.Repositories
             ).ToList();
         }
 
+        public List<LTL_LotteryList> getPosPendingTransactionsByDate(DateTime? pDrawDate)
+        {
+            LotteryDrawRepository drawRepo = new LotteryDrawRepository();
+            return this.getAll().Where(
+                item =>
+                    item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
+                && drawRepo.getById(item.LTD_LotteryDraw).LTD_CreateDate == pDrawDate
+                && item.SYS_SynchronyStatus == SystemConstants.SYNC_STATUS_PENDING_TO_SERVER
+                // Excluir de las transacciones pendientes los estados de lista TEMPORALES
+                && item.LLS_LotteryListStatus != SystemConstants.LIST_STATUS_PROCESSING
+            ).ToList();
+        }
+
         public List<LTL_LotteryList> getPosPendingTransactionsByDraw(LTD_LotteryDraw pDraw)
         {
             return this.getAll().Where(
@@ -45,13 +58,25 @@ namespace SILO.DesktopApplication.Core.Repositories
             ).ToList();
         }
 
+        public List<LTL_LotteryList> getPosTransactionsByDrawAndStatus(LTD_LotteryDraw pDraw, long pCurrentStatus)
+        {
+            return this.getAll().Where(
+                item =>
+                    item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
+                    && item.LTD_LotteryDraw == pDraw.LTD_Id
+                    && item.SYS_SynchronyStatus == pCurrentStatus
+                    // Excluir de las transacciones pendientes los estados de lista TEMPORALES
+                    && item.LLS_LotteryListStatus != SystemConstants.LIST_STATUS_PROCESSING
+            ).ToList();
+        }
+
         // Métodos que cambia el estado de una lista de objetos
         public void changeListSyncStatus(List<LTL_LotteryList> pEntityList, long pNewStatus)
         {
             foreach (LTL_LotteryList entity in pEntityList)
             {
                 entity.SYS_SynchronyStatus = pNewStatus;
-                this.save(entity, entity.LTL_Id, (e1, e2) => e1.copy(e2));
+                this.saveWithStatus(entity, entity.LTL_Id, (e1, e2) => e1.copy(e2));
             }
         }
 
@@ -105,7 +130,7 @@ namespace SILO.DesktopApplication.Core.Repositories
 
         public List<ListData> getListCollection(DateTime pDate, long pGroup)
         {
-            string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+            string drawDate = FormatService.formatDrawDateToString(pDate);
             List<ListData> listDataCollection = new List<ListData>();
             using (var context = new SILOEntities())
             {
@@ -195,7 +220,7 @@ namespace SILO.DesktopApplication.Core.Repositories
         public int[] getDrawListTotals(long posId, DateTime pDate, long pGroup, long pSyncStatus = 0, bool pOnlyPendingTransactions = false)
         {
             int[] importArray = new int[100];
-            string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+            string drawDate = FormatService.formatDrawDateToString(pDate);
             string pendingFilter = " AND L.SYS_SynchronyStatus = " + SystemConstants.SYNC_STATUS_PENDING_TO_SERVER + " ";
             string synStatusFilter = " AND L.SYS_SynchronyStatus = " + pSyncStatus + " ";
             Dictionary<int, int> importCollection = new Dictionary<int, int>();
@@ -285,7 +310,7 @@ namespace SILO.DesktopApplication.Core.Repositories
         {
             string aditionalQueryFilters = " ";
             int[] importArray = new int[100];
-            //string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+            //string drawDate = FormatService.formatDrawDate(pDate);
             Dictionary<int, int> importCollection = new Dictionary<int, int>();
             // Verificar parámetros para aplicar filtros
             if (pDate == null)
@@ -343,7 +368,7 @@ namespace SILO.DesktopApplication.Core.Repositories
         {
             string totalString = "";
             int[] importArray = new int[100];
-            //string drawDate = pDate.ToString("yyyy-MM-dd") + " 00:00:00";
+            //string drawDate = FormatService.formatDrawDate(pDate);
             // Llenar el array
             for (int i = 0; i < importArray.Length; i++)
             {

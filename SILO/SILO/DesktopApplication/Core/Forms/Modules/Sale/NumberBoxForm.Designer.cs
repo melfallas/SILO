@@ -48,7 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.titlePanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.numberBoxTitleLabel = new System.Windows.Forms.Label();
             this.numberBoxMainPanel.SuspendLayout();
             this.contentPanel.SuspendLayout();
             this.footerPanel.SuspendLayout();
@@ -269,27 +269,29 @@
             // titlePanel
             // 
             this.titlePanel.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.titlePanel.Controls.Add(this.label1);
+            this.titlePanel.Controls.Add(this.numberBoxTitleLabel);
             this.titlePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.titlePanel.Location = new System.Drawing.Point(0, 0);
             this.titlePanel.Name = "titlePanel";
             this.titlePanel.Size = new System.Drawing.Size(567, 37);
             this.titlePanel.TabIndex = 0;
             // 
-            // label1
+            // numberBoxTitleLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Listado de Números";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.numberBoxTitleLabel.AutoSize = true;
+            this.numberBoxTitleLabel.Font = new System.Drawing.Font("Baskerville Old Face", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numberBoxTitleLabel.Location = new System.Drawing.Point(48, 9);
+            this.numberBoxTitleLabel.Name = "numberBoxTitleLabel";
+            this.numberBoxTitleLabel.Size = new System.Drawing.Size(193, 22);
+            this.numberBoxTitleLabel.TabIndex = 0;
+            this.numberBoxTitleLabel.Text = "VENTA DE PAPELES";
+            this.numberBoxTitleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // NumberBoxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(567, 420);
             this.Controls.Add(this.numberBoxMainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -318,7 +320,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel titlePanel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label numberBoxTitleLabel;
         private System.Windows.Forms.TextBox txbTotalImport;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txbSyncImport;

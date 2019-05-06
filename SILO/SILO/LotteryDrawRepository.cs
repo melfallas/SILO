@@ -18,7 +18,6 @@ namespace SILO
             return drawList;
         }
 
-
         public LTD_LotteryDraw getById(long pId)
         {
             LTD_LotteryDraw draw = null;
@@ -29,7 +28,28 @@ namespace SILO
             return draw;
         }
 
-        public LTD_LotteryDraw getByTypeAndDate(long pDrawType, DateTime pDrawDate)
+        public void save(ref LTD_LotteryDraw pDraw)
+        {
+            using (var context = new SILOEntities())
+            {
+                //LTD_LotteryDraw matchingDraw = context.LTD_LotteryDraw.Find(pDraw.LTD_Id);
+                LTD_LotteryDraw matchingDraw = this.getByTypeAndDate(pDraw.LDT_LotteryDrawType, pDraw.LTD_CreateDate);
+                if (matchingDraw != null)
+                {
+                    matchingDraw = context.LTD_LotteryDraw.Find(matchingDraw.LTD_Id);
+                    matchingDraw.LDS_LotteryDrawStatus = pDraw.LDS_LotteryDrawStatus;
+                    context.SaveChanges();
+                    pDraw = matchingDraw;
+                }
+                else
+                {
+                    context.LTD_LotteryDraw.Add(pDraw);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public LTD_LotteryDraw getByTypeAndDate(long pDrawType, DateTime? pDrawDate)
         {
             LTD_LotteryDraw findedDraw = null;
             List < LTD_LotteryDraw > drawList = this.getAll().Where(
@@ -65,23 +85,6 @@ namespace SILO
                 }
             }
             return findedDraw;
-        }
-
-
-        public void save(ref LTD_LotteryDraw pDraw)
-        {
-            LTD_LotteryDraw matchingDraw = this.getDrawRegister(pDraw);
-            if (matchingDraw != null)
-            {
-                pDraw = matchingDraw;
-            }
-            else {
-                using (var context = new SILOEntities())
-                {
-                    context.LTD_LotteryDraw.Add(pDraw);
-                    context.SaveChanges();
-                }
-            }
         }
 
         public void saveList(ref LTL_LotteryList pList)

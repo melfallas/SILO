@@ -27,10 +27,10 @@ namespace SILO.DesktopApplication.Core.Integration
             }
         }
 
-        public void closeTransactions() {
+        public void closeTransactions(int pSyncType, DateTime? pDrawDate = null, long pDrawType = 0) {
             if (this.appForm != null)
             {
-                this.appForm.closeTransactions();
+                this.appForm.closeTransactions(pSyncType, pDrawDate, pDrawType);
             }
         }
 
