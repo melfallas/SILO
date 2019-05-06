@@ -206,6 +206,9 @@ namespace SILO.DesktopApplication.Core.Services
                         {
                             draw.LDS_LotteryDrawStatus = SystemConstants.DRAW_STATUS_REOPENED;
                             drawRepo.save(ref draw);
+                            // Cambiar todos los registros de QR a pendiente
+                            ListService listService = new ListService();
+                            listService.changeListStatusFromQRUpdated(draw, SystemConstants.SYNC_STATUS_PENDING_TO_SERVER);
                         }
                     }
                 }

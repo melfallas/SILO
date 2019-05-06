@@ -183,7 +183,8 @@ namespace SILO
             {
                 this.sendListNumberToServer(savedNumberDetailList);
             }
-            // TODO: Cambiar todos los registros de QR a pendiente
+            // TODO: Cambiar todos los registros de QR a pendiente / Creo que ya no se necesita
+
             this.Dispose();
             // Actualizar BoxNumber y mostrar en pantalla resultado de la venta
             //this.appMediator.updateBoxNumber(this.drawType.LDT_Id);

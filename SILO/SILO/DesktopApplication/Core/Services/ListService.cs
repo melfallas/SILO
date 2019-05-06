@@ -62,6 +62,12 @@ namespace SILO.DesktopApplication.Core.Services
             this.listRepository.changeListSyncStatus(pendingListCollection, pNewStatus);
         }
 
+        public void changeListStatusFromQRUpdated(LTD_LotteryDraw pDraw, long pNewStatus)
+        {
+            List<LTL_LotteryList> qrListCollection = this.listRepository.getPosTransactionsByDrawAndStatus(pDraw, SystemConstants.SYNC_STATUS_QRUPDATED);
+            this.listRepository.changeListSyncStatus(qrListCollection, pNewStatus);
+        }
+
         public List<LTL_LotteryList> getPosPendingTransactionsByDate(DateTime? pDrawDate)
         {
             return this.listRepository.getPosPendingTransactionsByDate(pDrawDate);

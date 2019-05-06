@@ -58,13 +58,25 @@ namespace SILO.DesktopApplication.Core.Repositories
             ).ToList();
         }
 
+        public List<LTL_LotteryList> getPosTransactionsByDrawAndStatus(LTD_LotteryDraw pDraw, long pCurrentStatus)
+        {
+            return this.getAll().Where(
+                item =>
+                    item.LPS_LotteryPointSale == UtilityService.getPointSaleId()
+                    && item.LTD_LotteryDraw == pDraw.LTD_Id
+                    && item.SYS_SynchronyStatus == pCurrentStatus
+                    // Excluir de las transacciones pendientes los estados de lista TEMPORALES
+                    && item.LLS_LotteryListStatus != SystemConstants.LIST_STATUS_PROCESSING
+            ).ToList();
+        }
+
         // Métodos que cambia el estado de una lista de objetos
         public void changeListSyncStatus(List<LTL_LotteryList> pEntityList, long pNewStatus)
         {
             foreach (LTL_LotteryList entity in pEntityList)
             {
                 entity.SYS_SynchronyStatus = pNewStatus;
-                this.save(entity, entity.LTL_Id, (e1, e2) => e1.copy(e2));
+                this.saveWithStatus(entity, entity.LTL_Id, (e1, e2) => e1.copy(e2));
             }
         }
 
