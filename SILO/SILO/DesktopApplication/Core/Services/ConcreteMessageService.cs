@@ -18,5 +18,10 @@ namespace SILO.DesktopApplication.Core.Services
         {
             MessageService.displayErrorMessage(GeneralConstants.DRAW_CLOSED_MESSAGE, GeneralConstants.DRAW_CLOSED_TITLE);
         }
+
+        public static void systemUpdatingMessage()
+        {
+            MessageService.displayInfoMessage(GeneralConstants.SYSTEM_UPDATING_MESSAGE, GeneralConstants.SYSTEM_UPDATING_TITLE);
+        }
     }
 }

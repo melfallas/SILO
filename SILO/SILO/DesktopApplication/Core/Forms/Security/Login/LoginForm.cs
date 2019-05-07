@@ -25,6 +25,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         public bool displayLogin { get; set; }
         public SplashScreenForm splashScreen { get; set; }
 
+        
         public LoginForm()
         {
             this.displayLogin = true;

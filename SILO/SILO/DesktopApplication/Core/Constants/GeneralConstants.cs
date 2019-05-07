@@ -77,6 +77,10 @@ namespace SILO.Core.Constants
         public const string SUCCESS_TRANSACTION_CANCELATION_MESSAGE = "La transacción fue anulada exitosamente.";
 
 
+        public const string SYSTEM_UPDATING_TITLE = "SISTEMA EN ACTUALIZACIÓN";
+        public const string SYSTEM_UPDATING_MESSAGE = "El sitema se está actualizando y no estará disponible.\nEsta situación podría mantenerse por algún tiempo.\nSe notificará cuando la aplicación haya sido restablecida.";
+
+
         public const string CHECKBOX_NAME_ID_LABEL = "Id";
 
 
