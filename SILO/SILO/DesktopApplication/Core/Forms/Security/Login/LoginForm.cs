@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -59,7 +60,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                 CompanyRepository companyRepository = new CompanyRepository();
                 SystemSession.sessionCompany = companyRepository.getById(long.Parse(companyId));
                 // Realizar sincronización inicial
-                this.startInitialSynchronization();
+                this.startAppInitialization();
                 //splashThread.Abort();
             }
             else
@@ -85,6 +86,21 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         {
             this.splashScreen.DisposeForm();
             this.splashScreen = null;
+        }
+
+        private void startAppInitialization()
+        {
+            this.encryptDataBase();
+            this.startInitialSynchronization();
+        }
+
+        private void encryptDataBase()
+        {
+            //SQLiteConnection dbConnection = new SQLiteConnection("Data Source=SILO.db;Version=3;");
+            SQLiteConnection dbConnection = new SQLiteConnection("Data Source=SILO.db;Version=3;Password=SQdbP4$$89;");
+            dbConnection.Open();
+            dbConnection.ChangePassword("SQdbP4$$89");
+            //dbConnection.ChangePassword(String.Empty);
         }
 
         private void startInitialSynchronization()
