@@ -9,9 +9,10 @@
 
 namespace SILO
 {
+    using DesktopApplication.Core.Constants;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class CPN_Company
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,7 +26,17 @@ namespace SILO
         public string CPN_DisplayName { get; set; }
         public string CPN_Description { get; set; }
         public System.DateTime CPN_CreateDate { get; set; }
-    
+
+        public long copy(CPN_Company pCompany)
+        {
+            long actualStatus = SystemConstants.SYNC_STATUS_COMPLETED;
+            this.CPN_Code = pCompany.CPN_Code;
+            this.CPN_DisplayName = pCompany.CPN_DisplayName;
+            this.CPN_Description = pCompany.CPN_Description;
+            this.CPN_CreateDate = pCompany.CPN_CreateDate;
+            return actualStatus;
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LPS_LotteryPointSale> LPS_LotteryPointSale { get; set; }
     }
