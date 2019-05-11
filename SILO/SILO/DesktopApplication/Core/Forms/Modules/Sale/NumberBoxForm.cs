@@ -437,7 +437,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.setSyncImport(FormatService.formatInt(syncImport));
                 this.setSyncQRImport(FormatService.formatInt(qrImport));
                 this.setPendingImport(FormatService.formatInt(pendingImport));
-                int maxToReceive = (int)(totalImport * 0.03);
+                int prohibitedFactor = Int32.Parse(ServerParameterService.getProhibitedFactor());
+                int maxToReceive = (int)(totalImport * ((double) prohibitedFactor / 100));
                 this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
             }
         }

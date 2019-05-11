@@ -132,7 +132,7 @@ namespace SILO
 
         private void listView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            int rowLimit = 30;
+            int rowLimit =  Int32.Parse(ServerParameterService.getMaxPrintLines());
             int rowCount = this.listView.Rows.Count - 1;
             if (rowCount >= rowLimit)
             {
