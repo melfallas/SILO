@@ -77,7 +77,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
 
         private void initializeControls() {
-            // Deshabiliar controles de estado de sincronización
+            // Deshabiliar controles de estado de sincronización            
             this.syncStatusLabel.Text = "";
             this.displaySyncStatusComponents(false);
             // Mostrar propiedades del sistema
@@ -86,6 +86,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.userContentLabel.Text = SystemSession.username;
             this.posContentLabel.Text = SystemSession.salePoint;
             this.companyContentLabel.Text = SystemSession.company;
+            this.servicePathLabel.Text = ServiceConectionConstants.getServiceApiEndPoint();
             // Habilitar la sincronización periódica si está activa
             if (ParameterService.isSyncEnabled())
             {
@@ -281,7 +282,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             */
 
             String version = UtilityService.getApplicationVersion();
-            MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
+            String serviceUrl = ServiceConectionConstants.getServiceApiEndPoint();
+            MessageBox.Show($"SILO Application. Version: {version}\n\nServicio: {serviceUrl}");
             
         }
         #endregion

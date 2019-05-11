@@ -107,27 +107,29 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         {
 
             //bool[] synStatusArray = new bool[4];
-            bool[] synStatusArray = new bool[6];
+            bool[] synStatusArray = new bool[7];
             LoginForm.waitHandle.WaitOne();
             this.updateProgressBar(25);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
-            
-            synStatusArray[0] = syncService.syncCompany_ServerToLocal();
+            this.changeStatusLegend("Cargando parámetros de servidor...");
+            synStatusArray[0] = syncService.syncServerParams_ServerToLocal();
+            this.updateProgressBar(20);
+            synStatusArray[1] = syncService.syncCompany_ServerToLocal();
             this.updateProgressBar(40);
             this.changeStatusLegend("Cargando sucursales...");
-            synStatusArray[1] = syncService.syncSalePoint_ServerToLocal();
+            synStatusArray[2] = syncService.syncSalePoint_ServerToLocal();
             this.updateProgressBar(75);
             this.changeStatusLegend("Cargando roles...");
-            synStatusArray[2] = syncService.syncRole_ServerToLocal();
+            synStatusArray[3] = syncService.syncRole_ServerToLocal();
             this.updateProgressBar(80);
             this.changeStatusLegend("Cargando usuarios...");
-            synStatusArray[3] = syncService.syncAppUsers_ServerToLocal();
+            synStatusArray[4] = syncService.syncAppUsers_ServerToLocal();
             this.updateProgressBar(90);
             this.changeStatusLegend("Cargando factores de premio...");
-            synStatusArray[4] = syncService.syncPrizeFactor_ServerToLocal();
+            synStatusArray[5] = syncService.syncPrizeFactor_ServerToLocal();
             this.changeStatusLegend("Cargando sorteos re-abiertos...");
-            synStatusArray[5] = syncService.syncDraw_ServerToLocal();
+            synStatusArray[6] = syncService.syncDraw_ServerToLocal();
             this.updateProgressBar(100);
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
             // Verificar si falló algún proceso de sincronización

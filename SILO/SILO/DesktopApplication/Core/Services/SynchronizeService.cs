@@ -58,6 +58,27 @@ namespace SILO.DesktopApplication.Core.Services
 
         //----------------- Sincronizaciones ServerToLocal -----------------//
 
+
+        public bool syncServerParams_ServerToLocal()
+        {
+            bool successProcess = true;
+            // Realizar la petición http
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getParamsFromServer();
+            successProcess = this.isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string result = responseResult.result.ToString();
+                // Parsear el json de respuesta
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.ServerParam);
+                string parsedJsonString = parser.parse(result);
+                // Realizar la persistencia de los cambios
+                ServerParameterRepository serverParamRepo = new ServerParameterRepository();
+                serverParamRepo.saveList(JsonConvert.DeserializeObject<List<SPR_ServerParameter>>(parsedJsonString));
+            }
+            return successProcess;
+        }
+
         public bool syncCompany_ServerToLocal()
         {
             bool successProcess = true;

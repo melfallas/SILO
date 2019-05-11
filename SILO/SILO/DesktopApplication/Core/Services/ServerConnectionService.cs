@@ -19,6 +19,11 @@ namespace SILO.DesktopApplication.Core.Services
 
         //----------------- Métodos para obtener datos del Servidor -----------------//
 
+        public ServiceResponseResult getParamsFromServer()
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_ALL_SERVER_PARAMS_RESOURCE_URL);
+        }
+
         public ServiceResponseResult getCompaniesFromServer()
         {
             return this.processGetRequest(ServiceConectionConstants.GET_ALL_COMPANIES_RESOURCE_URL);

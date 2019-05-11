@@ -61,14 +61,25 @@ namespace SILO.DesktopApplication.Core.Repositories
                 if (parameter == null)
                 {
                     parameter = new SPR_ServerParameter();
+                    parameter.SPR_Id = pParam.SPR_Id;
                     parameter.SPR_Name = pParam.SPR_Name;
                     parameter.SPR_Value = pParam.SPR_Value;
+                    context.Set<SPR_ServerParameter>().Add(parameter);
                 }
                 else
                 {
                     parameter.SPR_Value = pParam.SPR_Value;
                 }
                 context.SaveChanges();
+            }
+        }
+
+        // Métodos que registra la persistencia de una lista de objetos
+        public void saveList(List<SPR_ServerParameter> pEntityList)
+        {
+            foreach(SPR_ServerParameter entity in pEntityList)
+            {
+                this.save(entity);
             }
         }
 

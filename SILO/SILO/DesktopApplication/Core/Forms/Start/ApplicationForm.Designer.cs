@@ -78,6 +78,7 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
+            this.servicePathLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -203,20 +204,20 @@
             // generalesToolStripMenuItem
             // 
             this.generalesToolStripMenuItem.Name = "generalesToolStripMenuItem";
-            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.generalesToolStripMenuItem.Text = "Generales";
             // 
             // servidorToolStripMenuItem
             // 
             this.servidorToolStripMenuItem.Name = "servidorToolStripMenuItem";
-            this.servidorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.servidorToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.servidorToolStripMenuItem.Text = "Servidor";
             this.servidorToolStripMenuItem.Click += new System.EventHandler(this.servidorToolStripMenuItem_Click);
             // 
             // dispositivosToolStripMenuItem
             // 
             this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
-            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.dispositivosToolStripMenuItem.Text = "Dispositivos";
             this.dispositivosToolStripMenuItem.Click += new System.EventHandler(this.dispositivosToolStripMenuItem_Click);
             // 
@@ -301,6 +302,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel2.Controls.Add(this.servicePathLabel);
             this.panel2.Controls.Add(this.syncStatusLabel);
             this.panel2.Controls.Add(this.syncStatusProgressBar);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -585,6 +587,17 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
+            // servicePathLabel
+            // 
+            this.servicePathLabel.AutoSize = true;
+            this.servicePathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.servicePathLabel.ForeColor = System.Drawing.Color.White;
+            this.servicePathLabel.Location = new System.Drawing.Point(6, 3);
+            this.servicePathLabel.Name = "servicePathLabel";
+            this.servicePathLabel.Size = new System.Drawing.Size(119, 13);
+            this.servicePathLabel.TabIndex = 2;
+            this.servicePathLabel.Text = "Sincronización completa";
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -666,6 +679,7 @@
         private System.Windows.Forms.Label softwareLabel;
         private System.Windows.Forms.ToolStripMenuItem servidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sincronizaciónDeEmergenciaToolStripMenuItem;
+        private System.Windows.Forms.Label servicePathLabel;
     }
 }
 

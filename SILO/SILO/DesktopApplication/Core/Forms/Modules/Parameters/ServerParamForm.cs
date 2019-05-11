@@ -27,7 +27,11 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Parameters
 
         public void fillParameterBoxes()
         {
-            this.txbServiceName.Text = ServerParameterService.getServerParameterValue(ParameterConstants.SERVICE_DENOMINATION_PARAM_NAME);
+            this.txbServiceName.Text = ServerParameterService.getServerDenomination();
+            this.txbServiceURL.Text = ServerParameterService.getServerEndPoint();
+            this.txbServicePath.Text = ServerParameterService.getServerPath();
+            this.txtProhibitedMargin.Text = ServerParameterService.getProhibitedFactor();
+            this.txtMaxLineCount.Text = ServerParameterService.getMaxPrintLines();
         }
 
     }
