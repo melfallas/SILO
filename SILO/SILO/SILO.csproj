@@ -90,6 +90,9 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="DBL_DrawBalance.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Constants\LabelConstants.cs" />
     <Compile Include="DesktopApplication\Core\Forms\Modules\Closing\ClosingSelectorForm.cs">
       <SubType>Form</SubType>
@@ -226,6 +229,9 @@
       <DependentUpon>DrawNumberWinningForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesktopApplication\Core\Repositories\DrawNumberWinningRepository.cs" />
+    <Compile Include="ERV_ErrorEvents.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GeneralConfigurationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,6 +250,9 @@
     </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Modules\List\ListBoxSelector.Designer.cs">
       <DependentUpon>ListBoxSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LGV_LoginEvents.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ListData.cs" />
     <Compile Include="ListInstanceForm.cs">
@@ -334,6 +343,9 @@
     <Compile Include="DesktopApplication\Core\Model\ServiceModel\ServiceResponseResult.cs" />
     <Compile Include="DesktopApplication\Core\Services\SynchronizeService.cs" />
     <Compile Include="DesktopApplication\Core\Constants\SystemConstants.cs" />
+    <Compile Include="SPR_ServerParameter.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SYS_SynchronyStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

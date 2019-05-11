@@ -1,6 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SILOModelStoreContainer" CdmEntityContainer="SILOEntities">
+    <EntitySetMapping Name="AUS_ApplicationUser">
+      <EntityTypeMapping TypeName="SILOModel.AUS_ApplicationUser">
+        <MappingFragment StoreEntitySet="AUS_ApplicationUser">
+          <ScalarProperty Name="AUS_CreateDate" ColumnName="AUS_CreateDate" />
+          <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
+          <ScalarProperty Name="AUS_IsActive" ColumnName="AUS_IsActive" />
+          <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
+          <ScalarProperty Name="USR_UserRole" ColumnName="USR_UserRole" />
+          <ScalarProperty Name="AUS_Password" ColumnName="AUS_Password" />
+          <ScalarProperty Name="AUS_Username" ColumnName="AUS_Username" />
+          <ScalarProperty Name="AUS_Id" ColumnName="AUS_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CPN_Company">
       <EntityTypeMapping TypeName="SILOModel.CPN_Company">
         <MappingFragment StoreEntitySet="CPN_Company">
@@ -9,6 +23,16 @@
           <ScalarProperty Name="CPN_DisplayName" ColumnName="CPN_DisplayName" />
           <ScalarProperty Name="CPN_Code" ColumnName="CPN_Code" />
           <ScalarProperty Name="CPN_Id" ColumnName="CPN_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DBL_DrawBalance">
+      <EntityTypeMapping TypeName="SILOModel.DBL_DrawBalance">
+        <MappingFragment StoreEntitySet="DBL_DrawBalance">
+          <ScalarProperty Name="DBL_PayImport" ColumnName="DBL_PayImport" />
+          <ScalarProperty Name="DBL_SaleImport" ColumnName="DBL_SaleImport" />
+          <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
+          <ScalarProperty Name="DBL_Id" ColumnName="DBL_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -21,6 +45,18 @@
           <ScalarProperty Name="DNW_SecondNumber" ColumnName="DNW_SecondNumber" />
           <ScalarProperty Name="DNW_FirtsNumber" ColumnName="DNW_FirtsNumber" />
           <ScalarProperty Name="LTD_LotteryDraw" ColumnName="LTD_LotteryDraw" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ERV_ErrorEvents">
+      <EntityTypeMapping TypeName="SILOModel.ERV_ErrorEvents">
+        <MappingFragment StoreEntitySet="ERV_ErrorEvents">
+          <ScalarProperty Name="ERV_User" ColumnName="ERV_User" />
+          <ScalarProperty Name="ERV_Origin" ColumnName="ERV_Origin" />
+          <ScalarProperty Name="ERV_Track" ColumnName="ERV_Track" />
+          <ScalarProperty Name="ERV_Error" ColumnName="ERV_Error" />
+          <ScalarProperty Name="ERV_EventDate" ColumnName="ERV_EventDate" />
+          <ScalarProperty Name="ERV_Id" ColumnName="ERV_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -42,6 +78,17 @@
           <ScalarProperty Name="LDT_DisplayName" ColumnName="LDT_DisplayName" />
           <ScalarProperty Name="LDT_Code" ColumnName="LDT_Code" />
           <ScalarProperty Name="LDT_Id" ColumnName="LDT_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LGV_LoginEvents">
+      <EntityTypeMapping TypeName="SILOModel.LGV_LoginEvents">
+        <MappingFragment StoreEntitySet="LGV_LoginEvents">
+          <ScalarProperty Name="LGV_DeviceId" ColumnName="LGV_DeviceId" />
+          <ScalarProperty Name="LGV_User" ColumnName="LGV_User" />
+          <ScalarProperty Name="LGV_IpAdress" ColumnName="LGV_IpAdress" />
+          <ScalarProperty Name="LGV_EventDate" ColumnName="LGV_EventDate" />
+          <ScalarProperty Name="LGV_Id" ColumnName="LGV_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -145,6 +192,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SPR_ServerParameter">
+      <EntityTypeMapping TypeName="SILOModel.SPR_ServerParameter">
+        <MappingFragment StoreEntitySet="SPR_ServerParameter">
+          <ScalarProperty Name="SPR_Value" ColumnName="SPR_Value" />
+          <ScalarProperty Name="SPR_Name" ColumnName="SPR_Name" />
+          <ScalarProperty Name="SPR_Id" ColumnName="SPR_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SYS_SynchronyStatus">
       <EntityTypeMapping TypeName="SILOModel.SYS_SynchronyStatus">
         <MappingFragment StoreEntitySet="SYS_SynchronyStatus">
@@ -152,20 +208,6 @@
           <ScalarProperty Name="SYS_DisplayName" ColumnName="SYS_DisplayName" />
           <ScalarProperty Name="SYS_Code" ColumnName="SYS_Code" />
           <ScalarProperty Name="SYS_Id" ColumnName="SYS_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AUS_ApplicationUser">
-      <EntityTypeMapping TypeName="SILOModel.AUS_ApplicationUser">
-        <MappingFragment StoreEntitySet="AUS_ApplicationUser">
-          <ScalarProperty Name="AUS_CreateDate" ColumnName="AUS_CreateDate" />
-          <ScalarProperty Name="SYS_SynchronyStatus" ColumnName="SYS_SynchronyStatus" />
-          <ScalarProperty Name="AUS_IsActive" ColumnName="AUS_IsActive" />
-          <ScalarProperty Name="LPS_LotteryPointSale" ColumnName="LPS_LotteryPointSale" />
-          <ScalarProperty Name="USR_UserRole" ColumnName="USR_UserRole" />
-          <ScalarProperty Name="AUS_Password" ColumnName="AUS_Password" />
-          <ScalarProperty Name="AUS_Username" ColumnName="AUS_Username" />
-          <ScalarProperty Name="AUS_Id" ColumnName="AUS_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
