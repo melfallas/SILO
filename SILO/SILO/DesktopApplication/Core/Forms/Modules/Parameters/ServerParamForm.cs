@@ -34,5 +34,10 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Parameters
             this.txtMaxLineCount.Text = ServerParameterService.getMaxPrintLines();
         }
 
+        public void saveServerParams()
+        {
+
+        }
+
     }
 }

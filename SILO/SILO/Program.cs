@@ -30,7 +30,7 @@ namespace SILO
             }
             */
 
-            /*
+            
             try
             {
                 Application.EnableVisualStyles();
@@ -40,14 +40,13 @@ namespace SILO
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-            }
-            */
+            }            
 
-            
+            /*
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
-            
+            */
 
         }
     }
