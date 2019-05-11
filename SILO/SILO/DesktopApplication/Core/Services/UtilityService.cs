@@ -67,7 +67,7 @@ namespace SILO.DesktopApplication.Core.Services
             return posRepository.getById(posId).LPS_Id;
         }
 
-
+        /*
         public static void setPrinter(string pNewParamValue)
         {
             setLocalParameter("Nombre_Impresora", pNewParamValue);
@@ -77,6 +77,7 @@ namespace SILO.DesktopApplication.Core.Services
         {
             setLocalParameter("Habilitar_Impresion", pNewParamValue);
         }
+        */
 
         public static void setLocalParameter(string pParamName, string pNewParamValue)
         {

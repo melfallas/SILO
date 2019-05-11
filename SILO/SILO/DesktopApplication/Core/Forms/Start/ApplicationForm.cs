@@ -307,8 +307,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PrinterParamsForm printerParamsForm = new PrinterParamsForm();
-            printerParamsForm.Show();
+            PrinterParamsForm printerParamsForm = new PrinterParamsForm(this.mediator);
+            printerParamsForm.ShowDialog();
         }
 
 
