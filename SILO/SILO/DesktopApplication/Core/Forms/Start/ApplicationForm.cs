@@ -318,6 +318,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             deviceForm.Show();
         }
 
+        private void sincronizaciónDeEmergenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.displayCloseSelector();
+        }
+
         private async void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult msgResult =

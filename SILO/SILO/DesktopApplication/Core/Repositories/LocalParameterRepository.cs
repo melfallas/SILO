@@ -43,7 +43,6 @@ namespace SILO.DesktopApplication.Core.Repositories
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw e;
             }
             
             return paramValue;

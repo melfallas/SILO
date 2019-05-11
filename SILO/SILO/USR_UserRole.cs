@@ -20,6 +20,11 @@ namespace SILO
         {
             this.AUS_ApplicationUser = new HashSet<AUS_ApplicationUser>();
         }
+    
+        public long USR_Id { get; set; }
+        public string USR_DisplayName { get; set; }
+        public string USR_Description { get; set; }
+        public System.DateTime USR_CreateDate { get; set; }
 
         public long copy(USR_UserRole pUserRole)
         {
@@ -30,11 +35,6 @@ namespace SILO
             return actualStatus;
         }
 
-        public long USR_Id { get; set; }
-        public string USR_DisplayName { get; set; }
-        public string USR_Description { get; set; }
-        public System.DateTime USR_CreateDate { get; set; }
-    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
     }

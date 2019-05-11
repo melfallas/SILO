@@ -23,6 +23,15 @@
     <Property Name="CPN_Description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CPN_CreateDate" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="DBL_DrawBalance">
+    <Key>
+      <PropertyRef Name="DBL_Id" />
+    </Key>
+    <Property Name="DBL_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LTD_LotteryDraw" Type="integer" Nullable="false" />
+    <Property Name="DBL_SaleImport" Type="integer" Nullable="false" />
+    <Property Name="DBL_PayImport" Type="integer" Nullable="false" />
+  </EntityType>
   <EntityType Name="DNW_DrawNumberWinning">
     <Key>
       <PropertyRef Name="LTD_LotteryDraw" />
@@ -33,6 +42,17 @@
     <Property Name="DNW_ThirdNumber" Type="varchar" MaxLength="2" Nullable="false" />
     <Property Name="DNW_CreateDate" Type="datetime" Nullable="false" />
     <Property Name="SYS_SynchronyStatus" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ERV_ErrorEvents">
+    <Key>
+      <PropertyRef Name="ERV_Id" />
+    </Key>
+    <Property Name="ERV_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ERV_EventDate" Type="datetime" Nullable="false" />
+    <Property Name="ERV_Error" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ERV_Track" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ERV_Origin" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ERV_User" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
   <EntityType Name="LDS_LotteryDrawStatus">
     <Key>
@@ -52,6 +72,16 @@
     <Property Name="LDT_DisplayName" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="LDT_Description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="SYS_SynchronyStatus" Type="integer" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LGV_LoginEvents">
+    <Key>
+      <PropertyRef Name="LGV_Id" />
+    </Key>
+    <Property Name="LGV_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LGV_EventDate" Type="datetime" Nullable="false" />
+    <Property Name="LGV_IpAdress" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="LGV_User" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="LGV_DeviceId" Type="varchar" MaxLength="200" Nullable="false" />
   </EntityType>
   <EntityType Name="LLS_LotteryListStatus">
     <Key>
@@ -144,6 +174,14 @@
     <Property Name="LLS_LotteryListStatus" Type="integer" Nullable="false" />
     <Property Name="SYS_SynchronyStatus" Type="integer" Nullable="false" />
   </EntityType>
+  <EntityType Name="SPR_ServerParameter">
+    <Key>
+      <PropertyRef Name="SPR_Id" />
+    </Key>
+    <Property Name="SPR_Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SPR_Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="SPR_Value" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
   <EntityType Name="SYS_SynchronyStatus">
     <Key>
       <PropertyRef Name="SYS_Id" />
@@ -195,6 +233,18 @@
       </Principal>
       <Dependent Role="AUS_ApplicationUser">
         <PropertyRef Name="USR_UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DBL_DrawBalance_0_0">
+    <End Role="LTD_LotteryDraw" Type="Self.LTD_LotteryDraw" Multiplicity="1" />
+    <End Role="DBL_DrawBalance" Type="Self.DBL_DrawBalance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LTD_LotteryDraw">
+        <PropertyRef Name="LTD_Id" />
+      </Principal>
+      <Dependent Role="DBL_DrawBalance">
+        <PropertyRef Name="LTD_LotteryDraw" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -417,9 +467,12 @@
   <EntityContainer Name="SILOModelStoreContainer">
     <EntitySet Name="AUS_ApplicationUser" EntityType="Self.AUS_ApplicationUser" store:Type="Tables" />
     <EntitySet Name="CPN_Company" EntityType="Self.CPN_Company" store:Type="Tables" />
+    <EntitySet Name="DBL_DrawBalance" EntityType="Self.DBL_DrawBalance" store:Type="Tables" />
     <EntitySet Name="DNW_DrawNumberWinning" EntityType="Self.DNW_DrawNumberWinning" store:Type="Tables" />
+    <EntitySet Name="ERV_ErrorEvents" EntityType="Self.ERV_ErrorEvents" store:Type="Tables" />
     <EntitySet Name="LDS_LotteryDrawStatus" EntityType="Self.LDS_LotteryDrawStatus" store:Type="Tables" />
     <EntitySet Name="LDT_LotteryDrawType" EntityType="Self.LDT_LotteryDrawType" store:Type="Tables" />
+    <EntitySet Name="LGV_LoginEvents" EntityType="Self.LGV_LoginEvents" store:Type="Tables" />
     <EntitySet Name="LLS_LotteryListStatus" EntityType="Self.LLS_LotteryListStatus" store:Type="Tables" />
     <EntitySet Name="LND_ListNumberDetail" EntityType="Self.LND_ListNumberDetail" store:Type="Tables" />
     <EntitySet Name="LNR_LotteryNumber" EntityType="Self.LNR_LotteryNumber" store:Type="Tables" />
@@ -429,6 +482,7 @@
     <EntitySet Name="LPT_LocalParameterType" EntityType="Self.LPT_LocalParameterType" store:Type="Tables" />
     <EntitySet Name="LTD_LotteryDraw" EntityType="Self.LTD_LotteryDraw" store:Type="Tables" />
     <EntitySet Name="LTL_LotteryList" EntityType="Self.LTL_LotteryList" store:Type="Tables" />
+    <EntitySet Name="SPR_ServerParameter" EntityType="Self.SPR_ServerParameter" store:Type="Tables" />
     <EntitySet Name="SYS_SynchronyStatus" EntityType="Self.SYS_SynchronyStatus" store:Type="Tables" />
     <EntitySet Name="USR_UserRole" EntityType="Self.USR_UserRole" store:Type="Tables" />
     <AssociationSet Name="FK_AUS_ApplicationUser_0_0" Association="Self.FK_AUS_ApplicationUser_0_0">
@@ -442,6 +496,10 @@
     <AssociationSet Name="FK_AUS_ApplicationUser_2_0" Association="Self.FK_AUS_ApplicationUser_2_0">
       <End Role="USR_UserRole" EntitySet="USR_UserRole" />
       <End Role="AUS_ApplicationUser" EntitySet="AUS_ApplicationUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DBL_DrawBalance_0_0" Association="Self.FK_DBL_DrawBalance_0_0">
+      <End Role="LTD_LotteryDraw" EntitySet="LTD_LotteryDraw" />
+      <End Role="DBL_DrawBalance" EntitySet="DBL_DrawBalance" />
     </AssociationSet>
     <AssociationSet Name="FK_DNW_DrawNumberWinning_0_0" Association="Self.FK_DNW_DrawNumberWinning_0_0">
       <End Role="SYS_SynchronyStatus" EntitySet="SYS_SynchronyStatus" />

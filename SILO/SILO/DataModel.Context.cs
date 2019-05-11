@@ -25,10 +25,14 @@ namespace SILO
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
         public virtual DbSet<CPN_Company> CPN_Company { get; set; }
+        public virtual DbSet<DBL_DrawBalance> DBL_DrawBalance { get; set; }
         public virtual DbSet<DNW_DrawNumberWinning> DNW_DrawNumberWinning { get; set; }
+        public virtual DbSet<ERV_ErrorEvents> ERV_ErrorEvents { get; set; }
         public virtual DbSet<LDS_LotteryDrawStatus> LDS_LotteryDrawStatus { get; set; }
         public virtual DbSet<LDT_LotteryDrawType> LDT_LotteryDrawType { get; set; }
+        public virtual DbSet<LGV_LoginEvents> LGV_LoginEvents { get; set; }
         public virtual DbSet<LLS_LotteryListStatus> LLS_LotteryListStatus { get; set; }
         public virtual DbSet<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }
         public virtual DbSet<LNR_LotteryNumber> LNR_LotteryNumber { get; set; }
@@ -38,8 +42,8 @@ namespace SILO
         public virtual DbSet<LPT_LocalParameterType> LPT_LocalParameterType { get; set; }
         public virtual DbSet<LTD_LotteryDraw> LTD_LotteryDraw { get; set; }
         public virtual DbSet<LTL_LotteryList> LTL_LotteryList { get; set; }
+        public virtual DbSet<SPR_ServerParameter> SPR_ServerParameter { get; set; }
         public virtual DbSet<SYS_SynchronyStatus> SYS_SynchronyStatus { get; set; }
-        public virtual DbSet<AUS_ApplicationUser> AUS_ApplicationUser { get; set; }
         public virtual DbSet<USR_UserRole> USR_UserRole { get; set; }
     }
 }
