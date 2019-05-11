@@ -10,19 +10,19 @@ namespace SILO.DesktopApplication.Core.Services
     public class ServerParameterService
     {
 
-        public static SPR_ServerParameter getLocalParameter(string pParamName)
+        public static SPR_ServerParameter getServerParameter(string pParamName)
         {
             ServerParameterRepository serverParamRepo = new ServerParameterRepository();
             return serverParamRepo.getByName(pParamName);
         }
 
-        public static string getLocalParameterValue(string pParamName)
+        public static string getServerParameterValue(string pParamName)
         {
             ServerParameterRepository serverParamRepo = new ServerParameterRepository();
             return serverParamRepo.getParamValue(pParamName);
         }
 
-        public static void setLocalParameterValue(string pParamName, string pParamValue)
+        public static void setServerParameterValue(string pParamName, string pParamValue)
         {
             ServerParameterRepository serverParamRepo = new ServerParameterRepository();
             SPR_ServerParameter serverParam = new SPR_ServerParameter();

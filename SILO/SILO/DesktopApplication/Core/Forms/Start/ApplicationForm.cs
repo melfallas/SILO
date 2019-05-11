@@ -311,6 +311,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             printerParamsForm.ShowDialog();
         }
 
+        private void servidorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ServerParamForm serverParamsForm = new ServerParamForm(this.mediator);
+            serverParamsForm.ShowDialog();
+        }
 
         private void dispositivosToolStripMenuItem_Click(object sender, EventArgs e)
         {

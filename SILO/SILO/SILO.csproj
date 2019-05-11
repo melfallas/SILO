@@ -127,6 +127,12 @@
     <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.Designer.cs">
       <DependentUpon>PrinterParamsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\ServerParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\ServerParamForm.Designer.cs">
+      <DependentUpon>ServerParamForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Start\ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -374,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.resx">
       <DependentUpon>PrinterParamsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\ServerParamForm.resx">
+      <DependentUpon>ServerParamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Start\ApplicationForm.resx">
       <DependentUpon>ApplicationForm.cs</DependentUpon>

@@ -45,9 +45,11 @@
             this.parámetrosDeSucursalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parámetrosDeSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.servidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dispositivosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sincronizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transaccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sincronizaciónDeEmergenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enviarAlServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,8 +78,6 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.servidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sincronizaciónDeEmergenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -206,6 +206,13 @@
             this.generalesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.generalesToolStripMenuItem.Text = "Generales";
             // 
+            // servidorToolStripMenuItem
+            // 
+            this.servidorToolStripMenuItem.Name = "servidorToolStripMenuItem";
+            this.servidorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.servidorToolStripMenuItem.Text = "Servidor";
+            this.servidorToolStripMenuItem.Click += new System.EventHandler(this.servidorToolStripMenuItem_Click);
+            // 
             // dispositivosToolStripMenuItem
             // 
             this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
@@ -227,8 +234,15 @@
             this.sincronizaciónDeEmergenciaToolStripMenuItem,
             this.enviarAlServidorToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
+            // 
+            // sincronizaciónDeEmergenciaToolStripMenuItem
+            // 
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Name = "sincronizaciónDeEmergenciaToolStripMenuItem";
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Text = "Sincronización de Emergencia";
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Click += new System.EventHandler(this.sincronizaciónDeEmergenciaToolStripMenuItem_Click);
             // 
             // enviarAlServidorToolStripMenuItem
             // 
@@ -570,19 +584,6 @@
             // 
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
-            // 
-            // servidorToolStripMenuItem
-            // 
-            this.servidorToolStripMenuItem.Name = "servidorToolStripMenuItem";
-            this.servidorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.servidorToolStripMenuItem.Text = "Servidor";
-            // 
-            // sincronizaciónDeEmergenciaToolStripMenuItem
-            // 
-            this.sincronizaciónDeEmergenciaToolStripMenuItem.Name = "sincronizaciónDeEmergenciaToolStripMenuItem";
-            this.sincronizaciónDeEmergenciaToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.sincronizaciónDeEmergenciaToolStripMenuItem.Text = "Sincronización de Emergencia";
-            this.sincronizaciónDeEmergenciaToolStripMenuItem.Click += new System.EventHandler(this.sincronizaciónDeEmergenciaToolStripMenuItem_Click);
             // 
             // ApplicationForm
             // 
