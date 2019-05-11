@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SILO.DesktopApplication.Core.Services;
+using SILO.Core.Constants;
 
 namespace SILO
 {
@@ -128,6 +130,21 @@ namespace SILO
             }
         }
 
+        private void listView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            int rowLimit = 30;
+            int rowCount = this.listView.Rows.Count - 1;
+            if (rowCount >= rowLimit)
+            {
+                if (e.RowIndex >= rowLimit)
+                {
+                    SendKeys.Send("{ESC}");
+                    SendKeys.Send("{TAB}");
+                    //Console.WriteLine("Prueba: " + e.RowIndex);
+                }
+            }
+        }
+
         private void listView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             SendKeys.Send("{UP}");
@@ -169,7 +186,6 @@ namespace SILO
                 }
             }
         }
-
 
     }
 }
