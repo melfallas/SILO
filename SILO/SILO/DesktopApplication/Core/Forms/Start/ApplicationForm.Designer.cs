@@ -60,6 +60,8 @@
             this.topAppPanel = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.softwareVersionLabel = new System.Windows.Forms.Label();
+            this.softwareLabel = new System.Windows.Forms.Label();
             this.userContentLabel = new System.Windows.Forms.Label();
             this.userLabel = new System.Windows.Forms.Label();
             this.posContentLabel = new System.Windows.Forms.Label();
@@ -74,8 +76,8 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.softwareLabel = new System.Windows.Forms.Label();
-            this.softwareVersionLabel = new System.Windows.Forms.Label();
+            this.servidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sincronizaciónDeEmergenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -166,47 +168,48 @@
             this.parámetrosGeneralesToolStripMenuItem1,
             this.parámetrosDeImpresiónToolStripMenuItem});
             this.parámetrosGeneralesToolStripMenuItem.Name = "parámetrosGeneralesToolStripMenuItem";
-            this.parámetrosGeneralesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.parámetrosGeneralesToolStripMenuItem.Text = "Parámetros";
+            this.parámetrosGeneralesToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.parámetrosGeneralesToolStripMenuItem.Text = "Parámetros de Impresión";
             // 
             // parámetrosGeneralesToolStripMenuItem1
             // 
             this.parámetrosGeneralesToolStripMenuItem1.Name = "parámetrosGeneralesToolStripMenuItem1";
-            this.parámetrosGeneralesToolStripMenuItem1.Size = new System.Drawing.Size(206, 22);
-            this.parámetrosGeneralesToolStripMenuItem1.Text = "Parámetros Generales";
+            this.parámetrosGeneralesToolStripMenuItem1.Size = new System.Drawing.Size(211, 22);
+            this.parámetrosGeneralesToolStripMenuItem1.Text = "Propiedades de Impresión";
             // 
             // parámetrosDeImpresiónToolStripMenuItem
             // 
             this.parámetrosDeImpresiónToolStripMenuItem.Name = "parámetrosDeImpresiónToolStripMenuItem";
-            this.parámetrosDeImpresiónToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.parámetrosDeImpresiónToolStripMenuItem.Text = "Parámetros de Impresión";
+            this.parámetrosDeImpresiónToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.parámetrosDeImpresiónToolStripMenuItem.Text = "Establecer Impresora";
             this.parámetrosDeImpresiónToolStripMenuItem.Click += new System.EventHandler(this.parámetrosDeImpresiónToolStripMenuItem_Click);
             // 
             // parámetrosDeSucursalToolStripMenuItem
             // 
             this.parámetrosDeSucursalToolStripMenuItem.Name = "parámetrosDeSucursalToolStripMenuItem";
-            this.parámetrosDeSucursalToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.parámetrosDeSucursalToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.parámetrosDeSucursalToolStripMenuItem.Text = "Parámetros de Sucursal";
             // 
             // parámetrosDeSistemaToolStripMenuItem
             // 
             this.parámetrosDeSistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.generalesToolStripMenuItem,
+            this.servidorToolStripMenuItem,
             this.dispositivosToolStripMenuItem});
             this.parámetrosDeSistemaToolStripMenuItem.Name = "parámetrosDeSistemaToolStripMenuItem";
-            this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.parámetrosDeSistemaToolStripMenuItem.Text = "Parámetros de Sistema";
             // 
             // generalesToolStripMenuItem
             // 
             this.generalesToolStripMenuItem.Name = "generalesToolStripMenuItem";
-            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.generalesToolStripMenuItem.Text = "Generales";
             // 
             // dispositivosToolStripMenuItem
             // 
             this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
-            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dispositivosToolStripMenuItem.Text = "Dispositivos";
             this.dispositivosToolStripMenuItem.Click += new System.EventHandler(this.dispositivosToolStripMenuItem_Click);
             // 
@@ -221,15 +224,16 @@
             // transaccionesToolStripMenuItem
             // 
             this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sincronizaciónDeEmergenciaToolStripMenuItem,
             this.enviarAlServidorToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
             // 
             // enviarAlServidorToolStripMenuItem
             // 
             this.enviarAlServidorToolStripMenuItem.Name = "enviarAlServidorToolStripMenuItem";
-            this.enviarAlServidorToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.enviarAlServidorToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.enviarAlServidorToolStripMenuItem.Text = "Enviar al Servidor";
             this.enviarAlServidorToolStripMenuItem.Click += new System.EventHandler(this.enviarAlServidorToolStripMenuItem_Click);
             // 
@@ -355,6 +359,28 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(220, 589);
             this.menuPanel.TabIndex = 0;
+            // 
+            // softwareVersionLabel
+            // 
+            this.softwareVersionLabel.AutoSize = true;
+            this.softwareVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.softwareVersionLabel.ForeColor = System.Drawing.Color.White;
+            this.softwareVersionLabel.Location = new System.Drawing.Point(121, 482);
+            this.softwareVersionLabel.Name = "softwareVersionLabel";
+            this.softwareVersionLabel.Size = new System.Drawing.Size(65, 17);
+            this.softwareVersionLabel.TabIndex = 14;
+            this.softwareVersionLabel.Text = "V 0.0.0.1";
+            // 
+            // softwareLabel
+            // 
+            this.softwareLabel.AutoSize = true;
+            this.softwareLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.softwareLabel.ForeColor = System.Drawing.Color.White;
+            this.softwareLabel.Location = new System.Drawing.Point(13, 482);
+            this.softwareLabel.Name = "softwareLabel";
+            this.softwareLabel.Size = new System.Drawing.Size(111, 17);
+            this.softwareLabel.TabIndex = 13;
+            this.softwareLabel.Text = "SILO Software";
             // 
             // userContentLabel
             // 
@@ -545,27 +571,18 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // softwareLabel
+            // servidorToolStripMenuItem
             // 
-            this.softwareLabel.AutoSize = true;
-            this.softwareLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.softwareLabel.ForeColor = System.Drawing.Color.White;
-            this.softwareLabel.Location = new System.Drawing.Point(13, 482);
-            this.softwareLabel.Name = "softwareLabel";
-            this.softwareLabel.Size = new System.Drawing.Size(111, 17);
-            this.softwareLabel.TabIndex = 13;
-            this.softwareLabel.Text = "SILO Software";
+            this.servidorToolStripMenuItem.Name = "servidorToolStripMenuItem";
+            this.servidorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.servidorToolStripMenuItem.Text = "Servidor";
             // 
-            // softwareVersionLabel
+            // sincronizaciónDeEmergenciaToolStripMenuItem
             // 
-            this.softwareVersionLabel.AutoSize = true;
-            this.softwareVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.softwareVersionLabel.ForeColor = System.Drawing.Color.White;
-            this.softwareVersionLabel.Location = new System.Drawing.Point(121, 482);
-            this.softwareVersionLabel.Name = "softwareVersionLabel";
-            this.softwareVersionLabel.Size = new System.Drawing.Size(65, 17);
-            this.softwareVersionLabel.TabIndex = 14;
-            this.softwareVersionLabel.Text = "V 0.0.0.1";
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Name = "sincronizaciónDeEmergenciaToolStripMenuItem";
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Text = "Sincronización de Emergencia";
+            this.sincronizaciónDeEmergenciaToolStripMenuItem.Click += new System.EventHandler(this.sincronizaciónDeEmergenciaToolStripMenuItem_Click);
             // 
             // ApplicationForm
             // 
@@ -646,6 +663,8 @@
         private System.Windows.Forms.ToolStripMenuItem dispositivosToolStripMenuItem;
         private System.Windows.Forms.Label softwareVersionLabel;
         private System.Windows.Forms.Label softwareLabel;
+        private System.Windows.Forms.ToolStripMenuItem servidorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sincronizaciónDeEmergenciaToolStripMenuItem;
     }
 }
 
