@@ -59,19 +59,26 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
             }
             else
             {
-                DrawService drawService = new DrawService();
-                // Validar si el sorteo está cerrado
-                if (drawService.isDrawClosed(pDrawTypeToClose, pDateToClose))
-                {
-                    MessageService.displayInfoMessage(
-                    "El sorteo ya está cerrado\nNo es necesario realizar la operación.",
-                    "SORTEO CERRADO PREVIAMENTE"
-                    );
-                }
-                else
-                {
-                    this.confirmDrawClosing(pDrawTypeToClose, pDateToClose);
-                }
+                // If no hay sorteos pendientes 
+                // por sorteo sin fecha
+                this.closeDraw(pDrawTypeToClose, pDateToClose);
+            }
+        }
+
+        private void closeDraw(long pDrawTypeToClose, DateTime pDateToClose) {
+            DrawService drawService = new DrawService();
+            // Validar si el sorteo está cerrado
+            if (drawService.isDrawClosed(pDrawTypeToClose, pDateToClose))
+            {
+                MessageService.displayInfoMessage(
+                "El sorteo ya está cerrado\nNo es necesario realizar la operación.",
+                "SORTEO CERRADO PREVIAMENTE"
+
+                );
+            }
+            else
+            {
+                this.confirmDrawClosing(pDrawTypeToClose, pDateToClose);
             }
         }
 

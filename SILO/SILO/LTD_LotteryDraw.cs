@@ -17,6 +17,7 @@ namespace SILO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LTD_LotteryDraw()
         {
+            this.DBL_DrawBalance = new HashSet<DBL_DrawBalance>();
             this.LTL_LotteryList = new HashSet<LTL_LotteryList>();
         }
     
@@ -25,6 +26,8 @@ namespace SILO
         public long LDT_LotteryDrawType { get; set; }
         public long LDS_LotteryDrawStatus { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DBL_DrawBalance> DBL_DrawBalance { get; set; }
         public virtual DNW_DrawNumberWinning DNW_DrawNumberWinning { get; set; }
         public virtual LDS_LotteryDrawStatus LDS_LotteryDrawStatus1 { get; set; }
         public virtual LDT_LotteryDrawType LDT_LotteryDrawType1 { get; set; }

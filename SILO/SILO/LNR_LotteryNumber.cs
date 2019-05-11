@@ -33,7 +33,7 @@ namespace SILO
             this.SYS_SynchronyStatus = pNumber.SYS_SynchronyStatus;
             return actualStatus;
         }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LND_ListNumberDetail> LND_ListNumberDetail { get; set; }
         public virtual SYS_SynchronyStatus SYS_SynchronyStatus1 { get; set; }

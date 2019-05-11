@@ -76,6 +76,14 @@ namespace SILO.Core.Constants
         public const string SUCCESS_TRANSACTION_CANCELATION_TITLE = "RESULTADO DE LA REVERSIÓN";
         public const string SUCCESS_TRANSACTION_CANCELATION_MESSAGE = "La transacción fue anulada exitosamente.";
 
+        // Validación de impresión
+        public const string MAX_PRINT_COUNT_TITLE = "MÁXIMA CANTIDAD DE FILAS ALCANZADA";
+        public const string MAX_PRINT_COUNT_MESSAGE = "Se ha llegado al máximo de filas para una impresión.\nEl máximo actual de números para una lista es de ";
+
+
+        public const string SYSTEM_UPDATING_TITLE = "SISTEMA EN ACTUALIZACIÓN";
+        public const string SYSTEM_UPDATING_MESSAGE = "El sitema se está actualizando y no estará disponible.\nEsta situación podría mantenerse por algún tiempo.\nSe notificará cuando la aplicación haya sido restablecida.";
+
 
         public const string CHECKBOX_NAME_ID_LABEL = "Id";
 
