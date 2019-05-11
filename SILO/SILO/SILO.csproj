@@ -182,6 +182,7 @@
     <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\LotteryPrizeFactorRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\ServerParameterRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\ConcreteMessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DeviceService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawService.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="DesktopApplication\Core\Services\ProgramInitializationService.cs" />
     <Compile Include="DesktopApplication\Core\Services\RestClientService.cs" />
     <Compile Include="DesktopApplication\Core\Services\SecurityService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\ServerParameterService.cs" />
     <Compile Include="DesktopApplication\Core\Services\TicketPrintService.cs" />
     <Compile Include="DesktopApplication\Core\Services\ValidationService.cs" />
     <Compile Include="DesktopApplication\Core\SystemConfig\SystemSession.cs" />
