@@ -50,6 +50,7 @@ namespace SILO.DesktopApplication.Core.Repositories
                     }
                     else
                     {
+                        findedEntity = context.LPF_LotteryPrizeFactor.Find(findedEntity.LPF_Id);
                         long actualStatus = findedEntity.copy(pPrizeFactor);
                         // Validar estado de la entidad para determinar si se actualiza
                         if (actualStatus == SystemConstants.SYNC_STATUS_COMPLETED)
