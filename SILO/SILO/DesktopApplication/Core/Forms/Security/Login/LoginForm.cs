@@ -109,12 +109,13 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             //bool[] synStatusArray = new bool[4];
             bool[] synStatusArray = new bool[7];
             LoginForm.waitHandle.WaitOne();
-            this.updateProgressBar(25);
+            this.updateProgressBar(15);
             this.changeStatusLegend("Iniciando la carga...");
             SynchronizeService syncService = new SynchronizeService();
+            this.updateProgressBar(20);
             this.changeStatusLegend("Cargando parámetros de servidor...");
             synStatusArray[0] = syncService.syncServerParams_ServerToLocal();
-            this.updateProgressBar(20);
+            this.updateProgressBar(25);
             synStatusArray[1] = syncService.syncCompany_ServerToLocal();
             this.updateProgressBar(40);
             this.changeStatusLegend("Cargando sucursales...");

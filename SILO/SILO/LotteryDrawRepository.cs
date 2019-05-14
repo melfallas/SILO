@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SILO.DesktopApplication.Core.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,22 @@ namespace SILO
             return findedDraw;
         }
 
+        public List<LTD_LotteryDraw> getUnclosedDraw(long pDrawType, DateTime pDrawDate)
+        {
+            List<LTD_LotteryDraw> drawList = this.getAll()
+                .Where(
+                    item =>
+                        item.LDT_LotteryDrawType == pDrawType &&
+                        item.LTD_CreateDate < pDrawDate &&
+                        (
+                        item.LDS_LotteryDrawStatus == SystemConstants.DRAW_STATUS_OPENED ||
+                        item.LDS_LotteryDrawStatus == SystemConstants.DRAW_STATUS_REOPENED
+                        )
+                )
+                .OrderBy(item => item.LTD_CreateDate)
+                .ToList();
+            return drawList;
+        }
 
         public LTD_LotteryDraw getDrawRegister(LTD_LotteryDraw pDraw)
         {
