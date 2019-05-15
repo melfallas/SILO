@@ -340,6 +340,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.displayCloseSelector();
         }
 
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String version = UtilityService.getApplicationVersion();
+            String serviceUrl = ServiceConectionConstants.getServiceApiEndPoint();
+            MessageBox.Show($"SILO Application. Version: {version}\n\nServicio: {serviceUrl}");
+        }
+
         private async void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult msgResult =
@@ -460,5 +467,6 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             DrawNumberWinningForm winningForm = new DrawNumberWinningForm(this.mediator);
             winningForm.ShowDialog();
         }
+        
     }
 }

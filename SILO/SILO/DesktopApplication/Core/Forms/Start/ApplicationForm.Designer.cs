@@ -68,6 +68,7 @@
             this.topAppPanel = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.versionFooterLabel = new System.Windows.Forms.Label();
             this.enterWinnersMenuButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.softwareVersionLabel = new System.Windows.Forms.Label();
@@ -85,7 +86,8 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.versionFooterLabel = new System.Windows.Forms.Label();
+            this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralCenterBoxPanel.SuspendLayout();
@@ -103,6 +105,7 @@
             this.catálogosToolStripMenuItem,
             this.configuraciónToolStripMenuItem,
             this.sincronizaciónToolStripMenuItem,
+            this.sistemaToolStripMenuItem,
             this.salirToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -460,6 +463,17 @@
             this.menuPanel.Size = new System.Drawing.Size(220, 589);
             this.menuPanel.TabIndex = 0;
             // 
+            // versionFooterLabel
+            // 
+            this.versionFooterLabel.AutoSize = true;
+            this.versionFooterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionFooterLabel.ForeColor = System.Drawing.Color.White;
+            this.versionFooterLabel.Location = new System.Drawing.Point(155, 570);
+            this.versionFooterLabel.Name = "versionFooterLabel";
+            this.versionFooterLabel.Size = new System.Drawing.Size(49, 13);
+            this.versionFooterLabel.TabIndex = 17;
+            this.versionFooterLabel.Text = "v 0.0.0.1";
+            // 
             // enterWinnersMenuButton
             // 
             this.enterWinnersMenuButton.FlatAppearance.BorderSize = 0;
@@ -681,16 +695,20 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // versionFooterLabel
+            // sistemaToolStripMenuItem
             // 
-            this.versionFooterLabel.AutoSize = true;
-            this.versionFooterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.versionFooterLabel.ForeColor = System.Drawing.Color.White;
-            this.versionFooterLabel.Location = new System.Drawing.Point(155, 570);
-            this.versionFooterLabel.Name = "versionFooterLabel";
-            this.versionFooterLabel.Size = new System.Drawing.Size(49, 13);
-            this.versionFooterLabel.TabIndex = 17;
-            this.versionFooterLabel.Text = "v 0.0.0.1";
+            this.sistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.acercaDeToolStripMenuItem});
+            this.sistemaToolStripMenuItem.Name = "sistemaToolStripMenuItem";
+            this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.sistemaToolStripMenuItem.Text = "Sistema";
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.acercaDeToolStripMenuItem.Text = "Acerca de...";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
             // ApplicationForm
             // 
@@ -783,6 +801,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button enterWinnersMenuButton;
         private System.Windows.Forms.Label versionFooterLabel;
+        private System.Windows.Forms.ToolStripMenuItem sistemaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
     }
 }
 
