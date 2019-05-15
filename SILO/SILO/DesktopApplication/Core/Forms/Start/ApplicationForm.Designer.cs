@@ -55,13 +55,21 @@
             this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.centerBoxPanel = new System.Windows.Forms.Panel();
+            this.lateralCenterBoxPanel = new System.Windows.Forms.Panel();
+            this.prizeFactorDrawLabel = new System.Windows.Forms.Label();
+            this.dateDrawLabel = new System.Windows.Forms.Label();
+            this.dayDrawLabel = new System.Windows.Forms.Label();
+            this.groupNameLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.servicePathLabel = new System.Windows.Forms.Label();
             this.syncStatusLabel = new System.Windows.Forms.Label();
             this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
             this.topAppPanel = new System.Windows.Forms.Panel();
             this.lateralLeftPanel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.enterWinnersMenuButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.softwareVersionLabel = new System.Windows.Forms.Label();
             this.softwareLabel = new System.Windows.Forms.Label();
             this.userContentLabel = new System.Windows.Forms.Label();
@@ -74,16 +82,17 @@
             this.copyListButton = new System.Windows.Forms.Button();
             this.displayQRMenuButton = new System.Windows.Forms.Button();
             this.eraseButton = new System.Windows.Forms.Button();
-            this.aboutButton = new System.Windows.Forms.Button();
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.servicePathLabel = new System.Windows.Forms.Label();
+            this.versionFooterLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
+            this.lateralCenterBoxPanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.lateralLeftPanel.SuspendLayout();
             this.menuPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -97,7 +106,7 @@
             this.salirToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(967, 24);
+            this.mainMenu.Size = new System.Drawing.Size(1001, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -271,6 +280,7 @@
             // 
             this.mainPanel.BackColor = System.Drawing.Color.LightSteelBlue;
             this.mainPanel.Controls.Add(this.centerBoxPanel);
+            this.mainPanel.Controls.Add(this.lateralCenterBoxPanel);
             this.mainPanel.Controls.Add(this.panel3);
             this.mainPanel.Controls.Add(this.panel2);
             this.mainPanel.Controls.Add(this.topAppPanel);
@@ -278,7 +288,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 24);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(967, 589);
+            this.mainPanel.Size = new System.Drawing.Size(1001, 589);
             this.mainPanel.TabIndex = 1;
             // 
             // centerBoxPanel
@@ -287,16 +297,77 @@
             this.centerBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.centerBoxPanel.Location = new System.Drawing.Point(220, 30);
             this.centerBoxPanel.Name = "centerBoxPanel";
-            this.centerBoxPanel.Size = new System.Drawing.Size(697, 537);
+            this.centerBoxPanel.Size = new System.Drawing.Size(579, 537);
             this.centerBoxPanel.TabIndex = 1;
+            // 
+            // lateralCenterBoxPanel
+            // 
+            this.lateralCenterBoxPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.lateralCenterBoxPanel.Controls.Add(this.prizeFactorDrawLabel);
+            this.lateralCenterBoxPanel.Controls.Add(this.dateDrawLabel);
+            this.lateralCenterBoxPanel.Controls.Add(this.dayDrawLabel);
+            this.lateralCenterBoxPanel.Controls.Add(this.groupNameLabel);
+            this.lateralCenterBoxPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lateralCenterBoxPanel.Location = new System.Drawing.Point(799, 30);
+            this.lateralCenterBoxPanel.Name = "lateralCenterBoxPanel";
+            this.lateralCenterBoxPanel.Size = new System.Drawing.Size(192, 537);
+            this.lateralCenterBoxPanel.TabIndex = 0;
+            // 
+            // prizeFactorDrawLabel
+            // 
+            this.prizeFactorDrawLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            this.prizeFactorDrawLabel.ForeColor = System.Drawing.Color.Black;
+            this.prizeFactorDrawLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.prizeFactorDrawLabel.Location = new System.Drawing.Point(3, 126);
+            this.prizeFactorDrawLabel.Name = "prizeFactorDrawLabel";
+            this.prizeFactorDrawLabel.Size = new System.Drawing.Size(186, 23);
+            this.prizeFactorDrawLabel.TabIndex = 8;
+            this.prizeFactorDrawLabel.Text = "PAGA AL 0%";
+            this.prizeFactorDrawLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dateDrawLabel
+            // 
+            this.dateDrawLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            this.dateDrawLabel.ForeColor = System.Drawing.Color.Black;
+            this.dateDrawLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dateDrawLabel.Location = new System.Drawing.Point(3, 103);
+            this.dateDrawLabel.Name = "dateDrawLabel";
+            this.dateDrawLabel.Size = new System.Drawing.Size(186, 23);
+            this.dateDrawLabel.TabIndex = 7;
+            this.dateDrawLabel.Text = "MIÉRCOLES";
+            this.dateDrawLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dayDrawLabel
+            // 
+            this.dayDrawLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            this.dayDrawLabel.ForeColor = System.Drawing.Color.Black;
+            this.dayDrawLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dayDrawLabel.Location = new System.Drawing.Point(3, 80);
+            this.dayDrawLabel.Name = "dayDrawLabel";
+            this.dayDrawLabel.Size = new System.Drawing.Size(186, 23);
+            this.dayDrawLabel.TabIndex = 6;
+            this.dayDrawLabel.Text = "MIÉRCOLES";
+            this.dayDrawLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupNameLabel
+            // 
+            this.groupNameLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            this.groupNameLabel.ForeColor = System.Drawing.Color.Black;
+            this.groupNameLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.groupNameLabel.Location = new System.Drawing.Point(3, 57);
+            this.groupNameLabel.Name = "groupNameLabel";
+            this.groupNameLabel.Size = new System.Drawing.Size(186, 23);
+            this.groupNameLabel.TabIndex = 5;
+            this.groupNameLabel.Text = "NOMBRE DEL SORTEO";
+            this.groupNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(917, 30);
+            this.panel3.Location = new System.Drawing.Point(991, 30);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(50, 537);
+            this.panel3.Size = new System.Drawing.Size(10, 537);
             this.panel3.TabIndex = 3;
             // 
             // panel2
@@ -308,8 +379,19 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(220, 567);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(747, 22);
+            this.panel2.Size = new System.Drawing.Size(781, 22);
             this.panel2.TabIndex = 2;
+            // 
+            // servicePathLabel
+            // 
+            this.servicePathLabel.AutoSize = true;
+            this.servicePathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.servicePathLabel.ForeColor = System.Drawing.Color.White;
+            this.servicePathLabel.Location = new System.Drawing.Point(6, 3);
+            this.servicePathLabel.Name = "servicePathLabel";
+            this.servicePathLabel.Size = new System.Drawing.Size(119, 13);
+            this.servicePathLabel.TabIndex = 2;
+            this.servicePathLabel.Text = "Sincronización completa";
             // 
             // syncStatusLabel
             // 
@@ -339,7 +421,7 @@
             this.topAppPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topAppPanel.Location = new System.Drawing.Point(220, 0);
             this.topAppPanel.Name = "topAppPanel";
-            this.topAppPanel.Size = new System.Drawing.Size(747, 30);
+            this.topAppPanel.Size = new System.Drawing.Size(781, 30);
             this.topAppPanel.TabIndex = 0;
             // 
             // lateralLeftPanel
@@ -354,7 +436,10 @@
             // 
             // menuPanel
             // 
-            this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.menuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(41)))), ((int)(((byte)(74)))));
+            this.menuPanel.Controls.Add(this.versionFooterLabel);
+            this.menuPanel.Controls.Add(this.enterWinnersMenuButton);
+            this.menuPanel.Controls.Add(this.pictureBox1);
             this.menuPanel.Controls.Add(this.softwareVersionLabel);
             this.menuPanel.Controls.Add(this.softwareLabel);
             this.menuPanel.Controls.Add(this.userContentLabel);
@@ -367,7 +452,6 @@
             this.menuPanel.Controls.Add(this.copyListButton);
             this.menuPanel.Controls.Add(this.displayQRMenuButton);
             this.menuPanel.Controls.Add(this.eraseButton);
-            this.menuPanel.Controls.Add(this.aboutButton);
             this.menuPanel.Controls.Add(this.printMenuButton);
             this.menuPanel.Controls.Add(this.saleMenuButton);
             this.menuPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -376,23 +460,50 @@
             this.menuPanel.Size = new System.Drawing.Size(220, 589);
             this.menuPanel.TabIndex = 0;
             // 
+            // enterWinnersMenuButton
+            // 
+            this.enterWinnersMenuButton.FlatAppearance.BorderSize = 0;
+            this.enterWinnersMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.enterWinnersMenuButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enterWinnersMenuButton.ForeColor = System.Drawing.Color.White;
+            this.enterWinnersMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("enterWinnersMenuButton.Image")));
+            this.enterWinnersMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.enterWinnersMenuButton.Location = new System.Drawing.Point(4, 441);
+            this.enterWinnersMenuButton.Name = "enterWinnersMenuButton";
+            this.enterWinnersMenuButton.Size = new System.Drawing.Size(217, 49);
+            this.enterWinnersMenuButton.TabIndex = 16;
+            this.enterWinnersMenuButton.Text = " Ingresar Ganadores";
+            this.enterWinnersMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.enterWinnersMenuButton.UseVisualStyleBackColor = true;
+            this.enterWinnersMenuButton.Click += new System.EventHandler(this.enterWinnersMenuButton_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(81, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
+            // 
             // softwareVersionLabel
             // 
             this.softwareVersionLabel.AutoSize = true;
             this.softwareVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.softwareVersionLabel.ForeColor = System.Drawing.Color.White;
-            this.softwareVersionLabel.Location = new System.Drawing.Point(121, 482);
+            this.softwareVersionLabel.Location = new System.Drawing.Point(129, 66);
             this.softwareVersionLabel.Name = "softwareVersionLabel";
-            this.softwareVersionLabel.Size = new System.Drawing.Size(65, 17);
+            this.softwareVersionLabel.Size = new System.Drawing.Size(63, 17);
             this.softwareVersionLabel.TabIndex = 14;
-            this.softwareVersionLabel.Text = "V 0.0.0.1";
+            this.softwareVersionLabel.Text = "v 0.0.0.1";
             // 
             // softwareLabel
             // 
             this.softwareLabel.AutoSize = true;
             this.softwareLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.softwareLabel.ForeColor = System.Drawing.Color.White;
-            this.softwareLabel.Location = new System.Drawing.Point(13, 482);
+            this.softwareLabel.Location = new System.Drawing.Point(12, 66);
             this.softwareLabel.Name = "softwareLabel";
             this.softwareLabel.Size = new System.Drawing.Size(111, 17);
             this.softwareLabel.TabIndex = 13;
@@ -403,7 +514,7 @@
             this.userContentLabel.AutoSize = true;
             this.userContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userContentLabel.ForeColor = System.Drawing.Color.White;
-            this.userContentLabel.Location = new System.Drawing.Point(93, 555);
+            this.userContentLabel.Location = new System.Drawing.Point(93, 549);
             this.userContentLabel.Name = "userContentLabel";
             this.userContentLabel.Size = new System.Drawing.Size(38, 17);
             this.userContentLabel.TabIndex = 12;
@@ -414,7 +525,7 @@
             this.userLabel.AutoSize = true;
             this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userLabel.ForeColor = System.Drawing.Color.White;
-            this.userLabel.Location = new System.Drawing.Point(14, 555);
+            this.userLabel.Location = new System.Drawing.Point(12, 549);
             this.userLabel.Name = "userLabel";
             this.userLabel.Size = new System.Drawing.Size(74, 17);
             this.userLabel.TabIndex = 11;
@@ -425,7 +536,7 @@
             this.posContentLabel.AutoSize = true;
             this.posContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posContentLabel.ForeColor = System.Drawing.Color.White;
-            this.posContentLabel.Location = new System.Drawing.Point(93, 531);
+            this.posContentLabel.Location = new System.Drawing.Point(93, 525);
             this.posContentLabel.Name = "posContentLabel";
             this.posContentLabel.Size = new System.Drawing.Size(32, 17);
             this.posContentLabel.TabIndex = 10;
@@ -436,7 +547,7 @@
             this.posLabel.AutoSize = true;
             this.posLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.posLabel.ForeColor = System.Drawing.Color.White;
-            this.posLabel.Location = new System.Drawing.Point(12, 531);
+            this.posLabel.Location = new System.Drawing.Point(12, 525);
             this.posLabel.Name = "posLabel";
             this.posLabel.Size = new System.Drawing.Size(76, 17);
             this.posLabel.TabIndex = 9;
@@ -447,7 +558,7 @@
             this.companyContentLabel.AutoSize = true;
             this.companyContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.companyContentLabel.ForeColor = System.Drawing.Color.White;
-            this.companyContentLabel.Location = new System.Drawing.Point(93, 508);
+            this.companyContentLabel.Location = new System.Drawing.Point(93, 502);
             this.companyContentLabel.Name = "companyContentLabel";
             this.companyContentLabel.Size = new System.Drawing.Size(36, 17);
             this.companyContentLabel.TabIndex = 8;
@@ -458,7 +569,7 @@
             this.companyLabel.AutoSize = true;
             this.companyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.companyLabel.ForeColor = System.Drawing.Color.White;
-            this.companyLabel.Location = new System.Drawing.Point(12, 508);
+            this.companyLabel.Location = new System.Drawing.Point(12, 502);
             this.companyLabel.Name = "companyLabel";
             this.companyLabel.Size = new System.Drawing.Size(84, 17);
             this.companyLabel.TabIndex = 7;
@@ -472,11 +583,11 @@
             this.closeDrawMenuButton.ForeColor = System.Drawing.Color.White;
             this.closeDrawMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("closeDrawMenuButton.Image")));
             this.closeDrawMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.closeDrawMenuButton.Location = new System.Drawing.Point(3, 353);
+            this.closeDrawMenuButton.Location = new System.Drawing.Point(4, 382);
             this.closeDrawMenuButton.Name = "closeDrawMenuButton";
-            this.closeDrawMenuButton.Size = new System.Drawing.Size(217, 54);
+            this.closeDrawMenuButton.Size = new System.Drawing.Size(217, 53);
             this.closeDrawMenuButton.TabIndex = 6;
-            this.closeDrawMenuButton.Text = "Envío y Cierre";
+            this.closeDrawMenuButton.Text = "  Envío y Cierre";
             this.closeDrawMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.closeDrawMenuButton.UseVisualStyleBackColor = true;
             this.closeDrawMenuButton.Click += new System.EventHandler(this.closeDrawMenuButton_Click);
@@ -489,9 +600,9 @@
             this.copyListButton.ForeColor = System.Drawing.Color.White;
             this.copyListButton.Image = ((System.Drawing.Image)(resources.GetObject("copyListButton.Image")));
             this.copyListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.copyListButton.Location = new System.Drawing.Point(2, 116);
+            this.copyListButton.Location = new System.Drawing.Point(3, 156);
             this.copyListButton.Name = "copyListButton";
-            this.copyListButton.Size = new System.Drawing.Size(217, 54);
+            this.copyListButton.Size = new System.Drawing.Size(215, 49);
             this.copyListButton.TabIndex = 1;
             this.copyListButton.Text = "   Copiar Lista";
             this.copyListButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -506,11 +617,11 @@
             this.displayQRMenuButton.ForeColor = System.Drawing.Color.White;
             this.displayQRMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("displayQRMenuButton.Image")));
             this.displayQRMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.displayQRMenuButton.Location = new System.Drawing.Point(2, 293);
+            this.displayQRMenuButton.Location = new System.Drawing.Point(4, 327);
             this.displayQRMenuButton.Name = "displayQRMenuButton";
-            this.displayQRMenuButton.Size = new System.Drawing.Size(217, 54);
+            this.displayQRMenuButton.Size = new System.Drawing.Size(217, 49);
             this.displayQRMenuButton.TabIndex = 4;
-            this.displayQRMenuButton.Text = "Generar QR";
+            this.displayQRMenuButton.Text = "  Generar QR";
             this.displayQRMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.displayQRMenuButton.UseVisualStyleBackColor = true;
             this.displayQRMenuButton.Click += new System.EventHandler(this.displayQRMenuButton_Click);
@@ -523,31 +634,14 @@
             this.eraseButton.ForeColor = System.Drawing.Color.White;
             this.eraseButton.Image = ((System.Drawing.Image)(resources.GetObject("eraseButton.Image")));
             this.eraseButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.eraseButton.Location = new System.Drawing.Point(3, 236);
+            this.eraseButton.Location = new System.Drawing.Point(4, 269);
             this.eraseButton.Name = "eraseButton";
-            this.eraseButton.Size = new System.Drawing.Size(217, 54);
+            this.eraseButton.Size = new System.Drawing.Size(217, 52);
             this.eraseButton.TabIndex = 3;
-            this.eraseButton.Text = "Borrado de Papeles";
+            this.eraseButton.Text = "  Borrado de Papeles";
             this.eraseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.eraseButton.UseVisualStyleBackColor = true;
             this.eraseButton.Click += new System.EventHandler(this.eraseButton_Click);
-            // 
-            // aboutButton
-            // 
-            this.aboutButton.FlatAppearance.BorderSize = 0;
-            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aboutButton.ForeColor = System.Drawing.Color.White;
-            this.aboutButton.Image = ((System.Drawing.Image)(resources.GetObject("aboutButton.Image")));
-            this.aboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.aboutButton.Location = new System.Drawing.Point(3, 413);
-            this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(217, 54);
-            this.aboutButton.TabIndex = 5;
-            this.aboutButton.Text = "Acerca de";
-            this.aboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.aboutButton.UseVisualStyleBackColor = true;
-            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // printMenuButton
             // 
@@ -557,11 +651,11 @@
             this.printMenuButton.ForeColor = System.Drawing.Color.White;
             this.printMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("printMenuButton.Image")));
             this.printMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.printMenuButton.Location = new System.Drawing.Point(3, 176);
+            this.printMenuButton.Location = new System.Drawing.Point(4, 211);
             this.printMenuButton.Name = "printMenuButton";
-            this.printMenuButton.Size = new System.Drawing.Size(217, 54);
+            this.printMenuButton.Size = new System.Drawing.Size(217, 52);
             this.printMenuButton.TabIndex = 2;
-            this.printMenuButton.Text = "Reimpresión de Tickets";
+            this.printMenuButton.Text = "  Reimprimir Tickets";
             this.printMenuButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.printMenuButton.UseVisualStyleBackColor = true;
             this.printMenuButton.Click += new System.EventHandler(this.printMenuButton_Click);
@@ -574,9 +668,9 @@
             this.saleMenuButton.ForeColor = System.Drawing.Color.White;
             this.saleMenuButton.Image = ((System.Drawing.Image)(resources.GetObject("saleMenuButton.Image")));
             this.saleMenuButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.saleMenuButton.Location = new System.Drawing.Point(3, 56);
+            this.saleMenuButton.Location = new System.Drawing.Point(3, 104);
             this.saleMenuButton.Name = "saleMenuButton";
-            this.saleMenuButton.Size = new System.Drawing.Size(217, 54);
+            this.saleMenuButton.Size = new System.Drawing.Size(217, 46);
             this.saleMenuButton.TabIndex = 0;
             this.saleMenuButton.Text = "          Venta de Papeles";
             this.saleMenuButton.UseVisualStyleBackColor = true;
@@ -587,23 +681,23 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // servicePathLabel
+            // versionFooterLabel
             // 
-            this.servicePathLabel.AutoSize = true;
-            this.servicePathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.servicePathLabel.ForeColor = System.Drawing.Color.White;
-            this.servicePathLabel.Location = new System.Drawing.Point(6, 3);
-            this.servicePathLabel.Name = "servicePathLabel";
-            this.servicePathLabel.Size = new System.Drawing.Size(119, 13);
-            this.servicePathLabel.TabIndex = 2;
-            this.servicePathLabel.Text = "Sincronización completa";
+            this.versionFooterLabel.AutoSize = true;
+            this.versionFooterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionFooterLabel.ForeColor = System.Drawing.Color.White;
+            this.versionFooterLabel.Location = new System.Drawing.Point(155, 570);
+            this.versionFooterLabel.Name = "versionFooterLabel";
+            this.versionFooterLabel.Size = new System.Drawing.Size(49, 13);
+            this.versionFooterLabel.TabIndex = 17;
+            this.versionFooterLabel.Text = "v 0.0.0.1";
             // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(967, 613);
+            this.ClientSize = new System.Drawing.Size(1001, 613);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -613,17 +707,19 @@
             this.MinimizeBox = false;
             this.Name = "ApplicationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Sistema Informático para Control de Lotería";
+            this.Text = "Sistema Informático para Control de Lotería (SILO)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ApplicationForm_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ApplicationForm_KeyDown);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.mainPanel.ResumeLayout(false);
+            this.lateralCenterBoxPanel.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.lateralLeftPanel.ResumeLayout(false);
             this.menuPanel.ResumeLayout(false);
             this.menuPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -643,7 +739,6 @@
         private System.Windows.Forms.Panel menuPanel;
         private System.Windows.Forms.Button saleMenuButton;
         private System.Windows.Forms.Button printMenuButton;
-        private System.Windows.Forms.Button aboutButton;
         private System.Windows.Forms.Button eraseButton;
         private System.Windows.Forms.ToolStripMenuItem catálogosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem prohibidosToolStripMenuItem;
@@ -680,6 +775,14 @@
         private System.Windows.Forms.ToolStripMenuItem servidorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sincronizaciónDeEmergenciaToolStripMenuItem;
         private System.Windows.Forms.Label servicePathLabel;
+        private System.Windows.Forms.Panel lateralCenterBoxPanel;
+        private System.Windows.Forms.Label prizeFactorDrawLabel;
+        private System.Windows.Forms.Label dateDrawLabel;
+        private System.Windows.Forms.Label dayDrawLabel;
+        private System.Windows.Forms.Label groupNameLabel;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button enterWinnersMenuButton;
+        private System.Windows.Forms.Label versionFooterLabel;
     }
 }
 

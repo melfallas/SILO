@@ -81,8 +81,10 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.syncStatusLabel.Text = "";
             this.displaySyncStatusComponents(false);
             // Mostrar propiedades del sistema
+            this.clearDrawInfoLabels();
             String version = UtilityService.getApplicationSimpleVersion();
-            this.softwareVersionLabel.Text = $"V {version} ";
+            this.softwareVersionLabel.Text = $"v {version} ";
+            this.versionFooterLabel.Text = $"v {version} ";
             this.userContentLabel.Text = SystemSession.username;
             this.posContentLabel.Text = SystemSession.salePoint;
             this.companyContentLabel.Text = SystemSession.company;
@@ -93,6 +95,14 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 this.syncTimer.Interval = ParameterService.getSyncInterval();
                 this.syncTimer.Enabled = true;
             }
+        }
+
+        public void clearDrawInfoLabels()
+        {
+            this.groupNameLabel.Text = "";
+            this.dayDrawLabel.Text = "";
+            this.dateDrawLabel.Text = "";
+            this.prizeFactorDrawLabel.Text = "";
         }
 
         public void setSyncStatusText(string pStatusText)
@@ -445,5 +455,10 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
 
+        private void enterWinnersMenuButton_Click(object sender, EventArgs e)
+        {
+            DrawNumberWinningForm winningForm = new DrawNumberWinningForm(this.mediator);
+            winningForm.ShowDialog();
+        }
     }
 }
