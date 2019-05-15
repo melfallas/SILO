@@ -334,6 +334,8 @@ namespace SILO
             this.drawCenterLine(line);
             line = "SUC: " + this.prizeTicket.pointSaleName;
             this.drawCenterLine(line);
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize - 2, FontStyle.Regular);
+            this.drawCenterLine("SILO v " + UtilityService.getApplicationSimpleVersion());
             this.DrawEspacio();
             this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize - 1, FontStyle.Regular);
             line = "" + printTime + "                " + printDate + "";
@@ -459,6 +461,8 @@ namespace SILO
                     + this.fillString(this.formatNumber(prizeImport), 11)              // Importe Total Pagado
                     ;
             this.drawCenterLine(line);
+            // Imprimir líneas de espacio finales
+            this.printFinalLines();
         }
 
         #endregion
@@ -565,6 +569,8 @@ namespace SILO
             // Imprimir sucursal
             line = "SUC: " + this.saleTicket.pointSaleName;
             this.drawCenterLine(line);
+            this.setPrintFont(this.defaultTicketFontName, this.defaultTicketFontSize - 2, FontStyle.Regular);
+            this.drawCenterLine("SILO v " + UtilityService.getApplicationSimpleVersion());
         }
 
         private void generateSaleTicketList()
@@ -598,7 +604,11 @@ namespace SILO
             line = "----< " + globalId + " >----";
             this.drawCenterLine(line);
             // Imprimir líneas de espacio finales
-            this.drawCenterLine(".");
+            this.printFinalLines();
+        }
+
+        private void printFinalLines()
+        {
             this.drawCenterLine(".");
             this.drawCenterLine(".");
         }
