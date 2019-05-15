@@ -109,12 +109,8 @@ namespace SILO.DesktopApplication.Core.Services
             ticketPrinter.printPrizeTicket(printerName, pSendToPrint);
             if (pShowInPanel)
             {
-                Console.Write(ticketPrinter.ticketStringText);
+                //Console.Write(ticketPrinter.ticketStringText);
                 MessageBox.Show(ticketPrinter.ticketStringText);
-                /*
-                PrizeTicketPanelForm prizeTicketPanelForm = new PrizeTicketPanelForm(ticketPrinter.ticketStringText);
-                prizeTicketPanelForm.ShowDialog();
-                */
             }
         }
 

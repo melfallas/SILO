@@ -587,7 +587,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         {
             bool result = true;
             this.lastGroup = pGroupId;
-            Console.WriteLine("lastGroup: " + lastGroup);
+            //Console.WriteLine("lastGroup: " + lastGroup);
             this.updateNumberBox(pGroupId);
             this.displayNewListInstance();
             return result;

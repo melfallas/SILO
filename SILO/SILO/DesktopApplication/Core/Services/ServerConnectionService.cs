@@ -242,7 +242,7 @@ namespace SILO.DesktopApplication.Core.Services
         public async Task<ServiceResponseResult> syncListToServerAsync(LTL_LotteryList pListObject, List<LND_ListNumberDetail> pListNumberDetail)
         {
             var jsonObject = this.generateNewListToSync(pListObject, pListNumberDetail);
-            Console.WriteLine("Request Venta: " + jsonObject);
+            //Console.WriteLine("Request Venta: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
             RestClientService restClient = new RestClientService();
             return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD);
@@ -252,7 +252,7 @@ namespace SILO.DesktopApplication.Core.Services
             List<LND_ListNumberDetail> pListNumberDetail, Func<ServiceResponseResult, bool> processResponseFunction)
         {
             var jsonObject = this.generateNewListToSync(pListObject, pListNumberDetail);
-            Console.WriteLine("Request Venta: " + jsonObject);
+            //Console.WriteLine("Request Venta: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
             RestClientService restClient = new RestClientService();
             //return restClient.processHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD);

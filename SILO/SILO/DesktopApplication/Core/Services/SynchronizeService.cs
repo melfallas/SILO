@@ -363,8 +363,7 @@ namespace SILO.DesktopApplication.Core.Services
             LTL_LotteryList syncList = listRepository.getById(pList);
             syncList.SYS_SynchronyStatus = pSyncStatus;
             listRepository.save(syncList, syncList.LTL_Id, (e1, e2) => e1.copy(e2));
-            //Console.WriteLine("Respuesta Venta: " + response.result);
-            Console.WriteLine("Estado cambiado a sincronizado: " + pList);
+            //Console.WriteLine("Estado cambiado a sincronizado: " + pList);
         }
 
 
