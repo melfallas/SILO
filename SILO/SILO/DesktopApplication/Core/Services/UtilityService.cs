@@ -117,6 +117,16 @@ namespace SILO.DesktopApplication.Core.Services
             return pDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + pDate.ToString("dd/MM/yyyy");
         }
 
+        public static string getSimpleDate(DateTime pDate)
+        {
+            return pDate.ToString("dd/MM/yyyy");
+        }
+
+        public static string getDayName(DateTime pDate)
+        {
+            return pDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper();
+        }
+
 
         public static string fillString(string pStringToFill, int pSpaces, string pFillPattern = " ")
         {

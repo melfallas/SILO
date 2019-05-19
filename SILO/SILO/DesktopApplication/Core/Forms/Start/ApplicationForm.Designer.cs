@@ -51,6 +51,8 @@
             this.transaccionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sincronizaciónDeEmergenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enviarAlServidorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
@@ -86,8 +88,9 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.posNameLabel = new System.Windows.Forms.Label();
+            this.payDrawTitleLabel = new System.Windows.Forms.Label();
+            this.drawTitleLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralCenterBoxPanel.SuspendLayout();
@@ -264,6 +267,21 @@
             this.enviarAlServidorToolStripMenuItem.Text = "Enviar al Servidor";
             this.enviarAlServidorToolStripMenuItem.Click += new System.EventHandler(this.enviarAlServidorToolStripMenuItem_Click);
             // 
+            // sistemaToolStripMenuItem
+            // 
+            this.sistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.acercaDeToolStripMenuItem});
+            this.sistemaToolStripMenuItem.Name = "sistemaToolStripMenuItem";
+            this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.sistemaToolStripMenuItem.Text = "Sistema";
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.acercaDeToolStripMenuItem.Text = "Acerca de...";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
+            // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -306,6 +324,9 @@
             // lateralCenterBoxPanel
             // 
             this.lateralCenterBoxPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.lateralCenterBoxPanel.Controls.Add(this.drawTitleLabel);
+            this.lateralCenterBoxPanel.Controls.Add(this.payDrawTitleLabel);
+            this.lateralCenterBoxPanel.Controls.Add(this.posNameLabel);
             this.lateralCenterBoxPanel.Controls.Add(this.prizeFactorDrawLabel);
             this.lateralCenterBoxPanel.Controls.Add(this.dateDrawLabel);
             this.lateralCenterBoxPanel.Controls.Add(this.dayDrawLabel);
@@ -321,7 +342,7 @@
             this.prizeFactorDrawLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
             this.prizeFactorDrawLabel.ForeColor = System.Drawing.Color.Black;
             this.prizeFactorDrawLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.prizeFactorDrawLabel.Location = new System.Drawing.Point(3, 126);
+            this.prizeFactorDrawLabel.Location = new System.Drawing.Point(3, 239);
             this.prizeFactorDrawLabel.Name = "prizeFactorDrawLabel";
             this.prizeFactorDrawLabel.Size = new System.Drawing.Size(186, 23);
             this.prizeFactorDrawLabel.TabIndex = 8;
@@ -333,11 +354,11 @@
             this.dateDrawLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
             this.dateDrawLabel.ForeColor = System.Drawing.Color.Black;
             this.dateDrawLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dateDrawLabel.Location = new System.Drawing.Point(3, 103);
+            this.dateDrawLabel.Location = new System.Drawing.Point(4, 195);
             this.dateDrawLabel.Name = "dateDrawLabel";
             this.dateDrawLabel.Size = new System.Drawing.Size(186, 23);
             this.dateDrawLabel.TabIndex = 7;
-            this.dateDrawLabel.Text = "MIÉRCOLES";
+            this.dateDrawLabel.Text = "FECHA";
             this.dateDrawLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dayDrawLabel
@@ -345,7 +366,7 @@
             this.dayDrawLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
             this.dayDrawLabel.ForeColor = System.Drawing.Color.Black;
             this.dayDrawLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dayDrawLabel.Location = new System.Drawing.Point(3, 80);
+            this.dayDrawLabel.Location = new System.Drawing.Point(4, 172);
             this.dayDrawLabel.Name = "dayDrawLabel";
             this.dayDrawLabel.Size = new System.Drawing.Size(186, 23);
             this.dayDrawLabel.TabIndex = 6;
@@ -357,9 +378,9 @@
             this.groupNameLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
             this.groupNameLabel.ForeColor = System.Drawing.Color.Black;
             this.groupNameLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.groupNameLabel.Location = new System.Drawing.Point(3, 57);
+            this.groupNameLabel.Location = new System.Drawing.Point(6, 149);
             this.groupNameLabel.Name = "groupNameLabel";
-            this.groupNameLabel.Size = new System.Drawing.Size(186, 23);
+            this.groupNameLabel.Size = new System.Drawing.Size(182, 23);
             this.groupNameLabel.TabIndex = 5;
             this.groupNameLabel.Text = "NOMBRE DEL SORTEO";
             this.groupNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -695,20 +716,41 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // sistemaToolStripMenuItem
+            // posNameLabel
             // 
-            this.sistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.acercaDeToolStripMenuItem});
-            this.sistemaToolStripMenuItem.Name = "sistemaToolStripMenuItem";
-            this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.sistemaToolStripMenuItem.Text = "Sistema";
+            this.posNameLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            this.posNameLabel.ForeColor = System.Drawing.Color.Black;
+            this.posNameLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.posNameLabel.Location = new System.Drawing.Point(3, 103);
+            this.posNameLabel.Name = "posNameLabel";
+            this.posNameLabel.Size = new System.Drawing.Size(186, 23);
+            this.posNameLabel.TabIndex = 9;
+            this.posNameLabel.Text = "SUCURSAL";
+            this.posNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // acercaDeToolStripMenuItem
+            // payDrawTitleLabel
             // 
-            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.acercaDeToolStripMenuItem.Text = "Acerca de...";
-            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
+            this.payDrawTitleLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            this.payDrawTitleLabel.ForeColor = System.Drawing.Color.Black;
+            this.payDrawTitleLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.payDrawTitleLabel.Location = new System.Drawing.Point(3, 218);
+            this.payDrawTitleLabel.Name = "payDrawTitleLabel";
+            this.payDrawTitleLabel.Size = new System.Drawing.Size(186, 23);
+            this.payDrawTitleLabel.TabIndex = 10;
+            this.payDrawTitleLabel.Text = "PAGA:";
+            this.payDrawTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // drawTitleLabel
+            // 
+            this.drawTitleLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
+            this.drawTitleLabel.ForeColor = System.Drawing.Color.Black;
+            this.drawTitleLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.drawTitleLabel.Location = new System.Drawing.Point(3, 126);
+            this.drawTitleLabel.Name = "drawTitleLabel";
+            this.drawTitleLabel.Size = new System.Drawing.Size(186, 23);
+            this.drawTitleLabel.TabIndex = 11;
+            this.drawTitleLabel.Text = "SORTEO";
+            this.drawTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ApplicationForm
             // 
@@ -803,6 +845,9 @@
         private System.Windows.Forms.Label versionFooterLabel;
         private System.Windows.Forms.ToolStripMenuItem sistemaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
+        private System.Windows.Forms.Label drawTitleLabel;
+        private System.Windows.Forms.Label payDrawTitleLabel;
+        private System.Windows.Forms.Label posNameLabel;
     }
 }
 

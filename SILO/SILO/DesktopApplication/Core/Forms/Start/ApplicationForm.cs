@@ -99,10 +99,43 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         public void clearDrawInfoLabels()
         {
+            this.posNameLabel.Text = "";
+            this.drawTitleLabel.Text = "";
             this.groupNameLabel.Text = "";
             this.dayDrawLabel.Text = "";
             this.dateDrawLabel.Text = "";
+            this.payDrawTitleLabel.Text = "";
             this.prizeFactorDrawLabel.Text = "";
+        }
+
+        public void fillDrawInfoLabels(DateTime pDrawDate, long pGroupId)
+        {
+            /*
+            this.clearDrawInfoLabels();
+            if (pGroupId != 0)
+            {
+                DrawTypeService drawTypeService = new DrawTypeService();
+                LDT_LotteryDrawType drawType = drawTypeService.getById(pGroupId);
+                if (drawType != null)
+                {
+                    this.posNameLabel.Text = ParameterService.getSystemSalePoint().LPS_DisplayName;
+                    this.drawTitleLabel.Text = "Sorteo:";
+                    this.groupNameLabel.Text = drawType.LDT_DisplayName;
+                    this.dayDrawLabel.Text = UtilityService.getDayName(pDrawDate);
+                    this.dateDrawLabel.Text = UtilityService.getSimpleDate(pDrawDate);
+                }
+                PrizeFactorService prizeFactorService = new PrizeFactorService();
+                LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByPointSaleAndGroup(ParameterService.getSalePointId(), pGroupId);
+                if (prizeFactor != null)
+                {
+                    this.payDrawTitleLabel.Text = "Paga:";
+                    this.prizeFactorDrawLabel.Text = "" + Convert.ToInt32(prizeFactor.LPF_FirtsPrizeFactor) + "% | "
+                        + Convert.ToInt32(prizeFactor.LPF_SecondPrizeFactor) + "% | "
+                        + Convert.ToInt32(prizeFactor.LPF_ThirdPrizeFactor) + "%"
+                        ;
+                }
+            }
+            */
         }
 
         public void setSyncStatusText(string pStatusText)
