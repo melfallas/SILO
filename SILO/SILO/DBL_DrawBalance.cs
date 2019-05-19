@@ -9,16 +9,34 @@
 
 namespace SILO
 {
+    using DesktopApplication.Core.Constants;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class DBL_DrawBalance
     {
+        
         public long DBL_Id { get; set; }
         public long LTD_LotteryDraw { get; set; }
         public long DBL_SaleImport { get; set; }
         public long DBL_PayImport { get; set; }
-    
+
+        public DBL_DrawBalance(long lTD_LotteryDraw, long dBL_SaleImport, long dBL_PayImport)
+        {
+            LTD_LotteryDraw = lTD_LotteryDraw;
+            DBL_SaleImport = dBL_SaleImport;
+            DBL_PayImport = dBL_PayImport;
+        }
+
+        public long copy(DBL_DrawBalance pDrawBalance)
+        {
+            long actualStatus = SystemConstants.SYNC_STATUS_COMPLETED;
+            this.LTD_LotteryDraw = pDrawBalance.LTD_LotteryDraw;
+            this.DBL_SaleImport = pDrawBalance.DBL_SaleImport == 0 ? this.DBL_SaleImport : pDrawBalance.DBL_SaleImport;
+            this.DBL_PayImport = pDrawBalance.DBL_PayImport == 0 ? this.DBL_PayImport : pDrawBalance.DBL_PayImport;
+            return actualStatus;
+        }
+
         public virtual LTD_LotteryDraw LTD_LotteryDraw1 { get; set; }
     }
 }

@@ -186,12 +186,14 @@
     <Compile Include="DesktopApplication\Core\Repositories\ApplicationUserRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\CompanyRepository.cs" />
     <Compile Include="DesktopApplication\Core\Abstract\Generic\GenericRepository.cs" />
+    <Compile Include="DesktopApplication\Core\Repositories\DrawBalanceRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\LoginEventRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\LotteryPrizeFactorRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\RoleRepository.cs" />
     <Compile Include="DesktopApplication\Core\Repositories\ServerParameterRepository.cs" />
     <Compile Include="DesktopApplication\Core\Services\ConcreteMessageService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DeviceService.cs" />
+    <Compile Include="DesktopApplication\Core\Services\DrawBalanceService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawService.cs" />
     <Compile Include="DesktopApplication\Core\Services\DrawTypeService.cs" />
     <Compile Include="DesktopApplication\Core\Services\EncryptingService.cs" />
