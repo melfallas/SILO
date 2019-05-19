@@ -14,7 +14,7 @@ namespace SILO.DesktopApplication.Core.Services
     {
         public int doLogin(string pUser, string pPassword)
         {
-            int successAuthentication = SystemConstants.LOGIN_FAIL;
+            int authenticationResult = SystemConstants.LOGIN_FAIL;
             ApplicationUserRepository appUserRepository = new ApplicationUserRepository();
             AUS_ApplicationUser authenticatedUser = appUserRepository.getByUserAndPass(pUser, pPassword);
             // Verificar resultado de la autenticación
@@ -24,18 +24,21 @@ namespace SILO.DesktopApplication.Core.Services
                 if (this.validDevice(authenticatedUser) > 0)
                 //if(true)
                 {
-                    successAuthentication = this.validateUser(authenticatedUser);
+                    authenticationResult = this.validateUser(authenticatedUser);
                 }
                 else
                 {
-                    successAuthentication = SystemConstants.LOGIN_SUCCESS_WITH_ERRORS;
+                    authenticationResult = SystemConstants.LOGIN_SUCCESS_WITH_ERRORS;
                     MessageService.displayErrorMessage(
                         GeneralConstants.UNREGISTERED_DEVICE_ERROR,
                         GeneralConstants.UNREGISTERED_DEVICE_TITLE
                     );
                 }
             }
-            return successAuthentication;
+            // Registrar envento de login y su resultado
+            LoginEventService loginEventService = new LoginEventService();
+            loginEventService.saveLoginEvent(authenticationResult);
+            return authenticationResult;
         }
 
         public int validDevice(AUS_ApplicationUser pCurrentUser)
