@@ -134,39 +134,23 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         public void setNumberBoxText(int pElementIndex, string pText)
         {
             this.setTextBoxWithThread(this.boxArray[pElementIndex].textbox, pText);
-            /*
-            if (this.boxArray[pElementIndex].textbox.InvokeRequired)
-            {
-                SetNumberBoxTextCallback callBack = new SetNumberBoxTextCallback(setNumberBoxText);
-                this.Invoke(callBack, new object[] { pElementIndex, pText });
-            }
-            else
-            {
-                this.boxArray[pElementIndex].textbox.Text = pText;
-            }
-            */
         }
+
         // Evento para obtener el SelectedGroup desde otro hilo
         public int getSelectedGroup()
         {
             int selectedIndex = 0;
             if (this.drawTypeBox.InvokeRequired)
             {
-                /*
-                GetSelectedGroupCallback callBack = new GetSelectedGroupCallback(getSelectedGroup);
-                selectedIndex = (int)this.Invoke(callBack, new object[] { });
-                */
-
                 this.drawTypeBox.BeginInvoke(new MethodInvoker(delegate {
                     selectedIndex = this.drawTypeBox.SelectedIndex;
                 }));
-
             }
             else
             {
                 selectedIndex = this.drawTypeBox.SelectedIndex;
             }
-            Console.WriteLine("selectedIndex: " + selectedIndex);
+            //Console.WriteLine("selectedIndex: " + selectedIndex);
             return selectedIndex;
         }
 
@@ -437,7 +421,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.setSyncImport(FormatService.formatInt(syncImport));
                 this.setSyncQRImport(FormatService.formatInt(qrImport));
                 this.setPendingImport(FormatService.formatInt(pendingImport));
-                int maxToReceive = (int)(totalImport * 0.03);
+                int prohibitedFactor = Int32.Parse(ServerParameterService.getProhibitedFactor());
+                int maxToReceive = (int)(totalImport * ((double) prohibitedFactor / 100));
                 this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
             }
         }
@@ -479,7 +464,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             else
             {
                 // Actualizar importes sólo si el grupo es distinto de cero
-                //long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
                 this.updateBoxArray(pGroupId);
             }
             // Actualizar números prohibidos siempre
@@ -489,14 +473,15 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.markProhibitedNumber(prohibitedNumbers[i], this.boxArray[i].label);
             }
             // Actualizar el drawType ComboBox al id de grupo especificado
-            this.drawTypeBox.SelectedIndex = (int)pGroupId;
-            //this.updateBoxArray(lotteryListRepository.getDrawListTotals(this.datePickerList.Value.Date, pGroupId));
+            this.setSelectedGroup((int)pGroupId);
         }
         */
 
+        
         public Task updateNumberBox(long pGroupId)
         {
             return Task.Run(() => {
+                this.appMediator.fillDrawInfoLabels(this.datePickerList.Value.Date, pGroupId);
                 // Si no hay número de grupo se debe limpiar el boxNumber
                 if (pGroupId == 0)
                 {
@@ -521,6 +506,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             });
             
         }
+        
 
 
         //--------------------------------------- Eventos de Controles --------------------------------------//
@@ -543,6 +529,10 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         {
             long groupId = Convert.ToInt64(this.drawTypeBox.SelectedValue);
             DateTime date = this.datePickerList.Value.Date;
+            if (this.appMediator != null)
+            {
+                this.appMediator.fillDrawInfoLabels(date, groupId);
+            }
             if (groupId == 0)
             {
                 this.lastGroup = 0;
@@ -586,7 +576,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
         {
             bool result = true;
             this.lastGroup = pGroupId;
-            Console.WriteLine("lastGroup: " + lastGroup);
+            //Console.WriteLine("lastGroup: " + lastGroup);
             this.updateNumberBox(pGroupId);
             this.displayNewListInstance();
             return result;

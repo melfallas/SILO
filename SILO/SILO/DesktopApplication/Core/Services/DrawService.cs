@@ -37,5 +37,16 @@ namespace SILO.DesktopApplication.Core.Services
             return closedDraw;
         }
 
+        public LTD_LotteryDraw getDraw(long pDrawType, DateTime? pDrawDate)
+        {
+            return this.drawRepo.getByTypeAndDate(pDrawType, pDrawDate);
+        }
+
+        public List<LTD_LotteryDraw> getUnclosedDraw(long pDrawType, DateTime pDrawDate)
+        {
+            return this.drawRepo.getUnclosedDraw(pDrawType, pDrawDate);
+        }
+
+
     }
 }

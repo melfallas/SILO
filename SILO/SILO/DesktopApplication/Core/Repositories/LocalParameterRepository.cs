@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Repositories
 {
-    class LocalParameterRepository
+    public class LocalParameterRepository
     {
         public List<LPR_LocalParameter> getAll()
         {
@@ -48,13 +48,13 @@ namespace SILO.DesktopApplication.Core.Repositories
             return paramValue;
         }        
 
-        public void save(LPR_LocalParameter pPosParam)
+        public void save(LPR_LocalParameter pParam)
         {
             LPR_LocalParameter parameter = null;
             using (var context = new SILOEntities())
             {
                 List<LPR_LocalParameter> paramList = context.LPR_LocalParameter
-                        .Where(param => param.LPR_Name == pPosParam.LPR_Name).ToList();
+                        .Where(param => param.LPR_Name == pParam.LPR_Name).ToList();
                 if (paramList.Count > 0)
                 {
                     parameter = paramList[0];
@@ -62,12 +62,12 @@ namespace SILO.DesktopApplication.Core.Repositories
                 if(parameter == null)
                 {
                     parameter = new LPR_LocalParameter();
-                    parameter.LPR_Name = pPosParam.LPR_Name;
-                    parameter.LPR_Value = pPosParam.LPR_Value;
+                    parameter.LPR_Name = pParam.LPR_Name;
+                    parameter.LPR_Value = pParam.LPR_Value;
                 }
                 else
                 {
-                    parameter.LPR_Value = pPosParam.LPR_Value;
+                    parameter.LPR_Value = pParam.LPR_Value;
                 }
                 context.SaveChanges();
             }
