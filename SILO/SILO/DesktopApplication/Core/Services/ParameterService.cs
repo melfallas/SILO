@@ -15,8 +15,10 @@ namespace SILO.DesktopApplication.Core.Services
         public const string DEVICE_ID_PARAM = "Device";
         public const string SYNC_ENABLED_PARAM = "Habilitar_Sync_Periodica";
         public const string SYNC_INTERVAL_PARAM = "Interval_Sync";
+        public const string INITIAL_DRAW_INCREMENT_PARAM = "InitialDrawIncrementValue";
+        public const string INITIAL_LIST_INCREMENT_PARAM = "InitialListIncrementValue";
 
-        
+
         public static LPR_LocalParameter getLocalParameter(string pParamName)
         {
             LocalParameterRepository localParamRepo = new LocalParameterRepository();
@@ -29,13 +31,30 @@ namespace SILO.DesktopApplication.Core.Services
             return localParamRepo.getParamValue(pParamName);
         }
 
-        public static void setLocalParameterValue(string pParamName, string pParamValue)
+        public static void setLocalParameterValue(string pParamName, string pParamValue, long pType = 0)
         {
             LocalParameterRepository localParamRepo = new LocalParameterRepository();
-            LPR_LocalParameter localParam = new LPR_LocalParameter();
-            localParam.LPR_Name = pParamName;
-            localParam.LPR_Value = pParamValue;
-            localParamRepo.save(localParam);
+            LPR_LocalParameter paramToSave = getLocalParameter(pParamName);
+            if (paramToSave == null)
+            {
+                paramToSave = new LPR_LocalParameter();
+                paramToSave.LPR_Name = pParamName;
+            }
+            paramToSave.LPR_Value = pParamValue;
+            paramToSave.LPT_LocalParameterType = pType == 0 ? paramToSave.LPT_LocalParameterType : pType;
+            localParamRepo.save(paramToSave);
+        }
+
+        public static LPR_LocalParameter getInitialListIncrementParam()
+        {
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            return getLocalParameter(INITIAL_DRAW_INCREMENT_PARAM);
+        }
+
+        public static void setInitialListIncrementParam(string pIncrementValue, long pType = 0)
+        {
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            setLocalParameterValue(INITIAL_DRAW_INCREMENT_PARAM, pIncrementValue, pType);
         }
 
         public static string getDeviceValue()
