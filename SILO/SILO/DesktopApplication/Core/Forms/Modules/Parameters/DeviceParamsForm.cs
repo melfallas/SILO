@@ -27,10 +27,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Parameters
 
         private void saveDeviceButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(this.devicesListBox.SelectedIndex);
             ParameterService.setDeviceValue(this.devicesListBox.SelectedValue.ToString());
             MessageBox.Show("Dispositivo registrado exitosamente");
-            //MessageBox.Show("Dispositivo: '" + this.devicesListBox.SelectedValue + "'");
         }
     }
 }
