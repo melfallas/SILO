@@ -34,5 +34,11 @@ namespace SILO.DesktopApplication.Core.Services
             return DateTime.Parse(pDate?.ToString("yyyy-MM-dd") + " 00:00:00");
         }
 
+
+        public static string formatDrawDateToSimpleString(DateTime pDate)
+        {
+            return pDate.ToString("dd-MM-yyyy");
+        }
+
     }
 }

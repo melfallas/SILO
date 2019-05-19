@@ -8,6 +8,7 @@ namespace SILO.DesktopApplication.Core.Util
 {
     enum EntityType
     {
+        ServerParam,
         Company,
         PointSale,
         UserRole,

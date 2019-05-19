@@ -18,6 +18,12 @@ namespace SILO.DesktopApplication.Core.Util
         {
             switch (pEntityType)
             {
+                case (int)EntityType.ServerParam:
+                    // Agregar campos a parsear para la entidad Company
+                    this.fieldCollection.Add("id", "SPR_Id");
+                    this.fieldCollection.Add("name", "SPR_Name");
+                    this.fieldCollection.Add("value", "SPR_Value");
+                    break;
                 case (int)EntityType.Company:
                     // Agregar campos a parsear para la entidad Company
                     this.fieldCollection.Add("id", "CPN_Id");

@@ -10,14 +10,14 @@ namespace SILO.DesktopApplication.Core.Services
 {
     class PrinterService
     {
-        public void fillPrintersControl(ref ComboBox pListPrinter)
+        public void fillPrintersControl(ref ComboBox pListPrinter, string pDefaultOptionLegend = "ELIJA UNA OPCIÖM")
         {
             String printerName = "";
             Dictionary<string, string> printerList = new Dictionary<string, string>();
+            printerList.Add("0", pDefaultOptionLegend);
             for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
             {
                 printerName = PrinterSettings.InstalledPrinters[i];
-                //Console.WriteLine(printerName);
                 printerList.Add(printerName, printerName);
             }
             pListPrinter.DataSource = new BindingSource(printerList, null);

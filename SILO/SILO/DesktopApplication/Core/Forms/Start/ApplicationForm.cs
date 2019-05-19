@@ -77,21 +77,65 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         }
 
         private void initializeControls() {
-            // Deshabiliar controles de estado de sincronización
+            // Deshabiliar controles de estado de sincronización            
             this.syncStatusLabel.Text = "";
             this.displaySyncStatusComponents(false);
             // Mostrar propiedades del sistema
+            this.clearDrawInfoLabels();
             String version = UtilityService.getApplicationSimpleVersion();
-            this.softwareVersionLabel.Text = $"V {version} ";
+            this.softwareVersionLabel.Text = $"v {version} ";
+            this.versionFooterLabel.Text = $"v {version} ";
             this.userContentLabel.Text = SystemSession.username;
             this.posContentLabel.Text = SystemSession.salePoint;
             this.companyContentLabel.Text = SystemSession.company;
+            this.servicePathLabel.Text = ServiceConectionConstants.getServiceApiEndPoint();
             // Habilitar la sincronización periódica si está activa
             if (ParameterService.isSyncEnabled())
             {
                 this.syncTimer.Interval = ParameterService.getSyncInterval();
                 this.syncTimer.Enabled = true;
             }
+        }
+
+        public void clearDrawInfoLabels()
+        {
+            this.posNameLabel.Text = "";
+            this.drawTitleLabel.Text = "";
+            this.groupNameLabel.Text = "";
+            this.dayDrawLabel.Text = "";
+            this.dateDrawLabel.Text = "";
+            this.payDrawTitleLabel.Text = "";
+            this.prizeFactorDrawLabel.Text = "";
+        }
+
+        public void fillDrawInfoLabels(DateTime pDrawDate, long pGroupId)
+        {
+            /*
+            this.clearDrawInfoLabels();
+            if (pGroupId != 0)
+            {
+                DrawTypeService drawTypeService = new DrawTypeService();
+                LDT_LotteryDrawType drawType = drawTypeService.getById(pGroupId);
+                if (drawType != null)
+                {
+                    this.posNameLabel.Text = ParameterService.getSystemSalePoint().LPS_DisplayName;
+                    this.drawTitleLabel.Text = "Sorteo:";
+                    this.groupNameLabel.Text = drawType.LDT_DisplayName;
+                    this.dayDrawLabel.Text = UtilityService.getDayName(pDrawDate);
+                    this.dateDrawLabel.Text = UtilityService.getSimpleDate(pDrawDate);
+                }
+                PrizeFactorService prizeFactorService = new PrizeFactorService();
+                LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByPointSaleAndGroup(ParameterService.getSalePointId(), pGroupId);
+                if (prizeFactor != null)
+                {
+                    this.payDrawTitleLabel.Text = "Paga:";
+                    this.prizeFactorDrawLabel.Text = "" + Convert.ToInt32(prizeFactor.LPF_FirtsPrizeFactor) + "% | "
+                        + Convert.ToInt32(prizeFactor.LPF_SecondPrizeFactor) + "% | "
+                        + Convert.ToInt32(prizeFactor.LPF_ThirdPrizeFactor) + "%"
+                        ;
+                }
+            }
+            */
         }
 
         public void setSyncStatusText(string pStatusText)
@@ -281,7 +325,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             */
 
             String version = UtilityService.getApplicationVersion();
-            MessageBox.Show($"Aplicación de Prueba. Version: {version} ");
+            String serviceUrl = ServiceConectionConstants.getServiceApiEndPoint();
+            MessageBox.Show($"SILO Application. Version: {version}\n\nServicio: {serviceUrl}");
             
         }
         #endregion
@@ -307,10 +352,15 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void parámetrosDeImpresiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PrinterParamsForm printerParamsForm = new PrinterParamsForm();
-            printerParamsForm.Show();
+            PrinterParamsForm printerParamsForm = new PrinterParamsForm(this.mediator);
+            printerParamsForm.ShowDialog();
         }
 
+        private void servidorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ServerParamForm serverParamsForm = new ServerParamForm(this.mediator);
+            serverParamsForm.ShowDialog();
+        }
 
         private void dispositivosToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -321,6 +371,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         private void sincronizaciónDeEmergenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.displayCloseSelector();
+        }
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String version = UtilityService.getApplicationVersion();
+            String serviceUrl = ServiceConectionConstants.getServiceApiEndPoint();
+            MessageBox.Show($"SILO Application. Version: {version}\n\nServicio: {serviceUrl}");
         }
 
         private async void enviarAlServidorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -438,5 +495,11 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             MessageService.displayInfoMessage("La sincronización ha finalizado");
         }
 
+        private void enterWinnersMenuButton_Click(object sender, EventArgs e)
+        {
+            DrawNumberWinningForm winningForm = new DrawNumberWinningForm(this.mediator);
+            winningForm.ShowDialog();
+        }
+        
     }
 }

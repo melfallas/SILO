@@ -61,24 +61,54 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
             {
                 // If no hay sorteos pendientes 
                 // por sorteo sin fecha
+
                 this.closeDraw(pDrawTypeToClose, pDateToClose);
             }
         }
 
+        private void clearDrawTypeBox()
+        {
+            this.drawTypeBox.SelectedValue = 0;
+        }
+
         private void closeDraw(long pDrawTypeToClose, DateTime pDateToClose) {
             DrawService drawService = new DrawService();
+            LTD_LotteryDraw existingDraw = drawService.getDraw(pDrawTypeToClose, pDateToClose);
             // Validar si el sorteo está cerrado
-            if (drawService.isDrawClosed(pDrawTypeToClose, pDateToClose))
+            if (existingDraw == null || existingDraw.LDS_LotteryDrawStatus == SystemConstants.DRAW_STATUS_CLOSED)
             {
                 MessageService.displayInfoMessage(
-                "El sorteo ya está cerrado\nNo es necesario realizar la operación.",
+                "El sorteo se encuentra cerrado\nNo es necesario realizar la operación.",
                 "SORTEO CERRADO PREVIAMENTE"
-
                 );
+                this.clearDrawTypeBox();
             }
             else
             {
-                this.confirmDrawClosing(pDrawTypeToClose, pDateToClose);
+                List<LTD_LotteryDraw> otherUnclosedDrawList = drawService.getUnclosedDraw(pDrawTypeToClose, pDateToClose);
+                if (otherUnclosedDrawList.Count > 0)
+                {
+                    DrawTypeService drawType = new DrawTypeService();
+                    LDT_LotteryDrawType type = drawType.getById(pDrawTypeToClose);
+                    string unclosedDateListString = "\n\n";
+                    foreach (LTD_LotteryDraw drawItem in otherUnclosedDrawList)
+                    {
+                        if (drawItem.LTD_CreateDate != pDateToClose)
+                        {
+                            unclosedDateListString += type.LDT_DisplayName + "\t" + FormatService.formatDrawDateToSimpleString(drawItem.LTD_CreateDate) + "\n";
+                        }
+                    }
+                    Console.WriteLine(unclosedDateListString);
+                    MessageService.displayWarningMessage(
+                    "Existen sorteos de fechas anteriores pendientes de cierre.\nPor favor, proceda primero a realizar los cierres pendientes:" + unclosedDateListString,
+                    "SORTEOS ANTERIORES SIN CERRAR"
+                    );
+                    this.clearDrawTypeBox();
+                }
+                else
+                {
+                    this.confirmDrawClosing(pDrawTypeToClose, pDateToClose);
+                }
             }
         }
 
@@ -86,7 +116,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
         {
             DialogResult msgResult =
                     MessageService.displayConfirmWarningMessage(
-                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nLuego de cerrar, las ventas para el sorteo no estarán permitidas.\nEsta operación no es reversible.",
+                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nPosterior al cierre, las ventas para el sorteo no estarán permitidas.\nEsta operación no es reversible.",
                             "CERRANDO SORTEO..."
                             );
             // Procesar el resultado de la confirmación

@@ -67,7 +67,7 @@ namespace SILO.DesktopApplication.Core.Services
             return posRepository.getById(posId).LPS_Id;
         }
 
-
+        /*
         public static void setPrinter(string pNewParamValue)
         {
             setLocalParameter("Nombre_Impresora", pNewParamValue);
@@ -77,6 +77,7 @@ namespace SILO.DesktopApplication.Core.Services
         {
             setLocalParameter("Habilitar_Impresion", pNewParamValue);
         }
+        */
 
         public static void setLocalParameter(string pParamName, string pNewParamValue)
         {
@@ -114,6 +115,16 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static string getLargeDate(DateTime pDate) {
             return pDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper() + " " + pDate.ToString("dd/MM/yyyy");
+        }
+
+        public static string getSimpleDate(DateTime pDate)
+        {
+            return pDate.ToString("dd/MM/yyyy");
+        }
+
+        public static string getDayName(DateTime pDate)
+        {
+            return pDate.ToString("dddd", new System.Globalization.CultureInfo("es-CR")).ToUpper();
         }
 
 
