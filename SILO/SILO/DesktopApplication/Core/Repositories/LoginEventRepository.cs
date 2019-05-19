@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Repositories
 {
-    public class RoleRepository : GenericRepository<USR_UserRole, Object>
+    public class LoginEventRepository : GenericRepository<LGV_LoginEvents, Object>
     {
         // Método que registra la persistencia de una lista de objetos
-        public void saveList(List<USR_UserRole> pEntityList)
+        public void saveList(List<LGV_LoginEvents> pEntityList)
         {
-            foreach (USR_UserRole entity in pEntityList)
+            foreach (LGV_LoginEvents entity in pEntityList)
             {
-                this.save(entity, entity.USR_Id, (e1, e2) => e1.copy(e2));
+                this.saveWithStatus(entity, entity.LGV_Id, (e1, e2) => e1.copy(e2));
             }
         }
-
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Abstract.Generic
 {
-    class GenericRepository<DataType, KeyType> where DataType : class where KeyType : class
+    public class GenericRepository<DataType, KeyType> where DataType : class where KeyType : class
     {
         // Obtiene la entidad con base en su Id
         public DataType getById(KeyType pEntityId)
@@ -85,7 +85,6 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
                     else
                     {
                         long actualStatus = pCopyFuntion(findedEntity, pEntityInstance);
-                        // Update solamente si el estado es completamente sincronizado
                         context.SaveChanges();
                     }
                 }
