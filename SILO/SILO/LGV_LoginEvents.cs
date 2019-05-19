@@ -9,9 +9,10 @@
 
 namespace SILO
 {
+    using DesktopApplication.Core.Constants;
     using System;
     using System.Collections.Generic;
-    
+
     public partial class LGV_LoginEvents
     {
         public long LGV_Id { get; set; }
@@ -19,5 +20,15 @@ namespace SILO
         public string LGV_IpAdress { get; set; }
         public string LGV_User { get; set; }
         public string LGV_DeviceId { get; set; }
+
+        public long copy(LGV_LoginEvents pLoginEvent)
+        {
+            long actualStatus = SystemConstants.SYNC_STATUS_COMPLETED;
+            this.LGV_EventDate = pLoginEvent.LGV_EventDate;
+            this.LGV_IpAdress = pLoginEvent.LGV_IpAdress;
+            this.LGV_User = pLoginEvent.LGV_User;
+            this.LGV_DeviceId = pLoginEvent.LGV_DeviceId;
+            return actualStatus;
+        }
     }
 }
