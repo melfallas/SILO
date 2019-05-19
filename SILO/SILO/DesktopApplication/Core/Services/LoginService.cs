@@ -37,7 +37,7 @@ namespace SILO.DesktopApplication.Core.Services
             }
             // Registrar envento de login y su resultado
             LoginEventService loginEventService = new LoginEventService();
-            loginEventService.saveLoginEvent(authenticationResult);
+            loginEventService.saveLoginEvent(pUser, authenticationResult);
             return authenticationResult;
         }
 
