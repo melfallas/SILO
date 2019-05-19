@@ -76,6 +76,11 @@ namespace SILO.Core.Constants
         public const string SUCCESS_TRANSACTION_CANCELATION_TITLE = "RESULTADO DE LA REVERSIÓN";
         public const string SUCCESS_TRANSACTION_CANCELATION_MESSAGE = "La transacción fue anulada exitosamente.";
 
+        // Impresiones
+        public const string SET_PRINTER_TITLE = "SE ESTABLECIÓ LA IMPRESORA PREDETERMINADA";
+        public const string SET_PRINTER_MESSAGE = "Se estableció la siguiente impresora como predeterminada:\n\n";
+
+
         // Validación de impresión
         public const string MAX_PRINT_COUNT_TITLE = "MÁXIMA CANTIDAD DE FILAS ALCANZADA";
         public const string MAX_PRINT_COUNT_MESSAGE = "Se ha llegado al máximo de filas para una impresión.\nEl máximo actual de números para una lista es de ";

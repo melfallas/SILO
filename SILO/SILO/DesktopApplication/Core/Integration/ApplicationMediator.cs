@@ -15,6 +15,14 @@ namespace SILO.DesktopApplication.Core.Integration
         public NumberBoxForm appNumberBox { get; set; }
 
 
+        public void fillDrawInfoLabels(DateTime pDrawDate, long pGroupId)
+        {
+            if (this.appForm != null)
+            {
+                this.appForm.fillDrawInfoLabels(pDrawDate, pGroupId);
+            }
+        }
+
         public void setAppTopMost(bool pSetTop) {
             this.appForm.TopMost = pSetTop;
         }

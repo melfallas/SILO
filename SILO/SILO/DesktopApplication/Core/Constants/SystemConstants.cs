@@ -23,7 +23,7 @@ namespace SILO.DesktopApplication.Core.Constants
         public const long SYNC_STATUS_PENDING_TO_SERVER = 1;
         public const long SYNC_STATUS_PENDING_TO_CLIENT = 2;
         public const long SYNC_STATUS_COMPLETED = 3;
-        public const long SYNC_STATUS_QRUPDATED = 2;
+        public const long SYNC_STATUS_QRUPDATED = 4;
         // Constantes para estados de Sorteo
         public const long DRAW_STATUS_OPENED = 1;
         public const long DRAW_STATUS_CLOSED = 2;

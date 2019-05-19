@@ -16,18 +16,17 @@ namespace SILO.DesktopApplication.Core.Services
         public const string SYNC_ENABLED_PARAM = "Habilitar_Sync_Periodica";
         public const string SYNC_INTERVAL_PARAM = "Interval_Sync";
 
-
+        
+        public static LPR_LocalParameter getLocalParameter(string pParamName)
+        {
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            return localParamRepo.getByName(pParamName);
+        }
 
         public static string getLocalParameterValue(string pParamName)
         {
             LocalParameterRepository localParamRepo = new LocalParameterRepository();
             return localParamRepo.getParamValue(pParamName);
-        }
-
-        public static LPR_LocalParameter getLocalParameter(string pParamName)
-        {
-            LocalParameterRepository localParamRepo = new LocalParameterRepository();
-            return localParamRepo.getByName(pParamName);
         }
 
         public static void setLocalParameterValue(string pParamName, string pParamValue)
@@ -89,6 +88,27 @@ namespace SILO.DesktopApplication.Core.Services
         public static int getSyncInterval()
         {
             return Int32.Parse(getLocalParameterValue(SYNC_INTERVAL_PARAM)) * 1000;
+        }
+
+
+        public static string getPrinter()
+        {
+            return getLocalParameterValue("Nombre_Impresora");
+        }
+
+        public static string getEnablePrinter()
+        {
+            return getLocalParameterValue("Habilitar_Impresion");
+        }
+
+        public static void setPrinter(string pNewParamValue)
+        {
+            setLocalParameterValue("Nombre_Impresora", pNewParamValue);
+        }
+
+        public static void setEnablePrinter(string pNewParamValue)
+        {
+            setLocalParameterValue("Habilitar_Impresion", pNewParamValue);
         }
 
 

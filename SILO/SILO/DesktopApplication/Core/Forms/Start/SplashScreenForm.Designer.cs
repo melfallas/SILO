@@ -39,7 +39,7 @@
             this.versionAppLabel.AutoSize = true;
             this.versionAppLabel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.versionAppLabel.ForeColor = System.Drawing.Color.Black;
-            this.versionAppLabel.Location = new System.Drawing.Point(284, 194);
+            this.versionAppLabel.Location = new System.Drawing.Point(260, 181);
             this.versionAppLabel.Name = "versionAppLabel";
             this.versionAppLabel.Size = new System.Drawing.Size(49, 13);
             this.versionAppLabel.TabIndex = 0;

@@ -35,6 +35,7 @@
             // 
             this.txtListName.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtListName.Location = new System.Drawing.Point(39, 98);
+            this.txtListName.MaxLength = 30;
             this.txtListName.Name = "txtListName";
             this.txtListName.Size = new System.Drawing.Size(286, 44);
             this.txtListName.TabIndex = 0;
