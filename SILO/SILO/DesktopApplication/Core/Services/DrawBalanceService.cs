@@ -38,10 +38,23 @@ namespace SILO.DesktopApplication.Core.Services
                 // Si no existe el balance crearlo
                 if (balanceToSave == null)
                 {
-                    balanceToSave = new DBL_DrawBalance(drawToSave.LTD_Id, pSaleImport, pPayImport);
+                    balanceToSave = new DBL_DrawBalance();
+                    balanceToSave.LTD_LotteryDraw = drawToSave.LTD_Id;
                 }
+                balanceToSave.DBL_SaleImport = pSaleImport;
+                balanceToSave.DBL_PayImport = pPayImport;
                 this.drawBalanceRepo.save(balanceToSave, balanceToSave.DBL_Id, (e1, e2) => e1.copy(e2));
             }
+        }
+
+        public void saveDrawSaleImport(long pDrawType, DateTime pDrawDate)
+        {
+            // Obtener total de venta del sorteo
+            ListService listService = new ListService();
+            long saleImport = listService.getDrawSaleImport(ParameterService.getSalePointId(), pDrawDate, pDrawType);
+            // Almacenar importe de premio para el sorteo
+            DrawBalanceService drawBalanceService = new DrawBalanceService();
+            drawBalanceService.saveBalance(pDrawType, pDrawDate, saleImport);
         }
 
     }

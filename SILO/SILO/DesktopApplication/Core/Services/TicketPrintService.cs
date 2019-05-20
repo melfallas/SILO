@@ -107,6 +107,9 @@ namespace SILO.DesktopApplication.Core.Services
             // Obtener nombre de impresora y enviar impresión
             string printerName = UtilityService.getTicketPrinterName();
             ticketPrinter.printPrizeTicket(printerName, pSendToPrint);
+            // Almacenar importe de premio para el sorteo
+            DrawBalanceService drawBalanceService = new DrawBalanceService();
+            drawBalanceService.saveBalance(pDraw.LDT_LotteryDrawType, pDraw.LTD_CreateDate, 0, ticketPrinter.prizeImport);
             if (pShowInPanel)
             {
                 //Console.Write(ticketPrinter.ticketStringText);

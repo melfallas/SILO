@@ -21,11 +21,11 @@ namespace SILO
         public long DBL_SaleImport { get; set; }
         public long DBL_PayImport { get; set; }
 
-        public DBL_DrawBalance(long lTD_LotteryDraw, long dBL_SaleImport, long dBL_PayImport)
+        public DBL_DrawBalance()
         {
-            LTD_LotteryDraw = lTD_LotteryDraw;
-            DBL_SaleImport = dBL_SaleImport;
-            DBL_PayImport = dBL_PayImport;
+            LTD_LotteryDraw = 0;
+            DBL_SaleImport = 0;
+            DBL_PayImport = 0;
         }
 
         public long copy(DBL_DrawBalance pDrawBalance)
