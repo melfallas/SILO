@@ -100,7 +100,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                     "Existen sorteos de fechas anteriores pendientes de cierre.\nPor favor, proceda primero a realizar los cierres pendientes:" + unclosedDateListString,
                     "SORTEOS ANTERIORES SIN CERRAR"
                     );
-                    this.clearDrawTypeBox();
+                    //this.clearDrawTypeBox();
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
         {
             DialogResult msgResult =
                     MessageService.displayConfirmWarningMessage(
-                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nPosterior al cierre, las ventas para el sorteo no estarán permitidas.\nEsta operación no es reversible.",
+                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nCon el cierre, no se podrán realizar más ventas para el sorteo.\nEsta operación no es reversible.",
                             "CERRANDO SORTEO..."
                             );
             // Procesar el resultado de la confirmación

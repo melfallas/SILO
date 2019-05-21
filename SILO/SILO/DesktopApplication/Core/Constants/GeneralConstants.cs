@@ -64,8 +64,8 @@ namespace SILO.Core.Constants
         public const string PRIZE_FACTOR_NOT_FOUND_TITLE = "FACTOR DE PREMIO NO ESPECIFICADO";
         public const string PRIZE_FACTOR_NOT_FOUND_MESSAGE = "No se ha especificado un factor de premio para el grupo.\nPor favor, contacte al administrador.";
 
-        public const string DRAW_CLOSED_TITLE = "SORTEO CERRADO - NO SE PUEDE VENDER";
-        public const string DRAW_CLOSED_MESSAGE = "El sorteo se encuentra cerrado.\nNo es posible realizar la operación.";
+        public const string DRAW_CLOSED_TITLE = "SORTEO CERRADO - NO ES POSIBLE VENDER";
+        public const string DRAW_CLOSED_MESSAGE = "El sorteo se encuentra cerrado.\nNo es posible realizar ventas para el sorteo.\nSolamente podrá visualizar el resumen de los importes.";
 
 
         //--- Venta no permitida

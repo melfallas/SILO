@@ -379,7 +379,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             }
             else
             {
-                MessageService.displayErrorMessage(GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_MESSAGE, GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_TITLE);
+                MessageService.displayWarningMessage(GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_MESSAGE, GeneralConstants.NOT_ALLOWED_PREVIOUS_DATE_SALE_TITLE);
             }
         }
 
@@ -555,9 +555,10 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 // Verificar si el sorteo está cerrado
                 if (saleValidator.isClosingDraw(pGroupId, pDrawDate))
                 {
-                    // Error: no se puede vender si el sorteo está cerrado
+                    // Warning: no se puede vender si el sorteo está cerrado
                     ConcreteMessageService.displayDrawClosedMessage();
-                    this.appMediator.updateBoxNumber(0);
+                    //this.appMediator.updateBoxNumber(0);
+                    this.updateNumberBox(pDrawDate, pGroupId);
                     this.appMediator.setApplicationFocus();
                 }
                 else
