@@ -99,18 +99,18 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         public void clearDrawInfoLabels()
         {
-            this.posNameLabel.Text = "";
-            this.drawTitleLabel.Text = "";
-            this.groupNameLabel.Text = "";
-            this.dayDrawLabel.Text = "";
-            this.dateDrawLabel.Text = "";
-            this.payDrawTitleLabel.Text = "";
-            this.prizeFactorDrawLabel.Text = "";
+            this.setPosNameLabel("");
+            this.setDrawTitleLabel("");
+            this.setGroupNameLabel("");
+            this.setDayDrawLabel("");
+            this.setDateDrawLabel("");
+            this.setPayDrawTitleLabel("");
+            this.setPrizeFactorDrawLabel("");
         }
 
         public void fillDrawInfoLabels(DateTime pDrawDate, long pGroupId)
         {
-            /*
+            
             this.clearDrawInfoLabels();
             if (pGroupId != 0)
             {
@@ -118,24 +118,76 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 LDT_LotteryDrawType drawType = drawTypeService.getById(pGroupId);
                 if (drawType != null)
                 {
-                    this.posNameLabel.Text = ParameterService.getSystemSalePoint().LPS_DisplayName;
-                    this.drawTitleLabel.Text = "Sorteo:";
-                    this.groupNameLabel.Text = drawType.LDT_DisplayName;
-                    this.dayDrawLabel.Text = UtilityService.getDayName(pDrawDate);
-                    this.dateDrawLabel.Text = UtilityService.getSimpleDate(pDrawDate);
+                    this.setPosNameLabel(ParameterService.getSystemSalePoint().LPS_DisplayName);
+                    this.setDrawTitleLabel("Sorteo:");
+                    this.setGroupNameLabel(drawType.LDT_DisplayName);
+                    this.setDayDrawLabel(UtilityService.getDayName(pDrawDate));
+                    this.setDateDrawLabel(UtilityService.getSimpleDate(pDrawDate));
                 }
                 PrizeFactorService prizeFactorService = new PrizeFactorService();
                 LPF_LotteryPrizeFactor prizeFactor = prizeFactorService.getByPointSaleAndGroup(ParameterService.getSalePointId(), pGroupId);
                 if (prizeFactor != null)
                 {
-                    this.payDrawTitleLabel.Text = "Paga:";
-                    this.prizeFactorDrawLabel.Text = "" + Convert.ToInt32(prizeFactor.LPF_FirtsPrizeFactor) + "% | "
+                    string prizes = Convert.ToInt32(prizeFactor.LPF_FirtsPrizeFactor) + "% | "
                         + Convert.ToInt32(prizeFactor.LPF_SecondPrizeFactor) + "% | "
                         + Convert.ToInt32(prizeFactor.LPF_ThirdPrizeFactor) + "%"
                         ;
+                    this.setPayDrawTitleLabel("Paga:");
+                    this.setPrizeFactorDrawLabel(prizes);
                 }
             }
-            */
+            
+        }
+
+        // Eventos para setear etiquetas desde otro hilo
+        public void setPosNameLabel(string pText)
+        {
+            this.setLabelWithThread(this.posNameLabel, pText);
+        }
+
+        public void setDrawTitleLabel(string pText)
+        {
+            this.setLabelWithThread(this.drawTitleLabel, pText);
+        }
+
+        public void setGroupNameLabel(string pText)
+        {
+            this.setLabelWithThread(this.groupNameLabel, pText);
+        }
+
+        public void setDayDrawLabel(string pText)
+        {
+            this.setLabelWithThread(this.dayDrawLabel, pText);
+        }
+
+        public void setDateDrawLabel(string pText)
+        {
+            this.setLabelWithThread(this.dateDrawLabel, pText);
+        }
+
+        public void setPayDrawTitleLabel(string pText)
+        {
+            this.setLabelWithThread(this.payDrawTitleLabel, pText);
+        }
+
+        public void setPrizeFactorDrawLabel(string pText)
+        {
+            this.setLabelWithThread(this.prizeFactorDrawLabel, pText);
+        }
+
+        // Evento para setear un Label desde otro hilo
+        public void setLabelWithThread(Label pLabel, string pText)
+        {
+            if (pLabel.InvokeRequired)
+            {
+                pLabel.BeginInvoke(new MethodInvoker(delegate {
+                    pLabel.Text = pText;
+                }));
+            }
+            else
+            {
+                pLabel.Text = pText;
+            }
         }
 
         public void setSyncStatusText(string pStatusText)

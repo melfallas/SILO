@@ -36,9 +36,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             // Establecer el ApplicationMediator
             this.appMediator = pMediator;
             this.lastGroup = 0;
-
-            //Thread.Sleep(5000);
-            //this.contentPanel.Visible = true;
         }
 
         private void erasePanels() {
@@ -51,6 +48,11 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
             this.drawTypeBox.DisplayMember = GeneralConstants.DISPLAY_DRAWTYPE_VALUE_LABEL;
             this.drawTypeBox.DataSource = UtilityService.drawTypeDataTable(this.drawTypeBox.ValueMember, this.drawTypeBox.DisplayMember);
             this.drawTypeBox.SelectedIndex = 0;
+            // Establecer propiedades de máximo a recibir
+            txbMaxToReceive.BackColor = Color.White;
+            txbMaxToReceive.ForeColor = Color.Red;
+            txbMaxToReceive.ReadOnly = true;
+            this.txbProhibitedMargin.Text = "Máximo:  " + ServerParameterService.getProhibitedFactor() + " %";
         }
 
         public void createBoxNumber()
@@ -352,7 +354,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.setSyncImport("0");
                 this.setSyncQRImport("0");
                 this.setPendingImport("0");
-                this.setMaxToReceive("0");
+                this.setMaxToReceive("");
             }
         }
 
@@ -423,7 +425,7 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Sale
                 this.setPendingImport(FormatService.formatInt(pendingImport));
                 int prohibitedFactor = Int32.Parse(ServerParameterService.getProhibitedFactor());
                 int maxToReceive = (int)(totalImport * ((double) prohibitedFactor / 100));
-                this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive));
+                this.setMaxToReceive(maxToReceive == 0 ? "" : FormatService.formatInt(maxToReceive) + " ");
             }
         }
 
