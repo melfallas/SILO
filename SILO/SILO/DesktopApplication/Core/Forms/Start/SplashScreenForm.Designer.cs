@@ -73,9 +73,9 @@
             // loadStatusLabel
             // 
             this.loadStatusLabel.AutoSize = true;
-            this.loadStatusLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.loadStatusLabel.BackColor = System.Drawing.Color.Transparent;
             this.loadStatusLabel.ForeColor = System.Drawing.Color.Black;
-            this.loadStatusLabel.Location = new System.Drawing.Point(51, 81);
+            this.loadStatusLabel.Location = new System.Drawing.Point(40, 81);
             this.loadStatusLabel.Name = "loadStatusLabel";
             this.loadStatusLabel.Size = new System.Drawing.Size(131, 13);
             this.loadStatusLabel.TabIndex = 3;

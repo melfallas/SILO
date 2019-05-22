@@ -34,6 +34,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.launchSplashThread();
             InitializeComponent();
             this.posNameLabel.Text = "";
+            this.loadStatusLabel.Text = "";
             this.showSalePointName();
             this.versionLabel.Text = UtilityService.getApplicationVersion();
         }
@@ -105,7 +106,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void startInitialSynchronization()
         {
-
+            
             //bool[] synStatusArray = new bool[4];
             bool[] synStatusArray = new bool[7];
             LoginForm.waitHandle.WaitOne();
@@ -177,6 +178,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void cleanFields()
         {
+            this.notifySyncProcessStep("");
             this.txbPass.Text = GeneralConstants.EMPTY_STRING;
             this.txbUser.Text = this.txbUser.Text.Trim();
             this.txbUser.Focus();
@@ -184,7 +186,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void notifySyncProcessStep(string pMessage)
         {
-            Console.WriteLine(pMessage);
+            this.loadStatusLabel.Text = pMessage;
         }
 
         private void verifySynStatus(bool[] pSynStatusArray)
@@ -192,23 +194,20 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             if (!UtilityService.verifySynStatusFromArray(pSynStatusArray))
             {
                 MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE);
-                //MessageService.displayErrorMessage(GeneralConstants.INITIAL_SYNCHRONIZATION_ERROR, GeneralConstants.INITIAL_SYNCHRONIZATION_TITLE, this.splashScreen.getForm());
             }
         }
 
         private void initDataSync()
         {
             bool[] synStatusArray = new bool[2];
-            this.notifySyncProcessStep("Iniciando sincronización del sistema...");
+            this.notifySyncProcessStep("Iniciando sincronización de componentes...");
             SynchronizeService syncService = new SynchronizeService();
-            // Sincronizar usuarios al servidor
-            //synStatusArray[0] = syncService.syncAppUsers_LocalToServer();
-            // Enviar sincronización de números al servidor
-            this.notifySyncProcessStep("Sincronizando datos numéricos...");
-            synStatusArray[0] = syncService.syncNumbers_LocalToServer();
+            // Realizar sincronización de tipos de sorteo   
             this.notifySyncProcessStep("Sincronizando tipos de sorteo...");
-            synStatusArray[1] = syncService.syncDrawType_LocalToServer();
-
+            synStatusArray[0] = syncService.syncDrawType_ServerToLocal();
+            // Realizar sincronización de números y prohibidos        
+            this.notifySyncProcessStep("Sincronizando datos numéricos...");
+            synStatusArray[1] = syncService.syncNumbers_ServerToLocal();
             // Verificar si falló algún proceso de sincronización
             this.verifySynStatus(synStatusArray);
             // Lanzar aplicación tras la sincronización
@@ -222,15 +221,17 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                 appForm.Show();
                 this.Hide();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // LogService
-                //throw;
+                LogService.log(e.Message, e.StackTrace);
             }
         }
 
         private void validateLogin()
         {
+            this.loginButton.Enabled = false;
+            this.notifySyncProcessStep("Validando el ingreso...");
             if (!this.isValidLoginForm(this.txbUser.Text, this.txbPass.Text))
             {
                 this.cleanFields();
@@ -272,6 +273,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
                     }
                 }
             }
+            this.loginButton.Enabled = true;
         }
 
 
@@ -282,6 +284,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         {
             this.validateLogin();
         }
+
         // Acción que controla el evento de Login al Ingresar
         private void txbPass_KeyDown(object sender, KeyEventArgs e)
         {

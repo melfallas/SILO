@@ -14,6 +14,8 @@ namespace SILO.DesktopApplication.Core.Util
         UserRole,
         ApplicationUser,
         PrizeFactor,
+        LotteryNumber,
+        DrawType,
         Other
     }
 }
