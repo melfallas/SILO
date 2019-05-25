@@ -29,6 +29,11 @@ namespace SILO.DesktopApplication.Core.Constants
         public static string GET_ALL_PRIZE_FACTOR_RESOURCE_URL =  getRootServiceApiURL() + "lotteryprizefactor/";
         public static string GET_REOPEN_DRAW_LIST_RESOURCE_URL =  getRootServiceApiURL() + "lotterydraw/reopen/?pos=";
 
+        // Servicios para sincronización post login
+        public static string GET_ALL_NUMBER_LIST_RESOURCE_URL = getRootServiceApiURL() + "lotterynumber/";
+        public static string GET_ALL_DRAWTYPE_LIST_RESOURCE_URL = getRootServiceApiURL() + "lotterydrawtype/";
+
+
         public static string POST_SAVE_NUMBER_LIST_RESOURCE_URL =  getRootServiceApiURL() + "lotterynumber/saveList/";
         public static string POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL =  getRootServiceApiURL() + "lotterydrawtype/saveList/";
         

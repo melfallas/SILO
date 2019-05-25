@@ -38,6 +38,7 @@
             this.versionLabel = new System.Windows.Forms.Label();
             this.posNameLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.loadStatusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,12 +136,25 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
+            // loadStatusLabel
+            // 
+            this.loadStatusLabel.AutoSize = true;
+            this.loadStatusLabel.BackColor = System.Drawing.Color.LightSlateGray;
+            this.loadStatusLabel.ForeColor = System.Drawing.Color.White;
+            this.loadStatusLabel.Location = new System.Drawing.Point(12, 289);
+            this.loadStatusLabel.Name = "loadStatusLabel";
+            this.loadStatusLabel.Size = new System.Drawing.Size(24, 13);
+            this.loadStatusLabel.TabIndex = 9;
+            this.loadStatusLabel.Text = "Silo";
+            this.loadStatusLabel.UseWaitCursor = true;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSlateGray;
-            this.ClientSize = new System.Drawing.Size(412, 301);
+            this.ClientSize = new System.Drawing.Size(412, 307);
+            this.Controls.Add(this.loadStatusLabel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.posNameLabel);
             this.Controls.Add(this.versionLabel);
@@ -176,5 +190,6 @@
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.Label posNameLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.Label loadStatusLabel;
     }
 }

@@ -59,9 +59,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
             }
             else
             {
-                // If no hay sorteos pendientes 
-                // por sorteo sin fecha
-
                 this.closeDraw(pDrawTypeToClose, pDateToClose);
             }
         }
@@ -98,12 +95,12 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                             unclosedDateListString += type.LDT_DisplayName + "\t" + FormatService.formatDrawDateToSimpleString(drawItem.LTD_CreateDate) + "\n";
                         }
                     }
-                    Console.WriteLine(unclosedDateListString);
+                    //Console.WriteLine(unclosedDateListString);
                     MessageService.displayWarningMessage(
                     "Existen sorteos de fechas anteriores pendientes de cierre.\nPor favor, proceda primero a realizar los cierres pendientes:" + unclosedDateListString,
                     "SORTEOS ANTERIORES SIN CERRAR"
                     );
-                    this.clearDrawTypeBox();
+                    //this.clearDrawTypeBox();
                 }
                 else
                 {
@@ -116,8 +113,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
         {
             DialogResult msgResult =
                     MessageService.displayConfirmWarningMessage(
-                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nPosterior al cierre, las ventas para el sorteo no estarán permitidas.\nEsta operación no es reversible.",
-                            "CERRANDO SORTEO..."
+                            GeneralConstants.CLOSING_CONFIRM_MESSAGE,
+                            GeneralConstants.CLOSING_CONFIRM_TITLE
                             );
             // Procesar el resultado de la confirmación
             switch (msgResult)
@@ -126,7 +123,11 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                     // Procesar la sincronización
                     this.closeView();
                     this.appMediator.setAppTopMost(true);
+                    // Proceder con el cierre
                     this.appMediator.closeTransactions(SystemConstants.SYNC_CLOSING_TYPE, pDrawDate, pGroupId);
+                    // Almacenar importe de venta para el sorteo
+                    DrawBalanceService drawBalanceService = new DrawBalanceService();
+                    drawBalanceService.saveDrawSaleImport(pGroupId, pDrawDate);
                     this.appMediator.setAppTopMost(false);
                     break;
                 case DialogResult.No:

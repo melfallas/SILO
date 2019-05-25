@@ -64,9 +64,12 @@ namespace SILO.DesktopApplication.Core.Repositories
                     parameter = new LPR_LocalParameter();
                     parameter.LPR_Name = pParam.LPR_Name;
                     parameter.LPR_Value = pParam.LPR_Value;
+                    parameter.LPT_LocalParameterType = pParam.LPT_LocalParameterType;
+                    context.LPR_LocalParameter.Add(parameter);
                 }
                 else
                 {
+                    parameter.LPT_LocalParameterType = pParam.LPT_LocalParameterType;
                     parameter.LPR_Value = pParam.LPR_Value;
                 }
                 context.SaveChanges();

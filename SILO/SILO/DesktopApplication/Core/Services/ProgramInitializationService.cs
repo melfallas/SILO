@@ -63,8 +63,20 @@ namespace SILO.DesktopApplication.Core.Services
 
         private void initializePosParameter(long posId)
         {
+            // Inicializar el valor incremental de lista
+            this.setIncrementTableValues();
+            // Inicializar la sucursal
             PointSaleService pointSaleService = new PointSaleService();
             pointSaleService.initialize(posId);
+        }
+
+        private void setIncrementTableValues()
+        {
+            LPR_LocalParameter listIncrementParam = ParameterService.getInitialListIncrementParam();
+            if (listIncrementParam == null)
+            {
+                ParameterService.setInitialListIncrementParam("0", 5);
+            }
         }
 
         private bool validateSalePointInstance()

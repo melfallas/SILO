@@ -68,6 +68,19 @@ namespace SILO.DesktopApplication.Core.Util
                     this.fieldCollection.Add("thirdPrizeFactor", "LPF_ThirdPrizeFactor");
                     this.fieldCollection.Add("synchronyStatus", "SYS_SynchronyStatus");
                     break;
+                case (int)EntityType.LotteryNumber:
+                    this.fieldCollection.Add("id", "LNR_Id");
+                    this.fieldCollection.Add("number", "LNR_Number");
+                    this.fieldCollection.Add("isProhibited", "LNR_IsProhibited");
+                    //this.fieldCollection.Add("synchronyStatus", "SYS_SynchronyStatus");
+                    break;
+                case (int)EntityType.DrawType:
+                    this.fieldCollection.Add("id", "LDT_Id");
+                    this.fieldCollection.Add("code", "LDT_Code");
+                    this.fieldCollection.Add("displayName", "LDT_DisplayName");
+                    this.fieldCollection.Add("description", "LDT_Description");
+                    //this.fieldCollection.Add("synchronyStatus", "SYS_SynchronyStatus");
+                    break;
                 case (int)EntityType.Other:
 
                     break;

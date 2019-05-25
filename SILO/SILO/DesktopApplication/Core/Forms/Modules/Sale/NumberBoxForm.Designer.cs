@@ -32,6 +32,7 @@
             this.contentPanel = new System.Windows.Forms.Panel();
             this.numberBoxPanel = new System.Windows.Forms.Panel();
             this.footerPanel = new System.Windows.Forms.Panel();
+            this.txbProhibitedMargin = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txbQRImport = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -90,6 +91,7 @@
             // footerPanel
             // 
             this.footerPanel.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.footerPanel.Controls.Add(this.txbProhibitedMargin);
             this.footerPanel.Controls.Add(this.label8);
             this.footerPanel.Controls.Add(this.txbQRImport);
             this.footerPanel.Controls.Add(this.label7);
@@ -105,6 +107,17 @@
             this.footerPanel.Name = "footerPanel";
             this.footerPanel.Size = new System.Drawing.Size(567, 83);
             this.footerPanel.TabIndex = 1;
+            // 
+            // txbProhibitedMargin
+            // 
+            this.txbProhibitedMargin.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbProhibitedMargin.ForeColor = System.Drawing.Color.Navy;
+            this.txbProhibitedMargin.Location = new System.Drawing.Point(116, 11);
+            this.txbProhibitedMargin.Name = "txbProhibitedMargin";
+            this.txbProhibitedMargin.Size = new System.Drawing.Size(88, 19);
+            this.txbProhibitedMargin.TabIndex = 10;
+            this.txbProhibitedMargin.Text = "Máximo:  0 %";
+            this.txbProhibitedMargin.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // label8
             // 
@@ -149,21 +162,25 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(36, 10);
+            this.label6.Location = new System.Drawing.Point(35, 36);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.Size = new System.Drawing.Size(78, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "Max. Recibir";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txbMaxToReceive
             // 
-            this.txbMaxToReceive.Location = new System.Drawing.Point(104, 7);
+            this.txbMaxToReceive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbMaxToReceive.ForeColor = System.Drawing.Color.Red;
+            this.txbMaxToReceive.Location = new System.Drawing.Point(119, 33);
             this.txbMaxToReceive.Name = "txbMaxToReceive";
             this.txbMaxToReceive.ReadOnly = true;
-            this.txbMaxToReceive.Size = new System.Drawing.Size(100, 20);
+            this.txbMaxToReceive.Size = new System.Drawing.Size(85, 20);
             this.txbMaxToReceive.TabIndex = 4;
+            this.txbMaxToReceive.Text = "0 ";
             this.txbMaxToReceive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label5
@@ -331,5 +348,6 @@
         private System.Windows.Forms.TextBox txbPendingImport;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txbQRImport;
+        private System.Windows.Forms.Label txbProhibitedMargin;
     }
 }
