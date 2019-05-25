@@ -15,6 +15,7 @@ namespace SILO
 {
     public partial class DisplayQRForm : Form
     {
+        private string qrText;
         public long drawType { get; set; }
         public DateTime drawDate { get; set; }
 
@@ -26,6 +27,7 @@ namespace SILO
 
 
         private void initializeForm(DateTime pDate, long pGroup) {
+            this.qrText = "";
             this.drawType = pGroup;
             this.drawDate = pDate;
         }
@@ -71,7 +73,7 @@ namespace SILO
             return successGeneration;
         }
 
-        private bool startQRGenrationAndClosing(long pDrawType, DateTime pDrawDate, string qrText)
+        private bool startQRGenrationAndClosing(long pDrawType, DateTime pDrawDate, string pQRText)
         {
             bool successGeneration = true;
             // Cambiar estado de lista a QR Generado
@@ -84,12 +86,30 @@ namespace SILO
             this.drawLabel.Text = "Grupo: " + drawTypeService.getById(pDrawType).LDT_DisplayName;
             this.posLabel.Text = "Suc: " + posService.getPointSale().LPS_DisplayName;
             // Obtener QRString codificada
-            qrText = UtilityService.getEncodeQRString(qrText, pDrawDate, pDrawType);
-            Console.WriteLine("Original QR: " + qrText);
+            string qrOriginalText = UtilityService.getEncodeQRString(pQRText, pDrawDate, pDrawType);
+            Console.WriteLine("Original QR: " + qrOriginalText);
             //text = UtilityService.compressText(text);
-            Console.WriteLine("Compress QR: " + qrText);
-            this.countLabel.Text = qrText.Length.ToString() + " | " + (from c in qrText where c == '0' select c).Count().ToString();
-            this.displayQRPanel.BackgroundImage = UtilityService.buildQRCode(qrText, this.displayQRPanel.Width, this.displayQRPanel.Height);
+            string qrEncriptedText = qrOriginalText;
+            Console.WriteLine("Compress QR: " + qrEncriptedText);
+
+            // Setear el QRText y obtener las propiedades del mismo
+            this.qrText = qrEncriptedText;
+            int qrTextLength = qrEncriptedText.Length;
+            int zerosCount = (from c in qrEncriptedText where c == '0' select c).Count();
+
+            // Desplegar propiedades del QR
+            this.countLabel.Text = qrTextLength + " | " + zerosCount;
+            this.displayQRPanel.BackgroundImage = UtilityService.buildQRCode(qrEncriptedText, this.displayQRPanel.Width, this.displayQRPanel.Height);
+
+            // Validar tamaño de QR y advertir en caso de ser muy grande
+            int maxQRSizeSuported = 350;
+            if (qrTextLength > maxQRSizeSuported)
+            {
+                MessageService.displayErrorMessage(
+                    "El QR parece tener un tamaño no apropiado para ser leído.\nEs preferible que copie el QR y lo envíe por whatsapp.\nEn caso de duda contacte al administrador.",
+                    "PREFERIBLE EL ENVÍO DEL QR POR WHATSAPP"
+                    );
+            }
             // Cerrar el sorteo
             if (pDrawDate != null && pDrawType != 0)
             {
@@ -99,7 +119,23 @@ namespace SILO
             return successGeneration;
         }
 
+        private void copyQRButton_Click(object sender, EventArgs e)
+        {
+            this.copyQR();
+        }
 
+        private void copyQR()
+        {
+            if (UtilityService.copyQRToClipboard(this.qrText))
+            {
+                MessageBox.Show("QR generado y copiado al portapapeles.\nPor favor envíelo por whatsapp, usando la opción pegar.\nTambién puede pegarlo en whatsapp usando Ctrl + v",
+                    "QR COPIADO DE MANERA EXITOSA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Error al copiar texto al portapapeles.", "Error al copiar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }

@@ -34,6 +34,7 @@
             this.drawLabel = new System.Windows.Forms.Label();
             this.posLabel = new System.Windows.Forms.Label();
             this.dateLabel = new System.Windows.Forms.Label();
+            this.copyQRButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,12 +100,26 @@
             this.dateLabel.Text = "Fecha:";
             this.dateLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // copyQRButton
+            // 
+            this.copyQRButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.copyQRButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.copyQRButton.ForeColor = System.Drawing.Color.Navy;
+            this.copyQRButton.Location = new System.Drawing.Point(129, 451);
+            this.copyQRButton.Name = "copyQRButton";
+            this.copyQRButton.Size = new System.Drawing.Size(232, 25);
+            this.copyQRButton.TabIndex = 0;
+            this.copyQRButton.Text = "Copiar para envío por Whatsapp";
+            this.copyQRButton.UseVisualStyleBackColor = true;
+            this.copyQRButton.Click += new System.EventHandler(this.copyQRButton_Click);
+            // 
             // DisplayQRForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(485, 457);
+            this.ClientSize = new System.Drawing.Size(485, 486);
+            this.Controls.Add(this.copyQRButton);
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.posLabel);
             this.Controls.Add(this.drawLabel);
@@ -127,5 +142,6 @@
         private System.Windows.Forms.Label drawLabel;
         private System.Windows.Forms.Label posLabel;
         private System.Windows.Forms.Label dateLabel;
+        private System.Windows.Forms.Button copyQRButton;
     }
 }
