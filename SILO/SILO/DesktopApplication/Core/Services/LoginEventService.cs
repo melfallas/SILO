@@ -19,11 +19,13 @@ namespace SILO.DesktopApplication.Core.Services
             this.loginEventRepo = new LoginEventRepository();
         }
 
-        public void saveLoginEvent(int authResult)
+        public void saveLoginEvent(string pUser, int authResult)
         {
+            string user = "N/A";
             string externalIp = "ERROR";
             try
             {
+                user = pUser.ToLower();
                 externalIp = new WebClient().DownloadString("http://icanhazip.com");
             }
             catch (Exception e)
@@ -34,7 +36,8 @@ namespace SILO.DesktopApplication.Core.Services
             LGV_LoginEvents loginEvent = new LGV_LoginEvents();
             loginEvent.LGV_EventDate = DateTime.Now;
             loginEvent.LGV_IpAdress = externalIp;
-            loginEvent.LGV_User = authResult + " | " + SystemSession.username;
+            loginEvent.LGV_User = user;
+            //loginEvent.LGV_User = authResult + " | " + user;
             loginEvent.LGV_DeviceId = ParameterService.getDeviceValue();
             loginEventRepo.saveWithStatus(loginEvent, loginEvent.LGV_Id, (e1, e2) => e1.copy(e2));
         }

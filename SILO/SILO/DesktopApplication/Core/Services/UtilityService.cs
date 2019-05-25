@@ -12,6 +12,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SILO.DesktopApplication.Core.Services
 {
@@ -393,6 +394,20 @@ namespace SILO.DesktopApplication.Core.Services
                 }
             }
             return successProcess;
+        }
+
+        public static bool copyQRToClipboard(string pText)
+        {
+            bool successCopy = true;
+            try
+            {
+                Clipboard.SetDataObject(pText, true);
+            }
+            catch (Exception e)
+            {
+                successCopy = false;
+            }
+            return successCopy;
         }
 
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SILO.DesktopApplication.Core.Services
 {
-    class ListService
+    public class ListService
     {
         private LotteryDrawRepository drawRepository;
         private LotteryListRepository listRepository;
@@ -82,6 +82,11 @@ namespace SILO.DesktopApplication.Core.Services
         {
 
             return this.listRepository.getPosPendingTransactionsByDraw(pDraw);
+        }
+
+        public long getDrawSaleImport(long posId, DateTime pDate, long pGroup)
+        {
+            return this.listRepository.getDrawSaleImport(posId, pDate, pGroup);
         }
 
     }

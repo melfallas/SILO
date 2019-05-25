@@ -64,8 +64,8 @@ namespace SILO.Core.Constants
         public const string PRIZE_FACTOR_NOT_FOUND_TITLE = "FACTOR DE PREMIO NO ESPECIFICADO";
         public const string PRIZE_FACTOR_NOT_FOUND_MESSAGE = "No se ha especificado un factor de premio para el grupo.\nPor favor, contacte al administrador.";
 
-        public const string DRAW_CLOSED_TITLE = "SORTEO CERRADO - NO SE PUEDE VENDER";
-        public const string DRAW_CLOSED_MESSAGE = "El sorteo se encuentra cerrado.\nNo es posible realizar la operación.";
+        public const string DRAW_CLOSED_TITLE = "SORTEO CERRADO - NO ES POSIBLE VENDER";
+        public const string DRAW_CLOSED_MESSAGE = "El sorteo se encuentra cerrado.\nNo es posible realizar ventas para el sorteo.\nSolamente podrá visualizar el resumen de los importes.";
 
 
         //--- Venta no permitida
@@ -84,6 +84,19 @@ namespace SILO.Core.Constants
         // Validación de impresión
         public const string MAX_PRINT_COUNT_TITLE = "MÁXIMA CANTIDAD DE FILAS ALCANZADA";
         public const string MAX_PRINT_COUNT_MESSAGE = "Se ha llegado al máximo de filas para una impresión.\nEl máximo actual de números para una lista es de ";
+
+
+        // Cierres
+        public const string CLOSING_CONFIRM_TITLE = "CERRAR SORTEO";
+        public const string CLOSING_CONFIRM_MESSAGE = "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nCon el cierre, no se podrán realizar más ventas para el sorteo.\nEsta operación no es reversible.";
+
+        public const string QR_CLOSING_CONFIRM_TITLE = "ENVIAR QR Y CERRAR SORTEO";
+        public const string QR_CLOSING_CONFIRM_MESSAGE = "¿Desea generar y realizar el envío del QR?\nCon el envío, no se podrán realizar más ventas para el sorteo.\nEsta operación no es reversible";
+
+        
+                    
+
+
 
 
         public const string SYSTEM_UPDATING_TITLE = "SISTEMA EN ACTUALIZACIÓN";
