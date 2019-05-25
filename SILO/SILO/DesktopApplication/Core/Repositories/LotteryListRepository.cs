@@ -265,8 +265,35 @@ namespace SILO.DesktopApplication.Core.Repositories
             return importArray;
         }
 
+
+        public long getDrawSaleImport(long posId, DateTime pDate, long pGroup)
+        {
+            long saleTotal = 0;
+            string drawDate = FormatService.formatDrawDateToString(pDate);
+            using (var context = new SILOEntities())
+            {
+                string query =
+                    "SELECT IFNULL(SUM(N.LND_SaleImport), 0) AS totalImport "
+                    + "FROM LTL_LotteryList AS L "
+                    + "INNER JOIN LND_ListNumberDetail AS N ON N.LTL_LotteryList = L.LTL_Id "
+                    + "INNER JOIN LTD_LotteryDraw AS D ON D.LTD_Id = L.LTD_LotteryDraw "
+                    + "INNER JOIN LDT_LotteryDrawType AS T ON T.LDT_Id = D.LDT_LotteryDrawType "
+                    + "WHERE L.LPS_LotteryPointSale = " + posId + " "
+                    + "AND L.LLS_LotteryListStatus <> " + SystemConstants.LIST_STATUS_CANCELED + " "
+                    + "AND D.LTD_CreateDate = '" + drawDate + "' "
+                    + "AND D.LDT_LotteryDrawType = " + pGroup + " "
+                    + ";"
+                    ;
+                Console.WriteLine(query);
+                var totalList = context.Database.SqlQuery<long>(query).ToList();
+                saleTotal = totalList.First();
+                //saleTotal = context.Database.SqlQuery<IEnumerable<long>>(query);
+            }
+            return saleTotal;
+        }
+
         //******************* Obtiene ListString de una Sucursal Específica *******************//
-        
+
         public string getPosPendingTransactionsListString(DateTime pDate, long pGroup)
         {
             long salePointId = UtilityService.getPointSaleId();

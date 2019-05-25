@@ -26,10 +26,14 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
         // Obtiene una lista de todos los registros de la entidad
         public List<DataType> getAll()
         {
-            List<DataType> entityList = null;
+            List<DataType> entityList = new List<DataType>();
             using (var context = new SILOEntities())
             {
-                entityList = context.Set<DataType>().ToList();
+                var allElementList = context.Set<DataType>();
+                if (allElementList.Count() != 0)
+                {
+                    entityList = allElementList.ToList();
+                }
             }
             return entityList;
         }
@@ -42,7 +46,9 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
             {
                 if (pEntityId != default(KeyType))
                 {
-                    findedEntity = context.Set<DataType>().Find(pEntityId);
+                    // Validar colecciones vacías y elementos no encontrados
+                    var entityCollection = context.Set<DataType>();
+                    findedEntity = entityCollection.Count() == 0 ? null : entityCollection.Find(pEntityId);
                     if (findedEntity == null)
                     {
                         // Si no existe la entidad, añadirla y guardar cambios
@@ -74,7 +80,9 @@ namespace SILO.DesktopApplication.Core.Abstract.Generic
             {
                 if (pEntityId != default(KeyType))
                 {
-                    findedEntity = context.Set<DataType>().Find(pEntityId);
+                    // Validar colecciones vacías y elementos no encontrados
+                    var entityCollection = context.Set<DataType>();
+                    findedEntity = entityCollection.Count() == 0 ? null : entityCollection.Find(pEntityId);
                     if (findedEntity == null)
                     {
                         // Si no existe la entidad, añadirla y guardar cambios
