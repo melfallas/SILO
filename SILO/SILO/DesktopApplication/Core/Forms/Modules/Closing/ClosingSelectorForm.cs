@@ -113,8 +113,8 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
         {
             DialogResult msgResult =
                     MessageService.displayConfirmWarningMessage(
-                            "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nCon el cierre, no se podrán realizar más ventas para el sorteo.\nEsta operación no es reversible.",
-                            "CERRANDO SORTEO..."
+                            GeneralConstants.CLOSING_CONFIRM_MESSAGE,
+                            GeneralConstants.CLOSING_CONFIRM_TITLE
                             );
             // Procesar el resultado de la confirmación
             switch (msgResult)

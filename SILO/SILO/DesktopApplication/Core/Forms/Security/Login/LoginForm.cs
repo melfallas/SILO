@@ -106,7 +106,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void startInitialSynchronization()
         {
-            
+            /*
             //bool[] synStatusArray = new bool[4];
             bool[] synStatusArray = new bool[7];
             LoginForm.waitHandle.WaitOne();
@@ -136,7 +136,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             this.changeStatusLegend(GeneralConstants.EMPTY_STRING);
             // Verificar si falló algún proceso de sincronización
             this.verifySynStatus(synStatusArray);
-            
+            */
         }
 
         private void updateProgressBar(int pProgressValue)

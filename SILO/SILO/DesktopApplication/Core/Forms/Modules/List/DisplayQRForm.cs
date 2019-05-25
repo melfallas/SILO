@@ -1,4 +1,5 @@
-﻿using SILO.DesktopApplication.Core.Constants;
+﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -53,10 +54,7 @@ namespace SILO
         {
             bool successGeneration = true;
             DialogResult msgResult =
-                MessageService.displayConfirmWarningMessage(
-                    "¿Desea generar y realizar el envío del QR para el sorteo?\nLuego de su generación, las ventas para el sorteo no estarán permitidas.\nEsta operación no es reversible.",
-                    "CERRANDO SORTEO..."
-                    );
+                MessageService.displayConfirmWarningMessage(GeneralConstants.QR_CLOSING_CONFIRM_MESSAGE, GeneralConstants.QR_CLOSING_CONFIRM_TITLE);
             // Procesar el resultado de la confirmación
             switch (msgResult)
             {
@@ -65,6 +63,7 @@ namespace SILO
                     successGeneration = this.startQRGenrationAndClosing(pGroupId, pDrawDate, qrText);
                     break;
                 case DialogResult.No:
+                    successGeneration = false;
                     break;
                 default:
                     break;

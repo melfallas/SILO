@@ -86,6 +86,19 @@ namespace SILO.Core.Constants
         public const string MAX_PRINT_COUNT_MESSAGE = "Se ha llegado al máximo de filas para una impresión.\nEl máximo actual de números para una lista es de ";
 
 
+        // Cierres
+        public const string CLOSING_CONFIRM_TITLE = "CERRAR SORTEO";
+        public const string CLOSING_CONFIRM_MESSAGE = "¿Desea realizar el envío  al servidor y cerrar el sorteo?\nCon el cierre, no se podrán realizar más ventas para el sorteo.\nEsta operación no es reversible.";
+
+        public const string QR_CLOSING_CONFIRM_TITLE = "ENVIAR QR Y CERRAR SORTEO";
+        public const string QR_CLOSING_CONFIRM_MESSAGE = "¿Desea generar y realizar el envío del QR ?\nCon el envío, no se podrán realizar más ventas para el sorteo.\nEsta operación no es reversible";
+
+        
+                    
+
+
+
+
         public const string SYSTEM_UPDATING_TITLE = "SISTEMA EN ACTUALIZACIÓN";
         public const string SYSTEM_UPDATING_MESSAGE = "El sitema se está actualizando y no estará disponible.\nEsta situación podría mantenerse por algún tiempo.\nSe notificará cuando la aplicación haya sido restablecida.";
 
