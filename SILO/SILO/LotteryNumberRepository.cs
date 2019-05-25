@@ -38,17 +38,17 @@ namespace SILO
             return findedNumber;
         }
 
-        /*
-        public List<LNR_LotteryNumber> getAll()
+
+        // Método que registra la persistencia de una lista de objetos
+        public void saveList(List<LNR_LotteryNumber> pEntityList)
         {
-            List<LNR_LotteryNumber> numberList = null;
-            using (var context = new SILOEntities())
+            foreach (LNR_LotteryNumber entity in pEntityList)
             {
-                numberList = context.LNR_LotteryNumber.ToList();
+                entity.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_COMPLETED;
+                this.save(entity, entity.LNR_Id, (e1, e2) => e1.copy(e2));
             }
-            return numberList;
         }
-        */
+
 
         public void saveProhibitedNumbers(int[] pProhibitedArray) {
             LNR_LotteryNumber number = null;
@@ -68,5 +68,7 @@ namespace SILO
                 context.SaveChanges();
             }
         }
+
+
     }
 }

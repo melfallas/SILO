@@ -237,6 +237,46 @@ namespace SILO.DesktopApplication.Core.Services
             return successProcess;
         }
 
+        public bool syncNumbers_ServerToLocal()
+        {
+            bool successProcess = true;
+            // Realizar la petición http
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getNumbersFromServer();
+            successProcess = this.isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string result = responseResult.result.ToString();
+                // Parsear el json de respuesta
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.LotteryNumber);
+                string parsedJsonString = parser.parse(result);
+                // Realizar la persistencia de los cambios
+                LotteryNumberRepository numberRepo = new LotteryNumberRepository();
+                numberRepo.saveList(JsonConvert.DeserializeObject<List<LNR_LotteryNumber>>(parsedJsonString));
+            }
+            return successProcess;
+        }
+
+        public bool syncDrawType_ServerToLocal()
+        {
+            bool successProcess = true;
+            // Realizar la petición http
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getDrawTypesFromServer();
+            successProcess = this.isValidResponse(responseResult);
+            if (successProcess)
+            {
+                string result = responseResult.result.ToString();
+                // Parsear el json de respuesta
+                JsonObjectParser parser = new JsonObjectParser((int)EntityType.DrawType);
+                string parsedJsonString = parser.parse(result);
+                // Realizar la persistencia de los cambios
+                LotteryDrawTypeRepository drawTypeRepo = new LotteryDrawTypeRepository();
+                drawTypeRepo.saveList(JsonConvert.DeserializeObject<List<LDT_LotteryDrawType>>(parsedJsonString));
+            }
+            return successProcess;
+        }
+
 
         //----------------- Sincronizaciones LocalToServer -----------------//
 

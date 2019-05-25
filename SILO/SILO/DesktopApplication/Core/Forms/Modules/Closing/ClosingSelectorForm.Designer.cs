@@ -106,7 +106,7 @@
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(84, 67);
             this.saveButton.TabIndex = 27;
-            this.saveButton.Text = "Guardar";
+            this.saveButton.Text = "Enviar";
             this.saveButton.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);

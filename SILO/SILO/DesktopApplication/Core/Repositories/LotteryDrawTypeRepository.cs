@@ -31,27 +31,15 @@ namespace SILO.DesktopApplication.Core.Repositories
             }
         }
 
-
-        /*
-        public List<LDT_LotteryDrawType> getAll()
+        // Método que registra la persistencia de una lista de objetos
+        public void saveList(List<LDT_LotteryDrawType> pEntityList)
         {
-            List<LDT_LotteryDrawType> drawTypeList = null;
-            using (var context = new SILOEntities())
+            foreach (LDT_LotteryDrawType entity in pEntityList)
             {
-                drawTypeList = context.LDT_LotteryDrawType.ToList();
+                entity.SYS_SynchronyStatus = SystemConstants.SYNC_STATUS_COMPLETED;
+                this.save(entity, entity.LDT_Id, (e1, e2) => e1.copy(e2));
             }
-            return drawTypeList;
         }
 
-        public LDT_LotteryDrawType getById(long pId)
-        {
-            LDT_LotteryDrawType drawType = null;
-            using (var context = new SILOEntities())
-            {
-                drawType = context.LDT_LotteryDrawType.Find(pId);
-            }
-            return drawType;
-        }
-        */
     }
 }

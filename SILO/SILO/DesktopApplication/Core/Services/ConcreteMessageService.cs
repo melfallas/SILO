@@ -16,7 +16,7 @@ namespace SILO.DesktopApplication.Core.Services
 
         public static void displayDrawClosedMessage()
         {
-            MessageService.displayErrorMessage(GeneralConstants.DRAW_CLOSED_MESSAGE, GeneralConstants.DRAW_CLOSED_TITLE);
+            MessageService.displayWarningMessage(GeneralConstants.DRAW_CLOSED_MESSAGE, GeneralConstants.DRAW_CLOSED_TITLE);
         }
 
         public static void systemUpdatingMessage()
