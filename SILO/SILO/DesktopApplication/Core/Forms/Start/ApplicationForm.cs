@@ -300,6 +300,10 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 {
                     DrawService drawService = new DrawService();
                     drawService.changeDrawStatus(pDrawType, pDrawDate, SystemConstants.DRAW_STATUS_CLOSED);
+                    MessageService.displayInfoMessage(
+                    "El sorteo fue cerrado de manera exitosa",
+                    "CIERRE COMPLETADO"
+                    );
                 }
             }
         }

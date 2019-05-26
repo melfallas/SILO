@@ -125,6 +125,11 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                     this.appMediator.setAppTopMost(true);
                     // Proceder con el cierre
                     this.appMediator.closeTransactions(SystemConstants.SYNC_CLOSING_TYPE, pDrawDate, pGroupId);
+                    // Sincronizar cierre de sorteo con el servidor
+                    if (UtilityService.realTimeSyncEnabled())
+                    {
+                        this.closeDrawInServer(pDrawDate, pGroupId);
+                    }
                     // Almacenar importe de venta para el sorteo
                     DrawBalanceService drawBalanceService = new DrawBalanceService();
                     drawBalanceService.saveDrawSaleImport(pGroupId, pDrawDate);
@@ -135,6 +140,13 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Closing
                 default:
                     break;
             }
+        }
+
+        private async void closeDrawInServer(DateTime pDrawDate, long pGroupId)
+        {
+            SynchronizeService syncService = new SynchronizeService();
+            syncService.appMediator = this.appMediator;
+            await syncService.closeDrawInServerAsync(pDrawDate, pGroupId);
         }
 
         private void ClosingSelectorForm_KeyDown(object sender, KeyEventArgs e)

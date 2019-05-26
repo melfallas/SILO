@@ -284,7 +284,6 @@ namespace SILO.DesktopApplication.Core.Repositories
                     + "AND D.LDT_LotteryDrawType = " + pGroup + " "
                     + ";"
                     ;
-                Console.WriteLine(query);
                 var totalList = context.Database.SqlQuery<long>(query).ToList();
                 saleTotal = totalList.First();
                 //saleTotal = context.Database.SqlQuery<IEnumerable<long>>(query);
