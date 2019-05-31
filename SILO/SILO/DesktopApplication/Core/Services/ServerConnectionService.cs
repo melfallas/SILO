@@ -345,8 +345,38 @@ namespace SILO.DesktopApplication.Core.Services
         public async Task<ServiceResponseResult> closeDrawInServerAsync(DateTime pDrawDate, long pGroupId)
         {
             var jsonObject = this.generateDrawClosingJson(pDrawDate, pGroupId, 2);
-            Console.WriteLine("Request Cierre: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.CLOSING_DRAW_RESOURCE_URL;
+            RestClientService restClient = new RestClientService();
+            return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_POST_METHOD);
+        }
+
+        public object generateWinnerSyncJson(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            // Crear el objeto JSON
+            var jsonObject = new
+            {
+                lotteryDraw = new
+                {
+                    id = pDraw.LTD_Id,
+                    lotteryDrawType = pDraw.LDT_LotteryDrawType,
+                    lotteryDrawStatus = 1,
+                    createDate = pDraw.LTD_CreateDate
+                },
+                first = pWinningNumberArray[0],
+                second = pWinningNumberArray[1],
+                third = pWinningNumberArray[2],
+                createDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            }
+            ;
+            return jsonObject;
+        }
+
+        // Cierre de Sorteos en Servidor
+        public async Task<ServiceResponseResult> syncWinnerNumbersToServerAsync(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            var jsonObject = this.generateWinnerSyncJson(pDraw, pWinningNumberArray);
+            //Console.WriteLine("Request Ganadores: " + jsonObject);
+            string urlEndPoint = ServiceConectionConstants.WINNER_NUMBERS_RESOURCE_URL;
             RestClientService restClient = new RestClientService();
             return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_POST_METHOD);
         }

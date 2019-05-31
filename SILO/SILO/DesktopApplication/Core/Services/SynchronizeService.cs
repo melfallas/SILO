@@ -521,6 +521,15 @@ namespace SILO.DesktopApplication.Core.Services
             return responseResult;
         }
 
+        public async Task<ServiceResponseResult> syncWinnerNumbersToServerAsync(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult responseResult = await service.syncWinnerNumbersToServerAsync(pDraw, pWinningNumberArray);
+            this.processResponseToClosingDraw(responseResult);
+            return responseResult;
+        }
+
         // Método para procesar el resultado del cierre de un sorteo en el servidor
         public bool processResponseToClosingDraw(ServiceResponseResult pResponseResult)
         {
