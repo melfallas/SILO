@@ -91,6 +91,8 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
+            this.threadCounterLabel = new System.Windows.Forms.Label();
+            this.threadCounterTimer = new System.Windows.Forms.Timer(this.components);
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralCenterBoxPanel.SuspendLayout();
@@ -250,7 +252,7 @@
             this.sincronizaciónDeEmergenciaToolStripMenuItem,
             this.enviarAlServidorToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
-            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
             // 
             // sincronizaciónDeEmergenciaToolStripMenuItem
@@ -433,6 +435,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel2.Controls.Add(this.threadCounterLabel);
             this.panel2.Controls.Add(this.servicePathLabel);
             this.panel2.Controls.Add(this.syncStatusLabel);
             this.panel2.Controls.Add(this.syncStatusProgressBar);
@@ -752,6 +755,23 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
+            // threadCounterLabel
+            // 
+            this.threadCounterLabel.AutoSize = true;
+            this.threadCounterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.threadCounterLabel.ForeColor = System.Drawing.Color.White;
+            this.threadCounterLabel.Location = new System.Drawing.Point(684, 3);
+            this.threadCounterLabel.Name = "threadCounterLabel";
+            this.threadCounterLabel.Size = new System.Drawing.Size(56, 13);
+            this.threadCounterLabel.TabIndex = 18;
+            this.threadCounterLabel.Text = "Threads: 0";
+            // 
+            // threadCounterTimer
+            // 
+            this.threadCounterTimer.Enabled = true;
+            this.threadCounterTimer.Interval = 1000;
+            this.threadCounterTimer.Tick += new System.EventHandler(this.threadCounterTimer_Tick);
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -848,6 +868,8 @@
         private System.Windows.Forms.Label drawTitleLabel;
         private System.Windows.Forms.Label payDrawTitleLabel;
         private System.Windows.Forms.Label posNameLabel;
+        private System.Windows.Forms.Label threadCounterLabel;
+        private System.Windows.Forms.Timer threadCounterTimer;
     }
 }
 

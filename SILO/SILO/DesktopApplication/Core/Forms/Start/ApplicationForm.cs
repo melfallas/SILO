@@ -556,6 +556,10 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             DrawNumberWinningForm winningForm = new DrawNumberWinningForm(this.mediator);
             winningForm.ShowDialog();
         }
-        
+
+        private void threadCounterTimer_Tick(object sender, EventArgs e)
+        {
+            this.threadCounterLabel.Text = "Hilos: " + UtilityService.getThreadCounter();
+        }
     }
 }
