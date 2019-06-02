@@ -67,6 +67,7 @@
             this.groupNameLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.threadCounterLabel = new System.Windows.Forms.Label();
             this.servicePathLabel = new System.Windows.Forms.Label();
             this.syncStatusLabel = new System.Windows.Forms.Label();
             this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
@@ -91,8 +92,8 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
-            this.threadCounterLabel = new System.Windows.Forms.Label();
             this.threadCounterTimer = new System.Windows.Forms.Timer(this.components);
+            this.timeToSyncLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralCenterBoxPanel.SuspendLayout();
@@ -435,6 +436,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel2.Controls.Add(this.timeToSyncLabel);
             this.panel2.Controls.Add(this.threadCounterLabel);
             this.panel2.Controls.Add(this.servicePathLabel);
             this.panel2.Controls.Add(this.syncStatusLabel);
@@ -444,6 +446,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(781, 22);
             this.panel2.TabIndex = 2;
+            // 
+            // threadCounterLabel
+            // 
+            this.threadCounterLabel.AutoSize = true;
+            this.threadCounterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.threadCounterLabel.ForeColor = System.Drawing.Color.White;
+            this.threadCounterLabel.Location = new System.Drawing.Point(684, 3);
+            this.threadCounterLabel.Name = "threadCounterLabel";
+            this.threadCounterLabel.Size = new System.Drawing.Size(56, 13);
+            this.threadCounterLabel.TabIndex = 18;
+            this.threadCounterLabel.Text = "Threads: 0";
             // 
             // servicePathLabel
             // 
@@ -755,22 +768,20 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
-            // threadCounterLabel
-            // 
-            this.threadCounterLabel.AutoSize = true;
-            this.threadCounterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.threadCounterLabel.ForeColor = System.Drawing.Color.White;
-            this.threadCounterLabel.Location = new System.Drawing.Point(684, 3);
-            this.threadCounterLabel.Name = "threadCounterLabel";
-            this.threadCounterLabel.Size = new System.Drawing.Size(56, 13);
-            this.threadCounterLabel.TabIndex = 18;
-            this.threadCounterLabel.Text = "Threads: 0";
-            // 
             // threadCounterTimer
             // 
             this.threadCounterTimer.Enabled = true;
             this.threadCounterTimer.Interval = 1000;
             this.threadCounterTimer.Tick += new System.EventHandler(this.threadCounterTimer_Tick);
+            // 
+            // timeToSyncLabel
+            // 
+            this.timeToSyncLabel.AutoSize = true;
+            this.timeToSyncLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeToSyncLabel.Location = new System.Drawing.Point(331, 5);
+            this.timeToSyncLabel.Name = "timeToSyncLabel";
+            this.timeToSyncLabel.Size = new System.Drawing.Size(0, 13);
+            this.timeToSyncLabel.TabIndex = 19;
             // 
             // ApplicationForm
             // 
@@ -870,6 +881,7 @@
         private System.Windows.Forms.Label posNameLabel;
         private System.Windows.Forms.Label threadCounterLabel;
         private System.Windows.Forms.Timer threadCounterTimer;
+        private System.Windows.Forms.Label timeToSyncLabel;
     }
 }
 

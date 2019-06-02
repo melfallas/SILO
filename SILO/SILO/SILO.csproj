@@ -121,6 +121,12 @@
     <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\DeviceParamsForm.Designer.cs">
       <DependentUpon>DeviceParamsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\LocalParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\LocalParamForm.Designer.cs">
+      <DependentUpon>LocalParamForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -381,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\DeviceParamsForm.resx">
       <DependentUpon>DeviceParamsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\LocalParamForm.resx">
+      <DependentUpon>LocalParamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.resx">
       <DependentUpon>PrinterParamsForm.cs</DependentUpon>

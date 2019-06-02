@@ -28,10 +28,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         public Form parentForm { get; set; }
         public MainOptionMenu mainOptionMenu { get; set; }
 
+        private DateTime? lastSyncTick;
+
         private int activeFormType = -1;
 
         public ApplicationForm(Form pParentForm)
         {
+            this.lastSyncTick = null;
             InitializeComponent();
             this.parentForm = pParentForm;
             this.initializeControls();
@@ -479,7 +482,22 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void syncTimer_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine("Tick: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            this.lastSyncTick = DateTime.Now;
             this.processPeridicSynchronization(FormatService.formatDrawDate(DateTime.Today));
+        }
+
+        private void threadCounterTimer_Tick(object sender, EventArgs e)
+        {
+            int syncTimerSeconds = (int) this.getSyncTimeSpam().TotalSeconds;
+            int timeToSync = ParameterService.getSyncInterval() / 1000 - syncTimerSeconds;
+            this.timeToSyncLabel.Text = syncTimerSeconds == 0 ? "" : "Sincronización en: " + timeToSync;
+            this.threadCounterLabel.Text = "Hilos: " + UtilityService.getThreadCounter();
+        }
+
+        private TimeSpan getSyncTimeSpam()
+        {
+            return this.lastSyncTick == null ? TimeSpan.Zero : DateTime.Now - (DateTime) this.lastSyncTick;
         }
 
         private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -556,10 +574,6 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             DrawNumberWinningForm winningForm = new DrawNumberWinningForm(this.mediator);
             winningForm.ShowDialog();
         }
-
-        private void threadCounterTimer_Tick(object sender, EventArgs e)
-        {
-            this.threadCounterLabel.Text = "Hilos: " + UtilityService.getThreadCounter();
-        }
+        
     }
 }
