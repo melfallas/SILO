@@ -151,7 +151,6 @@ namespace SILO.DesktopApplication.Core.Services
             return fillString(pStringToFill, pSpaces, "0");
         }
 
-
         public static DataTable buildDataTable() {
             DataTable tabla = new DataTable();
             tabla.Columns.Add("id");

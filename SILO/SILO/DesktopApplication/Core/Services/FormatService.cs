@@ -34,10 +34,18 @@ namespace SILO.DesktopApplication.Core.Services
             return DateTime.Parse(pDate?.ToString("yyyy-MM-dd") + " 00:00:00");
         }
 
-
         public static string formatDrawDateToSimpleString(DateTime pDate)
         {
             return pDate.ToString("dd-MM-yyyy");
+        }
+
+        public static string formatSecondsToMinutes(int pSeconds)
+        {
+            int minutes = pSeconds / 60;
+            int seconds = pSeconds % 60;
+            string timeInMinutes = UtilityService.fillNumberString(minutes.ToString(), 2) + ":" + UtilityService.fillNumberString(seconds.ToString(), 2);
+            return timeInMinutes;
+            //return pSeconds / 60 + ":" + ((pSeconds % 60) >= 10 ? (pSeconds % 60).ToString() : "0" + pSeconds % 60);
         }
 
     }

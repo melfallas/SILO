@@ -118,7 +118,9 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             int timeToSync = ParameterService.getPeriodSyncInterval() / 1000 - syncTimerSeconds;
             if (ParameterService.isPeriodSyncEnabled())
             {
-                this.timeToSyncLabel.Text = syncTimerSeconds == 0 ? "" : "Sincronización en: " + timeToSync;
+                //this.timeToSyncLabel.Text = syncTimerSeconds == 0 ? "" : "Sincronización en: " +  timeToSync;
+                this.timeToSyncLabel.Text = syncTimerSeconds == 0 ? "" : "Sincronización en: " + FormatService.formatSecondsToMinutes(timeToSync);
+
             }
             else
             {
