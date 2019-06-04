@@ -44,7 +44,7 @@ namespace SILO.DesktopApplication.Core.Constants
 
         // Constantes de http
         public const string HTTP_GET_METHOD = "GET";
-        public const string HTTP_POS_METHOD = "POST";
+        public const string HTTP_POST_METHOD = "POST";
         public const string HTTP_PUT_METHOD = "PUT";
         public const string HTTP_DELETE_METHOD = "DELETE";
 

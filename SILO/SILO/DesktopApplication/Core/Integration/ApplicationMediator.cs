@@ -15,6 +15,11 @@ namespace SILO.DesktopApplication.Core.Integration
         public NumberBoxForm appNumberBox { get; set; }
 
 
+        public void restartPeriodSync()
+        {
+            this.appForm.enablePeriodSync();
+        }
+
         public void fillDrawInfoLabels(DateTime pDrawDate, long pGroupId)
         {
             if (this.appForm != null)
