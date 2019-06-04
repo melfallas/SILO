@@ -28,10 +28,13 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         public Form parentForm { get; set; }
         public MainOptionMenu mainOptionMenu { get; set; }
 
+        private DateTime? lastSyncTick;
+
         private int activeFormType = -1;
 
         public ApplicationForm(Form pParentForm)
         {
+            this.lastSyncTick = null;
             InitializeComponent();
             this.parentForm = pParentForm;
             this.initializeControls();
@@ -90,10 +93,38 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             this.companyContentLabel.Text = SystemSession.company;
             this.servicePathLabel.Text = ServiceConectionConstants.getServiceApiEndPoint();
             // Habilitar la sincronización periódica si está activa
-            if (ParameterService.isSyncEnabled())
+            this.enablePeriodSync();
+        }
+
+        public void enablePeriodSync()
+        {
+            this.syncTimer.Stop();
+            this.syncTimer.Enabled = false;
+            if (ParameterService.isPeriodSyncEnabled())
             {
-                this.syncTimer.Interval = ParameterService.getSyncInterval();
+                this.syncTimer.Interval = ParameterService.getPeriodSyncInterval();
                 this.syncTimer.Enabled = true;
+                this.lastSyncTick = DateTime.Now;
+                this.syncTimer.Start();
+            }
+            else {
+                this.timeToSyncLabel.Text = "Sincronización desactivada";
+            }
+        }
+
+        private void setTimeToSyncLabel()
+        {
+            int syncTimerSeconds = (int) this.getSyncTimeSpam().TotalSeconds;
+            int timeToSync = ParameterService.getPeriodSyncInterval() / 1000 - syncTimerSeconds;
+            if (ParameterService.isPeriodSyncEnabled())
+            {
+                //this.timeToSyncLabel.Text = syncTimerSeconds == 0 ? "" : "Sincronización en: " +  timeToSync;
+                this.timeToSyncLabel.Text = syncTimerSeconds == 0 ? "" : "Sincronización en: " + FormatService.formatSecondsToMinutes(timeToSync);
+
+            }
+            else
+            {
+                this.timeToSyncLabel.Text = "Sincronización desactivada";
             }
         }
 
@@ -300,6 +331,10 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 {
                     DrawService drawService = new DrawService();
                     drawService.changeDrawStatus(pDrawType, pDrawDate, SystemConstants.DRAW_STATUS_CLOSED);
+                    MessageService.displayInfoMessage(
+                    "El sorteo fue cerrado de manera exitosa",
+                    "CIERRE COMPLETADO"
+                    );
                 }
             }
         }
@@ -414,6 +449,12 @@ namespace SILO.DesktopApplication.Core.Forms.Start
             serverParamsForm.ShowDialog();
         }
 
+        private void localesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SyncParamForm serverParamsForm = new SyncParamForm(this.mediator);
+            serverParamsForm.ShowDialog();
+        }
+
         private void dispositivosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeviceParamsForm deviceForm = new DeviceParamsForm();
@@ -475,7 +516,20 @@ namespace SILO.DesktopApplication.Core.Forms.Start
 
         private void syncTimer_Tick(object sender, EventArgs e)
         {
+            //Console.WriteLine("Tick: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            this.lastSyncTick = DateTime.Now;
             this.processPeridicSynchronization(FormatService.formatDrawDate(DateTime.Today));
+        }
+
+        private void threadCounterTimer_Tick(object sender, EventArgs e)
+        {
+            this.setTimeToSyncLabel();
+            this.threadCounterLabel.Text = "Hilos: " + UtilityService.getThreadCounter();
+        }
+
+        private TimeSpan getSyncTimeSpam()
+        {
+            return this.lastSyncTick == null ? TimeSpan.Zero : DateTime.Now - (DateTime) this.lastSyncTick;
         }
 
         private void salirDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -499,7 +553,7 @@ namespace SILO.DesktopApplication.Core.Forms.Start
         private async void processPeridicSynchronization(DateTime? pDrawDate = null, long pDrawType = 0)
         {
             // Lanzar sincronización periódica solamente si está activa
-            if (ParameterService.isSyncEnabled())
+            if (ParameterService.isPeriodSyncEnabled())
             {
                 // Tareas previas a la sincronización
                 Console.WriteLine("Inicia SyncPeriodica: " + DateTime.Now.ToString("HH:mm:ss"));

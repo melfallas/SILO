@@ -67,12 +67,12 @@ namespace SILO.DesktopApplication.Core.Services
 
         //----------------- Métodos para enviar datos al Servidor -----------------//
 
-        public ServiceResponseResult sendNumberDataToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POS_METHOD)
+        public ServiceResponseResult sendNumberDataToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POST_METHOD)
         {
             return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_NUMBER_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
         }
 
-        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POS_METHOD)
+        public ServiceResponseResult sendDrawTypeToService(Object pJsonObject, string pHttpMethod = SystemConstants.HTTP_POST_METHOD)
         {
             return this.callHttpRequest(ServiceConectionConstants.POST_SAVE_DRAWTYPE_LIST_RESOURCE_URL, pJsonObject, pHttpMethod);
         }
@@ -255,7 +255,7 @@ namespace SILO.DesktopApplication.Core.Services
             //Console.WriteLine("Request Venta: " + jsonObject);
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
             RestClientService restClient = new RestClientService();
-            return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD);
+            return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_POST_METHOD);
         }
 
         public ServiceResponseResult syncListToServer(LTL_LotteryList pListObject, 
@@ -266,7 +266,7 @@ namespace SILO.DesktopApplication.Core.Services
             string urlEndPoint = ServiceConectionConstants.LIST_RESOURCE_URL;
             RestClientService restClient = new RestClientService();
             //return restClient.processHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD);
-            return restClient.processAsyncHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POS_METHOD, processResponseFunction);
+            return restClient.processAsyncHttpRequest(urlEndPoint, jsonObject, SystemConstants.HTTP_POST_METHOD, processResponseFunction);
         }
 
         public async Task<ServiceResponseResult> reverseListToServerAsync(LTL_LotteryList pListObject)
@@ -318,6 +318,69 @@ namespace SILO.DesktopApplication.Core.Services
             string urlEndPoint = ServiceConectionConstants.DRAW_TYPE_RESOURCE_URL;
             return processHttpRequest(urlEndPoint, jsonObject, ServiceConectionConstants.HTTP_POST_METHOD);
         }
+
+
+        public object generateDrawClosingJson(DateTime pDrawDate, long pGroupId, long pStatus)
+        {
+            DrawService drawService = new DrawService();
+            LTD_LotteryDraw draw = drawService.getDraw(pGroupId, pDrawDate);
+            // Crear el objeto JSON
+            var jsonObject = new
+            {
+                lotteryPointSale = ParameterService.getSalePointId(),
+                lotteryDraw = new
+                {
+                    id = draw.LTD_Id,
+                    lotteryDrawType = draw.LDT_LotteryDrawType,
+                    lotteryDrawStatus = pStatus,
+                    createDate = draw.LTD_CreateDate
+                },
+                createDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            }
+            ;
+            return jsonObject;
+        }
+
+        // Cierre de Sorteos en Servidor
+        public async Task<ServiceResponseResult> closeDrawInServerAsync(DateTime pDrawDate, long pGroupId)
+        {
+            var jsonObject = this.generateDrawClosingJson(pDrawDate, pGroupId, 2);
+            string urlEndPoint = ServiceConectionConstants.CLOSING_DRAW_RESOURCE_URL;
+            RestClientService restClient = new RestClientService();
+            return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_POST_METHOD);
+        }
+
+        public object generateWinnerSyncJson(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            // Crear el objeto JSON
+            var jsonObject = new
+            {
+                lotteryDraw = new
+                {
+                    id = pDraw.LTD_Id,
+                    lotteryDrawType = pDraw.LDT_LotteryDrawType,
+                    lotteryDrawStatus = 1,
+                    createDate = pDraw.LTD_CreateDate
+                },
+                first = pWinningNumberArray[0],
+                second = pWinningNumberArray[1],
+                third = pWinningNumberArray[2],
+                createDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            }
+            ;
+            return jsonObject;
+        }
+
+        // Cierre de Sorteos en Servidor
+        public async Task<ServiceResponseResult> syncWinnerNumbersToServerAsync(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            var jsonObject = this.generateWinnerSyncJson(pDraw, pWinningNumberArray);
+            //Console.WriteLine("Request Ganadores: " + jsonObject);
+            string urlEndPoint = ServiceConectionConstants.WINNER_NUMBERS_RESOURCE_URL;
+            RestClientService restClient = new RestClientService();
+            return await restClient.processHttpRequestAsync(urlEndPoint, jsonObject, SystemConstants.HTTP_POST_METHOD);
+        }
+
 
         //--******************** Método Utilizado para servicios *********************--//
         public ServiceResponseResult processHttpRequest(string pUrlEndPoint, Object pJsonObject, string pHttpMethod)

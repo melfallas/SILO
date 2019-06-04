@@ -511,6 +511,44 @@ namespace SILO.DesktopApplication.Core.Services
             }
         }
 
+
+        public async Task<ServiceResponseResult> closeDrawInServerAsync(DateTime pDrawDate, long pGroupId)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult responseResult = await service.closeDrawInServerAsync(pDrawDate, pGroupId);
+            this.processResponseToClosingDraw(responseResult);
+            return responseResult;
+        }
+
+        public async Task<ServiceResponseResult> syncWinnerNumbersToServerAsync(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            // Llamar al servicio de sincronización con el servidor
+            ServerConnectionService service = new ServerConnectionService();
+            ServiceResponseResult responseResult = await service.syncWinnerNumbersToServerAsync(pDraw, pWinningNumberArray);
+            this.processResponseToClosingDraw(responseResult);
+            return responseResult;
+        }
+
+        // Método para procesar el resultado del cierre de un sorteo en el servidor
+        public bool processResponseToClosingDraw(ServiceResponseResult pResponseResult)
+        {
+            bool processDone = false;
+            if (ServiceValidator.isValidServiceResponse(pResponseResult))
+            //if (ServiceValidator.isValidAndNotEmptyServiceResponse(pResponseResult))
+            {
+                processDone = true;
+            }
+            else
+            {
+                // Error de sincronización
+                string responseType = pResponseResult == null ? "N/A" : pResponseResult.type;
+                LogService.logErrorServiceResponse("No se pudo sincronizar el cierre", responseType, "Pendiente");
+            }
+            return processDone;
+        }
+
+
         #endregion
 
         //----------------- Servicios Asíncronos de Pendientes de Pago y Reversión -----------------//

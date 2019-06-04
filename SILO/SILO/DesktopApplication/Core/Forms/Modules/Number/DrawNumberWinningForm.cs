@@ -146,7 +146,6 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
                     // Validar si existe el sorteo seleccionado
                     if (selectedDraw == null)
                     {
-                        //TODO: Sincronizar con el servidor central
                         MessageBox.Show("El sorteo seleccionado no existe y no puede ser ingresado");
                     }
                     else
@@ -169,11 +168,23 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Number
                         bool sendToPrint = this.ckbPrint.Checked ? true : false;
                         bool showInPanel = this.ckbPrintScreen.Checked ? true : false;
                         this.ticketPrintService.printPrizeTicket(selectedDraw, winningNumberArray, sendToPrint, showInPanel);
+                        // Sincronizar con el servidor central
+                        if (UtilityService.realTimeSyncEnabled())
+                        {
+                            this.syncWinnerNumbers(selectedDraw, winningNumberArray);
+                        }
                         this.Dispose();
                     }
                 }
             }
 
+        }
+
+        private async void syncWinnerNumbers(LTD_LotteryDraw pDraw, string[] pWinningNumberArray)
+        {
+            SynchronizeService syncService = new SynchronizeService();
+            syncService.appMediator = this.appMediator;
+            await syncService.syncWinnerNumbersToServerAsync(pDraw, pWinningNumberArray);
         }
 
         private void closeView()

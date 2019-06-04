@@ -67,6 +67,8 @@
             this.groupNameLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.timeToSyncLabel = new System.Windows.Forms.Label();
+            this.threadCounterLabel = new System.Windows.Forms.Label();
             this.servicePathLabel = new System.Windows.Forms.Label();
             this.syncStatusLabel = new System.Windows.Forms.Label();
             this.syncStatusProgressBar = new System.Windows.Forms.ProgressBar();
@@ -91,6 +93,8 @@
             this.printMenuButton = new System.Windows.Forms.Button();
             this.saleMenuButton = new System.Windows.Forms.Button();
             this.syncTimer = new System.Windows.Forms.Timer(this.components);
+            this.threadCounterTimer = new System.Windows.Forms.Timer(this.components);
+            this.localesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.lateralCenterBoxPanel.SuspendLayout();
@@ -209,8 +213,9 @@
             // parámetrosDeSistemaToolStripMenuItem
             // 
             this.parámetrosDeSistemaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generalesToolStripMenuItem,
+            this.localesToolStripMenuItem,
             this.servidorToolStripMenuItem,
+            this.generalesToolStripMenuItem,
             this.dispositivosToolStripMenuItem});
             this.parámetrosDeSistemaToolStripMenuItem.Name = "parámetrosDeSistemaToolStripMenuItem";
             this.parámetrosDeSistemaToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
@@ -219,20 +224,20 @@
             // generalesToolStripMenuItem
             // 
             this.generalesToolStripMenuItem.Name = "generalesToolStripMenuItem";
-            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.generalesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.generalesToolStripMenuItem.Text = "Generales";
             // 
             // servidorToolStripMenuItem
             // 
             this.servidorToolStripMenuItem.Name = "servidorToolStripMenuItem";
-            this.servidorToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.servidorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.servidorToolStripMenuItem.Text = "Servidor";
             this.servidorToolStripMenuItem.Click += new System.EventHandler(this.servidorToolStripMenuItem_Click);
             // 
             // dispositivosToolStripMenuItem
             // 
             this.dispositivosToolStripMenuItem.Name = "dispositivosToolStripMenuItem";
-            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.dispositivosToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.dispositivosToolStripMenuItem.Text = "Dispositivos";
             this.dispositivosToolStripMenuItem.Click += new System.EventHandler(this.dispositivosToolStripMenuItem_Click);
             // 
@@ -278,7 +283,7 @@
             // acercaDeToolStripMenuItem
             // 
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
-            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de...";
             this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click);
             // 
@@ -433,6 +438,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel2.Controls.Add(this.timeToSyncLabel);
+            this.panel2.Controls.Add(this.threadCounterLabel);
             this.panel2.Controls.Add(this.servicePathLabel);
             this.panel2.Controls.Add(this.syncStatusLabel);
             this.panel2.Controls.Add(this.syncStatusProgressBar);
@@ -441,6 +448,26 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(781, 22);
             this.panel2.TabIndex = 2;
+            // 
+            // timeToSyncLabel
+            // 
+            this.timeToSyncLabel.AutoSize = true;
+            this.timeToSyncLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeToSyncLabel.Location = new System.Drawing.Point(331, 5);
+            this.timeToSyncLabel.Name = "timeToSyncLabel";
+            this.timeToSyncLabel.Size = new System.Drawing.Size(0, 13);
+            this.timeToSyncLabel.TabIndex = 19;
+            // 
+            // threadCounterLabel
+            // 
+            this.threadCounterLabel.AutoSize = true;
+            this.threadCounterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.threadCounterLabel.ForeColor = System.Drawing.Color.White;
+            this.threadCounterLabel.Location = new System.Drawing.Point(684, 3);
+            this.threadCounterLabel.Name = "threadCounterLabel";
+            this.threadCounterLabel.Size = new System.Drawing.Size(56, 13);
+            this.threadCounterLabel.TabIndex = 18;
+            this.threadCounterLabel.Text = "Threads: 0";
             // 
             // servicePathLabel
             // 
@@ -752,6 +779,19 @@
             this.syncTimer.Interval = 300000;
             this.syncTimer.Tick += new System.EventHandler(this.syncTimer_Tick);
             // 
+            // threadCounterTimer
+            // 
+            this.threadCounterTimer.Enabled = true;
+            this.threadCounterTimer.Interval = 1000;
+            this.threadCounterTimer.Tick += new System.EventHandler(this.threadCounterTimer_Tick);
+            // 
+            // localesToolStripMenuItem
+            // 
+            this.localesToolStripMenuItem.Name = "localesToolStripMenuItem";
+            this.localesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.localesToolStripMenuItem.Text = "Sincronización";
+            this.localesToolStripMenuItem.Click += new System.EventHandler(this.localesToolStripMenuItem_Click);
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -848,6 +888,10 @@
         private System.Windows.Forms.Label drawTitleLabel;
         private System.Windows.Forms.Label payDrawTitleLabel;
         private System.Windows.Forms.Label posNameLabel;
+        private System.Windows.Forms.Label threadCounterLabel;
+        private System.Windows.Forms.Timer threadCounterTimer;
+        private System.Windows.Forms.Label timeToSyncLabel;
+        private System.Windows.Forms.ToolStripMenuItem localesToolStripMenuItem;
     }
 }
 

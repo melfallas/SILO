@@ -207,7 +207,9 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
             synStatusArray[0] = syncService.syncDrawType_ServerToLocal();
             // Realizar sincronización de números y prohibidos        
             this.notifySyncProcessStep("Sincronizando datos numéricos...");
-            synStatusArray[1] = syncService.syncNumbers_ServerToLocal();
+            synStatusArray[1] = true;
+            //synStatusArray[1] = syncService.syncNumbers_ServerToLocal();
+
             // Verificar si falló algún proceso de sincronización
             this.verifySynStatus(synStatusArray);
             // Lanzar aplicación tras la sincronización
