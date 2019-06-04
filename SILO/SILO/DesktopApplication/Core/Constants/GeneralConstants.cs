@@ -80,6 +80,10 @@ namespace SILO.Core.Constants
         public const string SET_PRINTER_TITLE = "SE ESTABLECIÓ LA IMPRESORA PREDETERMINADA";
         public const string SET_PRINTER_MESSAGE = "Se estableció la siguiente impresora como predeterminada:\n\n";
 
+        // Sincronización
+        public const string SET_PERIOD_SYNC_TITLE = "SE ESTABLECIERON LAS PROPIEDADES DE SINCRONIZACIÓN";
+        public const string SET_PERIOD_SYNC_MESSAGE = "Se estableció el período de sincronización a: ";
+
 
         // Validación de impresión
         public const string MAX_PRINT_COUNT_TITLE = "MÁXIMA CANTIDAD DE FILAS ALCANZADA";
@@ -93,12 +97,8 @@ namespace SILO.Core.Constants
         public const string QR_CLOSING_CONFIRM_TITLE = "ENVIAR QR Y CERRAR SORTEO";
         public const string QR_CLOSING_CONFIRM_MESSAGE = "¿Desea generar y realizar el envío del QR?\nCon el envío, no se podrán realizar más ventas para el sorteo.\nEsta operación no es reversible";
 
-        
-                    
 
-
-
-
+        // Actualización Temporal
         public const string SYSTEM_UPDATING_TITLE = "SISTEMA EN ACTUALIZACIÓN";
         public const string SYSTEM_UPDATING_MESSAGE = "El sitema se está actualizando y no estará disponible.\nEsta situación podría mantenerse por algún tiempo.\nSe notificará cuando la aplicación haya sido restablecida.";
 

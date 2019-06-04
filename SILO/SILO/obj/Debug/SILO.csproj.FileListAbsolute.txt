@@ -106,4 +106,4 @@ C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Closing.ClosingSelectorForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Parameters.DeviceParamsForm.resources
 C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Parameters.ServerParamForm.resources
-C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Parameters.LocalParamForm.resources
+C:\Desarrollo\Proyectos\Repositorios\Git\SiloEscritorio\SILO\SILO\SILO\obj\Debug\SILO.DesktopApplication.Core.Forms.Modules.Parameters.SyncParamForm.resources

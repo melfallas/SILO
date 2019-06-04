@@ -121,11 +121,11 @@
     <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\DeviceParamsForm.Designer.cs">
       <DependentUpon>DeviceParamsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\LocalParamForm.cs">
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\SyncParamForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\LocalParamForm.Designer.cs">
-      <DependentUpon>LocalParamForm.cs</DependentUpon>
+    <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\SyncParamForm.Designer.cs">
+      <DependentUpon>SyncParamForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.cs">
       <SubType>Form</SubType>
@@ -388,8 +388,8 @@
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\DeviceParamsForm.resx">
       <DependentUpon>DeviceParamsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\LocalParamForm.resx">
-      <DependentUpon>LocalParamForm.cs</DependentUpon>
+    <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\SyncParamForm.resx">
+      <DependentUpon>SyncParamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DesktopApplication\Core\Forms\Modules\Parameters\PrinterParamsForm.resx">
       <DependentUpon>PrinterParamsForm.cs</DependentUpon>
