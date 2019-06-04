@@ -5,6 +5,7 @@ using SILO.DesktopApplication.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -149,7 +150,6 @@ namespace SILO.DesktopApplication.Core.Services
         {
             return fillString(pStringToFill, pSpaces, "0");
         }
-
 
         public static DataTable buildDataTable() {
             DataTable tabla = new DataTable();
@@ -408,6 +408,26 @@ namespace SILO.DesktopApplication.Core.Services
                 successCopy = false;
             }
             return successCopy;
+        }
+
+        public static Process getCurrentProcess()
+        {
+            return System.Diagnostics.Process.GetCurrentProcess();
+        }
+
+        public static ProcessThreadCollection getProcessThreadList()
+        {
+            return System.Diagnostics.Process.GetCurrentProcess().Threads;
+        }
+
+        public static int getThreadCounter()
+        {
+            return System.Diagnostics.Process.GetCurrentProcess().Threads.Count;
+        }
+
+        public static void logThreads()
+        {
+            Console.WriteLine("Cantidad de Hilos: " + getThreadCounter());
         }
 
     }

@@ -41,7 +41,10 @@ namespace SILO.DesktopApplication.Core.Constants
         public static string DRAW_ASSOCIATION_RESOURCE_URL       =  getRootServiceApiURL() + "lotterydrawassociation/synchronize/";
         public static string ROOT_LIST_RESOURCE_URL               =  getRootServiceApiURL() + "lotterylist/";
         public static string LIST_RESOURCE_URL                   =  getRootServiceApiURL() + "lotterylist/generate/";
-        //"listnumberdetail/summary/";
+
+        // Cierre
+        public static string CLOSING_DRAW_RESOURCE_URL = getRootServiceApiURL() + "lotterydraw/changestatus/";
+        public static string WINNER_NUMBERS_RESOURCE_URL = getRootServiceApiURL() + "drawnumberwinning/sync/";
 
 
         public static string getServiceApiEndPoint()

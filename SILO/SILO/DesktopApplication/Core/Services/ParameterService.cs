@@ -13,8 +13,8 @@ namespace SILO.DesktopApplication.Core.Services
 
         public const string COMPANY_ID_PARAM = "Empresa";
         public const string DEVICE_ID_PARAM = "Device";
-        public const string SYNC_ENABLED_PARAM = "Habilitar_Sync_Periodica";
-        public const string SYNC_INTERVAL_PARAM = "Interval_Sync";
+        public const string PERIODIC_SYNC_ENABLED_PARAM = "Habilitar_Sync_Periodica";
+        public const string PERIODIC_SYNC_INTERVAL_PARAM = "Interval_Sync";
         public const string INITIAL_DRAW_INCREMENT_PARAM = "InitialDrawIncrementValue";
         public const string INITIAL_LIST_INCREMENT_PARAM = "InitialListIncrementValue";
 
@@ -99,16 +99,30 @@ namespace SILO.DesktopApplication.Core.Services
             return pointSaleInstance;
         }
 
-        public static bool isSyncEnabled()
+        public static bool isPeriodSyncEnabled()
         {
-            return getLocalParameterValue(SYNC_ENABLED_PARAM) == "1" ? true : false;
+            return getLocalParameterValue(PERIODIC_SYNC_ENABLED_PARAM) == "1" ? true : false;
         }
 
-        public static int getSyncInterval()
+        public static void setPeriodSyncEnabled(bool pIsEnabled)
         {
-            return Int32.Parse(getLocalParameterValue(SYNC_INTERVAL_PARAM)) * 1000;
+            setLocalParameterValue(PERIODIC_SYNC_ENABLED_PARAM, pIsEnabled ? "1" : "0");
         }
 
+        public static int getPeriodSyncInterval()
+        {
+            return Int32.Parse(getLocalParameterValue(PERIODIC_SYNC_INTERVAL_PARAM)) * 1000;
+        }
+
+        public static int getPeriodSyncIntervalInSeconds()
+        {
+            return Int32.Parse(getLocalParameterValue(PERIODIC_SYNC_INTERVAL_PARAM));
+        }
+
+        public static void setPeriodSyncInterval(string pParamValue)
+        {
+            setLocalParameterValue(PERIODIC_SYNC_INTERVAL_PARAM, pParamValue);
+        }
 
         public static string getPrinter()
         {
