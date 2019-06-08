@@ -22,7 +22,6 @@ namespace SILO.DesktopApplication.Core.Services
             {
                 // Verificar registro de dispositivos
                 if (this.validDevice(authenticatedUser) > 0)
-                //if(true)
                 {
                     authenticationResult = this.validateUser(authenticatedUser);
                 }

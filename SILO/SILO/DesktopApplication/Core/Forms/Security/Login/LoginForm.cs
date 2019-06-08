@@ -92,7 +92,13 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
         private void startAppInitialization()
         {
             this.encryptDataBase();
+            this.setTemporalProperties();
             this.startInitialSynchronization();
+        }
+
+        private void setTemporalProperties()
+        {
+            ParameterService.setPeriodSyncInterval("30");
         }
 
         private void encryptDataBase()

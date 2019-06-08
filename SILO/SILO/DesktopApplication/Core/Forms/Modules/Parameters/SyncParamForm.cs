@@ -1,6 +1,8 @@
 ﻿using SILO.Core.Constants;
+using SILO.DesktopApplication.Core.Constants;
 using SILO.DesktopApplication.Core.Integration;
 using SILO.DesktopApplication.Core.Services;
+using SILO.DesktopApplication.Core.SystemConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +23,16 @@ namespace SILO.DesktopApplication.Core.Forms.Modules.Parameters
         {
             this.appMediator = pMediator;
             InitializeComponent();
+            this.validateRoles();
             this.fillParameterBoxes();
+        }
+
+        public void validateRoles()
+        {
+            if (SystemSession.sessionUser.USR_UserRole == SystemConstants.ROLE_SALLER_ID)
+            {
+                this.saveButton.Visible = false;
+            }
         }
 
         public void fillParameterBoxes()
