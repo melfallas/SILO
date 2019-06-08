@@ -112,7 +112,7 @@
             // 
             this.txbProhibitedMargin.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txbProhibitedMargin.ForeColor = System.Drawing.Color.Navy;
-            this.txbProhibitedMargin.Location = new System.Drawing.Point(116, 11);
+            this.txbProhibitedMargin.Location = new System.Drawing.Point(116, 10);
             this.txbProhibitedMargin.Name = "txbProhibitedMargin";
             this.txbProhibitedMargin.Size = new System.Drawing.Size(88, 19);
             this.txbProhibitedMargin.TabIndex = 10;
@@ -122,7 +122,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(213, 36);
+            this.label8.Location = new System.Drawing.Point(387, 62);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 13);
             this.label8.TabIndex = 9;
@@ -131,7 +131,7 @@
             // 
             // txbQRImport
             // 
-            this.txbQRImport.Location = new System.Drawing.Point(281, 33);
+            this.txbQRImport.Location = new System.Drawing.Point(455, 59);
             this.txbQRImport.Name = "txbQRImport";
             this.txbQRImport.ReadOnly = true;
             this.txbQRImport.Size = new System.Drawing.Size(100, 20);
@@ -142,7 +142,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(387, 62);
+            this.label7.Location = new System.Drawing.Point(213, 36);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(62, 13);
             this.label7.TabIndex = 7;
@@ -151,7 +151,7 @@
             // 
             // txbPendingImport
             // 
-            this.txbPendingImport.Location = new System.Drawing.Point(455, 59);
+            this.txbPendingImport.Location = new System.Drawing.Point(281, 33);
             this.txbPendingImport.Name = "txbPendingImport";
             this.txbPendingImport.ReadOnly = true;
             this.txbPendingImport.Size = new System.Drawing.Size(100, 20);
@@ -164,7 +164,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(35, 36);
+            this.label6.Location = new System.Drawing.Point(35, 35);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 13);
             this.label6.TabIndex = 5;
@@ -175,7 +175,7 @@
             // 
             this.txbMaxToReceive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txbMaxToReceive.ForeColor = System.Drawing.Color.Red;
-            this.txbMaxToReceive.Location = new System.Drawing.Point(119, 33);
+            this.txbMaxToReceive.Location = new System.Drawing.Point(119, 32);
             this.txbMaxToReceive.Name = "txbMaxToReceive";
             this.txbMaxToReceive.ReadOnly = true;
             this.txbMaxToReceive.Size = new System.Drawing.Size(85, 20);

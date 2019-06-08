@@ -98,7 +98,7 @@ namespace SILO.DesktopApplication.Core.Forms.Security.Login
 
         private void setTemporalProperties()
         {
-            ParameterService.setPeriodSyncInterval("30");
+            ParameterService.setPeriodSyncInterval("900");
         }
 
         private void encryptDataBase()
