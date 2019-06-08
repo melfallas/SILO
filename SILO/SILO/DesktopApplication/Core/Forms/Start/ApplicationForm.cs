@@ -561,7 +561,8 @@ namespace SILO.DesktopApplication.Core.Forms.Start
                 this.displaySyncStatusComponents(true);
                 // Invocar la sincronización
                 SynchronizeService service = new SynchronizeService();
-                await service.syncPendingListNumberToServerAsync(pDrawDate, pDrawType);
+                await Task.Run(() => service.syncPendingListNumberToServerAsync(pDrawDate, pDrawType));
+                //await service.syncPendingListNumberToServerAsync(pDrawDate, pDrawType);
                 // Tareas posteriores a la sincronización
                 this.mediator.updateTotalBoxes();
                 this.setSyncStatusText(LabelConstants.COMPLETED_SYNC_TRANSACTIONS_LABEL_TEXT);
