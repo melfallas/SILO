@@ -47,6 +47,14 @@ namespace SILO.DesktopApplication.Core.Services
             return this.drawRepo.getUnclosedDraw(pDrawType, pDrawDate);
         }
 
+        public int getMaxDrawId() {
+            return this.drawRepo.getMaxDrawId();
+        }
+
+        public void updateDrawConsecutive(int pNewConsecutive)
+        {
+            this.drawRepo.updateDrawConsecutive(pNewConsecutive);
+        }
 
     }
 }

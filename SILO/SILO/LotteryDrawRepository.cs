@@ -123,5 +123,26 @@ namespace SILO
             }
         }
 
+        public int getMaxDrawId() {
+            int maxId;
+            using (var context = new SILOEntities())
+            {
+                var query = "SELECT IFNULL(MAX(LTD_Id), 0) AS maxDrawId FROM LTD_LotteryDraw ;";
+                var maxList = context.Database.SqlQuery<int>(query).ToList();
+                maxId = maxList.First();
+            }
+            return maxId;
+        }
+
+        public void updateDrawConsecutive(int pNewConsecutive)
+        {
+            using (var context = new SILOEntities())
+            {
+                //var query = "UPDATE SQLITE_SEQUENCE SET seq = " + pNewConsecutive + " WHERE name = 'LTD_LotteryDraw'";
+                var query = "INSERT OR REPLACE INTO SQLITE_SEQUENCE(name, seq) VALUES('LTD_LotteryDraw', '" + pNewConsecutive + "');";
+                var maxList = context.Database.ExecuteSqlCommand(query);
+            }
+        }
+
     }
 }
