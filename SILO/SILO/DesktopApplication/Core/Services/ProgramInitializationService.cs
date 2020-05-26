@@ -63,13 +63,51 @@ namespace SILO.DesktopApplication.Core.Services
 
         private void initializePosParameter(long posId)
         {
-            // Inicializar el valor incremental de lista
-            int maxIncrementDrawValue = this.setIncrementTableValues();
+            // Inicializar el parámetro para consecutivo del sorteo
+            int maxIncrementDrawValue = this.setIncrementDrawParam();
+            // Inicializar el parámetro para consecutivo de lista
+            int maxIncrementListValue = this.setIncrementListParam();
             // Validar consecutivo de Sorteos en Servidor
             this.validateServerDrawConsecutive(maxIncrementDrawValue);
+            // Validar consecutivo de Listas en Servidor
+            this.validateServerListConsecutive(maxIncrementListValue);
             // Inicializar la sucursal
             PointSaleService pointSaleService = new PointSaleService();
             pointSaleService.initialize(posId);
+        }
+
+        private int setIncrementDrawParam()
+        {
+            //int maxIncrementDrawValue = 0;
+            int maxIncrementDrawValue = 7;
+            LPR_LocalParameter listIncrementParam = ParameterService.getInitialDrawIncrementParam();
+            if (listIncrementParam == null)
+            {
+                ParameterService.setInitialDrawIncrementParam(maxIncrementDrawValue.ToString(), 4);
+            }
+            else
+            {
+                maxIncrementDrawValue = Int32.Parse(listIncrementParam.LPR_Value);
+                //maxIncrementDrawValue = 3;
+            }
+            return maxIncrementDrawValue;
+        }
+
+        private int setIncrementListParam()
+        {
+            //int maxIncrementListValue = 0;
+            int maxIncrementListValue = 6;
+            LPR_LocalParameter listIncrementParam = ParameterService.getInitialListIncrementParam();
+            if (listIncrementParam == null)
+            {
+                ParameterService.setInitialListIncrementParam(maxIncrementListValue.ToString(), 4);
+            }
+            else
+            {
+                maxIncrementListValue = Int32.Parse(listIncrementParam.LPR_Value);
+                //maxIncrementDrawValue = 3;
+            }
+            return maxIncrementListValue;
         }
 
         private void validateServerDrawConsecutive(int pMaxIncrementDrawValue)
@@ -82,20 +120,14 @@ namespace SILO.DesktopApplication.Core.Services
             }
         }
 
-        private int setIncrementTableValues()
+        private void validateServerListConsecutive(int pMaxIncrementListValue)
         {
-            //int maxIncrementDrawValue = 0;
-            int maxIncrementDrawValue = 3;
-            LPR_LocalParameter listIncrementParam = ParameterService.getInitialListIncrementParam();
-            if (listIncrementParam == null)
+            ListService listService = new ListService();
+            int drawConsecutive = listService.getMaxListId();
+            if (drawConsecutive < pMaxIncrementListValue)
             {
-                ParameterService.setInitialListIncrementParam(maxIncrementDrawValue.ToString(), 4);
+                listService.updateListConsecutive(pMaxIncrementListValue);
             }
-            else {
-                maxIncrementDrawValue = Int32.Parse(listIncrementParam.LPR_Value);
-                //maxIncrementDrawValue = 3;
-            }
-            return maxIncrementDrawValue;
         }
 
         private bool validateSalePointInstance()

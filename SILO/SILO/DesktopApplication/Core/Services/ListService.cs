@@ -89,5 +89,15 @@ namespace SILO.DesktopApplication.Core.Services
             return this.listRepository.getDrawSaleImport(posId, pDate, pGroup);
         }
 
+        public int getMaxListId()
+        {
+            return this.listRepository.getMaxListId();
+        }
+
+        public void updateListConsecutive(int pNewConsecutive)
+        {
+            this.listRepository.updateListConsecutive(pNewConsecutive);
+        }
+
     }
 }

@@ -389,6 +389,28 @@ namespace SILO.DesktopApplication.Core.Repositories
             return importCollection;
         }
 
+        public int getMaxListId()
+        {
+            int maxId;
+            using (var context = new SILOEntities())
+            {
+                var query = "SELECT IFNULL(MAX(LTL_Id), 0) AS maxDrawId FROM LTL_LotteryList ;";
+                var maxList = context.Database.SqlQuery<int>(query).ToList();
+                maxId = maxList.First();
+            }
+            return maxId;
+        }
+
+        public void updateListConsecutive(int pNewConsecutive)
+        {
+            using (var context = new SILOEntities())
+            {
+                //var query = "UPDATE SQLITE_SEQUENCE SET seq = " + pNewConsecutive + " WHERE name = 'LTD_LotteryDraw'";
+                var query = "INSERT OR REPLACE INTO SQLITE_SEQUENCE(name, seq) VALUES('LTL_LotteryList', '" + pNewConsecutive + "');";
+                var maxList = context.Database.ExecuteSqlCommand(query);
+            }
+        }
+
         /*
         public string getDrawListTotalString()
         {

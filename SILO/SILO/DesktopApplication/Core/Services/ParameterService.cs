@@ -45,16 +45,28 @@ namespace SILO.DesktopApplication.Core.Services
             localParamRepo.save(paramToSave);
         }
 
-        public static LPR_LocalParameter getInitialListIncrementParam()
+        public static LPR_LocalParameter getInitialDrawIncrementParam()
         {
             LocalParameterRepository localParamRepo = new LocalParameterRepository();
             return getLocalParameter(INITIAL_DRAW_INCREMENT_PARAM);
         }
 
-        public static void setInitialListIncrementParam(string pIncrementValue, long pType = 0)
+        public static void setInitialDrawIncrementParam(string pIncrementValue, long pType = 0)
         {
             LocalParameterRepository localParamRepo = new LocalParameterRepository();
             setLocalParameterValue(INITIAL_DRAW_INCREMENT_PARAM, pIncrementValue, pType);
+        }
+
+        public static LPR_LocalParameter getInitialListIncrementParam()
+        {
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            return getLocalParameter(INITIAL_LIST_INCREMENT_PARAM);
+        }
+
+        public static void setInitialListIncrementParam(string pIncrementValue, long pType = 0)
+        {
+            LocalParameterRepository localParamRepo = new LocalParameterRepository();
+            setLocalParameterValue(INITIAL_LIST_INCREMENT_PARAM, pIncrementValue, pType);
         }
 
         public static string getDeviceValue()
