@@ -78,8 +78,10 @@ namespace SILO.DesktopApplication.Core.Services
 
         private int setIncrementDrawParam()
         {
-            //int maxIncrementDrawValue = 0;
-            int maxIncrementDrawValue = 7;
+            DrawService drawService = new DrawService();
+            long posId = SystemSession.sessionPointSale.LPS_Id;
+            int maxIncrementDrawValue = drawService.getMaxDrawServerId(posId);
+            //Console.WriteLine("Draw: " + maxIncrementDrawValue);
             LPR_LocalParameter listIncrementParam = ParameterService.getInitialDrawIncrementParam();
             if (listIncrementParam == null)
             {
@@ -88,15 +90,16 @@ namespace SILO.DesktopApplication.Core.Services
             else
             {
                 maxIncrementDrawValue = Int32.Parse(listIncrementParam.LPR_Value);
-                //maxIncrementDrawValue = 3;
             }
             return maxIncrementDrawValue;
         }
 
         private int setIncrementListParam()
         {
-            //int maxIncrementListValue = 0;
-            int maxIncrementListValue = 6;
+            ListService listService = new ListService();
+            long posId = SystemSession.sessionPointSale.LPS_Id;
+            int maxIncrementListValue = listService.getMaxDrawServerId(posId);
+            //Console.WriteLine("List: " + maxIncrementListValue);
             LPR_LocalParameter listIncrementParam = ParameterService.getInitialListIncrementParam();
             if (listIncrementParam == null)
             {
@@ -105,7 +108,6 @@ namespace SILO.DesktopApplication.Core.Services
             else
             {
                 maxIncrementListValue = Int32.Parse(listIncrementParam.LPR_Value);
-                //maxIncrementDrawValue = 3;
             }
             return maxIncrementListValue;
         }

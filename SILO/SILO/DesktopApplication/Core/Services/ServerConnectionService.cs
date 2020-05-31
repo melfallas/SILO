@@ -64,6 +64,16 @@ namespace SILO.DesktopApplication.Core.Services
             return this.processGetRequest(ServiceConectionConstants.GET_ALL_DRAWTYPE_LIST_RESOURCE_URL);
         }
 
+        public ServiceResponseResult getMaxDrawServerId(long pPosId)
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_MAX_ID_DRAW_RESOURCE_URL + "?pos=" + pPosId);
+        }
+
+        public ServiceResponseResult getMaxListServerId(long pPosId)
+        {
+            return this.processGetRequest(ServiceConectionConstants.GET_MAX_ID_LIST_RESOURCE_URL + "?pos=" + pPosId);
+        }
+
 
         //----------------- Métodos para enviar datos al Servidor -----------------//
 

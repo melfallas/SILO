@@ -46,6 +46,10 @@ namespace SILO.DesktopApplication.Core.Constants
         public static string CLOSING_DRAW_RESOURCE_URL = getRootServiceApiURL() + "lotterydraw/changestatus/";
         public static string WINNER_NUMBERS_RESOURCE_URL = getRootServiceApiURL() + "drawnumberwinning/sync/";
 
+        // Servicios de máximos en sorteos y listas
+        public static string GET_MAX_ID_DRAW_RESOURCE_URL = getRootServiceApiURL() + "lotterydraw/max-id";
+        public static string GET_MAX_ID_LIST_RESOURCE_URL = getRootServiceApiURL() + "lotterylist/max-id";
+
 
         public static string getServiceApiEndPoint()
         {

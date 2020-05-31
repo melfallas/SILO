@@ -1,4 +1,5 @@
 ﻿using SILO.DesktopApplication.Core.Constants;
+using SILO.DesktopApplication.Core.Model.ServiceModel;
 using SILO.DesktopApplication.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -97,6 +98,13 @@ namespace SILO.DesktopApplication.Core.Services
         public void updateListConsecutive(int pNewConsecutive)
         {
             this.listRepository.updateListConsecutive(pNewConsecutive);
+        }
+
+        public int getMaxDrawServerId(long pPosId)
+        {
+            ServerConnectionService connection = new ServerConnectionService();
+            ServiceResponseResult responseResult = connection.getMaxListServerId(pPosId);
+            return Convert.ToInt32(responseResult.result);
         }
 
     }
